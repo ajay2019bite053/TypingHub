@@ -1,0 +1,242 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Serif:wght@300;400;500;600;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Times New Roman', Times, serif;
+  background: #f5f5f5;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+.main-content {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #f5f5f5;
+}
+
+.privacy-hero-section {
+  background: #e3f2fd;
+  padding: 60px 0;
+  text-align: center;
+  border-top: 2px solid #1976d2;
+  border-bottom: 2px solid #1976d2;
+  margin-bottom: 40px;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.privacy-hero-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #4CAF50, #f44336, #2196F3);
+  z-index: 1;
+}
+
+.privacy-hero-content {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 20px;
+  position: relative;
+  z-index: 2;
+}
+
+.privacy-hero-content h1 {
+  font-family: 'Roboto Serif', serif;
+  font-size: 36px;
+  font-weight: 700;
+  color: #1a2a44;
+  margin-bottom: 20px;
+}
+
+.privacy-hero-content p {
+  font-size: 18px;
+  color: #555;
+  margin-bottom: 20px;
+  line-height: 1.6;
+}
+
+.privacy-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  gap: 40px;
+}
+
+.privacy-nav {
+  position: sticky;
+  top: 20px;
+  height: fit-content;
+}
+
+.privacy-nav-list {
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.privacy-nav-list h2 {
+  font-family: 'Roboto Serif', serif;
+  font-size: 20px;
+  color: #1a2a44;
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #1976d2;
+}
+
+.privacy-nav-list ul {
+  list-style: none;
+}
+
+.privacy-nav-list li {
+  margin-bottom: 10px;
+}
+
+.privacy-nav-list a {
+  color: #333;
+  text-decoration: none;
+  font-size: 16px;
+  display: block;
+  padding: 8px;
+  border-radius: 4px;
+  transition: all 0.3s;
+}
+
+.privacy-nav-list a:hover,
+.privacy-nav-list a.active {
+  background: #e3f2fd;
+  color: #1976d2;
+}
+
+.privacy-sections {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.privacy-section {
+  background: #fff;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.privacy-section h2 {
+  font-family: 'Roboto Serif', serif;
+  font-size: 28px;
+  color: #1a2a44;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #1976d2;
+}
+
+.privacy-section h3 {
+  font-family: 'Roboto Serif', serif;
+  font-size: 22px;
+  color: #1a2a44;
+  margin: 20px 0 10px;
+}
+
+.privacy-section p {
+  font-size: 16px;
+  color: #555;
+  margin-bottom: 15px;
+  line-height: 1.6;
+}
+
+.privacy-section ul,
+.privacy-section ol {
+  margin-left: 20px;
+  margin-bottom: 15px;
+}
+
+.privacy-section li {
+  font-size: 16px;
+  color: #555;
+  margin-bottom: 8px;
+  line-height: 1.6;
+}
+
+.privacy-section a {
+  color: #1976d2;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.privacy-section a:hover {
+  color: #1565c0;
+}
+
+.data-box {
+  background: #fff3e0;
+  border-left: 4px solid #ff9800;
+  padding: 20px;
+  margin: 15px 0;
+  border-radius: 4px;
+}
+
+.data-box h4 {
+  font-family: 'Roboto Serif', serif;
+  font-size: 18px;
+  color: #e65100;
+  margin-bottom: 10px;
+}
+
+.data-box p {
+  margin-bottom: 0;
+  color: #795548;
+}
+
+.last-updated {
+  font-size: 14px;
+  color: #666;
+  font-style: italic;
+  margin-top: 20px;
+  text-align: right;
+}
+
+@media (max-width: 992px) {
+  .privacy-content {
+    grid-template-columns: 1fr;
+  }
+  
+  .privacy-nav {
+    position: static;
+  }
+}
+
+@media (max-width: 768px) {
+  .privacy-hero-content h1 {
+    font-size: 28px;
+  }
+  
+  .privacy-hero-content p {
+    font-size: 16px;
+  }
+  
+  .privacy-section h2 {
+    font-size: 24px;
+  }
+  
+  .privacy-section h3 {
+    font-size: 20px;
+  }
+} 

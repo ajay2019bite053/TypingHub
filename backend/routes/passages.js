@@ -1,0 +1,30 @@
+const express = require('express');
+const router = express.Router();
+const {
+  getAllPassages,
+  getPassageById,
+  createPassage,
+  updatePassage,
+  deletePassage,
+  getPassagesByTestType,
+  assignPassage,
+  bulkImportPassages
+} = require('../controllers/passageController');
+const adminAuthMiddleware = require('../middleware/authMiddleware');
+
+// Public routes
+router.get('/', getAllPassages);
+router.get('/test/:testType', getPassagesByTestType);
+
+// Protected routes (admin only)
+// Specific routes first
+router.post('/assign', adminAuthMiddleware, assignPassage);
+router.post('/bulk-import', adminAuthMiddleware, bulkImportPassages);
+router.post('/', adminAuthMiddleware, createPassage);
+
+// Parameterized routes last
+router.get('/:id', adminAuthMiddleware, getPassageById);
+router.put('/:id', adminAuthMiddleware, updatePassage);
+router.delete('/:id', adminAuthMiddleware, deletePassage);
+
+module.exports = router;

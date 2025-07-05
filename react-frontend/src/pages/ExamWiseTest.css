@@ -1,0 +1,352 @@
+/* Main content area */
+.main-content {
+  flex: 1;
+  padding: 0;
+  background: #f5f7fa;
+  display: flex;
+  flex-direction: column;
+}
+
+.container {
+  max-width: 100%;
+  width: 100%;
+  margin: 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.panel {
+  background: #fff;
+  border-radius: 0;
+  box-shadow: none;
+  padding: 20px;
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+/* Card styling */
+.card {
+  background: #fff;
+  border-radius: 10px;
+  padding: 25px;
+  margin-bottom: 20px;
+  box-shadow: 0 3px 15px rgba(0,0,0,0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid #e0e0e0;
+  width: 100%;
+  flex: 1;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+}
+
+/* Instructions section */
+.instructions {
+  background: #e3f2fd;
+  padding: 15px;
+  border-radius: 6px;
+  border: 1px solid #bbdefb;
+  margin-bottom: 15px;
+}
+
+.instructions p {
+  color: #333;
+  font-size: 16px;
+  line-height: 1.6;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.instructions strong {
+  color: #1976d2;
+}
+
+/* Logo container */
+.logo-container-outer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 15px 0;
+  flex-wrap: wrap;
+  gap: 15px;
+  padding: 0 10px;
+}
+
+.logo-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  background: linear-gradient(135deg, #fff, #f8f9fa);
+  padding: 15px;
+  border-radius: 10px;
+  border: 2px solid #1976d2;
+  box-shadow: 0 8px 25px rgba(25, 118, 210, 0.15);
+  flex-wrap: wrap;
+  gap: 15px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.logo-container:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 30px rgba(25, 118, 210, 0.2);
+}
+
+.logo-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  transition: transform 0.3s ease;
+}
+
+.logo-item:hover {
+  transform: scale(1.05);
+}
+
+.logo-ssc, .logo-railway, .logo-cbse, .logo-court {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
+  transition: filter 0.3s ease;
+}
+
+.logo-item:hover img {
+  filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.2));
+}
+
+.logo-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: #1a2a44;
+  text-transform: uppercase;
+  text-align: center;
+  margin-top: 8px;
+  background: #e3f2fd;
+  padding: 3px 10px;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+
+.logo-item:hover .logo-label {
+  background: #1976d2;
+  color: #fff;
+}
+
+/* Search input */
+.search-item {
+  display: flex;
+  align-items: center;
+  position: relative;
+  width: 100%;
+  max-width: 300px;
+}
+
+#searchInput {
+  width: 100%;
+  padding: 12px 35px 12px 15px;
+  font-size: 15px;
+  border: 2px solid #e0e0e0;
+  border-radius: 20px;
+  transition: all 0.3s ease;
+  background: #fff;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+#searchInput:focus {
+  border-color: #1976d2;
+  box-shadow: 0 4px 20px rgba(25, 118, 210, 0.15);
+  outline: none;
+}
+
+.search-item::after {
+  content: '\f002';
+  font-family: 'Font Awesome 6 Free';
+  font-weight: 900;
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #1976d2;
+  font-size: 16px;
+  pointer-events: none;
+  transition: color 0.3s ease;
+}
+
+.search-item:focus-within::after {
+  color: #1565c0;
+}
+
+/* Panel container and exam cards */
+.panel-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  padding: 15px 0;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  justify-content: center;
+}
+
+.exam-card {
+  flex: 1;
+  min-width: 175px;
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  padding: 14px;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  transition: transform 0.3s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 175px;
+  max-width: 210px;
+}
+
+.exam-card.hidden {
+  display: none;
+}
+
+.exam-card:hover {
+  transform: translateY(-5px);
+}
+
+.exam-card i {
+  font-size: 28px;
+  color: #1976d2;
+  margin-bottom: 7px;
+}
+
+.exam-card h5 {
+  font-size: 13px;
+  font-family: 'Roboto Serif', serif;
+  color: #1a2a44;
+  margin-bottom: 7px;
+}
+
+.exam-card p {
+  font-size: 11px;
+  flex-grow: 1;
+  margin-bottom: 10px;
+  color: #555;
+}
+
+/* Button styling */
+.btn {
+  padding: 8px 17px;
+  font-size: 11px;
+  width: 100%;
+  max-width: 140px;
+  border: none;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s, box-shadow 0.2s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+
+.btn-primary {
+  background: #1976d2;
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background: #1565c0;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+/* Link to SSC CGL Test */
+.exam-card[data-exam="ssc-cgl"] {
+  border-color: #1976d2;
+  background: linear-gradient(135deg, #fff, #f8f9fa);
+}
+
+.exam-card[data-exam="ssc-cgl"]:hover {
+  border-color: #1565c0;
+  box-shadow: 0 8px 25px rgba(25, 118, 210, 0.2);
+}
+
+.exam-card[data-exam="ssc-cgl"] .btn-primary {
+  background: linear-gradient(135deg, #1976d2, #1565c0);
+}
+
+.exam-card[data-exam="ssc-cgl"] .btn-primary:hover {
+  background: linear-gradient(135deg, #1565c0, #0d47a1);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .logo-container {
+    padding: 12px;
+    gap: 12px;
+  }
+
+  .logo-ssc, .logo-railway, .logo-cbse, .logo-court {
+    width: 60px;
+    height: 60px;
+  }
+
+  .logo-label {
+    font-size: 11px;
+    padding: 3px 8px;
+  }
+
+  #searchInput {
+    padding: 10px 32px 10px 12px;
+    font-size: 14px;
+  }
+
+  .search-item::after {
+    right: 12px;
+    font-size: 14px;
+  }
+
+  .main-content {
+    padding: 0;
+  }
+
+  .panel {
+    padding: 15px;
+  }
+
+  .panel-container {
+    flex-direction: column;
+    padding: 10px 0;
+  }
+
+  .exam-card {
+    min-height: auto;
+    max-width: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .logo-container {
+    box-shadow: 0 0 8px rgba(255, 98, 0, 0.3);
+  }
+
+  .logo-label {
+    font-size: 10px;
+  }
+
+  .exam-card {
+    min-width: 120px;
+  }
+
+  .panel {
+    padding: 10px;
+  }
+} 

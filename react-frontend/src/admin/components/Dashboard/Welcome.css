@@ -1,0 +1,118 @@
+.welcome-section {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.welcome-section h2 {
+  color: #333;
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+  font-family: 'Roboto Serif', serif;
+  text-align: center;
+}
+
+.welcome-section p {
+  color: #666;
+  font-size: 1.1rem;
+  line-height: 1.8;
+  margin-bottom: 2rem;
+  font-family: 'Roboto Serif', serif;
+  text-align: justify;
+}
+
+.demo-section {
+  background: #f8f9fa;
+  border-radius: 12px;
+  padding: 2rem;
+  margin-top: 2rem;
+  border: 1px solid #e9ecef;
+}
+
+.demo-section h3 {
+  color: #1976d2;
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+  font-family: 'Roboto Serif', serif;
+}
+
+.demo-section p {
+  color: #666;
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.loading-demos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.demo-item {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e9ecef;
+}
+
+.demo-item h4 {
+  color: #333;
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  font-family: 'Roboto Serif', serif;
+}
+
+.feature-highlights {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  border-left: 4px solid #1976d2;
+}
+
+.feature-highlights h3 {
+  color: #1976d2;
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+  font-family: 'Roboto Serif', serif;
+}
+
+.feature-highlights ul {
+  list-style: none;
+  padding: 0;
+}
+
+.feature-highlights li {
+  color: #666;
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #f0f0f0;
+  font-family: 'Roboto Serif', serif;
+}
+
+.feature-highlights li:last-child {
+  border-bottom: none;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .welcome-section {
+    padding: 1rem;
+  }
+  
+  .welcome-section h2 {
+    font-size: 2rem;
+  }
+  
+  .loading-demos {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .demo-section {
+    padding: 1rem;
+  }
+} 

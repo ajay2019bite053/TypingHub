@@ -1,0 +1,55 @@
+.edit-passage {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.edit-passage label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.edit-passage input,
+.edit-passage textarea {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.edit-passage textarea {
+  height: 128px;
+  resize: vertical;
+}
+
+.edit-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.edit-actions button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.edit-actions button:first-child {
+  background-color: #16a34a;
+  color: #fff;
+}
+
+.edit-actions button:first-child:hover {
+  background-color: #15803d;
+}
+
+.edit-actions button:last-child {
+  background-color: #6b7280;
+  color: #fff;
+}
+
+.edit-actions button:last-child:hover {
+  background-color: #4b5563;
+} 
