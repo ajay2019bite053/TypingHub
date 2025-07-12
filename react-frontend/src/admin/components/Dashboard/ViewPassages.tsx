@@ -843,28 +843,19 @@ const ViewPassages: React.FC<ViewPassagesProps> = ({
             <table className="passages-table">
               <thead>
                 <tr>
-                  <th 
-                    onClick={() => handleSort('title')}
-                    className="sortable-header"
-                  >
+                  <th onClick={() => handleSort('title')} className="sortable-header">
                     Title {getSortIcon('title')}
                   </th>
                   <th>Content Preview</th>
+                  <th>Actions</th>
                 </tr>
               </thead>
               <tbody>
                 {currentPassages.map((passage) => (
-                  <React.Fragment key={passage._id}>
-                    <tr>
-                      <td className="passage-title">
-                        {passage.title}
-                      </td>
-                      <td className="passage-content">
-                        {getContentPreview(passage.content)}
-                      </td>
-                    </tr>
-                    <tr className="action-row">
-                      <td colSpan={2} className="passage-actions">
+                  <tr key={passage._id}>
+                    <td className="passage-title">{passage.title}</td>
+                    <td className="passage-content">{getContentPreview(passage.content)}</td>
+                    <td className="passage-actions">
                         <button
                           onClick={() => handleEditClick(passage)}
                           className="edit-btn"
@@ -883,7 +874,6 @@ const ViewPassages: React.FC<ViewPassagesProps> = ({
                         </button>
                     </td>
                   </tr>
-                  </React.Fragment>
                 ))}
               </tbody>
             </table>

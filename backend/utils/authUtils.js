@@ -5,15 +5,15 @@ const crypto = require('crypto');
 const config = require('../config');
 
 // Token management
-const generateTokens = (userId, role, tokenVersion = 0) => {
+const generateTokens = (id, role, tokenVersion = 0) => {
   const accessToken = jwt.sign(
-    { id: userId, role, tokenVersion },
+    { id, role, tokenVersion },
     config.ACCESS_TOKEN_SECRET,
-    { expiresIn: '1h' }
+    { expiresIn: '7d' } // Increased from '1h' to '7d' for dev convenience
   );
 
   const refreshToken = jwt.sign(
-    { id: userId, role, tokenVersion },
+    { id, role, tokenVersion },
     config.REFRESH_TOKEN_SECRET,
     { expiresIn: '7d' }
   );

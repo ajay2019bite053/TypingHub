@@ -28,7 +28,11 @@ const TEST_CATEGORIES = [
   { id: 'junior-court-assistant', name: 'Junior Court Assistant' },
   { id: 'certificate-test', name: 'Certificate Test' },
   { id: 'create-test', name: 'Create Test' },
-  { id: 'typing-test', name: 'Typing Test' }
+  { id: 'typing-test', name: 'Typing Test' },
+  { id: 'up-police', name: 'UP Police' },
+  { id: 'bihar-police', name: 'Bihar Police' },
+  { id: 'aiims-crc', name: 'AIIMS CRC' },
+  { id: 'allahabad-high-court', name: 'Allahabad High Court' }
 ];
 
 const API_BASE_URL = 'http://localhost:5000/api';
@@ -113,14 +117,6 @@ const AssignedPassagesPage: React.FC = () => {
 
   return (
     <div className="assigned-passages-page">
-      <div className="page-header">
-        <button className="back-btn" onClick={() => navigate('/admin/dashboard')}>
-          <FontAwesomeIcon icon={faArrowLeft} />
-          Back to Dashboard
-        </button>
-        <h1>Assigned Passages</h1>
-      </div>
-
       <div className="page-content">
         <div className="test-categories-section">
           <h2>Select Test Category</h2>
@@ -134,7 +130,7 @@ const AssignedPassagesPage: React.FC = () => {
                 <div className="category-icon">
                   <FontAwesomeIcon icon={faFileAlt} />
                 </div>
-                <div className="category-name">{category.name}</div>
+                <div className="category-name prominent">{category.name}</div>
                 <div className="category-arrow">
                   <FontAwesomeIcon icon={faExternalLinkAlt} />
                 </div>
@@ -177,7 +173,6 @@ const AssignedPassagesPage: React.FC = () => {
                   <div key={passage._id} className="passage-card">
                     <div className="passage-content">
                       <h3>{passage.title}</h3>
-                      <p>{passage.content.substring(0, 150)}...</p>
                     </div>
                     <div className="passage-actions">
                       <button 

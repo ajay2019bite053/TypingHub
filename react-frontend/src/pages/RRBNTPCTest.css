@@ -517,4 +517,34 @@ textarea:focus {
   .result-section .metric-block span:last-child {
     font-size: 14px;
   }
+}
+
+/* RRB NTPC Test specific styles */
+/* This file can be used for any RRB NTPC specific styling overrides */
+
+.rrb-ntpc-test {
+  /* RRB NTPC specific styles can be added here */
+}
+
+/* Custom styling for RRB NTPC test if needed */
+.rrb-ntpc-header {
+  background: linear-gradient(135deg, #1976d2, #1565c0);
+  color: white;
+}
+
+.rrb-ntpc-timer {
+  background: #ef5350;
+  color: white;
+  font-weight: bold;
+}
+
+.rrb-ntpc-timer.low-time {
+  background: #d32f2f;
+  animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+  0% { opacity: 1; }
+  50% { opacity: 0.7; }
+  100% { opacity: 1; }
 } 

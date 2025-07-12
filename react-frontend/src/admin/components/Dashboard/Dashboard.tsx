@@ -24,6 +24,10 @@ import AddPassage from './AddPassage';
 import ViewPassages from './ViewPassages';
 import AssignPassage from './AssignPassage';
 import AssignedPassages from './AssignedPassages';
+import AssignedPassagesPage from './AssignedPassagesPage';
+import LiveExams from './LiveExams';
+import AdminCardManager from './AdminCardManager';
+import AdminCouponManager from './AdminCouponManager';
 import './Dashboard.css';
 
 // Types
@@ -392,6 +396,14 @@ const Dashboard: React.FC = () => {
         );
       case 'assign-passage':
         return <AssignPassage passages={passages} onPassageAssigned={fetchAllPassages} />;
+      case 'assigned-passages':
+        return <AssignedPassagesPage />;
+      case 'live-exams':
+        return <LiveExams />;
+      case 'manage-cards':
+        return <AdminCardManager />;
+      case 'manage-coupons':
+        return <AdminCouponManager />;
       default:
         return <Welcome />;
     }
@@ -446,10 +458,28 @@ const Dashboard: React.FC = () => {
           <FontAwesomeIcon icon={faUserPlus} /> Assign Passage to Tests
         </button>
         <button 
-          onClick={handleAssignedPassagesClick}
-          className={isAssignedSidebarOpen ? 'active' : ''}
+          onClick={() => handleSectionChange('assigned-passages')}
+          className={activeSection === 'assigned-passages' ? 'active' : ''}
         >
           <FontAwesomeIcon icon={faClipboardList} /> Assigned Passages
+        </button>
+        <button 
+          onClick={() => handleSectionChange('live-exams')}
+          className={activeSection === 'live-exams' ? 'active' : ''}
+        >
+          <FontAwesomeIcon icon={faUserPlus} /> Live Exams
+        </button>
+        <button 
+          onClick={() => handleSectionChange('manage-cards')}
+          className={activeSection === 'manage-cards' ? 'active' : ''}
+        >
+          <FontAwesomeIcon icon={faList} /> Manage Cards
+        </button>
+        <button 
+          onClick={() => handleSectionChange('manage-coupons')}
+          className={activeSection === 'manage-coupons' ? 'active' : ''}
+        >
+          <FontAwesomeIcon icon={faList} /> Manage Coupons
         </button>
         <button 
           onClick={() => navigate('/admin/admin-requests')}
@@ -518,12 +548,6 @@ const Dashboard: React.FC = () => {
           </div>
         </div>
       )}
-
-      {/* Assigned Passages Sidebar */}
-      <AssignedPassages 
-        onClose={() => setIsAssignedSidebarOpen(false)} 
-        className={isAssignedSidebarOpen ? 'open' : ''}
-      />
 
       {/* Enhanced Confirmation Dialog */}
       {confirmationDialog.show && (

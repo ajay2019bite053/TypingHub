@@ -1,5 +1,5 @@
-import React, { Suspense, lazy } from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import React, { Suspense, lazy, useState } from 'react';
+import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
@@ -8,10 +8,18 @@ import { AdminProvider } from './contexts/AdminContext';
 import { AuthProvider } from './contexts/AuthContext';
 import { DeleteRequestProvider } from './contexts/DeleteRequestContext';
 import { TypingProvider } from './contexts/TypingContext';
+import ReactDOM, { createPortal } from 'react-dom';
 
 // Lazy load all pages
 const Home = lazy(() => import('./pages/Home'));
 const TypingTest = lazy(() => import('./pages/TypingTest'));
+const SSCCGLTest = lazy(() => import('./pages/SSCCGLTest'));
+const SSCCHSLTest = lazy(() => import('./pages/SSCCHSLTest'));
+const RRBNTPCTest = lazy(() => import('./pages/RRBNTPCTest'));
+const TypingCertificateTest = lazy(() => import('./pages/TypingCertificateTest'));
+const JuniorCourtAssistantTest = lazy(() => import('./pages/JuniorCourtAssistantTest'));
+const JuniorAssistantTest = lazy(() => import('./pages/JuniorAssistantTest'));
+const SuperintendentTest = lazy(() => import('./pages/SuperintendentTest'));
 const ExamWiseTest = lazy(() => import('./pages/ExamWiseTest'));
 const CreateTest = lazy(() => import('./pages/CreateTest'));
 const TypingCourseLanding = lazy(() => import('./pages/TypingCourseLanding'));
@@ -24,6 +32,14 @@ const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'));
 const ContactUs = lazy(() => import('./pages/ContactUs'));
 const FAQ = lazy(() => import('./pages/FAQ'));
 const UserDashboard = lazy(() => import('./components/UserDashboard/Dashboard'));
+const TypingLevelPractice = lazy(() => import('./pages/TypingLevelPractice'));
+const TypingEnginePractice = lazy(() => import('./pages/TypingEnginePractice'));
+const LiveTypingTest = lazy(() => import('./pages/LiveTypingTest'));
+const UPPoliceTest = lazy(() => import('./pages/UPPoliceTest'));
+const BiharPoliceTest = lazy(() => import('./pages/BiharPoliceTest'));
+const AIIMSCRCTest = lazy(() => import('./pages/AIIMSCRCTest'));
+const AllahabadHighCourtTest = lazy(() => import('./pages/AllahabadHighCourtTest'));
+const LiveExamTest = lazy(() => import('./pages/LiveExamTest'));
 
 // Admin Components
 const AdminLoginPage = lazy(() => import('./admin/components/Login/LoginPage'));
@@ -145,6 +161,13 @@ const App = () => {
                       <Routes>
                         <Route path="/" element={<Home />} />
                         <Route path="/typing-test" element={<TypingTest />} />
+                        <Route path="/ssc-cgl-test" element={<SSCCGLTest />} />
+                        <Route path="/ssc-chsl-test" element={<SSCCHSLTest />} />
+                        <Route path="/rrb-ntpc-test" element={<RRBNTPCTest />} />
+                        <Route path="/typing-certificate-test" element={<TypingCertificateTest />} />
+                        <Route path="/junior-court-assistant-test" element={<JuniorCourtAssistantTest />} />
+                        <Route path="/junior-assistant-test" element={<JuniorAssistantTest />} />
+                        <Route path="/superintendent-test" element={<SuperintendentTest />} />
                         <Route path="/exam-wise-test" element={<ExamWiseTest />} />
                         <Route path="/create-test" element={<CreateTest />} />
                         <Route path="/typing-course" element={<TypingCourseLanding />} />
@@ -157,9 +180,17 @@ const App = () => {
                         <Route path="/contact-us" element={<ContactUs />} />
                         <Route path="/faqs" element={<FAQ />} />
                         <Route path="/user/dashboard" element={<UserDashboard />} />
+                        <Route path="/typing-level-practice" element={<TypingLevelPractice />} />
+                        <Route path="/typing-engine-practice" element={<TypingEnginePractice />} />
+                        <Route path="/live-typing-test" element={<LiveTypingTest />} />
+                        <Route path="/up-police-test" element={<UPPoliceTest />} />
+                        <Route path="/bihar-police-test" element={<BiharPoliceTest />} />
+                        <Route path="/aiims-crc-test" element={<AIIMSCRCTest />} />
+                        <Route path="/allahabad-high-court-test" element={<AllahabadHighCourtTest />} />
+                        <Route path="/live-exam/:id" element={<LiveExamTest />} />
 
                         {/* Admin Routes */}
-                        <Route path="/admin/login" element={
+                        <Route path="/admin-secret-9382xj" element={
                           <Suspense fallback={<LoadingFallback />}>
                             <AdminLoginPage />
                           </Suspense>
@@ -194,7 +225,5 @@ const App = () => {
     </ErrorBoundary>
   );
 };
-
-
 
 export default App; 

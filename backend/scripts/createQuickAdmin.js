@@ -19,8 +19,10 @@ const createQuickAdmin = async () => {
       console.log('Admin already exists:', existingAdmin.email);
       // Approve the existing admin
       existingAdmin.isApproved = true;
+      existingAdmin.isDefaultAdmin = true;
+      existingAdmin.role = 'super_admin';
       await existingAdmin.save();
-      console.log('Admin approved successfully!');
+      console.log('Admin approved and set as super_admin successfully!');
     } else {
       // Create new admin
       const hashedPassword = await bcrypt.hash(config.DEFAULT_ADMIN_PASSWORD, 10);
@@ -34,6 +36,7 @@ const createQuickAdmin = async () => {
         aadharImage: 'default-aadhar.jpg',
         password: hashedPassword,
         isApproved: true,
+        isDefaultAdmin: true,
         role: 'super_admin',
         registrationDate: new Date()
       });

@@ -107,6 +107,20 @@
   font-weight: 500;
 }
 
+.category-name.prominent {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #1976d2;
+  letter-spacing: 0.5px;
+  text-shadow: 0 1px 4px rgba(25, 118, 210, 0.08);
+  font-family: 'Roboto Serif', serif;
+}
+
+.test-category-card.active .category-name.prominent {
+  color: white;
+  text-shadow: 0 1px 4px rgba(255, 255, 255, 0.2);
+}
+
 .category-arrow {
   color: #666;
   font-size: 0.9rem;

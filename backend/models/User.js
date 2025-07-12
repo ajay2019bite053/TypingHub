@@ -71,6 +71,7 @@ const userSchema = new mongoose.Schema({
       default: Date.now
     }
   }],
+  purchasedCourses: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Card', default: [] }],
   lastLogin: {
     type: Date
   },

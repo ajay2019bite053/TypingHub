@@ -12,75 +12,104 @@ const ExamWiseTest: React.FC = () => {
       icon: 'fas fa-graduation-cap',
       title: 'SSC-CGL Typing Test',
       description: 'Practice for SSC-CGL with 2000 key depressions in 15 minutes.',
-      link: '/ssc-cgl-test'
+      link: '/ssc-cgl-test',
+      category: 'SSC'
     },
     {
       id: 'ssc-chsl',
       icon: 'fas fa-graduation-cap',
       title: 'SSC-CHSL Typing Test',
       description: 'Prepare for SSC-CHSL with real exam passages and speed goals.',
-      link: '/ssc-chsl-test'
+      link: '/ssc-chsl-test',
+      category: 'SSC'
     },
     {
       id: 'rrb-ntpc',
       icon: 'fas fa-train',
       title: 'RRB-NTPC Typing Test',
       description: 'Master RRB-NTPC typing with Hindi and English passages.',
-      link: '/rrb-ntpc-test'
+      link: '/rrb-ntpc-test',
+      category: 'Railway'
     },
     {
       id: 'junior-assistant',
       icon: 'fas fa-briefcase',
       title: 'Junior Assistant Test',
       description: 'Excel in Junior Assistant typing with accurate practice.',
-      link: '/junior-assistant-test'
+      link: '/junior-assistant-test',
+      category: 'Government'
     },
     {
       id: 'superintendent',
       icon: 'fas fa-user-tie',
       title: 'Superintendent Test',
       description: 'Practice for Superintendent typing with exam-like conditions.',
-      link: '/superintendent-test'
+      link: '/superintendent-test',
+      category: 'Government'
     },
     {
       id: 'junior-court-assistant',
       icon: 'fas fa-gavel',
       title: 'Jr. Court Assistant Test',
       description: 'Master Junior Court Assistant typing with legal terms.',
-      link: '/junior-court-assistant-test'
+      link: '/junior-court-assistant-test',
+      category: 'Court'
+    },
+    {
+      id: 'up-police',
+      icon: 'fas fa-shield-alt',
+      title: 'UP Police Typing Test',
+      description: 'Practice for UP Police typing test with real exam patterns.',
+      link: '/up-police-test',
+      category: 'Police'
+    },
+    {
+      id: 'bihar-police',
+      icon: 'fas fa-shield-alt',
+      title: 'Bihar Police Typing Test',
+      description: 'Prepare for Bihar Police typing test with exam-like passages.',
+      link: '/bihar-police-test',
+      category: 'Police'
+    },
+    {
+      id: 'aiims-crc',
+      icon: 'fas fa-hospital',
+      title: 'AIIMS CRC Typing Test',
+      description: 'Practice for AIIMS CRC typing test with medical terminology.',
+      link: '/aiims-crc-test',
+      category: 'Medical'
+    },
+    {
+      id: 'allahabad-high-court',
+      icon: 'fas fa-balance-scale',
+      title: 'Allahabad High Court Typing Test',
+      description: 'Prepare for Allahabad High Court typing test with legal passages.',
+      link: '/allahabad-high-court-test',
+      category: 'Court'
     }
   ];
 
   const handleExamClick = (examId: string) => {
     const exam = examCards.find(card => card.id === examId);
     if (exam) {
-      // Store exam type in localStorage
       localStorage.setItem('lastExamType', exam.title);
-      // Navigate to the test page
       navigate(exam.link);
     }
   };
 
   const filterExams = (exam: any) => {
-    return exam.title.toLowerCase().includes(searchTerm.toLowerCase());
+    return exam.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+           exam.category.toLowerCase().includes(searchTerm.toLowerCase());
   };
+
+  const filteredExams = examCards.filter(filterExams);
 
   return (
     <div className="main-content">
       <div className="container">
         <div className="panel">
-          <div id="exam-wise-test-page" className="active">
-            <div className="card">
-              <div className="instructions">
-                <p>
-                  <strong>Real Exam Simulation</strong>: Experience timed tests (10-15 minutes) that mirror the structure and difficulty of SSC, Railway, and Supreme Court typing exams, such as 2000 key depressions for SSC-CGL/CHSL or specific WPM requirements for Junior Court Assistant.<br />
-                  <strong>Previous Year Passages</strong>: Practice with carefully curated passages based on past SSC, Railway, and Supreme Court exams, including terms like "recruitment," "railway operations," "court proceedings," and symbols like @#$%, to build familiarity.<br />
-                  <strong>Instant Feedback</strong>: Get real-time stats on your typing speed (WPM), accuracy, and correct words, allowing you to track progress and focus on improvement.<br />
-                  <strong>Score High with Confidence</strong>: Regular practice with our tests will boost your typing proficiency, helping you achieve the high scores needed to clear these competitive exams.<br />
-                  Start practicing today and take a step closer to acing your typing test in the actual exam!
-                </p>
-              </div>
-
+          {/* Header Section */}
+          <div className="header-section">
               <div className="logo-container">
                 <div className="logo-item">
                   <img src="/images/SSC.png" className="logo-ssc" alt="SSC Logo" />
@@ -99,19 +128,37 @@ const ExamWiseTest: React.FC = () => {
                   <span className="logo-label">SUPREME COURT</span>
                 </div>
               </div>
+          </div>
+
+          {/* Search Section */}
+          <div className="search-section">
+            <div className="search-container">
               <div className="search-item">
                 <input 
                   type="text" 
                   id="searchInput" 
-                  placeholder="Search exams..."
+                  placeholder="Search exams by name or category..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                 />
+                {searchTerm && (
+                  <div className="search-results">
+                    <span>{filteredExams.length} exam{filteredExams.length !== 1 ? 's' : ''} found</span>
+                  </div>
+                )}
+              </div>
+              <div className="search-title">
+                <h2>Available Typing Tests</h2>
+                <p>Select an exam to start practicing</p>
+              </div>
               </div>
             </div>
 
+          {/* Exams Grid Section */}
+          <div className="exams-section">
             <section className="panel-container">
-              {examCards.filter(filterExams).map(exam => (
+              {filteredExams.length > 0 ? (
+                filteredExams.map(exam => (
                 <div 
                   key={exam.id} 
                   className="exam-card" 
@@ -119,9 +166,14 @@ const ExamWiseTest: React.FC = () => {
                   onClick={() => handleExamClick(exam.id)}
                   style={{ cursor: 'pointer' }}
                 >
+                    <div className="exam-icon">
                   <i className={exam.icon}></i>
+                    </div>
+                    <div className="exam-content">
                   <h5>{exam.title}</h5>
                   <p>{exam.description}</p>
+                      <span className="exam-category">{exam.category}</span>
+                    </div>
                   <button 
                     className="btn btn-primary"
                     onClick={(e) => {
@@ -129,10 +181,17 @@ const ExamWiseTest: React.FC = () => {
                       handleExamClick(exam.id);
                     }}
                   >
-                    Take {exam.title.split(' ')[0]} Test
+                      Start Test
                   </button>
+                  </div>
+                ))
+              ) : (
+                <div className="no-results">
+                  <i className="fas fa-search"></i>
+                  <h3>No exams found</h3>
+                  <p>Try adjusting your search terms</p>
                 </div>
-              ))}
+              )}
             </section>
           </div>
         </div>

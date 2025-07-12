@@ -410,31 +410,30 @@
 .passages-table {
   width: 100%;
   border-collapse: collapse;
-  font-family: 'Roboto Serif', serif;
-  table-layout: fixed;
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .passages-table th,
 .passages-table td {
-  padding: 1rem;
-  text-align: left;
-  border-bottom: 1px solid #eee;
+  padding: 0.8rem 1rem;
   font-size: 0.95rem;
-  vertical-align: top;
+  vertical-align: middle;
+  border-bottom: 1px solid #eee;
   font-family: 'Roboto Serif', serif;
-  word-wrap: break-word;
-  overflow-wrap: break-word;
 }
 
 .passages-table th {
   background: #f8f9fa;
-  color: #555;
   font-weight: 600;
-  text-transform: uppercase;
-  font-size: 0.85rem;
-  letter-spacing: 0.5px;
-  font-family: 'Roboto Serif', serif;
-  position: relative;
+  color: #333;
+  border-bottom: 2px solid #dee2e6;
+}
+
+.passages-table tbody tr:hover {
+  background: #f8f9fa;
 }
 
 /* Column Widths */
@@ -453,59 +452,16 @@
   width: 10%;
 }
 
-.passages-table tbody tr {
-  transition: background-color 0.2s ease;
-}
-
-.passages-table tbody tr:hover {
-  background-color: #f8f9fa;
-}
-
-/* Sortable Headers */
-.sortable-header {
-  cursor: pointer;
-  user-select: none;
-  transition: all 0.3s ease;
-  position: relative;
-  padding-right: 1.5rem;
-}
-
-.sortable-header:hover {
-  background: #f5f5f5;
-}
-
-.sortable-header svg {
-  position: absolute;
-  right: 0.5rem;
-  top: 50%;
-  transform: translateY(-50%);
-  color: #666;
-  font-size: 0.8rem;
-}
-
-.sortable-header:hover svg {
-  color: #1976d2;
-}
-
-/* Table Cell Styles */
 .passage-title {
-  color: #333;
-  font-size: 1rem;
-  line-height: 1.4;
-  word-wrap: break-word;
-  font-weight: normal;
+  font-weight: 600;
+  color: #1976d2;
+  min-width: 200px;
 }
 
 .passage-content {
+  max-width: 400px;
   color: #666;
-  font-size: 0.9rem;
   line-height: 1.4;
-  word-wrap: break-word;
-  overflow-wrap: break-word;
-  display: -webkit-box;
-  -webkit-line-clamp: 1;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
 }
 
 .passage-test-type {
@@ -546,49 +502,87 @@
 
 .passage-actions {
   display: flex;
-  gap: 1rem;
-  justify-content: flex-start;
+  gap: 0.5rem;
   align-items: center;
-  padding: 0.75rem 0;
+  justify-content: flex-start;
+  min-width: 180px;
 }
 
 .edit-btn,
 .delete-btn {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.75rem 1rem;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: all 0.3s ease;
+  gap: 0.4rem;
+  padding: 0.5rem 0.8rem;
   font-size: 0.9rem;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
   font-weight: 500;
-  font-family: 'Roboto Serif', serif;
-  min-width: 100px;
-  justify-content: center;
 }
 
 .edit-btn {
-  background: #ffc107;
-  color: #212529;
+  background: #e3f2fd;
+  color: #1976d2;
 }
 
 .edit-btn:hover {
-  background: #e0a800;
+  background: #1976d2;
+  color: #fff;
   transform: translateY(-1px);
-  box-shadow: 0 2px 4px rgba(255, 193, 7, 0.3);
 }
 
 .delete-btn {
-  background: #dc3545;
-  color: white;
+  background: #ffebee;
+  color: #d32f2f;
 }
 
 .delete-btn:hover {
-  background: #c82333;
+  background: #d32f2f;
+  color: #fff;
   transform: translateY(-1px);
-  box-shadow: 0 2px 4px rgba(220, 53, 69, 0.3);
+}
+
+/* Compact table rows */
+.passages-table tr {
+  height: 38px;
+}
+
+/* Sidebar fixed, content scrolls */
+.admin-dashboard {
+  display: flex;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #1976d2, #40c4ff);
+  padding: 2rem;
+  gap: 2rem;
+  font-family: 'Roboto Serif', serif;
+}
+
+.sidebar {
+  width: 280px;
+  background: linear-gradient(to bottom, #1976d2, #1565c0);
+  color: #fff;
+  padding: 2rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 2rem;
+  height: calc(100vh - 4rem);
+  font-family: 'Roboto Serif', serif;
+}
+
+.content {
+  flex: 1;
+  background: #fff;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  min-height: calc(100vh - 4rem);
+  font-family: 'Roboto Serif', serif;
 }
 
 /* Pagination */

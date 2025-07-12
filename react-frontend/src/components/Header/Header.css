@@ -103,12 +103,11 @@ nav {
 
 .nav-links {
   display: flex;
-  gap: 1px;
   align-items: center;
-  justify-content: flex-end;
-  flex: 1;
-  margin-left: auto;
-  padding-right: 15px;
+  justify-content: flex-end; /* Align all nav buttons to the right */
+  gap: 0;
+  padding-left: 38px;
+  /* Remove any manual right margin from last child */
 }
 
 .nav-links a {
@@ -244,6 +243,74 @@ nav {
   }
 }
 
+.live-typing-test-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 18px;
+  height: 44px;
+  font-size: 13px; /* Even smaller text */
+  font-weight: 500;
+  color: #1976d2;
+  background: none;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.18s, color 0.18s, box-shadow 0.18s;
+  text-decoration: none;
+  outline: none;
+  margin: 0 2px;
+  position: relative;
+}
+
+.live-typing-test-btn .blinking-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #d6001c; /* Darker, more vibrant red */
+  margin-right: 7px;
+  box-shadow: 0 0 10px 3px #d6001c99, 0 0 0 0 #d6001c;
+  animation: modernBlinkRedDot 1.1s cubic-bezier(0.4,0,0.2,1) infinite;
+  display: inline-block;
+}
+
+@keyframes modernBlinkRedDot {
+  0%, 100% { opacity: 1; box-shadow: 0 0 10px 3px #d6001c99, 0 0 0 0 #d6001c; }
+  50% { opacity: 0.5; box-shadow: 0 0 20px 8px #d6001c44, 0 0 0 6px #d6001c00; }
+}
+
+.live-typing-test-btn i {
+  display: none; /* Hide the icon */
+}
+
+.live-typing-test-btn:hover, .live-typing-test-btn:focus {
+  background: #e3f2fd;
+  color: #1565c0;
+  box-shadow: 0 2px 8px rgba(25, 118, 210, 0.08);
+}
+
+.nav-links .live-typing-test-btn {
+  margin-left: 0;
+}
+
+.nav-links > *:last-child {
+  margin-right: 0;
+}
+
+.nav-links a,
+.live-typing-test-btn {
+  font-size: 12px !important;
+}
+
+.live-typing-test-btn {
+  color: #111 !important;
+  font-weight: 600;
+}
+
+.live-typing-test-btn:hover, .live-typing-test-btn:focus {
+  color: #111 !important;
+}
+
 @media (max-width: 1024px) {
   .nav-links a {
     font-size: 14px;
@@ -314,6 +381,23 @@ nav {
 
   .domain-link {
     font-size: 22px;
+  }
+
+  .live-typing-test-btn {
+    width: 100%;
+    justify-content: flex-start;
+    padding: 0 12px;
+    height: 42px;
+    font-size: 12px;
+  }
+
+  .nav-links a,
+  .live-typing-test-btn {
+    font-size: 11px !important;
+  }
+
+  .nav-links > *:last-child {
+    margin-right: 0;
   }
 }
 

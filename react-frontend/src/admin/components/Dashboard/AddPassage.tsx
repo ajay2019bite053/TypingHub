@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faExclamationTriangle, faCheckCircle } from '@fortawesome/free-solid-svg-icons';
-import axios from 'axios';
+import { api } from '../../../utils/api';
 import LoadingSpinner from '../../../components/LoadingSpinner/LoadingSpinner';
 import Toast, { ToastType } from '../../../components/Toast/Toast';
 import './AddPassage.css';
@@ -125,7 +125,7 @@ const AddPassage: React.FC<AddPassageProps> = ({ onPassageAdded }) => {
         throw new Error('Authentication required');
       }
 
-      const response = await axios.post(
+      const response = await api.post(
         '/api/passages',
         {
           title: title.trim(),
@@ -140,10 +140,10 @@ const AddPassage: React.FC<AddPassageProps> = ({ onPassageAdded }) => {
       );
 
       const newPassage: Passage = {
-        _id: response.data._id,
+        _id: response._id,
         title: title.trim(),
         content: content.trim(),
-        createdAt: new Date()
+        createdAt: new Date(response.createdAt || Date.now())
       };
 
       setPassages((prev: Passage[]) => [...prev, newPassage]);
@@ -151,8 +151,8 @@ const AddPassage: React.FC<AddPassageProps> = ({ onPassageAdded }) => {
       setContent('');
       setErrors({});
       setTouched({ title: false, content: false });
-      showToast('success', 'Passage added successfully!');
       await onPassageAdded();
+      showToast('success', 'Passage added successfully!');
     } catch (err: any) {
       console.error('Error adding passage:', err);
       const errorMessage = err.response?.data?.message || 'Failed to add passage. Please try again.';

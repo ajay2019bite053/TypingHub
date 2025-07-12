@@ -8,7 +8,7 @@ const Admin = require('../models/Admin');
 exports.createDeleteRequest = async (req, res) => {
   try {
     const { type, itemId, itemName } = req.body;
-    const adminId = req.admin.id;
+    const id = req.admin.id;
 
     // Verify that the item exists
     let item;
@@ -31,7 +31,7 @@ exports.createDeleteRequest = async (req, res) => {
     }
 
     // Get admin email
-    const admin = await Admin.findById(adminId);
+    const admin = await Admin.findById(id);
     if (!admin) {
       return res.status(404).json({ message: 'Admin not found' });
     }
@@ -42,7 +42,7 @@ exports.createDeleteRequest = async (req, res) => {
       itemId,
       itemName,
       requestedBy: {
-        id: adminId,
+        id: id,
         email: admin.email
       }
     });

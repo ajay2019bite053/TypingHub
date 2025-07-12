@@ -1,50 +1,59 @@
 .admin-page {
   min-height: 100vh;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: #fff !important;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 20px;
+  flex-direction: column;
+}
+
+/* Input focus/active state for modal fields */
+.modal-input:focus, .modal-input:active {
+  outline: none;
+  border: 2px solid #667eea;
+  box-shadow: 0 0 0 2px #f093fb55, 0 2px 8px #667eea22;
+  transition: border 0.2s, box-shadow 0.2s;
 }
 
 .admin-container {
   background: white;
-  border-radius: 20px;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-  padding: 30px;
-  max-width: 500px;
+  border-radius: 22px;
+  box-shadow: 0 12px 36px rgba(25,118,210,0.13), 0 2px 8px rgba(0,0,0,0.10);
+  border: 2.5px solid;
+  border-image: linear-gradient(120deg, #1976d2 60%, #90caf9 100%) 1;
+  padding: 18px 24px 18px 24px;
+  max-width: 600px;
   width: 100%;
   text-align: center;
+  margin-top: -48px !important;
+  z-index: 3;
 }
 
 .admin-header {
-  margin-bottom: 25px;
+  margin-bottom: 12px;
 }
 
 .admin-header h1 {
-  color: #333;
-  font-size: 2rem;
-  font-weight: 700;
-  margin-bottom: 8px;
+  font-size: 1.3rem;
+  margin-bottom: 4px;
 }
 
 .admin-header p {
-  color: #666;
-  font-size: 1rem;
-  margin: 0;
+  font-size: 0.95rem;
 }
 
 .admin-options {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 20px;
-  margin-bottom: 25px;
+  gap: 10px;
+  margin-bottom: 10px;
 }
 
 .option-card {
   background: #f8f9fa;
   border-radius: 12px;
-  padding: 20px 15px;
+  padding: 12px 8px;
   transition: all 0.3s ease;
   border: 2px solid transparent;
 }
@@ -106,7 +115,7 @@
 
 .admin-footer {
   border-top: 1px solid #eee;
-  padding-top: 20px;
+  padding-top: 10px;
 }
 
 .back-btn {
@@ -129,37 +138,192 @@
 /* Responsive Design */
 @media (max-width: 768px) {
   .admin-container {
-    padding: 25px 20px;
+    padding: 10px 6px;
+    max-width: 98vw;
   }
-  
   .admin-header h1 {
-    font-size: 1.8rem;
+    font-size: 1.1rem;
   }
-  
   .admin-options {
     grid-template-columns: 1fr;
-    gap: 15px;
+    gap: 8px;
   }
-  
   .option-card {
-    padding: 18px 12px;
+    padding: 10px 6px;
+  }
+  .admin-motivation {
+    font-size: 0.9rem;
+    padding: 6px 4px;
   }
 }
 
 @media (max-width: 480px) {
   .admin-page {
-    padding: 15px;
+    padding: 5px;
   }
-  
   .admin-container {
-    padding: 20px 15px;
+    padding: 6px 2px;
+    max-width: 100vw;
   }
-  
   .admin-header h1 {
-    font-size: 1.6rem;
+    font-size: 1rem;
   }
-  
   .admin-header p {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
   }
+  .admin-motivation {
+    font-size: 0.85rem;
+    padding: 4px 2px;
+  }
+}
+
+.floating-blobs-bg {
+  position: fixed;
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+.blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(32px);
+  opacity: 0.18;
+  z-index: 0;
+  animation: blobFloat 18s ease-in-out infinite alternate;
+}
+.blob1 {
+  width: 220px; height: 220px;
+  left: 8vw; top: 12vh;
+  background: radial-gradient(circle at 60% 40%, #1976d2 60%, #fff0 100%);
+  animation-delay: 0s;
+}
+.blob2 {
+  width: 180px; height: 180px;
+  left: 70vw; top: 18vh;
+  background: radial-gradient(circle at 40% 60%, #ffb300 60%, #fff0 100%);
+  animation-delay: 4s;
+}
+.blob3 {
+  width: 160px; height: 160px;
+  left: 50vw; top: 70vh;
+  background: radial-gradient(circle at 50% 50%, #43a047 60%, #fff0 100%);
+  animation-delay: 8s;
+}
+@keyframes blobFloat {
+  0% { transform: scale(1) translateY(0); }
+  100% { transform: scale(1.08) translateY(30px); }
+}
+
+.admin-branding {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 4px;
+  z-index: 2;
+  margin-top: 0 !important;
+}
+.brand-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #1976d2;
+  letter-spacing: 1px;
+  margin-bottom: 2px;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.greeting-emoji {
+  font-size: 1.2em;
+  margin-left: 4px;
+}
+.brand-title-sub {
+  font-size: 1rem;
+  color: #555;
+  font-weight: 500;
+  margin-bottom: 8px;
+  z-index: 2;
+}
+.admin-logo {
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
+  margin-bottom: 2px;
+  z-index: 2;
+}
+
+.admin-info-alert {
+  background: #fffbe6;
+  color: #b8860b;
+  border: 1px solid #ffe58f;
+  border-radius: 8px;
+  padding: 5px 10px;
+  font-size: 0.93rem;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  justify-content: center;
+  font-weight: 500;
+}
+
+.admin-illustration {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.admin-shield-icon {
+  color: #667eea;
+  font-size: 2.2rem !important;
+  filter: drop-shadow(0 2px 8px rgba(102,126,234,0.10));
+}
+
+.admin-motivation {
+  margin-top: 10px;
+  background: linear-gradient(90deg, #f093fb 0%, #f5576c 100%);
+  color: #fff;
+  border-radius: 8px;
+  padding: 8px 10px;
+  font-size: 0.95rem;
+  text-align: center;
+  font-style: italic;
+  box-shadow: 0 2px 6px rgba(240,147,251,0.06);
+  max-width: 100%;
+}
+
+.admin-motivation blockquote {
+  margin: 0;
+  padding: 0;
+  border-left: 3px solid #fff;
+}
+
+.sliding-particles-bg {
+  position: fixed;
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  z-index: 1;
+  pointer-events: none;
+  overflow: hidden;
+}
+.particle {
+  position: absolute;
+  left: -40px;
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  opacity: 0.18;
+  background: #1976d2;
+  animation: slideParticle 6s linear infinite;
+}
+.particle-1 { background: #ffb300; width: 8px; height: 8px; animation-duration: 5s; }
+.particle-2 { background: #43a047; width: 12px; height: 12px; animation-duration: 7s; }
+.particle-3 { background: #00bcd4; width: 7px; height: 7px; animation-duration: 5.5s; }
+.particle-4 { background: #7c4dff; width: 9px; height: 9px; animation-duration: 6.5s; }
+.particle-5 { background: #ff4081; width: 11px; height: 11px; animation-duration: 7.5s; }
+@keyframes slideParticle {
+  0% { left: -40px; opacity: 0.18; }
+  10% { opacity: 0.28; }
+  90% { opacity: 0.28; }
+  100% { left: 100vw; opacity: 0.18; }
 } 

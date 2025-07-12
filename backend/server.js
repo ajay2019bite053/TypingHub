@@ -21,10 +21,11 @@ const passageRoutes = require('./routes/passages');
 const adminRequestsRoutes = require('./routes/adminRequests');
 const deleteRequestRoutes = require('./routes/deleteRequestRoutes');
 const userRoutes = require('./routes/userRoutes');
+const liveExamsRoutes = require('./routes/liveExams');
+const cardRoutes = require('./routes/cardRoutes');
 
 // Import middleware and utils
 const authMiddleware = require('./middleware/authMiddleware');
-const createDefaultAdmin = require('./utils/createDefaultAdmin');
 const { errorHandler, notFoundHandler } = require('./middleware/errorHandlers');
 
 // Initialize express app
@@ -133,6 +134,8 @@ app.use('/api/passages', passageRoutes);
 app.use('/api/admin', adminRequestsRoutes);
 app.use('/api/delete-requests', deleteRequestRoutes);
 app.use('/api/users', userRoutes);
+app.use('/api/live-exams', liveExamsRoutes);
+app.use('/api/cards', cardRoutes);
 
 // Error handling
 app.use(notFoundHandler);
@@ -146,7 +149,6 @@ const connectDB = async () => {
   useUnifiedTopology: true,
     });
     console.log('Connected to MongoDB Atlas');
-    await createDefaultAdmin();
   } catch (error) {
     console.error('MongoDB connection error:', error);
     process.exit(1);

@@ -27,7 +27,11 @@ const TEST_CATEGORIES = [
   { id: 'junior-court-assistant', name: 'Junior Court Assistant' },
   { id: 'certificate-test', name: 'Certificate Test' },
   { id: 'create-test', name: 'Create Test' },
-  { id: 'typing-test', name: 'Typing Test' }
+  { id: 'typing-test', name: 'Typing Test' },
+  { id: 'up-police', name: 'UP Police' },
+  { id: 'bihar-police', name: 'Bihar Police' },
+  { id: 'aiims-crc', name: 'AIIMS CRC' },
+  { id: 'allahabad-high-court', name: 'Allahabad High Court' }
 ];
 
 const AssignPassage: React.FC<AssignPassageProps> = ({ passages, onPassageAssigned }) => {
@@ -67,7 +71,6 @@ const AssignPassage: React.FC<AssignPassageProps> = ({ passages, onPassageAssign
 
   const validateCategories = (value: string[]): string | undefined => {
     if (value.length === 0) return 'Please select at least one test category';
-    if (value.length > 5) return 'You can select maximum 5 categories at once';
     return undefined;
   };
 
@@ -147,24 +150,20 @@ const AssignPassage: React.FC<AssignPassageProps> = ({ passages, onPassageAssign
         throw new Error('Authentication required');
       }
 
-      // Assign passage to all selected categories
-      const assignmentPromises = selectedCategories.map(category =>
-        axios.post(
-          'http://localhost:5000/api/passages/assign',
-          {
-            passageId: selectedPassage,
-            category: category
-          },
-          {
-            headers: {
-              'Authorization': `Bearer ${token}`,
-              'Content-Type': 'application/json'
-            }
+      // Assign passage to all selected categories in one request
+      await axios.post(
+        'http://localhost:5000/api/passages/assign',
+        {
+          passageId: selectedPassage,
+          categories: selectedCategories
+        },
+        {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
           }
-        )
+        }
       );
-
-      await Promise.all(assignmentPromises);
 
       showToast('success', `Passage assigned successfully to ${selectedCategories.length} test category(ies)!`);
       setSelectedPassage('');
@@ -269,16 +268,6 @@ const AssignPassage: React.FC<AssignPassageProps> = ({ passages, onPassageAssign
             {selectedCategories.length}/9 categories selected
           </div>
         </div>
-
-        {selectedPassageData && (
-          <div className="passage-preview">
-            <h4>Selected Passage Preview:</h4>
-            <div className="preview-content">
-              <strong>{selectedPassageData.title}</strong>
-              <p>{selectedPassageData.content.substring(0, 150)}...</p>
-            </div>
-          </div>
-        )}
         
         <button 
           type="submit" 

@@ -300,9 +300,24 @@ const Home: React.FC = () => {
 
       <HeroSection />
 
-      <div className="panel-container">
-        {panelItems.map((item, index) => (
-          <PanelItem key={index} {...item} />
+      {/* Modern Dashboard-style Course Cards */}
+      <div className="user-dashboard-courses-modern four-col-layout" style={{ margin: '40px auto 0 auto', maxWidth: 1400 }}>
+        {panelItems.map((item, idx) => (
+          <div className="course-card-modern not-enrolled" key={item.title}>
+            <div className="course-icon-modern">
+              <FontAwesomeIcon icon={item.icon} />
+            </div>
+            <div className="course-content-modern">
+              <h3>{item.title}</h3>
+              <p>{item.description}</p>
+              <div className="course-bottom-row">
+                <Link to={item.link} className="course-action-btn-modern primary" style={{ width: '100%', textAlign: 'center' }}>
+                  {item.linkText}
+                  <FontAwesomeIcon icon={faArrowRight} style={{ marginLeft: 8 }} />
+                </Link>
+              </div>
+            </div>
+          </div>
         ))}
       </div>
 

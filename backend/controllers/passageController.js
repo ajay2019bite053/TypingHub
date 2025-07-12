@@ -101,6 +101,7 @@ const getPassageById = async (req, res) => {
 
 // Create a new passage (protected)
 const createPassage = async (req, res) => {
+  console.log('Create passage called', { title: req.body.title, by: req.user ? req.user.email : (req.admin ? req.admin.email : 'unknown') });
   try {
     const { title, content } = req.body;
 
@@ -255,25 +256,41 @@ const getPassagesByTestType = async (req, res) => {
 // Assign passage to test type (protected)
 const assignPassage = async (req, res) => {
   try {
-    const { passageId, category } = req.body;
+    const { passageId, categories } = req.body;
 
     if (!passageId || typeof passageId !== 'string') {
       console.log('Assign passage failed: Valid passageId required');
       return res.status(400).json({ message: 'Valid passage ID is required' });
     }
 
-    if (!category || typeof category !== 'string') {
-      console.log('Assign passage failed: Valid category required');
-      return res.status(400).json({ message: 'Valid category is required' });
+    if (!categories || !Array.isArray(categories) || categories.length === 0) {
+      console.log('Assign passage failed: Valid categories array required');
+      return res.status(400).json({ message: 'Valid categories array is required' });
     }
-
-    const sanitizedCategory = sanitizeInput(category);
     
-    // Validate category format
-    const validCategories = ['SSC CGL', 'SSC CHSL', 'RRB NTPC', 'Junior Assistant', 'Junior Court Assistant', 'Superintendent'];
-    if (!validCategories.includes(sanitizedCategory)) {
+    // Validate all categories
+    const validCategories = [
+      'SSC CGL',
+      'SSC CHSL',
+      'RRB NTPC',
+      'Junior Assistant',
+      'Junior Court Assistant',
+      'Superintendent',
+      'Certificate Test',
+      'Create Test',
+      'Typing Test',
+      'UP Police',
+      'Bihar Police',
+      'AIIMS CRC',
+      'Allahabad High Court'
+    ];
+    const sanitizedCategories = categories.map(cat => sanitizeInput(cat));
+    
+    for (const category of sanitizedCategories) {
+      if (!validCategories.includes(category)) {
       console.log('Assign passage failed: Invalid category');
       return res.status(400).json({ message: 'Invalid category. Must be one of: ' + validCategories.join(', ') });
+      }
     }
 
     const passage = await Passage.findById(passageId);
@@ -282,21 +299,96 @@ const assignPassage = async (req, res) => {
       return res.status(404).json({ message: 'Passage not found' });
     }
 
-    // Add category to testTypes if not already present
-    if (!passage.testTypes.includes(sanitizedCategory)) {
-      passage.testTypes.push(sanitizedCategory);
+    // Add categories to testTypes if not already present
+    const newCategories = sanitizedCategories.filter(cat => !passage.testTypes.includes(cat));
+    if (newCategories.length > 0) {
+      passage.testTypes.push(...newCategories);
       await passage.save();
-      console.log(`Passage ${passageId} assigned to category: ${sanitizedCategory}`);
+      console.log(`Passage ${passageId} assigned to categories: ${newCategories.join(', ')}`);
     } else {
-      console.log(`Passage ${passageId} already assigned to category: ${sanitizedCategory}`);
+      console.log(`Passage ${passageId} already assigned to all requested categories`);
     }
 
     res.status(200).json({ 
       message: 'Passage assigned successfully', 
-      passage: passage 
+      passage: passage,
+      newlyAssigned: newCategories
     });
   } catch (error) {
     console.error('Error assigning passage:', error.message, error.stack);
+    res.status(500).json({ message: 'Server error', error: error.message });
+  }
+};
+
+// Unassign passage from test type (protected)
+const unassignPassage = async (req, res) => {
+  try {
+    const { passageId, categories } = req.body;
+
+    if (!passageId || typeof passageId !== 'string') {
+      console.log('Unassign passage failed: Valid passageId required');
+      return res.status(400).json({ message: 'Valid passage ID is required' });
+    }
+
+    if (!categories || !Array.isArray(categories) || categories.length === 0) {
+      console.log('Unassign passage failed: Valid categories array required');
+      return res.status(400).json({ message: 'Valid categories array is required' });
+    }
+
+    // Validate all categories
+    const validCategories = [
+      'SSC CGL',
+      'SSC CHSL',
+      'RRB NTPC',
+      'Junior Assistant',
+      'Junior Court Assistant',
+      'Superintendent',
+      'Certificate Test',
+      'Create Test',
+      'Typing Test',
+      'UP Police',
+      'Bihar Police',
+      'AIIMS CRC',
+      'Allahabad High Court'
+    ];
+    const sanitizedCategories = categories.map(cat => sanitizeInput(cat));
+    
+    for (const category of sanitizedCategories) {
+      if (!validCategories.includes(category)) {
+        console.log('Unassign passage failed: Invalid category');
+        return res.status(400).json({ message: 'Invalid category. Must be one of: ' + validCategories.join(', ') });
+      }
+    }
+
+    const passage = await Passage.findById(passageId);
+    if (!passage) {
+      console.log(`Passage not found for unassignment: ${passageId}`);
+      return res.status(404).json({ message: 'Passage not found' });
+    }
+
+    // Remove categories from testTypes
+    const originalLength = passage.testTypes.length;
+    passage.testTypes = passage.testTypes.filter(cat => !sanitizedCategories.includes(cat));
+    
+    if (passage.testTypes.length < originalLength) {
+      await passage.save();
+      const removedCategories = sanitizedCategories.filter(cat => 
+        passage.testTypes.indexOf(cat) === -1
+      );
+      console.log(`Passage ${passageId} unassigned from categories: ${removedCategories.join(', ')}`);
+    } else {
+      console.log(`Passage ${passageId} was not assigned to any of the requested categories`);
+    }
+
+    res.status(200).json({ 
+      message: 'Passage unassigned successfully', 
+      passage: passage,
+      removedCategories: sanitizedCategories.filter(cat => 
+        passage.testTypes.indexOf(cat) === -1
+      )
+    });
+  } catch (error) {
+    console.error('Error unassigning passage:', error.message, error.stack);
     res.status(500).json({ message: 'Server error', error: error.message });
   }
 };
@@ -426,5 +518,6 @@ module.exports = {
   deletePassage,
   getPassagesByTestType,
   assignPassage,
+  unassignPassage,
   bulkImportPassages
 };

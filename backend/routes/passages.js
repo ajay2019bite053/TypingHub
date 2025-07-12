@@ -8,6 +8,7 @@ const {
   deletePassage,
   getPassagesByTestType,
   assignPassage,
+  unassignPassage,
   bulkImportPassages
 } = require('../controllers/passageController');
 const adminAuthMiddleware = require('../middleware/authMiddleware');
@@ -19,6 +20,7 @@ router.get('/test/:testType', getPassagesByTestType);
 // Protected routes (admin only)
 // Specific routes first
 router.post('/assign', adminAuthMiddleware, assignPassage);
+router.post('/unassign', adminAuthMiddleware, unassignPassage);
 router.post('/bulk-import', adminAuthMiddleware, bulkImportPassages);
 router.post('/', adminAuthMiddleware, createPassage);
 

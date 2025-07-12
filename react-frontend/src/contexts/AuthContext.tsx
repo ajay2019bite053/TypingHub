@@ -29,7 +29,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const refreshToken = async (): Promise<string | null> => {
     try {
-      const isAdmin = user?.role === 'super_admin' || user?.role === 'user_admin';
+      const isAdmin = user?.role === 'super_admin' || user?.role === 'sub_admin';
       const endpoint = isAdmin ? '/admin/auth/refresh-token' : '/auth/refresh-token';
       
       const response = await axios.post(
@@ -60,7 +60,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         
         if (token && storedUser) {
           const parsedUser = JSON.parse(storedUser);
-          const isAdmin = parsedUser.role === 'super_admin' || parsedUser.role === 'user_admin';
+          const isAdmin = parsedUser.role === 'super_admin' || parsedUser.role === 'sub_admin';
           const endpoint = isAdmin ? '/admin/auth/check-auth' : '/auth/check-auth';
           
           // Verify token with backend
@@ -115,7 +115,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const logout = async () => {
     try {
-      const isAdmin = user?.role === 'super_admin' || user?.role === 'user_admin';
+      const isAdmin = user?.role === 'super_admin' || user?.role === 'sub_admin';
       const endpoint = isAdmin ? '/admin/auth/logout' : '/auth/logout';
       
       // Call logout endpoint
@@ -144,7 +144,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     <AuthContext.Provider
       value={{
         isAuthenticated,
-        isAdmin: user?.role === 'super_admin' || user?.role === 'user_admin',
+        isAdmin: user?.role === 'super_admin' || user?.role === 'sub_admin',
         user,
         isLoading,
         login,

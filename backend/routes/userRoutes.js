@@ -3,6 +3,7 @@ const router = express.Router();
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 const authMiddleware = require('../middleware/authMiddleware');
+const userController = require('../controllers/userController');
 
 // Register new user
 router.post('/register', async (req, res) => {
@@ -191,5 +192,8 @@ router.put('/stats', authMiddleware, async (req, res) => {
     res.status(500).json({ message: 'Error updating stats' });
   }
 });
+
+router.post('/:userId/purchase', userController.purchaseCourse);
+router.get('/:userId/purchased-courses', userController.getPurchasedCourses);
 
 module.exports = router; 

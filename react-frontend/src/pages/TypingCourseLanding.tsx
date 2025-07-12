@@ -5,12 +5,14 @@ import {
   faUser, faSignInAlt, faUsers,
   faFileAlt, faTrophy, faCrown,
   faUserPlus, faRocket, faGraduationCap,
-  faStar
+  faStar, faBookOpen, faCertificate, faGavel, faTrain
 } from '@fortawesome/free-solid-svg-icons';
-import Auth from '../components/Auth/Auth';
+import UserAuthModal from '../components/Auth/UserAuthModal';
 import CourseDetailsModal from '../components/CourseDetailsModal';
 import ReactDOM from 'react-dom';
 import './TypingCourseLanding.css';
+import '../components/UserDashboard/Dashboard.css';
+import { sharedLandingCourses } from '../components/UserDashboard/Dashboard';
 
 interface CourseDetail {
   title: string;
@@ -52,7 +54,7 @@ const testimonials = [
 const TypingCourseLanding: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'free' | 'premium'>('free');
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
-  const [authMode, setAuthMode] = useState<'login' | 'signup'>('signup');
+  const [authMode, setAuthMode] = useState<'login' | 'register'>('register');
   const [isVisible, setIsVisible] = useState<{[key: string]: boolean}>({});
   const [isCourseDetailsModalOpen, setIsCourseDetailsModalOpen] = useState(false);
   const [selectedCourse, setSelectedCourse] = useState<CourseDetail | null>(null);
@@ -143,7 +145,7 @@ const TypingCourseLanding: React.FC = () => {
   }, []);
 
   const handleSignUpClick = useCallback(() => {
-    setAuthMode('signup');
+    setAuthMode('register');
     setIsAuthModalOpen(true);
   }, []);
 
@@ -191,15 +193,38 @@ const TypingCourseLanding: React.FC = () => {
     };
   }, []);
 
+  // Handle testimonials scroll
+  useEffect(() => {
+    const testimonialsGrid = document.querySelector('.testimonials-grid');
+    const indicators = document.querySelectorAll('.scroll-indicator');
+    
+    const handleScroll = () => {
+      if (testimonialsGrid && indicators.length > 0) {
+        const scrollLeft = testimonialsGrid.scrollLeft;
+        const cardWidth = 320 + 32; // card width + gap
+        const activeIndex = Math.round(scrollLeft / cardWidth);
+        
+        indicators.forEach((indicator, index) => {
+          indicator.classList.toggle('active', index === activeIndex);
+        });
+      }
+    };
+
+    testimonialsGrid?.addEventListener('scroll', handleScroll);
+    
+    return () => {
+      testimonialsGrid?.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
   return (
     <>
-      {/* Auth Modal */}
-      {isAuthModalOpen && (
-        <Auth 
+      {/* User Auth Modal */}
+      <UserAuthModal
+        isOpen={isAuthModalOpen}
           onClose={handleAuthClose}
-          initialMode={authMode}
+        modalType={authMode}
         />
-      )}
 
       <div className="typing-course-landing">
         {/* Course Details Modal */}
@@ -232,31 +257,22 @@ const TypingCourseLanding: React.FC = () => {
         {/* Course Showcase */}
         <section className="course-showcase">
           <h2>Our Premium Courses</h2>
-          <div className="course-grid">
-            <div className="course-card">
-              <span className="course-icon">👨‍💻</span>
-              <h3>Complete Typing Course</h3>
-              <p>Master typing from basics to advanced with our comprehensive course.</p>
-              <button className="view-details-btn" onClick={() => handleOpenModal('Complete-typing-course')}>Know More</button>
-            </div>
-            <div className="course-card">
-              <span className="course-icon">🏛️</span>
-              <h3>SSC-CGL/CHSL</h3>
-              <p>Prepare for SSC CGL & CHSL with premium mocks. Real exam interface, specific passages, detailed analysis to master speed and accuracy.</p>
-              <button className="view-details-btn" onClick={() => handleOpenModal('ssc-exams')}>Know More</button>
-            </div>
-            <div className="course-card">
-              <span className="course-icon">🚄</span>
-              <h3>Railway Exams</h3>
-              <p>Specialized tests for RRB-NTPC and other railway exams. Match exact patterns, achieve precise speed and accuracy for success.</p>
-              <button className="view-details-btn" onClick={() => handleOpenModal('railway-exams')}>Know More</button>
-            </div>
-            <div className="course-card">
-              <span className="course-icon">🧑‍⚖️</span>
-              <h3>Supreme Court</h3>
-              <p>Professional practice for Supreme Court & judicial exams. Focus on high accuracy and speed with tailored tests for prestigious positions.</p>
-              <button className="view-details-btn" onClick={() => handleOpenModal('supreme-court-exams')}>Know More</button>
-            </div>
+          <div className="course-grid four-col-layout">
+            {sharedLandingCourses.map(course => (
+              <div className="course-card-modern not-enrolled" key={course.id}>
+                <div className="course-icon-modern">
+                  <FontAwesomeIcon icon={course.icon} />
+                </div>
+                <div className="course-content-modern">
+                  <h3>{course.title}</h3>
+                  <p>{course.description}</p>
+                  <div className="course-bottom-row">
+                    <span className="course-price">₹{course.price}</span>
+                    <button className="course-action-btn-modern primary" onClick={() => alert('Please register and login to buy the course.')}>Buy Now</button>
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
           <section className="other-exams-hero-section">
             <div className="other-exams-hero-content">
@@ -386,6 +402,7 @@ const TypingCourseLanding: React.FC = () => {
         {/* Testimonials Section */}
         <section id="testimonials" className="testimonials-section">
           <h2>What Our Students Say</h2>
+          <div className="testimonials-container">
           <div className="testimonials-grid">
             {testimonials.map((testimonial, index) => (
               <div key={index} className="testimonial-card">
@@ -399,6 +416,28 @@ const TypingCourseLanding: React.FC = () => {
                 </div>
               </div>
             ))}
+            </div>
+            <div className="scroll-indicators">
+              {testimonials.map((_, index) => (
+                <div 
+                  key={index} 
+                  className={`scroll-indicator ${index === 0 ? 'active' : ''}`}
+                  onClick={() => {
+                    const grid = document.querySelector('.testimonials-grid') as HTMLElement;
+                    if (grid) {
+                      const cardWidth = 320 + 32; // card width + gap
+                      grid.scrollTo({
+                        left: index * cardWidth,
+                        behavior: 'smooth'
+                      });
+                    }
+                  }}
+                />
+              ))}
+            </div>
+            <div className="scroll-hint">
+              💡 Scroll or click dots to see more testimonials
+            </div>
           </div>
         </section>
       </div>

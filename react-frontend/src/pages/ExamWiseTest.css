@@ -28,6 +28,86 @@
   flex: 1;
 }
 
+/* Header Section */
+.header-section {
+  margin-bottom: 5px;
+  padding: 5px 0;
+  border-bottom: 2px solid #e3f2fd;
+}
+
+/* Search Section */
+.search-section {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.search-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1200px;
+  gap: 30px;
+}
+
+.search-results {
+  font-size: 14px;
+  color: #666;
+  font-weight: 500;
+  position: absolute;
+  right: -120px;
+  top: 50%;
+  transform: translateY(-50%);
+  white-space: nowrap;
+}
+
+.search-title {
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.search-title h2 {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1a2a44;
+  margin-bottom: 5px;
+  font-family: 'Roboto Serif', serif;
+}
+
+.search-title p {
+  font-size: 14px;
+  color: #666;
+  margin: 0;
+}
+
+/* Exams Section */
+.exams-section {
+  flex: 1;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 30px;
+  padding: 20px 0;
+}
+
+.section-header h2 {
+  font-size: 28px;
+  font-weight: 700;
+  color: #1a2a44;
+  margin-bottom: 8px;
+  font-family: 'Roboto Serif', serif;
+}
+
+.section-header p {
+  font-size: 16px;
+  color: #666;
+  margin: 0;
+}
+
 /* Card styling */
 .card {
   background: #fff;
@@ -46,44 +126,14 @@
   box-shadow: 0 6px 20px rgba(0,0,0,0.12);
 }
 
-/* Instructions section */
-.instructions {
-  background: #e3f2fd;
-  padding: 15px;
-  border-radius: 6px;
-  border: 1px solid #bbdefb;
-  margin-bottom: 15px;
-}
-
-.instructions p {
-  color: #333;
-  font-size: 16px;
-  line-height: 1.6;
-  font-family: 'Times New Roman', Times, serif;
-}
-
-.instructions strong {
-  color: #1976d2;
-}
-
 /* Logo container */
-.logo-container-outer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 15px 0;
-  flex-wrap: wrap;
-  gap: 15px;
-  padding: 0 10px;
-}
-
 .logo-container {
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
   background: linear-gradient(135deg, #fff, #f8f9fa);
   padding: 15px;
-  border-radius: 10px;
+  border-radius: 15px;
   border: 2px solid #1976d2;
   box-shadow: 0 8px 25px rgba(25, 118, 210, 0.15);
   flex-wrap: wrap;
@@ -109,8 +159,8 @@
 }
 
 .logo-ssc, .logo-railway, .logo-cbse, .logo-court {
-  width: 80px;
-  height: 80px;
+  width: 70px;
+  height: 70px;
   object-fit: contain;
   filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
   transition: filter 0.3s ease;
@@ -121,12 +171,12 @@
 }
 
 .logo-label {
-  font-size: 12px;
-  font-weight: 500;
+  font-size: 11px;
+  font-weight: 600;
   color: #1a2a44;
   text-transform: uppercase;
   text-align: center;
-  margin-top: 8px;
+  margin-top: 6px;
   background: #e3f2fd;
   padding: 3px 10px;
   border-radius: 12px;
@@ -144,13 +194,13 @@
   align-items: center;
   position: relative;
   width: 100%;
-  max-width: 300px;
+  max-width: 400px;
 }
 
 #searchInput {
   width: 100%;
-  padding: 12px 35px 12px 15px;
-  font-size: 15px;
+  padding: 10px 35px 10px 15px;
+  font-size: 14px;
   border: 2px solid #e0e0e0;
   border-radius: 20px;
   transition: all 0.3s ease;
@@ -169,7 +219,7 @@
   font-family: 'Font Awesome 6 Free';
   font-weight: 900;
   position: absolute;
-  right: 15px;
+  right: 20px;
   top: 50%;
   transform: translateY(-50%);
   color: #1976d2;
@@ -184,88 +234,154 @@
 
 /* Panel container and exam cards */
 .panel-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 15px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
   padding: 15px 0;
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  justify-content: center;
 }
 
 .exam-card {
-  flex: 1;
-  min-width: 175px;
   background: #fff;
   border: 1px solid #e0e0e0;
-  border-radius: 6px;
-  padding: 14px;
+  border-radius: 12px;
+  padding: 20px;
   text-align: center;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  transition: transform 0.3s;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  transition: all 0.3s ease;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  min-height: 175px;
-  max-width: 210px;
+  min-height: 200px;
+  position: relative;
+  overflow: hidden;
 }
 
-.exam-card.hidden {
-  display: none;
+.exam-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #1976d2, #42a5f5);
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.exam-card:hover::before {
+  transform: scaleX(1);
 }
 
 .exam-card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-8px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+  border-color: #1976d2;
 }
 
-.exam-card i {
-  font-size: 28px;
+.exam-icon {
+  margin-bottom: 15px;
+}
+
+.exam-icon i {
+  font-size: 32px;
   color: #1976d2;
-  margin-bottom: 7px;
+  transition: transform 0.3s ease;
+}
+
+.exam-card:hover .exam-icon i {
+  transform: scale(1.1);
+}
+
+.exam-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
 }
 
 .exam-card h5 {
-  font-size: 13px;
+  font-size: 16px;
   font-family: 'Roboto Serif', serif;
   color: #1a2a44;
-  margin-bottom: 7px;
+  margin: 0;
+  font-weight: 600;
 }
 
 .exam-card p {
+  font-size: 13px;
+  color: #666;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.exam-category {
   font-size: 11px;
-  flex-grow: 1;
-  margin-bottom: 10px;
-  color: #555;
+  font-weight: 600;
+  color: #1976d2;
+  background: #e3f2fd;
+  padding: 3px 8px;
+  border-radius: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 /* Button styling */
 .btn {
-  padding: 8px 17px;
-  font-size: 11px;
+  padding: 10px 20px;
+  font-size: 14px;
   width: 100%;
-  max-width: 140px;
+  max-width: 150px;
   border: none;
-  border-radius: 6px;
-  font-weight: 500;
+  border-radius: 8px;
+  font-weight: 600;
   cursor: pointer;
-  transition: background 0.3s, transform 0.2s, box-shadow 0.2s;
+  transition: all 0.3s ease;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   text-decoration: none;
+  margin-top: 15px;
 }
 
 .btn-primary {
-  background: #1976d2;
+  background: linear-gradient(135deg, #1976d2, #1565c0);
   color: #fff;
 }
 
 .btn-primary:hover {
-  background: #1565c0;
+  background: linear-gradient(135deg, #1565c0, #0d47a1);
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+}
+
+/* No results styling */
+.no-results {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 60px 20px;
+  color: #666;
+}
+
+.no-results i {
+  font-size: 48px;
+  color: #ccc;
+  margin-bottom: 20px;
+}
+
+.no-results h3 {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.no-results p {
+  font-size: 16px;
+  color: #666;
 }
 
 /* Link to SSC CGL Test */
@@ -288,10 +404,27 @@
 }
 
 /* Responsive design */
+@media (max-width: 1200px) {
+  .panel-container {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+  }
+  
+  .search-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+  
+  .search-title {
+    text-align: center;
+  }
+}
+
 @media (max-width: 768px) {
   .logo-container {
-    padding: 12px;
-    gap: 12px;
+    padding: 15px;
+    gap: 15px;
   }
 
   .logo-ssc, .logo-railway, .logo-cbse, .logo-court {
@@ -305,12 +438,12 @@
   }
 
   #searchInput {
-    padding: 10px 32px 10px 12px;
+    padding: 12px 35px 12px 15px;
     font-size: 14px;
   }
 
   .search-item::after {
-    right: 12px;
+    right: 15px;
     font-size: 14px;
   }
 
@@ -323,13 +456,26 @@
   }
 
   .panel-container {
-    flex-direction: column;
-    padding: 10px 0;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
   }
 
-  .exam-card {
-    min-height: auto;
-    max-width: none;
+  .search-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .search-title {
+    text-align: center;
+  }
+  
+  .search-title h2 {
+    font-size: 20px;
+  }
+  
+  .search-title p {
+    font-size: 12px;
   }
 }
 
@@ -343,10 +489,41 @@
   }
 
   .exam-card {
-    min-width: 120px;
+    min-height: 180px;
+    padding: 15px;
   }
 
   .panel {
     padding: 10px;
+  }
+  
+  .panel-container {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+  
+  .search-container {
+    gap: 10px;
+  }
+  
+  .search-title h2 {
+    font-size: 18px;
+  }
+  
+  .search-title p {
+    font-size: 11px;
+  }
+
+  .exam-card h5 {
+    font-size: 14px;
+  }
+
+  .exam-card p {
+    font-size: 12px;
+  }
+
+  .btn {
+    padding: 8px 16px;
+    font-size: 13px;
   }
 } 

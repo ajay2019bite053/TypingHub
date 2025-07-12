@@ -48,16 +48,16 @@ cd RDx
 ```
 
 ### 2. Backend Setup
-```bash
-cd backend
-npm install
-```
+   ```bash
+   cd backend
+   npm install
+   ```
 
 ### 3. Frontend Setup
-```bash
-cd react-frontend
-npm install
-```
+   ```bash
+   cd react-frontend
+   npm install
+   ```
 
 ## 🚀 Running the Application
 
@@ -80,19 +80,19 @@ npm start            # Development server
 ### Production Mode
 
 #### Backend
-```bash
+   ```bash
 cd backend
 npm run start        # Production mode
 # OR
 npm run start:prod   # Explicit production
-```
+   ```
 
 #### Frontend
-```bash
+   ```bash
 cd react-frontend
 npm run build        # Build for production
 npm run build:prod   # Build without source maps
-```
+   ```
 
 ## 🔧 Configuration
 
@@ -111,17 +111,17 @@ The `backend/config.js` file contains all environment-specific settings:
 ```javascript
 // Development
 {
-  PORT: 5000,
+    PORT: 5000,
   DB_URL: 'mongodb://...',
-  CORS_ORIGIN: ['http://localhost:3000']
+    CORS_ORIGIN: ['http://localhost:3000']
 }
 
 // Production  
 {
-  PORT: process.env.PORT || 5000,
+    PORT: process.env.PORT || 5000,
   DB_URL: 'mongodb://...',
-  CORS_ORIGIN: ['https://typinghub.in']
-}
+    CORS_ORIGIN: ['https://typinghub.in']
+  }
 ```
 
 ### Frontend Configuration
@@ -147,8 +147,8 @@ const getBackendUrl = () => {
 ## 👨‍💼 Admin Setup
 
 ### Create Super Admin
-```bash
-cd backend
+   ```bash
+   cd backend
 npm run create-admin
 ```
 
@@ -162,22 +162,22 @@ This creates a super admin with:
 ### VPS Deployment
 
 1. **Clone and setup**:
-```bash
+   ```bash
 git clone <repository-url>
 cd RDx
 ```
 
 2. **Install dependencies**:
-```bash
+   ```bash
 cd backend && npm install
 cd ../react-frontend && npm install
-```
+   ```
 
 3. **Build frontend**:
-```bash
-cd react-frontend
-npm run build:prod
-```
+   ```bash
+   cd react-frontend
+   npm run build:prod
+   ```
 
 4. **Start backend**:
 ```bash
@@ -219,7 +219,7 @@ server {
 
 If you need to override default settings, you can still use environment variables:
 
-```bash
+   ```bash
 # Backend
 NODE_ENV=production
 PORT=5000

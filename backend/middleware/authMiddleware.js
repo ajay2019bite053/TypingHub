@@ -11,8 +11,9 @@ const authMiddleware = async (req, res, next) => {
     }
 
     const decoded = jwt.verify(token, config.ACCESS_TOKEN_SECRET);
+    console.log('Decoded token:', decoded);
     
-    const admin = await Admin.findById(decoded.userId);
+    const admin = await Admin.findById(decoded.id); // Fix: use 'id' instead of 'userId'
     if (!admin) {
       return res.status(401).json({ message: 'Invalid token.' });
     }

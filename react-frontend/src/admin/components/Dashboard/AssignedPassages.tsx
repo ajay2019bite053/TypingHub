@@ -44,7 +44,11 @@ const TEST_CATEGORIES = [
   { id: 'junior-court-assistant', name: 'Junior Court Assistant' },
   { id: 'certificate-test', name: 'Certificate Test' },
   { id: 'create-test', name: 'Create Test' },
-  { id: 'typing-test', name: 'Typing Test' }
+  { id: 'typing-test', name: 'Typing Test' },
+  { id: 'up-police', name: 'UP Police' },
+  { id: 'bihar-police', name: 'Bihar Police' },
+  { id: 'aiims-crc', name: 'AIIMS CRC' },
+  { id: 'allahabad-high-court', name: 'Allahabad High Court' }
 ];
 
 const API_BASE_URL = 'http://localhost:5000/api';

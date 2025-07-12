@@ -55,6 +55,7 @@ const getAdminRequests = async (req, res) => {
 
 // Approve admin request
 const approveAdmin = async (req, res) => {
+  console.log('Approve admin called', { id: req.params.id });
   try {
     const { id } = req.params;
     console.log(`Approving admin with ID: ${id}`);
@@ -101,6 +102,7 @@ const rejectAdmin = async (req, res) => {
 
 // Remove an approved admin (soft delete or set inactive)
 const removeAdmin = async (req, res) => {
+  console.log('Remove admin called', { id: req.params.id });
   try {
     const { id } = req.params;
     console.log(`Attempting to remove admin with ID: ${id}`);
