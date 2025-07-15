@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -12,9 +12,11 @@ import {
   faChartLine,
   faExclamationTriangle,
   faTimes,
-  faBackspace
+  faBackspace,
+  faCertificate
 } from '@fortawesome/free-solid-svg-icons';
 import { useTypingTest } from '../../hooks/useTypingTest';
+import CertificateModal from '../Certificate/CertificateModal';
 import './TypingEngine.css';
 
 interface TypingEngineProps {
@@ -30,9 +32,18 @@ interface TypingEngineProps {
   };
   backButton?: React.ReactNode;
   hideFeedbackModal?: boolean;
+  hideDurationSelector?: boolean;
 }
 
-const TypingEngine: React.FC<TypingEngineProps> = ({ config, backButton, hideFeedbackModal }) => {
+const TypingEngine: React.FC<TypingEngineProps> = ({ config, backButton, hideFeedbackModal, hideDurationSelector }) => {
+  const [showCertificateModal, setShowCertificateModal] = useState(false);
+  const [testResults, setTestResults] = useState<{
+    wpm: number;
+    accuracy: number;
+    userName: string;
+    userId: string;
+  } | null>(null);
+
   const {
     // State
     passages,
@@ -69,6 +80,18 @@ const TypingEngine: React.FC<TypingEngineProps> = ({ config, backButton, hideFee
     handleCut,
     handleContextMenu,
   } = useTypingTest(config);
+
+  const handleCertificateClick = () => {
+    // Get user info from localStorage or context
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    setTestResults({
+      wpm: typingStats.netSpeed,
+      accuracy: typingStats.accuracy,
+      userName: user.name || 'User',
+      userId: user._id || 'anonymous'
+    });
+    setShowCertificateModal(true);
+  };
 
   const getFeedbackMessage = (wpm: number, accuracy: number) => {
     let message = '';
@@ -144,6 +167,7 @@ const TypingEngine: React.FC<TypingEngineProps> = ({ config, backButton, hideFee
                 <option value="Paper Typing">Paper Typing</option>
               </select>
             </div>
+            {!hideDurationSelector && (
             <div className="selector-group">
                 <label htmlFor="timer-duration" className="selector-label">
                   <FontAwesomeIcon icon={faClock} className="icon" /> Duration
@@ -160,6 +184,7 @@ const TypingEngine: React.FC<TypingEngineProps> = ({ config, backButton, hideFee
                 <option value={900}>15 min</option>
               </select>
             </div>
+            )}
             <div className={`timer ${timeLeft <= 30 ? 'low-time' : ''}`}>
                 <FontAwesomeIcon icon={faClock} className="icon" /> {formatTime(timeLeft)}
             </div>
@@ -222,6 +247,14 @@ const TypingEngine: React.FC<TypingEngineProps> = ({ config, backButton, hideFee
                 disabled={!isRunning}
               >
                 <FontAwesomeIcon icon={faCheck} className="icon" /> Submit
+              </button>
+            )}
+            {!isRunning && startTime && typingStats.netSpeed > 0 && (
+              <button
+                className="btn btn-certificate"
+                onClick={handleCertificateClick}
+              >
+                <FontAwesomeIcon icon={faCertificate} className="icon" /> Certificate
               </button>
             )}
             {backButton}
@@ -351,6 +384,12 @@ const TypingEngine: React.FC<TypingEngineProps> = ({ config, backButton, hideFee
           </div>
         </div>
       )}
+
+      <CertificateModal
+        isOpen={showCertificateModal}
+        onClose={() => setShowCertificateModal(false)}
+        testResults={testResults}
+      />
     </div>
   );
 };

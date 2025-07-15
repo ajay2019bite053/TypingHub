@@ -23,6 +23,7 @@ const deleteRequestRoutes = require('./routes/deleteRequestRoutes');
 const userRoutes = require('./routes/userRoutes');
 const liveExamsRoutes = require('./routes/liveExams');
 const cardRoutes = require('./routes/cardRoutes');
+const certificateRoutes = require('./routes/certificates');
 
 // Import middleware and utils
 const authMiddleware = require('./middleware/authMiddleware');
@@ -136,6 +137,7 @@ app.use('/api/delete-requests', deleteRequestRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/live-exams', liveExamsRoutes);
 app.use('/api/cards', cardRoutes);
+app.use('/api/certificates', certificateRoutes);
 
 // Error handling
 app.use(notFoundHandler);

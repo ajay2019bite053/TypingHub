@@ -370,7 +370,7 @@ const Home: React.FC = () => {
         <div className="course-ad-section">
           <h2><FontAwesomeIcon icon={faChalkboardTeacher} /> Enroll in Our Typing Course</h2>
           <p>Master typing with our comprehensive course designed specifically for government exam aspirants. Learn from experts and get personalized feedback.</p>
-          <Link to="/course" className="btn primary-btn">
+          <Link to="/typing-course" className="btn primary-btn">
             <FontAwesomeIcon icon={faUserPlus} />
             Enroll Now <FontAwesomeIcon icon={faArrowRight} />
           </Link>

@@ -66,6 +66,11 @@ const Header: React.FC = () => {
               <i className="fas fa-graduation-cap"></i>
               <span>Typing Course</span>
             </Link>
+
+            <Link to="/verify-certificate" title="Verify Certificate">
+              <i className="fas fa-certificate"></i>
+              <span>Verify Certificate</span>
+            </Link>
           </div>
         </nav>
       </header>

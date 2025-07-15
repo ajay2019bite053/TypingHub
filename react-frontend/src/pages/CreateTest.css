@@ -11,40 +11,34 @@
 
 .create-test-setup {
   min-height: 100vh;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  padding: 15px;
+  background: #fff;
+  padding: 0;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   font-family: 'Roboto Serif', serif;
 }
 
 .setup-container {
   background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
-  padding: 35px;
-  max-width: 1000px;
+  border-radius: 0;
+  box-shadow: none;
+  padding: 0 40px 40px 40px;
+  max-width: 1200px;
   width: 100%;
-  margin: 10px;
+  margin: 0;
   border: none;
   position: relative;
   overflow: hidden;
 }
 
 .setup-container::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 4px;
-  background: linear-gradient(90deg, #667eea, #764ba2);
+  display: none;
 }
 
 .setup-header {
   text-align: center;
-  margin-bottom: 25px;
+  margin-bottom: 30px;
   position: relative;
 }
 
@@ -176,21 +170,14 @@
 .custom-text-section {
   margin-bottom: 25px;
   padding: 25px;
-  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  background: #f8f9fa;
   border-radius: 10px;
   border: 1px solid #e0e0e0;
   position: relative;
 }
 
 .custom-text-section::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 4px;
-  height: 100%;
-  background: linear-gradient(180deg, #667eea, #764ba2);
-  border-radius: 2px 0 0 2px;
+  display: none;
   }
 
 .text-input-container {
@@ -253,42 +240,39 @@
 }
 
 .instructions-sidebar li::before {
-  content: '→';
+  content: '•';
   position: absolute;
   left: 0;
   color: #667eea;
   font-weight: bold;
-  font-size: 1rem;
+  font-size: 1.2rem;
 }
 
 .textarea-container {
   flex: 1;
-  position: relative;
 }
 
 .section-header {
   display: flex;
   align-items: center;
-  margin-bottom: 20px;
+  gap: 10px;
+  margin-bottom: 15px;
 }
 
 .section-header .icon {
-  color: #667eea;
   font-size: 1.5rem;
-  margin-right: 10px;
 }
 
 .section-header h3 {
   color: #2c3e50;
   font-size: 1.3rem;
   font-weight: 600;
-  font-family: 'Times New Roman', Times, serif;
+  font-family: 'Roboto Serif', serif;
 }
 
 .instructions ul {
   list-style: none;
   padding: 0;
-  margin-bottom: 20px;
 }
 
 .instructions li {
@@ -296,120 +280,115 @@
   margin-bottom: 8px;
   padding-left: 20px;
   position: relative;
-  font-family: 'Times New Roman', Times, serif;
+  font-family: 'Roboto Serif', serif;
 }
 
 .instructions li::before {
-  content: '•';
+  content: '✓';
   position: absolute;
   left: 0;
-  color: #667eea;
+  color: #27ae60;
   font-weight: bold;
 }
 
 .custom-textarea {
   width: 100%;
-  min-height: 180px;
-  max-height: 180px;
-  padding: 18px;
+  min-height: 200px;
+  padding: 15px;
   border: 2px solid #e0e0e0;
   border-radius: 8px;
   font-size: 14px;
-  font-family: 'Times New Roman', Times, serif;
-  resize: none;
-  transition: all 0.3s ease;
+  font-family: 'Roboto Serif', serif;
   line-height: 1.6;
+  resize: vertical;
+  transition: border-color 0.3s ease;
   background: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 .custom-textarea:focus {
   outline: none;
   border-color: #667eea;
   box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-  transform: translateY(-1px);
 }
 
 .custom-textarea::placeholder {
-  color: #95a5a6;
+  color: #bdc3c7;
   font-style: italic;
 }
 
 .text-info {
   display: flex;
   justify-content: space-between;
-  margin-top: 8px;
-  color: #7f8c8d;
+  margin-top: 10px;
   font-size: 0.85rem;
+  color: #7f8c8d;
   font-family: 'Roboto Serif', serif;
-  padding: 0 5px;
 }
 
 .text-info span {
   background: #f8f9fa;
   padding: 4px 8px;
   border-radius: 4px;
-  border: 1px solid #e9ecef;
-  font-weight: 500;
+  border: 1px solid #e0e0e0;
 }
 
 .passages-list {
-  display: grid;
-  gap: 15px;
+  margin-top: 20px;
 }
 
 .passage-item {
   background: #fff;
-  padding: 15px;
+  border: 1px solid #e0e0e0;
   border-radius: 8px;
-  border: 1px solid #e9ecef;
+  padding: 15px;
+  margin-bottom: 10px;
+  cursor: pointer;
   transition: all 0.3s ease;
 }
 
 .passage-item:hover {
   border-color: #667eea;
-  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.1);
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.15);
 }
 
 .passage-item h4 {
   color: #2c3e50;
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: 600;
-  margin-bottom: 8px;
-  font-family: 'Times New Roman', Times, serif;
+  margin-bottom: 5px;
+  font-family: 'Roboto Serif', serif;
 }
 
 .passage-item p {
   color: #7f8c8d;
   font-size: 0.9rem;
-  line-height: 1.5;
-  font-family: 'Times New Roman', Times, serif;
+  font-family: 'Roboto Serif', serif;
 }
 
 .more-passages {
   text-align: center;
   color: #667eea;
+  cursor: pointer;
   font-weight: 600;
-  font-family: 'Times New Roman', Times, serif;
+  font-family: 'Roboto Serif', serif;
 }
 
 .setup-actions {
   text-align: center;
-  margin-top: 20px;
+  margin-top: 30px;
 }
 
 .proceed-button {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: #fff;
+  color: white;
   border: none;
-  padding: 14px 35px;
+  padding: 15px 40px;
   border-radius: 8px;
   font-size: 1.1rem;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
   font-family: 'Roboto Serif', serif;
-  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
   position: relative;
   overflow: hidden;
 }
@@ -431,31 +410,30 @@
 
 .proceed-button:hover:not(:disabled) {
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+  box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
 }
 
 .proceed-button:disabled {
-  background: #bdc3c7;
+  opacity: 0.6;
   cursor: not-allowed;
   transform: none;
   box-shadow: none;
-  opacity: 0.7;
 }
 
 .create-test-page {
-  width: 100%;
-  font-family: 'Roboto Serif', serif;
+  min-height: 100vh;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
 }
 
-/* Responsive Design */
 @media (max-width: 768px) {
   .create-test-setup {
     padding: 10px;
   }
 
   .setup-container {
-    padding: 25px;
-    margin: 5px;
+    padding: 20px;
   }
 
   .setup-header h1 {
@@ -463,12 +441,11 @@
   }
 
   .custom-text-section {
-    padding: 20px;
+    padding: 15px;
   }
 
   .text-input-container {
     flex-direction: column;
-    gap: 15px;
   }
 
   .instructions-sidebar {
@@ -478,12 +455,11 @@
 
   .custom-textarea {
     min-height: 150px;
-    max-height: 150px;
   }
 
   .proceed-button {
-    width: 100%;
-    padding: 15px;
+    padding: 12px 30px;
+    font-size: 1rem;
   }
 }
 
@@ -493,11 +469,11 @@
   }
 
   .setup-container {
-    padding: 20px;
+    padding: 15px;
   }
 
   .setup-header h1 {
-    font-size: 1.6rem;
+    font-size: 1.5rem;
   }
 
   .instructions-sidebar h3 {
@@ -506,7 +482,6 @@
 
   .custom-textarea {
     min-height: 120px;
-    max-height: 120px;
-    padding: 15px;
+    font-size: 13px;
   }
 } 

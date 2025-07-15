@@ -305,6 +305,29 @@ select:focus {
   background: #388e3c;
 }
 
+.btn-certificate {
+  background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.btn-certificate:hover:not(:disabled) {
+  background: linear-gradient(135deg, #ee5a52, #d84315);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(238, 90, 82, 0.3);
+}
+
 /* Results section with improved styling */
 .result-section {
   flex: 1;
