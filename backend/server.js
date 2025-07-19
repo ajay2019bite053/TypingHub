@@ -24,7 +24,10 @@ const userRoutes = require('./routes/userRoutes');
 const liveExamsRoutes = require('./routes/liveExams');
 const cardRoutes = require('./routes/cardRoutes');
 const certificateRoutes = require('./routes/certificates');
+<<<<<<< HEAD
 const blogRoutes = require('./routes/blogs');
+=======
+>>>>>>> 152898b79f4d33325090133ecbbb60905ce6bd4e
 
 // Import middleware and utils
 const authMiddleware = require('./middleware/authMiddleware');
@@ -139,7 +142,10 @@ app.use('/api/users', userRoutes);
 app.use('/api/live-exams', liveExamsRoutes);
 app.use('/api/cards', cardRoutes);
 app.use('/api/certificates', certificateRoutes);
+<<<<<<< HEAD
 app.use('/api/blogs', blogRoutes);
+=======
+>>>>>>> 152898b79f4d33325090133ecbbb60905ce6bd4e
 
 // Error handling
 app.use(notFoundHandler);
