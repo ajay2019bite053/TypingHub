@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faWhatsapp, faTelegram, faInstagram, faTwitter, faYoutube } from '@fortawesome/free-brands-svg-icons';
+import { faUsers } from '@fortawesome/free-solid-svg-icons';
+import { Link } from 'react-router-dom';
 
 interface LiveExam {
   _id: string;
@@ -67,10 +71,15 @@ const LiveTypingTest: React.FC = () => {
             ))}
           </div>
           )}
-          <div className="exam-info-join" style={{ fontSize: 13, color: '#1a2a44', margin: '18px 0 6px 0', fontWeight: 500 }}>Join for more updates:</div>
-          <div className="exam-info-links" style={{ display: 'flex', flexDirection: 'row', gap: 10, justifyContent: 'center', marginBottom: 0 }}>
-            <a href="https://wa.me/919999999999" target="_blank" rel="noopener noreferrer" className="exam-info-link whatsapp" style={{ background: '#25D366', color: '#fff', borderRadius: 6, padding: '7px 12px', fontWeight: 600, textDecoration: 'none', fontSize: 13 }}>WhatsApp Group</a>
-            <a href="https://t.me/your_support_channel" target="_blank" rel="noopener noreferrer" className="exam-info-link telegram" style={{ background: '#229ED9', color: '#fff', borderRadius: 6, padding: '7px 12px', fontWeight: 600, textDecoration: 'none', fontSize: 13 }}>Telegram Group</a>
+          {/* Restore join for more updates text above the social icons */}
+          <div className="exam-info-join" style={{ fontSize: 13, color: '#1a2a44', margin: '18px 0 6px 0', fontWeight: 500, textAlign: 'center' }}>Join for more updates:</div>
+          <div className="exam-info-social-row" style={{ display: 'flex', flexDirection: 'row', gap: 18, justifyContent: 'center', margin: '0 0 6px 0' }}>
+            <a href="https://whatsapp.com/channel/0029VbB5BgZIHphQNvybGU3V/?hl=en" target="_blank" rel="noopener noreferrer" title="WhatsApp" style={{ color: '#25D366', fontSize: 26 }}><FontAwesomeIcon icon={faWhatsapp} /></a>
+            <a href="https://t.me/TypingHubOfficial" target="_blank" rel="noopener noreferrer" title="Telegram" style={{ color: '#229ED9', fontSize: 26 }}><FontAwesomeIcon icon={faTelegram} /></a>
+            <a href="https://www.instagram.com/typinghub.in/?hl=en" target="_blank" rel="noopener noreferrer" title="Instagram" style={{ color: '#E1306C', fontSize: 26 }}><FontAwesomeIcon icon={faInstagram} /></a>
+            <a href="https://x.com/typinghub?t=iMSzEgwq3aHVyKXyYtZ6NA&s=09" target="_blank" rel="noopener noreferrer" title="Twitter" style={{ color: '#1DA1F2', fontSize: 26 }}><FontAwesomeIcon icon={faTwitter} /></a>
+            <a href="https://www.youtube.com/@TypingHub-TypingPracticeforSSC" target="_blank" rel="noopener noreferrer" title="YouTube" style={{ color: '#FF0000', fontSize: 26 }}><FontAwesomeIcon icon={faYoutube} /></a>
+            <a href="/community" title="Community" style={{ color: '#1976d2', fontSize: 26, display: 'flex', alignItems: 'center' }} rel="noopener noreferrer"><FontAwesomeIcon icon={faUsers} /></a>
           </div>
         </div>
       </div>

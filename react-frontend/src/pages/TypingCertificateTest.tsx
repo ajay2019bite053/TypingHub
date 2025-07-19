@@ -12,7 +12,7 @@ const TypingCertificateTest = () => {
     }
   };
 
-  return <TypingEngine config={config} />;
+  return <TypingEngine config={config} hideDurationSelector={true} />;
 };
 
 export default TypingCertificateTest; 

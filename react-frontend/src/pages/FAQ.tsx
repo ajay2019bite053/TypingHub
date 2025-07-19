@@ -55,7 +55,7 @@ const FAQ: React.FC = () => {
   }, []);
 
   return (
-    <main className="main-content">
+    <main className="main-content faq-page">
       <Helmet>
         <title>FAQs - TypingHub.in ❓</title>
         <meta name="description" content="Find answers to frequently asked questions about TypingHub.in's typing tests and courses." />
@@ -70,9 +70,9 @@ const FAQ: React.FC = () => {
         </div>
       </div>
 
-      <div className="faq-content">
-        <aside className="faq-nav">
-          <div className="faq-nav-list">
+      <div className="faq-modern-content">
+        <aside className="faq-modern-sidebar">
+          <div className="faq-modern-sidebar-card">
             <h2>Contents</h2>
             <ul>
               <li><a href="#general" className="active">General Questions</a></li>
@@ -87,8 +87,8 @@ const FAQ: React.FC = () => {
           </div>
         </aside>
 
-        <div className="faq-sections">
-          <section id="general" className="faq-section">
+        <div className="faq-modern-sections">
+          <section id="general" className="faq-modern-section modern-panel-card">
             <h2>General Questions</h2>
             <div className="faq-item">
               <div className="faq-question">
@@ -144,7 +144,7 @@ const FAQ: React.FC = () => {
             </div>
           </section>
 
-          <section id="tests" className="faq-section">
+          <section id="tests" className="faq-modern-section modern-panel-card">
             <h2>Typing Tests</h2>
             <div className="faq-item">
               <div className="faq-question">
@@ -198,7 +198,7 @@ const FAQ: React.FC = () => {
             </div>
           </section>
 
-          <section id="courses" className="faq-section">
+          <section id="courses" className="faq-modern-section modern-panel-card">
             <h2>Typing Courses</h2>
             <div className="faq-item">
               <div className="faq-question">
@@ -238,7 +238,7 @@ const FAQ: React.FC = () => {
             </div>
           </section>
 
-          <section id="certificates" className="faq-section">
+          <section id="certificates" className="faq-modern-section modern-panel-card">
             <h2>Certificates</h2>
             <div className="faq-item">
               <div className="faq-question">
@@ -271,7 +271,7 @@ const FAQ: React.FC = () => {
             </div>
           </section>
 
-          <section id="account" className="faq-section">
+          <section id="account" className="faq-modern-section modern-panel-card">
             <h2>Account & Profile</h2>
             <div className="faq-item">
               <div className="faq-question">
@@ -310,7 +310,7 @@ const FAQ: React.FC = () => {
             </div>
           </section>
 
-          <section id="technical" className="faq-section">
+          <section id="technical" className="faq-modern-section modern-panel-card">
             <h2>Technical Issues</h2>
             <div className="faq-item">
               <div className="faq-question">
@@ -353,7 +353,7 @@ const FAQ: React.FC = () => {
             </div>
           </section>
 
-          <section id="payment" className="faq-section">
+          <section id="payment" className="faq-modern-section modern-panel-card">
             <h2>Payment & Billing</h2>
             <div className="faq-item">
               <div className="faq-question">
@@ -392,7 +392,7 @@ const FAQ: React.FC = () => {
             </div>
           </section>
 
-          <section id="support" className="faq-section">
+          <section id="support" className="faq-modern-section modern-panel-card">
             <h2>Support & Help</h2>
             <div className="faq-item">
               <div className="faq-question">

@@ -9,6 +9,7 @@ import { AuthProvider } from './contexts/AuthContext';
 import { DeleteRequestProvider } from './contexts/DeleteRequestContext';
 import { TypingProvider } from './contexts/TypingContext';
 import ReactDOM, { createPortal } from 'react-dom';
+import Community from './pages/Community';
 
 // Lazy load all pages
 const Home = lazy(() => import('./pages/Home'));
@@ -40,6 +41,7 @@ const BiharPoliceTest = lazy(() => import('./pages/BiharPoliceTest'));
 const AIIMSCRCTest = lazy(() => import('./pages/AIIMSCRCTest'));
 const AllahabadHighCourtTest = lazy(() => import('./pages/AllahabadHighCourtTest'));
 const LiveExamTest = lazy(() => import('./pages/LiveExamTest'));
+const CertificateVerification = lazy(() => import('./pages/CertificateVerification'));
 
 // Admin Components
 const AdminLoginPage = lazy(() => import('./admin/components/Login/LoginPage'));
@@ -188,6 +190,8 @@ const App = () => {
                         <Route path="/aiims-crc-test" element={<AIIMSCRCTest />} />
                         <Route path="/allahabad-high-court-test" element={<AllahabadHighCourtTest />} />
                         <Route path="/live-exam/:id" element={<LiveExamTest />} />
+                        <Route path="/verify-certificate" element={<CertificateVerification />} />
+                        <Route path="/community" element={<Community />} />
 
                         {/* Admin Routes */}
                         <Route path="/admin-secret-9382xj" element={

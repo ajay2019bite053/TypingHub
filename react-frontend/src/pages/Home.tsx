@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React, { memo, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -57,54 +57,73 @@ const HeroSection = memo(() => (
       </section>
 ));
 
-const PanelItem = memo(({ icon, title, description, link, linkText }: {
+// Panel Items: Add gradient backgrounds, scale/shadow on hover, and a 'New' badge for the first card.
+const cardAccents = [
+  '#1976d2', // Typing Test
+  '#43a047', // Exam Wise Test
+  '#fbc02d', // Advance Mode
+  '#8e24aa'  // Typing Course
+];
+const PanelItem = memo(({ icon, title, description, link, linkText, isNew, accentColor }: {
   icon: any;
   title: string;
   description: string;
   link: string;
   linkText: string;
-}) => (
-        <div className="panel-item">
-    <h3>
-      <FontAwesomeIcon icon={icon} />
-      {title}
-          </h3>
-    <p>{description}</p>
-    <Link to={link} className="panel-btn">
-            <FontAwesomeIcon icon={faArrowRight} />
+  isNew?: boolean;
+  accentColor: string;
+}) => {
+  let btnIcon = faKeyboard;
+  if (title === 'Exam Wise Test') btnIcon = faFileAlt;
+  else if (title === 'Advance Mode') btnIcon = faPenToSquare;
+  else if (title === 'Typing Course') btnIcon = faChalkboardTeacher;
+  return (
+    <div className="modern-panel-card" style={{ borderTop: `5px solid ${accentColor}` }}>
+      <div className="modern-panel-icon-wrapper" style={{ background: accentColor }}>
+        <FontAwesomeIcon icon={icon} className="modern-panel-icon" />
+      </div>
+      <h3 className="modern-panel-title">{title}</h3>
+      <p className="modern-panel-desc">{description}</p>
+      <Link to={link} className="modern-panel-btn" style={{ background: accentColor }}>
+        <FontAwesomeIcon icon={btnIcon} />
       {linkText}
           </Link>
         </div>
-));
+  );
+});
 
+// List Sections: Add fade-in animation
 const ListSection = memo(({ title, description, items }: {
   title: string;
   description: string;
   items: string[];
 }) => (
-      <div className="list-section">
+  <div className="list-section upgraded-list-section">
     <h2>{title}</h2>
     <p>{description}</p>
     <ul>
       {items.map((item, index) => (
-        <li key={index}>{item}</li>
+        <li key={index} className="list-fade-in"><FontAwesomeIcon icon={faCheckCircle} /> {item}</li>
       ))}
         </ul>
       </div>
 ));
 
+// Features Grid: Add accent bar and elevation
 const FeatureCard = memo(({ icon, title, description }: {
   icon: any;
   title: string;
   description: string;
 }) => (
-  <div className="feature-card">
+  <div className="feature-card upgraded-feature-card">
+    <div className="feature-accent-bar"></div>
     <FontAwesomeIcon icon={icon} className="feature-icon" />
     <h3 className="feature-title">{title}</h3>
     <p className="feature-description">{description}</p>
   </div>
 ));
 
+// Testimonials: Add quote icon, rounded avatar, fade-in
 const TestimonialCard = memo(({ id, name, role, image, text }: {
   id: number;
   name: string;
@@ -112,8 +131,9 @@ const TestimonialCard = memo(({ id, name, role, image, text }: {
   image: string;
   text: string;
 }) => (
-  <div className="testimonial-card">
-    <div className="testimonial-image">
+  <div className="testimonial-card upgraded-testimonial-card">
+    <div className="testimonial-quote-icon"><FontAwesomeIcon icon={faStar} /></div>
+    <div className="testimonial-image upgraded-avatar">
       <img src={image} alt={name} />
     </div>
     <div className="testimonial-content">
@@ -124,17 +144,26 @@ const TestimonialCard = memo(({ id, name, role, image, text }: {
   </div>
 ));
 
+// Achievements: Animated counters, icon glow
 const AchievementCard = memo(({ icon, number, text }: {
   icon: any;
   number: string;
   text: string;
-}) => (
-  <div className="achievement-card">
-    <FontAwesomeIcon icon={icon} className="achievement-icon" />
-    <div className="achievement-number">{number}</div>
+}) => {
+  const ref = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (ref.current) {
+      ref.current.classList.add('animate-counter');
+    }
+  }, []);
+  return (
+    <div className="achievement-card upgraded-achievement-card">
+      <FontAwesomeIcon icon={icon} className="achievement-icon icon-glow" />
+      <div className="achievement-number" ref={ref}>{number}</div>
     <div className="achievement-text">{text}</div>
   </div>
-));
+  );
+});
 
 const Home: React.FC = () => {
   // SEO data
@@ -301,23 +330,12 @@ const Home: React.FC = () => {
       <HeroSection />
 
       {/* Modern Dashboard-style Course Cards */}
-      <div className="user-dashboard-courses-modern four-col-layout" style={{ margin: '40px auto 0 auto', maxWidth: 1400 }}>
+      <div
+        className="user-dashboard-courses-modern four-col-layout dashboard-cards-spacing"
+        style={{ margin: '60px auto 60px auto', maxWidth: 1400 }}
+      >
         {panelItems.map((item, idx) => (
-          <div className="course-card-modern not-enrolled" key={item.title}>
-            <div className="course-icon-modern">
-              <FontAwesomeIcon icon={item.icon} />
-            </div>
-            <div className="course-content-modern">
-              <h3>{item.title}</h3>
-              <p>{item.description}</p>
-              <div className="course-bottom-row">
-                <Link to={item.link} className="course-action-btn-modern primary" style={{ width: '100%', textAlign: 'center' }}>
-                  {item.linkText}
-                  <FontAwesomeIcon icon={faArrowRight} style={{ marginLeft: 8 }} />
-                </Link>
-              </div>
-            </div>
-          </div>
+          <PanelItem key={item.title} {...item} isNew={idx === 0} accentColor={cardAccents[idx % cardAccents.length]} />
         ))}
       </div>
 
@@ -330,20 +348,6 @@ const Home: React.FC = () => {
       {listSections.map((section, index) => (
         <ListSection key={index} {...section} />
       ))}
-
-      <section className="testimonials">
-        <div className="testimonials-container">
-          <h2 style={{ textAlign: 'center', marginBottom: '30px' }}>
-            <FontAwesomeIcon icon={faStar} style={{ color: '#1976d2', marginRight: '10px' }} />
-            Success Stories
-          </h2>
-          <div className="testimonial-grid">
-            {testimonials.map((testimonial, index) => (
-              <TestimonialCard key={index} {...testimonial} />
-            ))}
-          </div>
-        </div>
-      </section>
 
       <section className="achievements">
         <h2 style={{ textAlign: 'center', marginBottom: '30px' }}>
@@ -370,7 +374,7 @@ const Home: React.FC = () => {
         <div className="course-ad-section">
           <h2><FontAwesomeIcon icon={faChalkboardTeacher} /> Enroll in Our Typing Course</h2>
           <p>Master typing with our comprehensive course designed specifically for government exam aspirants. Learn from experts and get personalized feedback.</p>
-          <Link to="/course" className="btn primary-btn">
+          <Link to="/typing-course" className="btn primary-btn">
             <FontAwesomeIcon icon={faUserPlus} />
             Enroll Now <FontAwesomeIcon icon={faArrowRight} />
           </Link>
@@ -382,7 +386,7 @@ const Home: React.FC = () => {
         <div className="resources-container">
           <h2 className="section-title">Practice Resources</h2>
           <div className="resources-grid">
-            <div className="resource-card">
+            <div className="resource-card upgraded-resource-card">
               <div className="resource-icon">
                 <FontAwesomeIcon icon={faBook} />
               </div>
@@ -396,7 +400,7 @@ const Home: React.FC = () => {
                 </ul>
               </div>
             </div>
-            <div className="resource-card">
+            <div className="resource-card upgraded-resource-card">
               <div className="resource-icon">
                 <FontAwesomeIcon icon={faLaptop} />
               </div>
@@ -418,7 +422,7 @@ const Home: React.FC = () => {
       <section className="exam-categories">
         <h2 className="section-title">Popular Exam Categories</h2>
         <div className="category-grid">
-          <div className="category-card">
+          <div className="category-card upgraded-category-card">
             <div className="category-icon">
               <FontAwesomeIcon icon={faFileAlt} />
             </div>
@@ -426,7 +430,7 @@ const Home: React.FC = () => {
             <p className="category-stats">5000+ Students Enrolled</p>
             <Link to="/ssc-chsl-test" className="primary-button">Practice Now</Link>
           </div>
-          <div className="category-card">
+          <div className="category-card upgraded-category-card">
             <div className="category-icon">
               <FontAwesomeIcon icon={faFileAlt} />
             </div>
@@ -434,7 +438,7 @@ const Home: React.FC = () => {
             <p className="category-stats">4500+ Students Enrolled</p>
             <Link to="/ssc-cgl-test" className="primary-button">Practice Now</Link>
           </div>
-          <div className="category-card">
+          <div className="category-card upgraded-category-card">
             <div className="category-icon">
               <FontAwesomeIcon icon={faFileAlt} />
             </div>
@@ -442,7 +446,7 @@ const Home: React.FC = () => {
             <p className="category-stats">3800+ Students Enrolled</p>
             <Link to="/rrb-ntpc-test" className="primary-button">Practice Now</Link>
           </div>
-          <div className="category-card">
+          <div className="category-card upgraded-category-card">
             <div className="category-icon">
               <FontAwesomeIcon icon={faFileAlt} />
             </div>

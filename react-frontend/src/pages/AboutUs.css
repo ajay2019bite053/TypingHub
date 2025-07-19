@@ -1,22 +1,28 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Serif:wght@300;400;500;600;700&display=swap');
 
+/* Remove global box-sizing reset to avoid affecting other pages */
+/*
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
+*/
 
-body {
-  font-family: 'Times New Roman', Times, serif;
-  background: #f5f5f5;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  overflow-x: hidden;
-  line-height: 1.6;
+/* Remove or comment out all global selectors that affect header, footer, or other pages */
+/*
+body, section, h1, h2, h3, nav, .main-content, .container {
+  ...
+}
+*/
+
+.about-us-page {
+  /* Optionally, set a base font and background for About Us only */
+  font-family: 'Roboto Serif', serif;
+  background: #fff;
 }
 
-.main-content {
+.about-us-page .main-content {
   flex: 1;
   padding: 0;
   background: #fff;
@@ -24,7 +30,7 @@ body {
   flex-direction: column;
 }
 
-.container {
+.about-us-page .container {
   width: 100vw;
   max-width: none;
   margin: 0;
@@ -33,7 +39,7 @@ body {
   flex-direction: column;
 }
 
-.panel {
+.about-us-page .panel {
   background: #fff;
   padding: 0;
   min-height: 100vh;
@@ -43,7 +49,7 @@ body {
   flex: 1;
 }
 
-nav {
+.about-us-page nav {
   background: #fff;
   padding: 15px 20px;
   display: flex;
@@ -56,18 +62,18 @@ nav {
   width: 100%;
 }
 
-.nav-brand {
+.about-us-page .nav-brand {
   display: flex;
   align-items: center;
   gap: 10px;
 }
 
-.nav-brand img {
+.about-us-page .nav-brand img {
   width: 70px;
   height: auto;
 }
 
-.nav-brand a {
+.about-us-page .nav-brand a {
   font-family: 'Roboto Serif', serif;
   font-size: 22px;
   font-weight: 700;
@@ -76,16 +82,18 @@ nav {
   transition: color 0.3s;
 }
 
-.nav-brand a:hover {
+.about-us-page .nav-brand a:hover {
   color: #40c4ff;
 }
 
-.nav-links {
+.about-us-page .nav-links {
   display: flex;
   gap: 10px;
   align-items: center;
 }
 
+/* Conflicting nav header font rules removed below: */
+/*
 .nav-links a, .nav-links .dropbtn {
   color: #333;
   text-decoration: none;
@@ -96,24 +104,34 @@ nav {
   transition: background-color 0.3s;
   font-family: 'Times New Roman', Times, serif;
 }
+.dropdown-content a {
+  color: #333;
+  padding: 10px 0;
+  text-decoration: none;
+  display: block;
+  font-size: 14px;
+  font-family: 'Times New Roman', Times, serif;
+  text-align: center;
+}
+*/
 
-.nav-links a:hover, .nav-links .dropbtn:hover {
+.about-us-page .nav-links a:hover, .about-us-page .nav-links .dropbtn:hover {
   background-color: #FFFF00;
   color: #000;
 }
 
-.nav-links a.active {
+.about-us-page .nav-links a.active {
   background-color: #1976d2;
   color: #fff;
 }
 
-.dropdown {
+.about-us-page .dropdown {
   position: relative;
   display: inline-flex;
   align-items: center;
 }
 
-.dropdown-content {
+.about-us-page .dropdown-content {
   display: none;
   position: absolute;
   background: #fff;
@@ -127,33 +145,33 @@ nav {
   padding: 5px 0;
 }
 
-.dropdown-content a {
+.about-us-page .dropdown-content a {
   color: #333;
   padding: 10px 0;
   text-decoration: none;
   display: block;
   font-size: 14px;
-  font-family: 'Times New Roman', Times, serif;
+  font-family: 'Roboto Serif', serif;
   text-align: center;
 }
 
-.dropdown-content a:hover {
+.about-us-page .dropdown-content a:hover {
   background-color: #FFFF00;
   color: #000;
 }
 
-.dropdown:hover .dropdown-content {
+.about-us-page .dropdown:hover .dropdown-content {
   display: block;
 }
 
-.hamburger {
+.about-us-page .hamburger {
   display: none;
   font-size: 24px;
   cursor: pointer;
   color: #333;
 }
 
-.about-hero-section {
+.about-us-page .about-hero-section {
   background: linear-gradient(135deg, #e3f2fd, #bbdefb);
   padding: 60px 0;
   text-align: center;
@@ -168,7 +186,7 @@ nav {
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 
-.about-hero-section::before {
+.about-us-page .about-hero-section::before {
   content: '';
   position: absolute;
   top: 0;
@@ -178,15 +196,15 @@ nav {
   background: linear-gradient(90deg, #4CAF50, #f44336, #2196F3);
 }
 
-.about-hero-content {
-  max-width: 800px;
+.about-us-page .about-hero-content {
+  max-width: 1200px;
   margin: 0 auto;
   padding: 0 20px;
   position: relative;
   z-index: 1;
 }
 
-.about-hero-content h1 {
+.about-us-page .about-hero-content h1 {
   font-family: 'Roboto Serif', serif;
   font-size: 36px;
   font-weight: 700;
@@ -195,7 +213,7 @@ nav {
   line-height: 1.2;
 }
 
-.about-hero-content p {
+.about-us-page .about-hero-content p {
   font-size: 18px;
   color: #555;
   margin-bottom: 20px;
@@ -205,20 +223,20 @@ nav {
   margin-right: auto;
 }
 
-.about-content {
+.about-us-page .about-content {
   max-width: 1200px;
   margin: 0 auto;
   padding: 40px 20px;
 }
 
-.mission-vision {
+.about-us-page .mission-vision {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 30px;
   margin-bottom: 60px;
 }
 
-.mission, .vision {
+.about-us-page .mission, .about-us-page .vision {
   background: #fff;
   padding: 30px;
   border-radius: 10px;
@@ -226,11 +244,11 @@ nav {
   transition: transform 0.3s ease;
 }
 
-.mission:hover, .vision:hover {
+.about-us-page .mission:hover, .about-us-page .vision:hover {
   transform: translateY(-5px);
 }
 
-.mission h2, .vision h2 {
+.about-us-page .mission h2, .about-us-page .vision h2 {
   font-family: 'Roboto Serif', serif;
   font-size: 24px;
   color: #1a2a44;
@@ -240,36 +258,36 @@ nav {
   gap: 10px;
 }
 
-.mission h2 svg, .vision h2 svg {
+.about-us-page .mission h2 svg, .about-us-page .vision h2 svg {
   color: #1976d2;
 }
 
-.mission p, .vision p {
+.about-us-page .mission p, .about-us-page .vision p {
   font-size: 16px;
   color: #555;
   line-height: 1.8;
 }
 
 /* Achievements Section */
-.achievements {
+.about-us-page .achievements {
   margin-bottom: 60px;
   text-align: center;
 }
 
-.achievements h2 {
+.about-us-page .achievements h2 {
   font-family: 'Roboto Serif', serif;
   font-size: 32px;
   color: #1a2a44;
   margin-bottom: 40px;
 }
 
-.achievements-grid {
+.about-us-page .achievements-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 30px;
 }
 
-.achievement-card {
+.about-us-page .achievement-card {
   background: #fff;
   padding: 30px;
   border-radius: 10px;
@@ -277,11 +295,11 @@ nav {
   transition: transform 0.3s ease;
 }
 
-.achievement-card:hover {
+.about-us-page .achievement-card:hover {
   transform: translateY(-5px);
 }
 
-.achievement-number {
+.about-us-page .achievement-number {
   font-family: 'Roboto Serif', serif;
   font-size: 36px;
   font-weight: 700;
@@ -289,31 +307,31 @@ nav {
   margin-bottom: 10px;
 }
 
-.achievement-card p {
+.about-us-page .achievement-card p {
   font-size: 16px;
   color: #555;
 }
 
 /* Features Section */
-.features {
+.about-us-page .features {
   margin-bottom: 60px;
   text-align: center;
 }
 
-.features h2 {
+.about-us-page .features h2 {
   font-family: 'Roboto Serif', serif;
   font-size: 32px;
   color: #1a2a44;
   margin-bottom: 40px;
 }
 
-.features-grid {
+.about-us-page .features-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 30px;
 }
 
-.feature-card {
+.about-us-page .feature-card {
   background: #fff;
   padding: 30px;
   border-radius: 10px;
@@ -321,50 +339,50 @@ nav {
   transition: transform 0.3s ease;
 }
 
-.feature-card:hover {
+.about-us-page .feature-card:hover {
   transform: translateY(-5px);
 }
 
-.feature-card svg {
+.about-us-page .feature-card svg {
   font-size: 36px;
   color: #1976d2;
   margin-bottom: 20px;
 }
 
-.feature-card h3 {
+.about-us-page .feature-card h3 {
   font-family: 'Roboto Serif', serif;
   font-size: 20px;
   color: #1a2a44;
   margin-bottom: 15px;
 }
 
-.feature-card p {
+.about-us-page .feature-card p {
   font-size: 16px;
   color: #555;
   line-height: 1.6;
 }
 
 /* Journey Section */
-.journey {
+.about-us-page .journey {
   margin-bottom: 60px;
   text-align: center;
 }
 
-.journey h2 {
+.about-us-page .journey h2 {
   font-family: 'Roboto Serif', serif;
   font-size: 32px;
   color: #1a2a44;
   margin-bottom: 40px;
 }
 
-.timeline {
+.about-us-page .timeline {
   position: relative;
   max-width: 800px;
   margin: 0 auto;
   padding: 20px 0;
 }
 
-.timeline::before {
+.about-us-page .timeline::before {
   content: '';
   position: absolute;
   top: 0;
@@ -375,20 +393,20 @@ nav {
   transform: translateX(-50%);
 }
 
-.timeline-item {
+.about-us-page .timeline-item {
   position: relative;
   margin-bottom: 40px;
   width: 50%;
   padding-right: 40px;
 }
 
-.timeline-item:nth-child(even) {
+.about-us-page .timeline-item:nth-child(even) {
   margin-left: 50%;
   padding-right: 0;
   padding-left: 40px;
 }
 
-.timeline-dot {
+.about-us-page .timeline-dot {
   position: absolute;
   right: -9px;
   top: 0;
@@ -400,12 +418,12 @@ nav {
   box-shadow: 0 0 0 3px #1976d2;
 }
 
-.timeline-item:nth-child(even) .timeline-dot {
+.about-us-page .timeline-item:nth-child(even) .timeline-dot {
   right: auto;
   left: -11px;
 }
 
-.timeline-content {
+.about-us-page .timeline-content {
   background: #fff;
   padding: 20px;
   border-radius: 10px;
@@ -413,42 +431,42 @@ nav {
   transition: transform 0.3s ease;
 }
 
-.timeline-content:hover {
+.about-us-page .timeline-content:hover {
   transform: translateY(-5px);
 }
 
-.timeline-content h3 {
+.about-us-page .timeline-content h3 {
   font-family: 'Roboto Serif', serif;
   font-size: 20px;
   color: #1976d2;
   margin-bottom: 10px;
 }
 
-.timeline-content p {
+.about-us-page .timeline-content p {
   font-size: 16px;
   color: #555;
 }
 
 /* Testimonials Section */
-.testimonials {
+.about-us-page .testimonials {
   margin-bottom: 60px;
   text-align: center;
 }
 
-.testimonials h2 {
+.about-us-page .testimonials h2 {
   font-family: 'Roboto Serif', serif;
   font-size: 32px;
   color: #1a2a44;
   margin-bottom: 40px;
 }
 
-.testimonials-grid {
+.about-us-page .testimonials-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 30px;
 }
 
-.testimonial-card {
+.about-us-page .testimonial-card {
   background: #fff;
   padding: 30px;
   border-radius: 10px;
@@ -457,18 +475,18 @@ nav {
   transition: transform 0.3s ease;
 }
 
-.testimonial-card:hover {
+.about-us-page .testimonial-card:hover {
   transform: translateY(-5px);
 }
 
-.quote-icon {
+.about-us-page .quote-icon {
   color: #1976d2;
   font-size: 24px;
   margin-bottom: 20px;
   opacity: 0.5;
 }
 
-.testimonial-card > p {
+.about-us-page .testimonial-card > p {
   font-size: 16px;
   color: #555;
   line-height: 1.8;
@@ -476,51 +494,51 @@ nav {
   font-style: italic;
 }
 
-.testimonial-author {
+.about-us-page .testimonial-author {
   display: flex;
   align-items: center;
   gap: 15px;
 }
 
-.testimonial-author img {
+.about-us-page .testimonial-author img {
   width: 60px;
   height: 60px;
   border-radius: 50%;
   object-fit: cover;
 }
 
-.testimonial-author h4 {
+.about-us-page .testimonial-author h4 {
   font-family: 'Roboto Serif', serif;
   font-size: 18px;
   color: #1a2a44;
   margin-bottom: 5px;
 }
 
-.testimonial-author p {
+.about-us-page .testimonial-author p {
   font-size: 14px;
   color: #1976d2;
 }
 
 /* Team Section */
-.team {
+.about-us-page .team {
   margin-bottom: 60px;
   text-align: center;
 }
 
-.team h2 {
+.about-us-page .team h2 {
   font-family: 'Roboto Serif', serif;
   font-size: 32px;
   color: #1a2a44;
   margin-bottom: 40px;
 }
 
-.team-grid {
+.about-us-page .team-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 30px;
 }
 
-.team-member {
+.about-us-page .team-member {
   background: #fff;
   border-radius: 10px;
   overflow: hidden;
@@ -528,23 +546,23 @@ nav {
   transition: transform 0.3s ease;
 }
 
-.team-member:hover {
+.about-us-page .team-member:hover {
   transform: translateY(-5px);
 }
 
-.member-image {
+.about-us-page .member-image {
   position: relative;
   overflow: hidden;
 }
 
-.team-member img {
+.about-us-page .team-member img {
   width: 100%;
   height: 250px;
   object-fit: cover;
   transition: transform 0.3s ease;
 }
 
-.member-overlay {
+.about-us-page .member-overlay {
   position: absolute;
   top: 0;
   left: 0;
@@ -558,15 +576,15 @@ nav {
   transition: opacity 0.3s ease;
 }
 
-.team-member:hover .member-overlay {
+.about-us-page .team-member:hover .member-overlay {
   opacity: 1;
 }
 
-.team-member:hover img {
+.about-us-page .team-member:hover img {
   transform: scale(1.1);
 }
 
-.team-member h3 {
+.about-us-page .team-member h3 {
   font-family: 'Roboto Serif', serif;
   font-size: 20px;
   color: #1a2a44;
@@ -574,30 +592,30 @@ nav {
   padding: 0 20px;
 }
 
-.team-member p {
+.about-us-page .team-member p {
   font-size: 16px;
   color: #555;
   margin-bottom: 20px;
 }
 
-.social-links {
+.about-us-page .social-links {
   display: flex;
   gap: 15px;
   justify-content: center;
 }
 
-.social-links a {
+.about-us-page .social-links a {
   color: #fff;
   font-size: 20px;
   transition: transform 0.3s ease;
 }
 
-.social-links a:hover {
+.about-us-page .social-links a:hover {
   transform: scale(1.2);
 }
 
 /* CTA Section */
-.cta-section {
+.about-us-page .cta-section {
   text-align: center;
   padding: 60px 20px;
   background: #e3f2fd;
@@ -605,14 +623,14 @@ nav {
   margin-bottom: 40px;
 }
 
-.cta-section h2 {
+.about-us-page .cta-section h2 {
   font-family: 'Roboto Serif', serif;
   font-size: 32px;
   color: #1a2a44;
   margin-bottom: 20px;
 }
 
-.cta-section p {
+.about-us-page .cta-section p {
   font-size: 18px;
   color: #555;
   margin-bottom: 30px;
@@ -621,13 +639,13 @@ nav {
   margin-right: auto;
 }
 
-.cta-buttons {
+.about-us-page .cta-buttons {
   display: flex;
   gap: 20px;
   justify-content: center;
 }
 
-.cta-button {
+.about-us-page .cta-button {
   display: inline-flex;
   align-items: center;
   gap: 10px;
@@ -640,41 +658,41 @@ nav {
   transition: transform 0.3s ease;
 }
 
-.cta-button:hover {
+.about-us-page .cta-button:hover {
   transform: translateY(-3px);
 }
 
-.cta-button.primary {
+.about-us-page .cta-button.primary {
   background: #1976d2;
   color: #fff;
 }
 
-.cta-button.secondary {
+.about-us-page .cta-button.secondary {
   background: #fff;
   color: #1976d2;
   border: 2px solid #1976d2;
 }
 
 /* Language Support Section */
-.language-support {
+.about-us-page .language-support {
   margin-bottom: 60px;
   text-align: center;
 }
 
-.language-support h2 {
+.about-us-page .language-support h2 {
   font-family: 'Roboto Serif', serif;
   font-size: 32px;
   color: #1a2a44;
   margin-bottom: 40px;
 }
 
-.language-grid {
+.about-us-page .language-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 30px;
 }
 
-.language-card {
+.about-us-page .language-card {
   background: #fff;
   padding: 30px;
   border-radius: 10px;
@@ -682,30 +700,30 @@ nav {
   transition: transform 0.3s ease;
 }
 
-.language-card:hover {
+.about-us-page .language-card:hover {
   transform: translateY(-5px);
 }
 
-.language-card svg {
+.about-us-page .language-card svg {
   font-size: 36px;
   color: #1976d2;
   margin-bottom: 20px;
 }
 
-.language-card h3 {
+.about-us-page .language-card h3 {
   font-family: 'Roboto Serif', serif;
   font-size: 24px;
   color: #1a2a44;
   margin-bottom: 20px;
 }
 
-.language-card ul {
+.about-us-page .language-card ul {
   list-style: none;
   padding: 0;
   text-align: left;
 }
 
-.language-card li {
+.about-us-page .language-card li {
   display: flex;
   align-items: center;
   gap: 10px;
@@ -714,31 +732,31 @@ nav {
   color: #555;
 }
 
-.language-card li svg {
+.about-us-page .language-card li svg {
   font-size: 18px;
   margin-bottom: 0;
 }
 
 /* Exam Coverage Section */
-.exam-coverage {
+.about-us-page .exam-coverage {
   margin-bottom: 60px;
   text-align: center;
 }
 
-.exam-coverage h2 {
+.about-us-page .exam-coverage h2 {
   font-family: 'Roboto Serif', serif;
   font-size: 32px;
   color: #1a2a44;
   margin-bottom: 40px;
 }
 
-.exam-grid {
+.about-us-page .exam-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 30px;
 }
 
-.exam-card {
+.about-us-page .exam-card {
   background: #fff;
   padding: 30px;
   border-radius: 10px;
@@ -746,30 +764,30 @@ nav {
   transition: transform 0.3s ease;
 }
 
-.exam-card:hover {
+.about-us-page .exam-card:hover {
   transform: translateY(-5px);
 }
 
-.exam-card svg {
+.about-us-page .exam-card svg {
   font-size: 36px;
   color: #1976d2;
   margin-bottom: 20px;
 }
 
-.exam-card h3 {
+.about-us-page .exam-card h3 {
   font-family: 'Roboto Serif', serif;
   font-size: 20px;
   color: #1a2a44;
   margin-bottom: 20px;
 }
 
-.exam-card ul {
+.about-us-page .exam-card ul {
   list-style: none;
   padding: 0;
   text-align: left;
 }
 
-.exam-card li {
+.about-us-page .exam-card li {
   margin-bottom: 10px;
   font-size: 16px;
   color: #555;
@@ -777,7 +795,7 @@ nav {
   position: relative;
 }
 
-.exam-card li::before {
+.about-us-page .exam-card li::before {
   content: '•';
   position: absolute;
   left: 0;
@@ -785,25 +803,25 @@ nav {
 }
 
 /* Recognition Section */
-.recognition {
+.about-us-page .recognition {
   margin-bottom: 60px;
   text-align: center;
 }
 
-.recognition h2 {
+.about-us-page .recognition h2 {
   font-family: 'Roboto Serif', serif;
   font-size: 32px;
   color: #1a2a44;
   margin-bottom: 40px;
 }
 
-.recognition-grid {
+.about-us-page .recognition-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 30px;
 }
 
-.recognition-card {
+.about-us-page .recognition-card {
   background: #fff;
   padding: 30px;
   border-radius: 10px;
@@ -811,142 +829,1394 @@ nav {
   transition: transform 0.3s ease;
 }
 
-.recognition-card:hover {
+.about-us-page .recognition-card:hover {
   transform: translateY(-5px);
 }
 
-.recognition-card svg {
+.about-us-page .recognition-card svg {
   font-size: 36px;
   color: #1976d2;
   margin-bottom: 20px;
 }
 
-.recognition-card h3 {
+.about-us-page .recognition-card h3 {
   font-family: 'Roboto Serif', serif;
   font-size: 20px;
   color: #1a2a44;
   margin-bottom: 15px;
 }
 
-.recognition-card p {
+.about-us-page .recognition-card p {
   font-size: 16px;
   color: #555;
   line-height: 1.6;
 }
 
-/* Responsive Design */
+/* Ensure all main container sections have consistent horizontal padding */
+.about-us-page .container, .about-us-page .panel, .about-us-page .main-content {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+.about-us-page, .about-us-page .main-content, .about-us-page .about-content, .about-us-page .about-hero-content, .about-us-page .mission, .about-us-page .vision, .about-us-page .achievements, .about-us-page .features, .about-us-page .journey, .about-us-page .language-support, .about-us-page .exam-coverage, .about-us-page .recognition, .about-us-page .cta-section, .about-us-page .language-card, .about-us-page .feature-card, .about-us-page .exam-card, .about-us-page .recognition-card {
+  font-family: 'Roboto Serif', serif !important;
+  color: #444 !important;
+  font-size: 16px !important;
+  line-height: 1.7 !important;
+}
+
+.about-us-page h1, .about-us-page h2, .about-us-page h3, .about-us-page .about-hero-content h1, .about-us-page .about-content h2, .about-us-page .about-content h3, .about-us-page .mission h2, .about-us-page .vision h2, .about-us-page .achievements h2, .about-us-page .features h2, .about-us-page .journey h2, .about-us-page .language-support h2, .about-us-page .exam-coverage h2, .about-us-page .recognition h2, .about-us-page .cta-section h2 {
+  font-family: 'Roboto Serif', serif !important;
+  color: #000 !important;
+  font-weight: 700 !important;
+  margin-top: 0 !important;
+  margin-bottom: 20px !important;
+  letter-spacing: 0;
+  text-align: center !important;
+}
+
+.about-us-page .about-hero-content h1 {
+  font-size: 36px !important;
+  margin-bottom: 18px !important;
+  line-height: 1.15 !important;
+}
+
+.about-us-page .about-content h2 {
+  font-size: 24px !important;
+}
+
+.about-us-page .about-content h3 {
+  font-size: 22px !important;
+}
+
+.about-us-page section, .about-us-page .about-content, .about-us-page .mission-vision, .about-us-page .achievements, .about-us-page .features, .about-us-page .journey, .about-us-page .language-support, .about-us-page .exam-coverage, .about-us-page .recognition, .about-us-page .cta-section {
+  padding: 25px 0 !important;
+  margin-bottom: 0 !important;
+}
+
+.about-us-page .about-content {
+  padding: 25px 20px !important;
+}
+
+.about-us-page .about-hero-section {
+  padding: 60px 0 !important;
+  background: linear-gradient(135deg, #e3f2fd, #bbdefb) !important;
+  color: #333 !important;
+  border-bottom: 1px solid #1976d2 !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1) !important;
+  margin-bottom: 0 !important;
+}
+
+.about-us-page .about-hero-content {
+  max-width: 1200px !important;
+  margin: 0 auto !important;
+  padding: 0 20px !important;
+}
+
+.about-us-page .about-hero-content p, .about-us-page .about-content p, .about-us-page .mission p, .about-us-page .vision p, .about-us-page .feature-card p, .about-us-page .language-card p, .about-us-page .exam-card p, .about-us-page .recognition-card p, .about-us-page .cta-section p {
+  color: #444 !important;
+  font-size: 16px !important;
+  line-height: 1.7 !important;
+  margin-bottom: 10px !important;
+  font-family: 'Roboto Serif', serif !important;
+}
+
+.about-us-page .about-content ul, .about-us-page .language-card ul, .about-us-page .exam-card ul {
+  font-family: 'Roboto Serif', serif !important;
+  color: #444 !important;
+  font-size: 16px !important;
+  line-height: 1.7 !important;
+}
+
+.about-us-page .about-content li, .about-us-page .language-card li, .about-us-page .exam-card li {
+  font-family: 'Roboto Serif', serif !important;
+  color: #444 !important;
+  font-size: 16px !important;
+  line-height: 1.7 !important;
+}
+
+/* Remove hover background color from nav links and cards */
+.about-us-page .nav-links a:hover, .about-us-page .nav-links .dropbtn:hover, .about-us-page .dropdown-content a:hover, .about-us-page .mission:hover, .about-us-page .vision:hover, .about-us-page .achievement-card:hover, .about-us-page .feature-card:hover, .about-us-page .timeline-content:hover, .about-us-page .testimonial-card:hover, .about-us-page .team-member:hover, .about-us-page .language-card:hover, .about-us-page .exam-card:hover, .about-us-page .recognition-card:hover {
+  background: none !important;
+  color: #1976d2 !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+/* FINAL: Force nav header font to match Home page/Header.css */
+.about-us-page .nav-links a, .about-us-page .nav-links .dropbtn, .about-us-page .dropdown-content a {
+  font-size: 14px !important;
+  font-family: 'Roboto Serif', serif !important;
+  font-weight: 500 !important;
+}
+
+/* 1. Nav header styles to match Home page/Header.css */
+.about-us-page .nav-links a, .about-us-page .nav-links .dropbtn, .about-us-page .dropdown-content a {
+  font-size: 14px !important;
+  font-family: 'Roboto Serif', serif !important;
+  font-weight: 500 !important;
+}
+
+/* 2. Hero section match Home page */
+.about-us-page .about-hero-section {
+  padding: 60px 0 !important;
+  background: linear-gradient(135deg, #e3f2fd, #bbdefb) !important;
+  color: #333 !important;
+  border-bottom: 1px solid #1976d2 !important;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1) !important;
+  margin-bottom: 0 !important;
+}
+
+/* 3. Hero heading match Home page */
+.about-us-page .about-hero-content h1 {
+  font-size: 36px !important;
+  font-weight: 800 !important;
+  margin-bottom: 18px !important;
+  line-height: 1.15 !important;
+  color: #000 !important;
+  text-align: center !important;
+}
+
+/* 4. Section headings */
+.about-us-page h2, .about-us-page .about-content h2 {
+  color: #000 !important;
+  font-family: 'Roboto Serif', serif !important;
+  font-weight: 700 !important;
+  font-size: 24px !important;
+  margin-bottom: 20px !important;
+  text-align: center !important;
+}
+.about-us-page h3, .about-us-page .about-content h3 {
+  color: #000 !important;
+  font-family: 'Roboto Serif', serif !important;
+  font-weight: 700 !important;
+  font-size: 22px !important;
+  margin-bottom: 20px !important;
+  text-align: center !important;
+}
+
+/* 5. Body text and lists */
+.about-us-page, .about-us-page .main-content, .about-us-page .about-content, .about-us-page .about-hero-content, .about-us-page .mission, .about-us-page .vision, .about-us-page .achievements, .about-us-page .features, .about-us-page .journey, .about-us-page .language-support, .about-us-page .exam-coverage, .about-us-page .recognition, .about-us-page .cta-section, .about-us-page .language-card, .about-us-page .feature-card, .about-us-page .exam-card, .about-us-page .recognition-card, .about-us-page .about-content p, .about-us-page .about-content ul, .about-us-page .about-content li {
+  font-family: 'Roboto Serif', serif !important;
+  color: #444 !important;
+  font-size: 16px !important;
+  line-height: 1.7 !important;
+}
+
+/* 6. Remove Times New Roman */
+.about-us-page, .about-us-page .nav-links a, .about-us-page .nav-links .dropbtn, .about-us-page .dropdown-content a {
+  font-family: 'Roboto Serif', serif !important;
+}
+
+/* 7. Main containers consistent width/padding */
+.about-us-page .about-hero-content, .about-us-page .about-content {
+  max-width: 1200px !important;
+  margin: 0 auto !important;
+  padding: 0 20px !important;
+}
+
+/* 8. Remove excessive vertical/horizontal gaps */
+.about-us-page section, .about-us-page .about-content, .about-us-page .mission-vision, .about-us-page .achievements, .about-us-page .features, .about-us-page .journey, .about-us-page .language-support, .about-us-page .exam-coverage, .about-us-page .recognition, .about-us-page .cta-section {
+  padding: 25px 0 !important;
+  margin-bottom: 0 !important;
+}
+
+.about-us-page .about-content {
+  padding: 25px 20px !important;
+}
+
+/* 9. Responsive adjustments */
+@media (max-width: 768px) {
+  .about-us-page .about-hero-section {
+    padding: 32px 0 !important;
+  }
+  .about-us-page .about-hero-content, .about-us-page .about-content {
+    padding: 0 10px !important;
+  }
+  .about-us-page .about-hero-content h1 {
+    font-size: 26px !important;
+  }
+  .about-us-page h2, .about-us-page .about-content h2 {
+    font-size: 20px !important;
+  }
+  .about-us-page h3, .about-us-page .about-content h3 {
+    font-size: 18px !important;
+  }
+}
+
 @media (max-width: 1200px) {
-  .features-grid {
+  .about-us-page .features-grid {
     grid-template-columns: repeat(2, 1fr);
 }
 
-  .team-grid {
+  .about-us-page .team-grid {
     grid-template-columns: repeat(2, 1fr);
   }
   
-  .exam-grid,
-  .recognition-grid {
+  .about-us-page .exam-grid,
+  .about-us-page .recognition-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
 @media (max-width: 992px) {
-  .mission-vision {
+  .about-us-page .mission-vision {
     grid-template-columns: 1fr;
   }
   
-  .achievements-grid {
+  .about-us-page .achievements-grid {
     grid-template-columns: repeat(2, 1fr);
   }
   
-  .testimonials-grid {
+  .about-us-page .testimonials-grid {
     grid-template-columns: 1fr;
   }
   
-  .language-grid {
+  .about-us-page .language-grid {
     grid-template-columns: 1fr;
   }
 }
 
 @media (max-width: 768px) {
-  .about-hero-content h1 {
-    font-size: 32px;
+  .about-us-page .about-hero-content {
+    padding: 0 10px !important;
+  }
+  .about-us-page .about-content {
+    padding: 18px 6px !important;
+  }
+  .about-us-page .about-hero-content h1 {
+    font-size: 26px !important;
+  }
+  .about-us-page .about-content h2 {
+    font-size: 20px !important;
+  }
+  .about-us-page .about-content h3 {
+    font-size: 18px !important;
   }
   
-  .about-hero-content p {
-    font-size: 16px;
-  }
-  
-  .features-grid {
+  .about-us-page .features-grid {
     grid-template-columns: 1fr;
   }
   
-  .team-grid {
+  .about-us-page .team-grid {
     grid-template-columns: 1fr;
   }
   
-  .timeline::before {
+  .about-us-page .timeline::before {
     left: 20px;
   }
   
-  .timeline-item {
+  .about-us-page .timeline-item {
     width: 100%;
     padding-left: 50px;
     padding-right: 0;
   }
   
-  .timeline-item:nth-child(even) {
+  .about-us-page .timeline-item:nth-child(even) {
     margin-left: 0;
     padding-left: 50px;
   }
   
-  .timeline-dot {
+  .about-us-page .timeline-dot {
     left: 11px;
     right: auto;
   }
   
-  .timeline-item:nth-child(even) .timeline-dot {
+  .about-us-page .timeline-item:nth-child(even) .timeline-dot {
     left: 11px;
   }
   
-  .cta-buttons {
+  .about-us-page .cta-buttons {
     flex-direction: column;
   }
   
-  .exam-grid,
-  .recognition-grid {
+  .about-us-page .exam-grid,
+  .about-us-page .recognition-grid {
     grid-template-columns: 1fr;
   }
   
-  .language-card ul,
-  .exam-card ul {
+  .about-us-page .language-card ul,
+  .about-us-page .exam-card ul {
     text-align: center;
   }
   
-  .exam-card li {
+  .about-us-page .exam-card li {
     padding-left: 0;
   }
   
-  .exam-card li::before {
+  .about-us-page .exam-card li::before {
     display: none;
+  }
+
+  .about-us-page .about-hero-section {
+    padding: 32px 0 !important;
   }
 }
 
 @media (max-width: 480px) {
-  .achievements-grid {
+  .about-us-page .achievements-grid {
     grid-template-columns: 1fr;
   }
   
-  .about-hero-content h1 {
+  .about-us-page .about-hero-content h1 {
     font-size: 28px;
   }
   
-  .about-hero-content p {
+  .about-us-page .about-hero-content p {
     font-size: 14px;
   }
   
-  .cta-button {
+  .about-us-page .cta-button {
     width: 100%;
     justify-content: center;
+  }
+} 
+
+/* FINAL: Match nav header button style to Header.css exactly, scoped to About Us page */
+.about-us-page .nav-links a, .about-us-page .nav-links .dropbtn {
+  color: #333 !important;
+  text-decoration: none !important;
+  font-size: 12px !important; /* Match the !important rule from Header.css */
+  padding: 8px 12px !important;
+  border-radius: 4px !important;
+  font-weight: 500 !important;
+  font-family: 'Roboto Serif', serif !important;
+  white-space: nowrap !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 3px !important;
+  position: relative !important;
+  overflow: hidden !important;
+  background: none !important;
+  border: none !important;
+  cursor: pointer !important;
+  min-width: 80px !important;
+  justify-content: center !important;
+  letter-spacing: 0.2px !important;
+}
+
+.about-us-page .dropdown-content a {
+  color: #333 !important;
+  padding: 8px 12px !important;
+  text-decoration: none !important;
+  display: block !important;
+  font-size: 13px !important; /* Match dropdown font size from Header.css */
+  font-family: 'Roboto Serif', serif !important;
+  text-align: left !important;
+  transition: all 0.2s ease !important;
+  border-radius: 4px !important;
+  min-width: auto !important;
+  justify-content: flex-start !important;
+  letter-spacing: 0.2px !important;
+  outline: none !important;
+} 
+
+/* Update all heading styles to match Home.css exactly */
+
+/* Main section headings - match Home.css .home-main h2 style */
+.about-us-page .achievements h2,
+.about-us-page .features h2,
+.about-us-page .journey h2,
+.about-us-page .language-support h2,
+.about-us-page .exam-coverage h2,
+.about-us-page .recognition h2,
+.about-us-page .cta-section h2 {
+  font-size: 32px !important;
+  font-weight: 700 !important;
+  color: #1976d2 !important;
+  margin-bottom: 25px !important;
+  text-align: center !important;
+  position: relative !important;
+  padding-bottom: 15px !important;
+  font-family: 'Roboto Serif', serif !important;
+}
+
+/* Add gradient underline effect - match Home.css */
+.about-us-page .achievements h2::after,
+.about-us-page .features h2::after,
+.about-us-page .journey h2::after,
+.about-us-page .language-support h2::after,
+.about-us-page .exam-coverage h2::after,
+.about-us-page .recognition h2::after,
+.about-us-page .cta-section h2::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 3px;
+  background: linear-gradient(90deg, #1976d2, #40c4ff);
+}
+
+/* Mission/Vision headings - slightly smaller but same style */
+.about-us-page .mission h2,
+.about-us-page .vision h2 {
+  font-size: 28px !important;
+  font-weight: 700 !important;
+  color: #1976d2 !important;
+  margin-bottom: 20px !important;
+  text-align: center !important;
+  position: relative !important;
+  padding-bottom: 12px !important;
+  font-family: 'Roboto Serif', serif !important;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.about-us-page .mission h2::after,
+.about-us-page .vision h2::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 3px;
+  background: linear-gradient(90deg, #1976d2, #40c4ff);
+}
+
+/* Card headings - match Home.css panel-item h3 style */
+.about-us-page .achievement-card h3,
+.about-us-page .feature-card h3,
+.about-us-page .language-card h3,
+.about-us-page .exam-card h3,
+.about-us-page .recognition-card h3,
+.about-us-page .timeline-content h3 {
+  color: #000 !important;
+  font-size: 22px !important;
+  margin-bottom: 15px !important;
+  font-family: 'Roboto Serif', serif !important;
+  font-weight: 600 !important;
+}
+
+/* Timeline content headings */
+.about-us-page .timeline-content h3 {
+  text-align: center !important;
+}
+
+/* Card content headings */
+.about-us-page .achievement-card h3,
+.about-us-page .feature-card h3,
+.about-us-page .language-card h3,
+.about-us-page .exam-card h3,
+.about-us-page .recognition-card h3 {
+  text-align: center !important;
+}
+
+/* Mobile responsive heading adjustments */
+@media (max-width: 768px) {
+  .about-us-page .achievements h2,
+  .about-us-page .features h2,
+  .about-us-page .journey h2,
+  .about-us-page .language-support h2,
+  .about-us-page .exam-coverage h2,
+  .about-us-page .recognition h2,
+  .about-us-page .cta-section h2 {
+    font-size: 28px !important;
+  }
+  
+  .about-us-page .mission h2,
+  .about-us-page .vision h2 {
+    font-size: 24px !important;
+  }
+  
+  .about-us-page .achievement-card h3,
+  .about-us-page .feature-card h3,
+  .about-us-page .language-card h3,
+  .about-us-page .exam-card h3,
+  .about-us-page .recognition-card h3,
+  .about-us-page .timeline-content h3 {
+    font-size: 20px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .about-us-page .achievements h2,
+  .about-us-page .features h2,
+  .about-us-page .journey h2,
+  .about-us-page .language-support h2,
+  .about-us-page .exam-coverage h2,
+  .about-us-page .recognition h2,
+  .about-us-page .cta-section h2 {
+    font-size: 24px !important;
+  }
+  
+  .about-us-page .mission h2,
+  .about-us-page .vision h2 {
+    font-size: 22px !important;
+  }
+  
+  .about-us-page .achievement-card h3,
+  .about-us-page .feature-card h3,
+  .about-us-page .language-card h3,
+  .about-us-page .exam-card h3,
+  .about-us-page .recognition-card h3,
+  .about-us-page .timeline-content h3 {
+    font-size: 18px !important;
+  }
+} 
+
+/* Increase hero section height and improve overall design */
+.about-us-page .about-hero-section {
+  padding: 80px 0 !important; /* Increased from 60px to 80px */
+  background: linear-gradient(135deg, #e3f2fd, #bbdefb) !important;
+  position: relative;
+  overflow: hidden;
+}
+
+.about-us-page .about-hero-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #4CAF50, #f44336, #2196F3);
+}
+
+.about-us-page .about-hero-content {
+  max-width: 1200px !important;
+  margin: 0 auto !important;
+  padding: 0 20px !important;
+  position: relative;
+  z-index: 2;
+}
+
+.about-us-page .about-hero-content h1 {
+  font-family: 'Roboto Serif', serif !important;
+  font-size: 42px !important; /* Increased from 36px */
+  font-weight: 800 !important;
+  margin-bottom: 22px !important; /* Increased from 18px */
+  line-height: 1.15 !important;
+  color: #000 !important;
+  text-align: center;
+}
+
+.about-us-page .about-hero-content p {
+  font-size: 20px !important; /* Increased from 18px */
+  color: #444 !important;
+  line-height: 1.6 !important;
+  margin-bottom: 0 !important;
+  text-align: center;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Improve section spacing and design */
+.about-us-page .about-content {
+  max-width: 1200px !important;
+  margin: 0 auto !important;
+  padding: 25px 20px !important; /* Reduced from 40px */
+}
+
+/* Enhanced mission-vision cards */
+.about-us-page .mission-vision {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 25px; /* Reduced from 30px */
+  margin-bottom: 25px; /* Reduced from 40px */
+}
+
+.about-us-page .mission, .about-us-page .vision {
+  background: white;
+  padding: 25px !important; /* Reduced from 35px */
+  border-radius: 15px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  border: 1px solid rgba(25, 118, 210, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.about-us-page .mission::before, .about-us-page .vision::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #1976d2, #40c4ff);
+}
+
+.about-us-page .mission h2, .about-us-page .vision h2 {
+  font-family: 'Roboto Serif', serif !important;
+  font-size: 26px !important; /* Increased from 24px */
+  color: #000 !important;
+  margin-bottom: 20px !important;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.about-us-page .mission h2 svg, .about-us-page .vision h2 svg {
+  color: #1976d2;
+  font-size: 28px;
+}
+
+.about-us-page .mission p, .about-us-page .vision p {
+  font-size: 16px !important;
+  color: #444 !important;
+  line-height: 1.6 !important;
+  margin-bottom: 0 !important;
+}
+
+/* Enhanced achievements section */
+.about-us-page .achievements {
+  margin-bottom: 35px !important; /* Reduced from 60px */
+  text-align: center;
+  padding: 25px 0 !important; /* Reduced from 40px */
+}
+
+.about-us-page .achievements h2 {
+  font-family: 'Roboto Serif', serif !important;
+  font-size: 36px !important; /* Increased from 32px */
+  color: #000 !important;
+  margin-bottom: 25px !important; /* Reduced from 40px */
+  text-align: center;
+}
+
+.about-us-page .achievements-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px; /* Reduced from 30px */
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.about-us-page .achievement-card {
+  background: white;
+  padding: 25px 20px !important; /* Reduced from 35px 25px */
+  border-radius: 15px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  border: 1px solid rgba(25, 118, 210, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.about-us-page .achievement-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #1976d2, #40c4ff);
+}
+
+.about-us-page .achievement-number {
+  font-family: 'Roboto Serif', serif !important;
+  font-size: 42px !important; /* Increased from 36px */
+  font-weight: 700 !important;
+  color: #1976d2 !important;
+  margin-bottom: 15px !important;
+}
+
+.about-us-page .achievement-card p {
+  font-size: 16px !important;
+  color: #444 !important;
+  margin-bottom: 0 !important;
+}
+
+/* Enhanced features section */
+.about-us-page .features {
+  margin-bottom: 35px !important; /* Reduced from 60px */
+  text-align: center;
+  padding: 25px 0 !important; /* Reduced from 40px */
+}
+
+.about-us-page .features h2 {
+  font-family: 'Roboto Serif', serif !important;
+  font-size: 36px !important;
+  color: #000 !important;
+  margin-bottom: 25px !important; /* Reduced from 40px */
+  text-align: center;
+}
+
+.about-us-page .features-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px; /* Reduced from 30px */
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.about-us-page .feature-card {
+  background: white;
+  padding: 25px 20px !important; /* Reduced from 35px 25px */
+  border-radius: 15px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  border: 1px solid rgba(25, 118, 210, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.about-us-page .feature-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #1976d2, #40c4ff);
+}
+
+.about-us-page .feature-card svg {
+  font-size: 42px !important; /* Increased from 36px */
+  color: #1976d2;
+  margin-bottom: 20px !important; /* Reduced from 25px */
+}
+
+.about-us-page .feature-card h3 {
+  font-family: 'Roboto Serif', serif !important;
+  font-size: 22px !important; /* Increased from 20px */
+  color: #000 !important;
+  margin-bottom: 15px !important;
+}
+
+.about-us-page .feature-card p {
+  font-size: 16px !important;
+  color: #444 !important;
+  line-height: 1.6 !important;
+  margin-bottom: 0 !important;
+}
+
+/* Enhanced journey section */
+.about-us-page .journey {
+  margin-bottom: 35px !important; /* Reduced from 60px */
+  text-align: center;
+  padding: 25px 0 !important; /* Reduced from 40px */
+}
+
+.about-us-page .journey h2 {
+  font-family: 'Roboto Serif', serif !important;
+  font-size: 36px !important;
+  color: #000 !important;
+  margin-bottom: 25px !important; /* Reduced from 40px */
+  text-align: center;
+}
+
+.about-us-page .timeline {
+  position: relative;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.about-us-page .timeline::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 2px;
+  background: linear-gradient(180deg, #1976d2, #40c4ff);
+  transform: translateX(-50%);
+}
+
+.about-us-page .timeline-item {
+  position: relative;
+  margin-bottom: 15px !important; /* Reduced to match section spacing */
+  width: 50%;
+  padding-right: 40px;
+}
+
+.about-us-page .timeline-item:nth-child(even) {
+  margin-left: 50%;
+  padding-right: 0;
+  padding-left: 40px;
+}
+
+.about-us-page .timeline-dot {
+  position: absolute;
+  right: -11px;
+  top: 20px;
+  width: 20px;
+  height: 20px;
+  background: #1976d2;
+  border: 4px solid white;
+  border-radius: 50%;
+  box-shadow: 0 2px 8px rgba(25, 118, 210, 0.3);
+}
+
+.about-us-page .timeline-item:nth-child(even) .timeline-dot {
+  right: auto;
+  left: -9px;
+}
+
+.about-us-page .timeline-content {
+  background: white;
+  padding: 15px !important; /* Match card padding */
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  border: 1px solid rgba(25, 118, 210, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.about-us-page .timeline-content::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #1976d2, #40c4ff);
+}
+
+.about-us-page .timeline-content h3 {
+  font-family: 'Roboto Serif', serif !important;
+  font-size: 22px !important;
+  color: #000 !important;
+  margin-bottom: 15px !important;
+}
+
+.about-us-page .timeline-content p {
+  font-size: 16px !important;
+  color: #444 !important;
+  line-height: 1.6 !important;
+  margin-bottom: 0 !important;
+}
+
+/* Enhanced language support section */
+.about-us-page .language-support {
+  margin-bottom: 35px !important; /* Reduced from 60px */
+  text-align: center;
+  padding: 25px 0 !important; /* Reduced from 40px */
+}
+
+.about-us-page .language-support h2 {
+  font-family: 'Roboto Serif', serif !important;
+  font-size: 36px !important;
+  color: #000 !important;
+  margin-bottom: 25px !important; /* Reduced from 40px */
+  text-align: center;
+}
+
+.about-us-page .language-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px; /* Reduced from 30px */
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.about-us-page .language-card {
+  background: white;
+  padding: 25px 20px !important; /* Reduced from 35px 25px */
+  border-radius: 15px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  border: 1px solid rgba(25, 118, 210, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.about-us-page .language-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #1976d2, #40c4ff);
+}
+
+.about-us-page .language-card svg {
+  font-size: 42px !important;
+  color: #1976d2;
+  margin-bottom: 20px !important; /* Reduced from 25px */
+}
+
+.about-us-page .language-card h3 {
+  font-family: 'Roboto Serif', serif !important;
+  font-size: 26px !important; /* Increased from 24px */
+  color: #000 !important;
+  margin-bottom: 15px !important; /* Reduced from 20px */
+}
+
+.about-us-page .language-card ul {
+  list-style: none;
+  padding: 0;
+  text-align: left;
+}
+
+.about-us-page .language-card li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px !important; /* Reduced from 12px */
+  font-size: 16px !important;
+  color: #444 !important;
+}
+
+.about-us-page .language-card li svg {
+  font-size: 20px !important; /* Increased from 18px */
+  margin-bottom: 0;
+  color: #4caf50;
+}
+
+/* Enhanced exam coverage section */
+.about-us-page .exam-coverage {
+  margin-bottom: 35px !important; /* Reduced from 60px */
+  text-align: center;
+  padding: 25px 0 !important; /* Reduced from 40px */
+}
+
+.about-us-page .exam-coverage h2 {
+  font-family: 'Roboto Serif', serif !important;
+  font-size: 36px !important;
+  color: #000 !important;
+  margin-bottom: 25px !important; /* Reduced from 40px */
+  text-align: center;
+}
+
+.about-us-page .exam-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px; /* Reduced from 30px */
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.about-us-page .exam-card {
+  background: white;
+  padding: 25px 20px !important; /* Reduced from 35px 25px */
+  border-radius: 15px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  border: 1px solid rgba(25, 118, 210, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.about-us-page .exam-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #1976d2, #40c4ff);
+}
+
+.about-us-page .exam-card svg {
+  font-size: 42px !important;
+  color: #1976d2;
+  margin-bottom: 20px !important; /* Reduced from 25px */
+}
+
+.about-us-page .exam-card h3 {
+  font-family: 'Roboto Serif', serif !important;
+  font-size: 22px !important;
+  color: #000 !important;
+  margin-bottom: 15px !important;
+}
+
+.about-us-page .exam-card ul {
+  list-style: none;
+  padding: 0;
+  text-align: left;
+}
+
+.about-us-page .exam-card li {
+  margin-bottom: 10px !important; /* Reduced from 12px */
+  font-size: 16px !important;
+  color: #444 !important;
+  position: relative;
+  padding-left: 20px;
+}
+
+.about-us-page .exam-card li::before {
+  content: '•';
+  position: absolute;
+  left: 0;
+  color: #1976d2;
+  font-weight: bold;
+}
+
+/* Enhanced recognition section */
+.about-us-page .recognition {
+  margin-bottom: 35px !important; /* Reduced from 60px */
+  text-align: center;
+  padding: 25px 0 !important; /* Reduced from 40px */
+}
+
+.about-us-page .recognition h2 {
+  font-family: 'Roboto Serif', serif !important;
+  font-size: 36px !important;
+  color: #000 !important;
+  margin-bottom: 25px !important; /* Reduced from 40px */
+  text-align: center;
+}
+
+.about-us-page .recognition-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px; /* Reduced from 30px */
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.about-us-page .recognition-card {
+  background: white;
+  padding: 25px 20px !important; /* Reduced from 35px 25px */
+  border-radius: 15px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  border: 1px solid rgba(25, 118, 210, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.about-us-page .recognition-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #1976d2, #40c4ff);
+}
+
+.about-us-page .recognition-card svg {
+  font-size: 42px !important;
+  color: #1976d2;
+  margin-bottom: 20px !important; /* Reduced from 25px */
+}
+
+.about-us-page .recognition-card h3 {
+  font-family: 'Roboto Serif', serif !important;
+  font-size: 22px !important;
+  color: #000 !important;
+  margin-bottom: 15px !important;
+}
+
+.about-us-page .recognition-card p {
+  font-size: 16px !important;
+  color: #444 !important;
+  line-height: 1.6 !important;
+  margin-bottom: 0 !important;
+}
+
+/* Enhanced CTA section */
+.about-us-page .cta-section {
+  text-align: center;
+  padding: 25px 20px !important; /* Reduced to match Home.css */
+  background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+  border-radius: 15px;
+  margin: 15px 20px; /* Reduced from 25px 20px */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.about-us-page .cta-section h2 {
+  font-family: 'Roboto Serif', serif !important;
+  font-size: 36px !important;
+  color: #000 !important;
+  margin-bottom: 12px !important; /* Reduced from 15px */
+  text-align: center;
+}
+
+.about-us-page .cta-section p {
+  font-size: 20px !important;
+  color: #444 !important;
+  line-height: 1.6 !important;
+  margin-bottom: 15px !important; /* Reduced from 20px */
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.about-us-page .cta-buttons {
+  display: flex;
+  gap: 15px !important; /* Reduced from 20px */
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.about-us-page .cta-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 24px !important; /* Reduced to match Home.css */
+  font-size: 15px !important; /* Reduced to match Home.css */
+  font-weight: 600;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  font-family: 'Roboto Serif', serif !important;
+}
+
+.about-us-page .cta-button.primary {
+  background: #1976d2;
+  color: #fff;
+}
+
+.about-us-page .cta-button.secondary {
+  background: #fff;
+  color: #1976d2;
+  border: 2px solid #1976d2;
+}
+
+.about-us-page .cta-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsive improvements */
+@media (max-width: 768px) {
+  .about-us-page .about-hero-section {
+    padding: 60px 0 !important; /* Reduced for mobile but still increased from original */
+  }
+  
+  .about-us-page .about-hero-content h1 {
+    font-size: 32px !important; /* Adjusted for mobile */
+  }
+  
+  .about-us-page .about-hero-content p {
+    font-size: 18px !important;
+  }
+  
+  .about-us-page .about-content {
+    padding: 20px 15px !important; /* Reduced from 30px 15px */
+  }
+  
+  .about-us-page .mission, .about-us-page .vision {
+    padding: 12px !important; /* Reduced from 20px */
+  }
+  
+  .about-us-page .achievement-card,
+  .about-us-page .feature-card,
+  .about-us-page .language-card,
+  .about-us-page .exam-card,
+  .about-us-page .recognition-card {
+    padding: 12px !important; /* Reduced from 20px 15px */
+  }
+  
+  .about-us-page .cta-section {
+    padding: 20px 20px !important;
+    margin: 10px 15px;
+  }
+  
+  .about-us-page .cta-section h2 {
+    font-size: 28px !important;
+  }
+  
+  .about-us-page .cta-section p {
+    font-size: 18px !important;
+  }
+  
+  .about-us-page .cta-button {
+    padding: 10px 20px !important;
+    font-size: 14px !important;
+  }
+} 
+
+/* Reduce heading sizes and section gaps */
+
+/* Main section headings - smaller size */
+.about-us-page .achievements h2,
+.about-us-page .features h2,
+.about-us-page .journey h2,
+.about-us-page .language-support h2,
+.about-us-page .exam-coverage h2,
+.about-us-page .recognition h2,
+.about-us-page .cta-section h2 {
+  font-size: 26px !important; /* Reduced from 32px */
+  font-weight: 700 !important;
+  color: #000 !important; /* Changed from #1976d2 to #000 */
+  margin-bottom: 18px !important; /* Reduced from 25px */
+  text-align: center !important;
+  position: relative !important;
+  padding-bottom: 12px !important; /* Reduced from 15px */
+  font-family: 'Roboto Serif', serif !important;
+}
+
+/* Mission/Vision headings - smaller size */
+.about-us-page .mission h2,
+.about-us-page .vision h2 {
+  font-size: 24px !important; /* Reduced from 28px */
+  font-weight: 700 !important;
+  color: #000 !important; /* Changed from #1976d2 to #000 */
+  margin-bottom: 15px !important; /* Reduced from 20px */
+  text-align: center !important;
+  position: relative !important;
+  padding-bottom: 10px !important; /* Reduced from 12px */
+  font-family: 'Roboto Serif', serif !important;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+/* Card headings - smaller size */
+.about-us-page .achievement-card h3,
+.about-us-page .feature-card h3,
+.about-us-page .language-card h3,
+.about-us-page .exam-card h3,
+.about-us-page .recognition-card h3,
+.about-us-page .timeline-content h3 {
+  color: #000 !important;
+  font-size: 20px !important; /* Reduced from 22px */
+  margin-bottom: 12px !important; /* Reduced from 15px */
+  font-family: 'Roboto Serif', serif !important;
+  font-weight: 600 !important;
+}
+
+/* Reduce section gaps significantly */
+.about-us-page .about-content,
+.about-us-page .mission-vision,
+.about-us-page .achievements,
+.about-us-page .features,
+.about-us-page .journey,
+.about-us-page .language-support,
+.about-us-page .exam-coverage,
+.about-us-page .recognition,
+.about-us-page .cta-section {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  padding-top: 15px !important; /* Reduced from 25px */
+  padding-bottom: 15px !important; /* Reduced from 25px */
+}
+
+/* Reduce card padding */
+.about-us-page .mission, .about-us-page .vision,
+.about-us-page .achievement-card,
+.about-us-page .feature-card,
+.about-us-page .language-card,
+.about-us-page .exam-card,
+.about-us-page .recognition-card {
+  padding: 15px !important; /* Reduced from 20px */
+}
+
+/* Reduce timeline spacing */
+.about-us-page .timeline-item {
+  margin-bottom: 15px !important; /* Reduced from 25px */
+}
+
+.about-us-page .timeline-content {
+  padding: 15px !important; /* Reduced from 20px */
+}
+
+/* Reduce CTA section padding */
+.about-us-page .cta-section {
+  padding: 25px 20px !important; /* Reduced from 40px 20px */
+  margin: 15px 20px; /* Reduced from 25px 20px */
+}
+
+/* Reduce CTA heading and content spacing */
+.about-us-page .cta-section h2 {
+  margin-bottom: 12px !important; /* Reduced from 15px */
+}
+
+.about-us-page .cta-section p {
+  margin-bottom: 15px !important; /* Reduced from 20px */
+}
+
+/* Reduce grid gaps */
+.about-us-page .achievements-grid,
+.about-us-page .features-grid,
+.about-us-page .language-grid,
+.about-us-page .exam-grid,
+.about-us-page .recognition-grid {
+  gap: 15px; /* Reduced from 20px */
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Reduce mission-vision gap */
+.about-us-page .mission-vision {
+  gap: 20px; /* Reduced from 25px */
+  margin-bottom: 15px; /* Reduced from 25px */
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 768px) {
+  .about-us-page .achievements h2,
+  .about-us-page .features h2,
+  .about-us-page .journey h2,
+  .about-us-page .language-support h2,
+  .about-us-page .exam-coverage h2,
+  .about-us-page .recognition h2,
+  .about-us-page .cta-section h2 {
+    font-size: 22px !important; /* Reduced from 28px */
+  }
+  
+  .about-us-page .mission h2,
+  .about-us-page .vision h2 {
+    font-size: 20px !important; /* Reduced from 24px */
+  }
+  
+  .about-us-page .achievement-card h3,
+  .about-us-page .feature-card h3,
+  .about-us-page .language-card h3,
+  .about-us-page .exam-card h3,
+  .about-us-page .recognition-card h3,
+  .about-us-page .timeline-content h3 {
+    font-size: 18px !important; /* Reduced from 20px */
+  }
+  
+  .about-us-page .about-content,
+  .about-us-page .mission-vision,
+  .about-us-page .achievements,
+  .about-us-page .features,
+  .about-us-page .journey,
+  .about-us-page .language-support,
+  .about-us-page .exam-coverage,
+  .about-us-page .recognition,
+  .about-us-page .cta-section {
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+  }
+  
+  .about-us-page .mission, .about-us-page .vision,
+  .about-us-page .achievement-card,
+  .about-us-page .feature-card,
+  .about-us-page .language-card,
+  .about-us-page .exam-card,
+  .about-us-page .recognition-card {
+    padding: 12px !important;
+  }
+  
+  .about-us-page .cta-section {
+    padding: 20px 20px !important;
+    margin: 10px 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .about-us-page .achievements h2,
+  .about-us-page .features h2,
+  .about-us-page .journey h2,
+  .about-us-page .language-support h2,
+  .about-us-page .exam-coverage h2,
+  .about-us-page .recognition h2,
+  .about-us-page .cta-section h2 {
+    font-size: 20px !important; /* Reduced from 24px */
+  }
+  
+  .about-us-page .mission h2,
+  .about-us-page .vision h2 {
+    font-size: 18px !important; /* Reduced from 22px */
+  }
+  
+  .about-us-page .achievement-card h3,
+  .about-us-page .feature-card h3,
+  .about-us-page .language-card h3,
+  .about-us-page .exam-card h3,
+  .about-us-page .recognition-card h3,
+  .about-us-page .timeline-content h3 {
+    font-size: 16px !important; /* Reduced from 18px */
   }
 } 

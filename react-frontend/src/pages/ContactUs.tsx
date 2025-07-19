@@ -113,7 +113,7 @@ const ContactUs: React.FC = () => {
   };
 
   return (
-    <main className="main-content">
+    <main className="main-content contact-page">
       <Helmet>
         <title>Contact Us - TypingHub.in 📞</title>
         <meta name="description" content="Get in touch with TypingHub.in for any questions, support, or feedback about our typing tests and courses." />
@@ -128,8 +128,8 @@ const ContactUs: React.FC = () => {
         </div>
       </div>
 
-      <div className="contact-content">
-        <div className="contact-info">
+      <div className="contact-modern-content">
+        <div className="contact-modern-sidebar-card">
           <h2>Contact Information</h2>
           <div className="contact-method">
             <h3><FontAwesomeIcon icon={faEnvelope} /> Email Support</h3>
@@ -155,31 +155,31 @@ const ContactUs: React.FC = () => {
           <div className="contact-method">
             <h3><FontAwesomeIcon icon={faShareAlt} /> Social Media</h3>
             <div className="social-links">
-              <a href="https://wa.me/1234567890" target="_blank" rel="noopener noreferrer" title="WhatsApp">
+              <a href="https://whatsapp.com/channel/0029VbB5BgZIHphQNvybGU3V/?hl=en" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
                 <FontAwesomeIcon icon={faWhatsapp} />
               </a>
-              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" title="Instagram">
+              <a href="https://www.instagram.com/typinghub.in/?hl=en" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
                 <FontAwesomeIcon icon={faInstagram} />
               </a>
-              <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" title="Twitter">
+              <a href="https://x.com/typinghub?t=iMSzEgwq3aHVyKXyYtZ6NA&s=09" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
                 <FontAwesomeIcon icon={faTwitter} />
               </a>
-              <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" title="YouTube">
+              <a href="https://www.youtube.com/@TypingHub-TypingPracticeforSSC" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
                 <FontAwesomeIcon icon={faYoutube} />
               </a>
-              <a href="https://t.me" target="_blank" rel="noopener noreferrer" title="Telegram">
+              <a href="https://t.me/TypingHubOfficial"  target="_blank" rel="noopener noreferrer" aria-label="Telegram">
                 <FontAwesomeIcon icon={faTelegram} />
               </a>
             </div>
           </div>
 
-          <div className="info-box">
+          <div className="important-notice">
             <h4>Quick Response Guarantee</h4>
             <p>We aim to respond to all inquiries within 24 hours during business days.</p>
           </div>
         </div>
 
-        <div className="contact-form">
+        <div className="contact-modern-form-card">
           <h2>Send Us a Message</h2>
           <form onSubmit={handleSubmit}>
             <div className="form-group">
@@ -254,7 +254,7 @@ const ContactUs: React.FC = () => {
                   <FontAwesomeIcon icon={faPaperPlane} />
             </button>
 
-            <div className="info-box" style={{ marginTop: '20px' }}>
+            <div className="important-notice" style={{ marginTop: '20px' }}>
               <h4>Privacy Notice</h4>
               <p>By submitting this form, you agree to our <Link to="/privacy-policy">Privacy Policy</Link> and consent to the processing of your personal data.</p>
             </div>

@@ -31,7 +31,7 @@ body {
 
 /* Hero Section */
 .hero-section {
-  padding: 25px 0;
+  padding: 38px 0;
   text-align: center;
   position: relative;
   width: 100%;
@@ -62,23 +62,16 @@ body {
 }
 
 .hero-content h1 {
-  font-family: 'Roboto Serif', serif;
-  font-size: 32px;
-  font-weight: 700;
-  color: #333;
-  margin-bottom: 12px;
-  line-height: 1.2;
+  font-size: 36px;
+  font-weight: 800;
+  margin-bottom: 18px;
+  line-height: 1.15;
 }
 
 .hero-content p {
-  font-family: 'Roboto Serif', serif;
-  font-size: 16px;
-  color: #555;
-  margin-bottom: 20px;
-  line-height: 1.5;
-  max-width: 800px;
-  margin-left: auto;
-  margin-right: auto;
+  font-size: 17px;
+  margin-bottom: 22px;
+  line-height: 1.6;
 }
 
 .hero-buttons {
@@ -408,17 +401,15 @@ body {
 
 @media (max-width: 768px) {
   .hero-section {
-    padding: 20px 0;
+    padding: 22px 0;
   }
-
   .hero-content h1 {
-    font-size: 28px;
-    margin-bottom: 10px;
+    font-size: 26px;
+    margin-bottom: 12px;
   }
-
   .hero-content p {
     font-size: 15px;
-    margin-bottom: 15px;
+    margin-bottom: 14px;
   }
 
   .panel-container {
@@ -1208,5 +1199,382 @@ p {
     gap: 6px;
     margin-top: 4px;
     margin-bottom: 4px;
+  }
+} 
+
+/* Panel Items Upgrades */
+.upgraded-panel-item {
+  background: linear-gradient(135deg, #e3f2fd 60%, #bbdefb 100%);
+  box-shadow: 0 4px 24px rgba(25, 118, 210, 0.08);
+  transition: transform 0.25s cubic-bezier(.4,2,.3,1), box-shadow 0.25s;
+  position: relative;
+}
+.upgraded-panel-item:hover {
+  transform: scale(1.045) translateY(-6px);
+  box-shadow: 0 8px 32px rgba(25, 118, 210, 0.18);
+  z-index: 2;
+}
+.panel-item-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+.badge-new {
+  background: linear-gradient(90deg, #ff9800, #ffb300);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 2px 10px;
+  border-radius: 12px;
+  margin-left: 8px;
+  letter-spacing: 1px;
+  box-shadow: 0 2px 8px rgba(255, 152, 0, 0.15);
+}
+
+/* Features Grid Upgrades */
+.upgraded-feature-card {
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(25, 118, 210, 0.07);
+  border-left: 6px solid #1976d2;
+  transition: box-shadow 0.2s, border-color 0.2s;
+}
+.upgraded-feature-card:hover {
+  box-shadow: 0 8px 32px rgba(25, 118, 210, 0.13);
+  border-left: 6px solid #40c4ff;
+}
+.feature-accent-bar {
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 6px;
+  background: linear-gradient(180deg, #1976d2, #40c4ff);
+  border-radius: 6px 0 0 6px;
+}
+
+/* List Section Upgrades */
+.upgraded-list-section .list-fade-in {
+  animation: fadeInList 0.7s cubic-bezier(.4,2,.3,1);
+}
+@keyframes fadeInList {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: none; }
+}
+
+/* Testimonials Upgrades */
+.upgraded-testimonial-card {
+  position: relative;
+  box-shadow: 0 4px 24px rgba(25, 118, 210, 0.09);
+  border: 1.5px solid #e3f2fd;
+  transition: box-shadow 0.2s, border-color 0.2s;
+  animation: fadeInTestimonial 0.8s cubic-bezier(.4,2,.3,1);
+}
+@keyframes fadeInTestimonial {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: none; }
+}
+.testimonial-quote-icon {
+  position: absolute;
+  top: 18px; right: 18px;
+  color: #1976d2;
+  font-size: 22px;
+  opacity: 0.18;
+}
+.upgraded-avatar img {
+  border-radius: 50%;
+  box-shadow: 0 2px 12px rgba(25, 118, 210, 0.13);
+  width: 60px; height: 60px;
+  object-fit: cover;
+  margin-bottom: 10px;
+}
+
+/* Achievements Upgrades */
+.upgraded-achievement-card .icon-glow {
+  filter: drop-shadow(0 0 8px #40c4ff88);
+  animation: glowPulse 1.8s infinite alternate;
+}
+@keyframes glowPulse {
+  from { filter: drop-shadow(0 0 8px #40c4ff88); }
+  to { filter: drop-shadow(0 0 18px #1976d2cc); }
+}
+.animate-counter {
+  animation: counterPop 0.7s cubic-bezier(.4,2,.3,1);
+}
+@keyframes counterPop {
+  from { transform: scale(0.7); opacity: 0.5; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+/* Certificate/Course Highlight Upgrades */
+.highlight-sections {
+  background: repeating-linear-gradient(135deg, #e3f2fd, #bbdefb 40px, #e3f2fd 80px);
+  border-radius: 18px;
+  box-shadow: 0 4px 24px rgba(25, 118, 210, 0.07);
+  padding: 32px 0;
+}
+.certificate-section, .course-ad-section {
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 0;
+}
+.certificate-section .badge-new, .course-ad-section .badge-new {
+  position: absolute;
+  top: 18px; right: 18px;
+  z-index: 2;
+}
+@media (min-width: 900px) {
+  .highlight-sections {
+    display: flex;
+    flex-direction: row;
+    gap: 40px;
+    justify-content: center;
+    align-items: stretch;
+  }
+  .certificate-section, .course-ad-section {
+    flex: 1 1 0;
+    min-width: 0;
+    margin-bottom: 0;
+  }
+}
+
+/* Practice Resources & Exam Categories Upgrades */
+.upgraded-resource-card, .upgraded-category-card {
+  border: 2px solid #e3f2fd;
+  box-shadow: 0 2px 12px rgba(25, 118, 210, 0.07);
+  transition: box-shadow 0.2s, border-color 0.2s, transform 0.2s;
+  position: relative;
+}
+.upgraded-resource-card:hover, .upgraded-category-card:hover {
+  border-color: #1976d2;
+  box-shadow: 0 8px 32px rgba(25, 118, 210, 0.13);
+  transform: translateY(-4px) scale(1.025);
+  z-index: 2;
+}
+.upgraded-resource-card .resource-icon, .upgraded-category-card .category-icon {
+  background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+  border-radius: 50%;
+  padding: 14px;
+  font-size: 32px;
+  color: #1976d2;
+  margin-bottom: 10px;
+  box-shadow: 0 2px 8px rgba(25, 118, 210, 0.08);
+}
+
+/* Pro Tips Upgrades */
+.tip-number {
+  background: linear-gradient(90deg, #1976d2, #40c4ff);
+  color: #fff;
+  border-radius: 50%;
+  width: 38px; height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  box-shadow: 0 2px 8px rgba(25, 118, 210, 0.13);
+  border: 2px solid #fff;
+}
+
+/* General Section/Spacing/Card Consistency */
+section, .features-grid, .testimonials, .achievements, .resources-section, .typing-tips {
+  border-radius: 18px;
+  margin-bottom: 18px;
+  box-shadow: 0 2px 12px rgba(25, 118, 210, 0.04);
+} 
+
+.dashboard-cards-spacing {
+  margin-top: 0 !important;
+  margin-bottom: 60px !important;
+  z-index: 2;
+  position: relative;
+} 
+
+.upgraded-panel-item, .panel-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  position: relative;
+  overflow: visible;
+}
+
+.panel-btn {
+  margin-top: auto;
+  align-self: stretch;
+  min-width: 0;
+  box-sizing: border-box;
+  position: relative;
+  z-index: 1;
+} 
+
+/* Remove hover effects from all cards */
+.upgraded-panel-item:hover, .panel-item:hover,
+.upgraded-feature-card:hover, .feature-card:hover,
+.upgraded-resource-card:hover, .resource-card:hover,
+.upgraded-category-card:hover, .category-card:hover,
+.tip-card:hover, .achievement-card:hover, .upgraded-achievement-card:hover,
+.testimonial-card:hover, .upgraded-testimonial-card:hover {
+  transform: none !important;
+  box-shadow: inherit !important;
+  border-color: inherit !important;
+  background: inherit !important;
+}
+
+/* Unify vertical spacing for all main sections */
+.hero-section,
+.dashboard-cards-spacing,
+.features-grid,
+.list-section,
+.resources-section,
+.category-grid,
+.tips-grid,
+.achievements,
+.highlight-sections {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  padding-top: 25px !important;
+  padding-bottom: 25px !important;
+}
+
+/* Remove margin-bottom from last section for clean end */
+#home-page > section:last-child,
+#home-page > .dashboard-cards-spacing:last-child,
+#home-page > .features-grid:last-child,
+#home-page > .list-section:last-child,
+#home-page > .resources-section:last-child,
+#home-page > .category-grid:last-child,
+#home-page > .tips-grid:last-child,
+#home-page > .achievements:last-child,
+#home-page > .highlight-sections:last-child {
+  margin-bottom: 0 !important;
+  padding-bottom: 0 !important;
+} 
+
+/* Unified section heading style */
+.list-section h2,
+.resources-section .section-title,
+.exam-categories .section-title,
+.typing-tips .section-title,
+.achievements > h2,
+.features-grid .feature-title,
+.highlight-sections h2,
+.features-section .section-title,
+.achievements-section .section-title {
+  color: #000 !important;
+  font-size: 24px !important;
+  font-family: 'Roboto Serif', serif !important;
+  font-weight: 700 !important;
+  margin-bottom: 20px !important;
+  text-align: center !important;
+  letter-spacing: 0;
+}
+
+/* Remove blue color from .features-grid .feature-title if present */
+.features-grid .feature-title {
+  color: #000 !important;
+} 
+
+/* Modern dashboard card styles */
+.modern-panel-card {
+  position: relative;
+  background: linear-gradient(135deg, #f8fafc 80%, #e3f2fd 100%);
+  border-radius: 22px;
+  box-shadow: 0 4px 24px rgba(25, 118, 210, 0.08);
+  padding: 28px 16px 16px 16px;
+  margin: 0 0 0 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 110px;
+  overflow: visible;
+}
+.modern-panel-icon-wrapper {
+  position: absolute;
+  top: -32px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.10);
+  border: 4px solid #fff;
+  z-index: 2;
+}
+.modern-panel-icon {
+  color: #fff;
+  font-size: 32px;
+}
+.modern-panel-title {
+  margin-top: 24px;
+  font-size: 22px;
+  font-weight: 700;
+  color: #000;
+  text-align: center;
+  margin-bottom: 12px;
+  font-family: 'Roboto Serif', serif;
+}
+.modern-panel-desc {
+  color: #666;
+  font-size: 15px;
+  text-align: center;
+  margin-bottom: 32px;
+  min-height: 48px;
+}
+.modern-panel-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  color: #fff;
+  font-weight: 700;
+  font-size: 16px;
+  border: none;
+  border-radius: 12px;
+  padding: 14px 0;
+  box-shadow: 0 2px 8px rgba(25, 118, 210, 0.10);
+  text-decoration: none;
+  transition: background 0.18s;
+  margin-top: auto;
+}
+.modern-panel-btn:hover {
+  background: #1565c0 !important;
+  color: #fff;
+}
+@media (max-width: 900px) {
+  .four-col-layout {
+    grid-template-columns: 1fr 1fr !important;
+  }
+}
+@media (max-width: 600px) {
+  .four-col-layout {
+    grid-template-columns: 1fr !important;
+  }
+  .modern-panel-card {
+    min-height: 0;
+    padding: 12px 4px 6px 4px;
+  }
+  .modern-panel-title {
+    margin-top: 18px;
+  }
+  .modern-panel-desc {
+    font-size: 14px;
+    margin-bottom: 18px;
+  }
+  .modern-panel-btn {
+    font-size: 15px;
+    padding: 12px 0;
+  }
+  .modern-panel-icon-wrapper {
+    width: 48px;
+    height: 48px;
+    top: -24px;
+  }
+  .modern-panel-icon {
+    font-size: 22px;
   }
 } 

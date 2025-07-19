@@ -1,42 +1,28 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Serif:wght@300;400;500;600;700&display=swap');
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: 'Times New Roman', Times, serif;
-  background: #f5f5f5;
+.privacy-page {
+  font-family: 'Roboto Serif', serif;
+  background: #fff;
+  scroll-behavior: smooth;
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  overflow-x: hidden;
-  line-height: 1.6;
 }
 
-.main-content {
-  flex: 1;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background: #f5f5f5;
-}
-
+/* Hero Section - match Declaration/TermsOfService */
 .privacy-hero-section {
-  background: #e3f2fd;
-  padding: 60px 0;
+  background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+  padding: 80px 0;
   text-align: center;
   border-top: 2px solid #1976d2;
-  border-bottom: 2px solid #1976d2;
-  margin-bottom: 40px;
-  width: 100%;
+  border-bottom: 1px solid #1976d2;
+  margin-bottom: 0;
   position: relative;
+  width: 100%;
+  color: #333;
+  margin: 0;
+  margin-top: 0;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
   overflow: hidden;
 }
-
 .privacy-hero-section::before {
   content: '';
   position: absolute;
@@ -45,198 +31,329 @@ body {
   right: 0;
   height: 3px;
   background: linear-gradient(90deg, #4CAF50, #f44336, #2196F3);
-  z-index: 1;
 }
-
 .privacy-hero-content {
-  max-width: 800px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 0 20px;
   position: relative;
-  z-index: 2;
+  z-index: 1;
 }
-
 .privacy-hero-content h1 {
   font-family: 'Roboto Serif', serif;
-  font-size: 36px;
-  font-weight: 700;
-  color: #1a2a44;
-  margin-bottom: 20px;
+  font-size: 42px;
+  font-weight: 800;
+  color: #000;
+  margin-bottom: 22px;
+  line-height: 1.15;
+  text-align: center;
 }
-
 .privacy-hero-content p {
-  font-size: 18px;
-  color: #555;
-  margin-bottom: 20px;
-  line-height: 1.6;
-}
-
-.privacy-content {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 40px 20px;
-  display: grid;
-  grid-template-columns: 1fr 3fr;
-  gap: 40px;
-}
-
-.privacy-nav {
-  position: sticky;
-  top: 20px;
-  height: fit-content;
-}
-
-.privacy-nav-list {
-  background: #fff;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-}
-
-.privacy-nav-list h2 {
-  font-family: 'Roboto Serif', serif;
   font-size: 20px;
-  color: #1a2a44;
-  margin-bottom: 15px;
-  padding-bottom: 10px;
-  border-bottom: 2px solid #1976d2;
+  color: #444;
+  line-height: 1.6;
+  margin-bottom: 0;
+  text-align: center;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.privacy-nav-list ul {
+/* Main Content Grid - match Declaration/TermsOfService */
+.privacy-modern-content {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 40px 20px 60px 20px;
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 40px;
+  min-height: 60vh;
+}
+
+/* Sidebar as modern card */
+.privacy-modern-sidebar {
+  position: relative;
+  z-index: 10;
+  min-width: 0;
+}
+.privacy-modern-sidebar-card {
+  background: #fff;
+  border-radius: 22px;
+  box-shadow: 0 4px 24px rgba(25, 118, 210, 0.08);
+  padding: 32px 18px 24px 18px;
+  border: 2px solid #e3f2fd;
+  position: sticky;
+  top: 32px;
+  max-height: calc(100vh - 64px);
+  overflow-y: auto;
+  transition: box-shadow 0.2s, border-color 0.2s;
+}
+.privacy-modern-sidebar-card h2 {
+  font-size: 22px;
+  font-weight: 700;
+  color: #000;
+  margin-bottom: 18px;
+  text-align: center;
+  font-family: 'Roboto Serif', serif;
+}
+.privacy-modern-sidebar-card ul {
   list-style: none;
+  padding: 0;
+  margin: 0;
 }
-
-.privacy-nav-list li {
+.privacy-modern-sidebar-card li {
   margin-bottom: 10px;
 }
-
-.privacy-nav-list a {
+.privacy-modern-sidebar-card a {
   color: #333;
   text-decoration: none;
-  font-size: 16px;
-  display: block;
-  padding: 8px;
-  border-radius: 4px;
-  transition: all 0.3s;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  padding: 12px 10px;
+  border-radius: 8px;
+  font-family: 'Roboto Serif', serif;
+  font-weight: 500;
+  border: 1px solid transparent;
+  transition: all 0.2s;
 }
-
-.privacy-nav-list a:hover,
-.privacy-nav-list a.active {
+.privacy-modern-sidebar-card a.active,
+.privacy-modern-sidebar-card a:hover {
   background: #e3f2fd;
   color: #1976d2;
+  border-color: #1976d2;
+  font-weight: 700;
+}
+.privacy-modern-sidebar-card::-webkit-scrollbar {
+  width: 6px;
+}
+.privacy-modern-sidebar-card::-webkit-scrollbar-thumb {
+  background: #1976d2;
+  border-radius: 3px;
 }
 
-.privacy-sections {
+/* Section Cards (reuse Declaration/TermsOfService modern-panel-card) */
+.privacy-modern-sections {
   display: flex;
   flex-direction: column;
-  gap: 40px;
+  gap: 32px;
 }
-
-.privacy-section {
-  background: #fff;
-  padding: 30px;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+.privacy-modern-section.modern-panel-card {
+  position: relative;
+  background: linear-gradient(135deg, #f8fafc 80%, #e3f2fd 100%);
+  border-radius: 22px;
+  box-shadow: 0 4px 24px rgba(25, 118, 210, 0.08);
+  padding: 38px 24px 28px 24px;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-height: 110px;
+  overflow: visible;
+  border: 2px solid #e3f2fd;
 }
-
-.privacy-section h2 {
-  font-family: 'Roboto Serif', serif;
-  font-size: 28px;
-  color: #1a2a44;
-  margin-bottom: 20px;
-  padding-bottom: 10px;
-  border-bottom: 2px solid #1976d2;
+.modern-panel-icon-wrapper {
+  position: absolute;
+  top: -32px;
+  left: 32px;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.10);
+  border: 4px solid #fff;
+  z-index: 2;
 }
-
-.privacy-section h3 {
-  font-family: 'Roboto Serif', serif;
+.modern-panel-icon {
+  color: #fff;
+  font-size: 32px;
+}
+.modern-panel-title {
+  margin-top: 24px;
   font-size: 22px;
-  color: #1a2a44;
-  margin: 20px 0 10px;
+  font-weight: 700;
+  color: #000;
+  text-align: left;
+  margin-bottom: 12px;
+  font-family: 'Roboto Serif', serif;
 }
-
-.privacy-section p {
+.privacy-modern-section p,
+.privacy-modern-section ul,
+.privacy-modern-section li {
   font-size: 16px;
-  color: #555;
-  margin-bottom: 15px;
-  line-height: 1.6;
+  color: #444;
+  font-family: 'Roboto Serif', serif;
+  margin-bottom: 10px;
+  line-height: 1.7;
 }
-
-.privacy-section ul,
-.privacy-section ol {
-  margin-left: 20px;
-  margin-bottom: 15px;
+.privacy-modern-section ul {
+  margin-left: 18px;
+  margin-bottom: 18px;
+  padding-left: 0;
 }
-
-.privacy-section li {
-  font-size: 16px;
-  color: #555;
-  margin-bottom: 8px;
-  line-height: 1.6;
+.privacy-modern-section li {
+  position: relative;
+  padding-left: 8px;
 }
-
-.privacy-section a {
+.privacy-modern-section li::before {
+  content: '•';
   color: #1976d2;
-  text-decoration: none;
-  transition: color 0.3s;
+  font-weight: bold;
+  position: absolute;
+  left: -14px;
+}
+.privacy-modern-section h3 {
+  font-family: 'Roboto Serif', serif;
+  font-size: 18px;
+  color: #1976d2;
+  margin: 18px 0 8px 0;
+  font-weight: 700;
 }
 
-.privacy-section a:hover {
-  color: #1565c0;
-}
-
-.data-box {
+.important-notice {
   background: #fff3e0;
   border-left: 4px solid #ff9800;
-  padding: 20px;
-  margin: 15px 0;
-  border-radius: 4px;
+  padding: 18px 18px 18px 24px;
+  margin: 18px 0 0 0;
+  border-radius: 12px;
+  position: relative;
+  overflow: hidden;
+  width: 100%;
 }
-
-.data-box h4 {
+.important-notice h4 {
   font-family: 'Roboto Serif', serif;
   font-size: 18px;
   color: #e65100;
   margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
 }
-
-.data-box p {
+.important-notice p {
   margin-bottom: 0;
   color: #795548;
+  font-size: 15px;
 }
 
 .last-updated {
   font-size: 14px;
   color: #666;
   font-style: italic;
-  margin-top: 20px;
+  margin-top: 30px;
   text-align: right;
+  font-family: 'Roboto Serif', serif;
+  padding: 10px 0 0 0;
+  background: none;
+  border-radius: 0;
+  border-left: none;
 }
 
-@media (max-width: 992px) {
-  .privacy-content {
+/* Scroll to top button (reuse Declaration/TermsOfService style) */
+.scroll-to-top {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(135deg, #1976d2, #40c4ff);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  box-shadow: 0 4px 15px rgba(25, 118, 210, 0.3);
+  transition: all 0.3s ease;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+}
+.scroll-to-top.visible {
+  opacity: 1;
+  visibility: visible;
+}
+.scroll-to-top:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(25, 118, 210, 0.4);
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .privacy-modern-content {
     grid-template-columns: 1fr;
+    gap: 32px;
+    padding: 30px 10px 40px 10px;
   }
-  
-  .privacy-nav {
+  .privacy-modern-sidebar {
     position: static;
+    width: 100%;
+    max-width: 100%;
+  }
+  .privacy-modern-sidebar-card {
+    position: static;
+    max-height: none;
+    margin-bottom: 24px;
   }
 }
-
 @media (max-width: 768px) {
+  .privacy-hero-section {
+    padding: 60px 0;
+  }
   .privacy-hero-content h1 {
-    font-size: 28px;
+    font-size: 32px;
   }
-  
   .privacy-hero-content p {
-    font-size: 16px;
+    font-size: 18px;
   }
-  
-  .privacy-section h2 {
+  .privacy-modern-content {
+    padding: 16px 2vw 24px 2vw;
+    gap: 18px;
+  }
+  .privacy-modern-sections {
+    gap: 18px;
+  }
+  .privacy-modern-section.modern-panel-card {
+    padding: 22px 8px 14px 8px;
+  }
+  .modern-panel-icon-wrapper {
+    width: 48px;
+    height: 48px;
+    top: -20px;
+    left: 12px;
+  }
+  .modern-panel-title {
+    margin-top: 16px;
+    font-size: 18px;
+  }
+}
+@media (max-width: 480px) {
+  .privacy-hero-section {
+    padding: 36px 0;
+  }
+  .privacy-hero-content h1 {
     font-size: 24px;
   }
-  
-  .privacy-section h3 {
-    font-size: 20px;
+  .privacy-hero-content p {
+    font-size: 15px;
   }
+  .privacy-modern-content {
+    padding: 6px 0 12px 0;
+  }
+  .privacy-modern-section.modern-panel-card {
+    padding: 10px 2px 8px 2px;
+  }
+  .modern-panel-title {
+    font-size: 15px;
+  }
+}
+
+/* Remove old styles */
+.main-content, .privacy-content, .privacy-nav, .privacy-nav-list, .privacy-sections, .privacy-section, .data-box {
+  all: unset;
+  display: revert;
 } 

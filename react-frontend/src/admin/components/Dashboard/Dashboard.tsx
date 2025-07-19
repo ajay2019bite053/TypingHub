@@ -28,6 +28,7 @@ import AssignedPassagesPage from './AssignedPassagesPage';
 import LiveExams from './LiveExams';
 import AdminCardManager from './AdminCardManager';
 import AdminCouponManager from './AdminCouponManager';
+import BlogManager from '../BlogManager/BlogManager';
 import './Dashboard.css';
 
 // Types
@@ -404,6 +405,8 @@ const Dashboard: React.FC = () => {
         return <AdminCardManager />;
       case 'manage-coupons':
         return <AdminCouponManager />;
+      case 'blog-manager':
+        return <BlogManager />;
       default:
         return <Welcome />;
     }
@@ -480,6 +483,12 @@ const Dashboard: React.FC = () => {
           className={activeSection === 'manage-coupons' ? 'active' : ''}
         >
           <FontAwesomeIcon icon={faList} /> Manage Coupons
+        </button>
+        <button 
+          onClick={() => handleSectionChange('blog-manager')}
+          className={activeSection === 'blog-manager' ? 'active' : ''}
+        >
+          <FontAwesomeIcon icon={faList} /> Blog Manager
         </button>
         <button 
           onClick={() => navigate('/admin/admin-requests')}

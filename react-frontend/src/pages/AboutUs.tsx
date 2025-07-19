@@ -41,7 +41,7 @@ const AboutUs: React.FC = () => {
   }, []);
 
   return (
-    <main className="main-content">
+    <main className="main-content about-us-page">
       <Helmet>
         <title>About Us - TypingHub.in 🎯</title>
         <meta name="description" content="Learn about TypingHub.in's mission to help students excel in typing tests and government exams." />
@@ -250,96 +250,6 @@ const AboutUs: React.FC = () => {
                   <FontAwesomeIcon icon={faBook} />
                   <h3>Research Excellence</h3>
                   <p>Published studies on typing education methodology</p>
-              </div>
-              </div>
-            </div>
-
-            <div className="testimonials">
-              <h2>Student Success Stories 💫</h2>
-              <div className="testimonials-grid">
-                <div className="testimonial-card">
-                  <div className="quote-icon">
-                    <FontAwesomeIcon icon={faQuoteLeft} />
-                  </div>
-                  <p>TypingHub helped me achieve my dream of clearing SSC CHSL. The practice tests were exactly what I needed!</p>
-                  <div className="testimonial-author">
-                    <img src="/testimonials/student1.jpg" alt="Rahul Verma" />
-                    <div>
-                      <h4>Rahul Verma</h4>
-                      <p>SSC CHSL Qualifier</p>
-                    </div>
-                  </div>
-                </div>
-                <div className="testimonial-card">
-                  <div className="quote-icon">
-                    <FontAwesomeIcon icon={faQuoteLeft} />
-                  </div>
-                  <p>The structured courses and expert guidance made a huge difference in my typing speed and accuracy.</p>
-                  <div className="testimonial-author">
-                    <img src="/testimonials/student2.jpg" alt="Priya Patel" />
-                    <div>
-                      <h4>Priya Patel</h4>
-                      <p>RRB NTPC Selected</p>
-                    </div>
-              </div>
-              </div>
-              </div>
-            </div>
-
-            <div className="team">
-              <h2>Meet Our Team 👥</h2>
-              <div className="team-grid">
-                <div className="team-member">
-                  <div className="member-image">
-                    <img src="/team-images/founder.jpg" alt="Founder" />
-                    <div className="member-overlay">
-                      <div className="social-links">
-                        <a href="#" target="_blank" rel="noopener noreferrer"><FontAwesomeIcon icon={faLinkedin} /></a>
-                        <a href="#" target="_blank" rel="noopener noreferrer"><FontAwesomeIcon icon={faTwitter} /></a>
-                      </div>
-                    </div>
-                  </div>
-                  <h3>Rajesh Kumar</h3>
-                  <p>Founder & CEO</p>
-                </div>
-                <div className="team-member">
-                  <div className="member-image">
-                    <img src="/team-images/tech-lead.jpg" alt="Tech Lead" />
-                    <div className="member-overlay">
-                      <div className="social-links">
-                        <a href="#" target="_blank" rel="noopener noreferrer"><FontAwesomeIcon icon={faLinkedin} /></a>
-                        <a href="#" target="_blank" rel="noopener noreferrer"><FontAwesomeIcon icon={faGithub} /></a>
-                      </div>
-                    </div>
-                  </div>
-                  <h3>Priya Singh</h3>
-                  <p>Technical Lead</p>
-                </div>
-                <div className="team-member">
-                  <div className="member-image">
-                    <img src="/team-images/content-head.jpg" alt="Content Head" />
-                    <div className="member-overlay">
-                      <div className="social-links">
-                        <a href="#" target="_blank" rel="noopener noreferrer"><FontAwesomeIcon icon={faLinkedin} /></a>
-                        <a href="#" target="_blank" rel="noopener noreferrer"><FontAwesomeIcon icon={faTwitter} /></a>
-                      </div>
-                    </div>
-                  </div>
-                  <h3>Amit Sharma</h3>
-                  <p>Content Head</p>
-                </div>
-                <div className="team-member">
-                  <div className="member-image">
-                    <img src="/team-images/instructor.jpg" alt="Lead Instructor" />
-                    <div className="member-overlay">
-                      <div className="social-links">
-                        <a href="#" target="_blank" rel="noopener noreferrer"><FontAwesomeIcon icon={faLinkedin} /></a>
-                        <a href="#" target="_blank" rel="noopener noreferrer"><FontAwesomeIcon icon={faYoutube} /></a>
-                      </div>
-                    </div>
-                  </div>
-                  <h3>Neha Patel</h3>
-                  <p>Lead Instructor</p>
                 </div>
               </div>
             </div>

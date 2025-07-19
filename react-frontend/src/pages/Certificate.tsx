@@ -1,7 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faVideo, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { 
+  faVideo, 
+  faTimes, 
+  faCertificate, 
+  faCheckCircle, 
+  faClock, 
+  faTrophy,
+  faDownload,
+  faPlay
+} from '@fortawesome/free-solid-svg-icons';
 import './Certificate.css';
 
 const Certificate: React.FC = () => {
@@ -39,6 +48,43 @@ const Certificate: React.FC = () => {
     navigate('/typing-certificate-test');
   };
 
+  const renderProgressDots = () => {
+    const dots = [];
+    for (let i = 0; i < 3; i++) {
+      let className = 'progress-dot';
+      if (i < testsCompleted) {
+        className += ' completed';
+      } else if (i === testsCompleted) {
+        className += ' current';
+      }
+      dots.push(<div key={i} className={className} />);
+    }
+    return dots;
+  };
+
+  const features = [
+    {
+      icon: faCertificate,
+      title: "Official Certificate",
+      description: "Get a professionally designed certificate with your name and typing speed"
+    },
+    {
+      icon: faTrophy,
+      title: "Government Exam Ready",
+      description: "Perfect for CPCT, SSC, RRB, Police and other government exams"
+    },
+    {
+      icon: faDownload,
+      title: "Instant Download",
+      description: "Download your certificate immediately after completing 3 tests"
+    },
+    {
+      icon: faCheckCircle,
+      title: "Verification Code",
+      description: "Each certificate includes a unique verification code for authenticity"
+    }
+  ];
+
   return (
     <div className="certificate-page">
       <div className="certificate-content">
@@ -73,6 +119,30 @@ const Certificate: React.FC = () => {
             Download Certificate
           </button>
         </div>
+
+        {/* New features added below */}
+        <div className="features-grid">
+          {features.map((feature, index) => (
+            <div key={index} className="feature-card">
+              <FontAwesomeIcon icon={feature.icon} style={{ fontSize: '24px', color: '#667eea', marginBottom: '10px' }} />
+              <h3>{feature.title}</h3>
+              <p>{feature.description}</p>
+            </div>
+          ))}
+        </div>
+
+        {testsCompleted < 3 && (
+          <div className="certificate-preview">
+            <h3>What You'll Get</h3>
+            <ul>
+              <li>Professional PDF certificate with your name</li>
+              <li>Your typing speed (WPM) and accuracy</li>
+              <li>Unique verification code for authenticity</li>
+              <li>Perfect for government exam applications</li>
+              <li>Instant download after completing 3 tests</li>
+            </ul>
+          </div>
+        )}
       </div>
 
       {showAdModal && (
@@ -90,13 +160,17 @@ const Certificate: React.FC = () => {
             
             {adCompleted && (
               <>
-                <p>Ad completed! You can now download your certificate.</p>
+                <p>
+                  <FontAwesomeIcon icon={faCheckCircle} style={{ color: '#4caf50', marginRight: '8px' }} />
+                  Ad completed! You can now download your certificate.
+                </p>
                 <a 
                   href="/certificate.pdf" 
                   download 
-                  className="btn btn-primary"
+                  className="btn btn-success"
                   style={{ margin: '10px 0' }}
                 >
+                  <FontAwesomeIcon icon={faDownload} />
                   Download Certificate
                 </a>
               </>
