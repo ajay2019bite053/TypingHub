@@ -6,7 +6,9 @@ const {
   formatAuthResponse,
   formatErrorResponse,
   sendResetEmail,
-  generateResetToken
+  generateResetToken,
+  generateOTP,
+  sendOtpEmail
 } = require('../utils/authUtils');
 const jwt = require('jsonwebtoken');
 
@@ -146,39 +148,35 @@ const login = async (req, res) => {
   }
 };
 
-// Forgot password
+// Forgot password (OTP-based)
 const forgotPassword = async (req, res) => {
   try {
     const { email, mobile } = req.body;
-
     if (!email && !mobile) {
       return res.status(400).json(formatErrorResponse('Please provide an email or mobile number'));
     }
-
     let user = null;
     if (email) {
       user = await User.findOne({ email });
     } else if (mobile) {
       user = await User.findOne({ mobile });
     }
-
     if (!user) {
       return res.status(404).json(formatErrorResponse('User not found'));
     }
-
-    const resetToken = generateResetToken();
-    user.resetPasswordToken = resetToken;
-    user.resetPasswordExpires = Date.now() + 3600000; // 1 hour
+    const otp = generateOTP();
+    user.otp = otp;
+    user.otpExpires = Date.now() + 10 * 60 * 1000; // 10 minutes
+    user.otpVerified = false;
     await user.save();
-
-    // Send reset email if email is available
+    // Send OTP via email (or SMS if implemented)
     if (user.email) {
-      await sendResetEmail(user.email, resetToken, 'user');
+      await sendOtpEmail(user.email, otp);
     }
-
+    // TODO: Add SMS sending if mobile is present and SMS support is added
     res.status(200).json({
       success: true,
-      message: 'Password reset email sent'
+      message: 'OTP sent to your email. (Mobile SMS not implemented yet)'
     });
   } catch (error) {
     console.error('Forgot password error:', error);
@@ -186,37 +184,65 @@ const forgotPassword = async (req, res) => {
   }
 };
 
-// Reset password
-const resetPassword = async (req, res) => {
+// Verify OTP
+const verifyOtp = async (req, res) => {
   try {
-    const { token } = req.params;
-    const { password } = req.body;
-
-    if (!password) {
-      return res.status(400).json(formatErrorResponse('Please provide a new password'));
+    const { email, mobile, otp } = req.body;
+    if (!otp || (!email && !mobile)) {
+      return res.status(400).json({ success: false, message: 'Please provide OTP and email or mobile' });
     }
-
-    const user = await User.findOne({
-      resetPasswordToken: token,
-      resetPasswordExpires: { $gt: Date.now() }
-    });
-
-    if (!user) {
-      return res.status(400).json(formatErrorResponse('Invalid or expired reset token'));
+    let user = null;
+    if (email) user = await User.findOne({ email });
+    else if (mobile) user = await User.findOne({ mobile });
+    if (!user || !user.otp || !user.otpExpires) {
+      return res.status(400).json({ success: false, message: 'OTP not requested or expired' });
     }
-
-    user.password = await hashPassword(password);
-    user.resetPasswordToken = undefined;
-    user.resetPasswordExpires = undefined;
+    if (user.otp !== otp) {
+      return res.status(400).json({ success: false, message: 'Invalid OTP' });
+    }
+    if (user.otpExpires < Date.now()) {
+      return res.status(400).json({ success: false, message: 'OTP expired' });
+    }
+    user.otpVerified = true;
     await user.save();
-
-    res.status(200).json({
-      success: true,
-      message: 'Password has been reset'
-    });
+    res.status(200).json({ success: true, message: 'OTP verified' });
   } catch (error) {
-    console.error('Reset password error:', error);
-    res.status(500).json(formatErrorResponse('Server error', 500));
+    console.error('Verify OTP error:', error);
+    res.status(500).json({ success: false, message: 'Server error' });
+  }
+};
+
+// Reset password with OTP
+const resetPasswordWithOtp = async (req, res) => {
+  try {
+    const { email, mobile, otp, newPassword } = req.body;
+    if (!otp || !newPassword || (!email && !mobile)) {
+      return res.status(400).json({ success: false, message: 'Please provide OTP, new password, and email or mobile' });
+    }
+    let user = null;
+    if (email) user = await User.findOne({ email });
+    else if (mobile) user = await User.findOne({ mobile });
+    if (!user || !user.otp || !user.otpExpires) {
+      return res.status(400).json({ success: false, message: 'OTP not requested or expired' });
+    }
+    if (user.otp !== otp) {
+      return res.status(400).json({ success: false, message: 'Invalid OTP' });
+    }
+    if (user.otpExpires < Date.now()) {
+      return res.status(400).json({ success: false, message: 'OTP expired' });
+    }
+    if (!user.otpVerified) {
+      return res.status(400).json({ success: false, message: 'OTP not verified' });
+    }
+    user.password = await hashPassword(newPassword);
+    user.otp = undefined;
+    user.otpExpires = undefined;
+    user.otpVerified = false;
+    await user.save();
+    res.status(200).json({ success: true, message: 'Password reset successful' });
+  } catch (error) {
+    console.error('Reset password with OTP error:', error);
+    res.status(500).json({ success: false, message: 'Server error' });
   }
 };
 
@@ -282,26 +308,35 @@ const refreshToken = async (req, res) => {
   }
 };
 
-// Verify reset token
-const verifyResetToken = async (req, res) => {
+// Request OTP for password reset
+const requestOtp = async (req, res) => {
   try {
-    const { token } = req.params;
-    const user = await User.findOne({
-      resetPasswordToken: token,
-      resetPasswordExpires: { $gt: Date.now() }
-    });
-
-    if (!user) {
-      return res.status(400).json(formatErrorResponse('Invalid or expired reset token'));
+    const { email, mobile } = req.body;
+    if (!email && !mobile) {
+      return res.status(400).json({ success: false, message: 'Please provide an email or mobile number' });
     }
-
-    res.status(200).json({
-      success: true,
-      message: 'Reset token is valid'
-    });
+    let user = null;
+    if (email) user = await User.findOne({ email });
+    else if (mobile) user = await User.findOne({ mobile });
+    if (!user) {
+      return res.status(404).json({ success: false, message: 'User not found' });
+    }
+    const otp = generateOTP();
+    user.otp = otp;
+    user.otpExpires = Date.now() + 10 * 60 * 1000; // 10 minutes
+    user.otpVerified = false;
+    await user.save();
+    // Send OTP (email only for now)
+    if (user.email) await sendOtpEmail(user.email, otp);
+    // Mock: Simulate SMS sending for mobile
+    if (user.mobile) {
+      console.log(`[MOCK SMS] OTP for ${user.mobile}: ${otp}`);
+      // In production, integrate with SMS provider here
+    }
+    res.status(200).json({ success: true, message: 'OTP sent to your email' });
   } catch (error) {
-    console.error('Verify reset token error:', error);
-    res.status(500).json(formatErrorResponse('Server error', 500));
+    console.error('Request OTP error:', error);
+    res.status(500).json({ success: false, message: 'Server error' });
   }
 };
 
@@ -309,9 +344,10 @@ module.exports = {
   register,
   login,
   forgotPassword,
-  resetPassword,
+  resetPasswordWithOtp,
+  verifyOtp,
   logout,
   checkAuth,
   refreshToken,
-  verifyResetToken
+  requestOtp
 }; 

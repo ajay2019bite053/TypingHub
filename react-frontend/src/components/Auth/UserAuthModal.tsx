@@ -130,11 +130,9 @@ const UserAuthModal: React.FC<UserAuthModalProps> = ({ isOpen, onClose, modalTyp
       const data = await res.json();
       if (res.ok && data.success) {
         setSuccessMessage('Login successful!');
-        setTimeout(() => {
-          setSuccessMessage('');
-          onClose();
-          navigate('/user/dashboard');
-        }, 1000);
+        setSuccessMessage('');
+        onClose();
+        navigate('/user/dashboard');
       } else {
         setErrorMessage(data.message || data.error || 'Login failed');
       }
@@ -183,52 +181,93 @@ const UserAuthModal: React.FC<UserAuthModalProps> = ({ isOpen, onClose, modalTyp
     e.preventDefault();
     setErrorMessage('Mobile login with OTP is not implemented. Use mobile + password on login/register.');
   };
-  // Forgot password with OTP flow
+  // --- Forgot password with OTP flow ---
   const handleForgotSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!resetTarget.trim()) return setErrorMessage('Enter your email or mobile'), false;
     setIsLoading(true);
     setErrorMessage('');
-    // Mock: always succeed and go to OTP step
-    setTimeout(() => {
+    setSuccessMessage('');
+    try {
+      const isEmail = resetTarget.includes('@');
+      const res = await fetch(`${API_BASE}/request-otp`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: isEmail ? resetTarget : undefined,
+          mobile: !isEmail ? resetTarget : undefined
+        })
+      });
+      const data = await res.json();
+      if (res.ok && data.success) {
+        setSuccessMessage('OTP sent! Check your email/mobile.');
+        setSentOtpTo(resetTarget);
+        setForgotStep('otp');
+      } else {
+        setErrorMessage(data.message || 'Failed to send OTP');
+      }
+    } catch (err) {
+      setErrorMessage('Network error');
+    } finally {
       setIsLoading(false);
-      setSuccessMessage('OTP sent to your email/mobile!');
-      setSentOtpTo(resetTarget);
-      setForgotStep('otp');
-    }, 1000);
+    }
   };
+
   const handleOtpVerify = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!forgotOtp || forgotOtp.length !== 6) return setErrorMessage('Enter the 6-digit OTP'), false;
     setIsLoading(true);
     setErrorMessage('');
-    // Mock: always succeed
-    setTimeout(() => {
+    setSuccessMessage('');
+    try {
+      const isEmail = sentOtpTo.includes('@');
+      const res = await fetch(`${API_BASE}/verify-otp`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: isEmail ? sentOtpTo : undefined,
+          mobile: !isEmail ? sentOtpTo : undefined,
+          otp: forgotOtp
+        })
+      });
+      const data = await res.json();
+      if (res.ok && data.success) {
+        setSuccessMessage('OTP verified! Set your new password.');
+        setForgotStep('reset');
+      } else {
+        setErrorMessage(data.message || 'Invalid OTP');
+      }
+    } catch (err) {
+      setErrorMessage('Network error');
+    } finally {
       setIsLoading(false);
-      setSuccessMessage('OTP verified! Set your new password.');
-      setForgotStep('reset');
-    }, 1000);
+    }
   };
-  // Reset password
+
   const handleResetPasswordSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!validateResetPassword()) return;
     setIsLoading(true);
     setErrorMessage('');
+    setSuccessMessage('');
     try {
-      const token = resetToken || (window.location.hash.split('token=')[1] || '').split('&')[0];
-      if (!token) return setErrorMessage('No reset token found'), setIsLoading(false);
-      const res = await fetch(`${API_BASE}/reset-password/${token}`, {
+      const isEmail = sentOtpTo.includes('@');
+      const res = await fetch(`${API_BASE}/reset-password-otp`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ password: newPassword })
+        body: JSON.stringify({
+          email: isEmail ? sentOtpTo : undefined,
+          mobile: !isEmail ? sentOtpTo : undefined,
+          otp: forgotOtp,
+          newPassword
+        })
       });
       const data = await res.json();
       if (res.ok && data.success) {
         setSuccessMessage('Password reset successful! You can now log in.');
         setTimeout(() => { setSuccessMessage(''); setStep('login'); }, 1200);
       } else {
-        setErrorMessage(data.message || data.error || 'Failed to reset password');
+        setErrorMessage(data.message || 'Failed to reset password');
       }
     } catch (err) {
       setErrorMessage('Network error');
@@ -396,71 +435,103 @@ const UserAuthModal: React.FC<UserAuthModalProps> = ({ isOpen, onClose, modalTyp
     </form>
   );
 
-  const renderForgot = () => (
-    <form onSubmit={forgotStep === 'input' ? handleForgotSubmit : forgotStep === 'otp' ? handleOtpVerify : undefined} className="auth-form">
-      <div className="input-group">
-        <FaEnvelope className="input-icon" />
-        <input
-          type="text"
-          name="resetTarget"
-          placeholder="Email or Mobile Number"
-          value={resetTarget}
-          onChange={handleInputChange}
-          autoComplete="email"
-          required
-        />
-      </div>
-      {errorMessage && <div className="error-message">{errorMessage}</div>}
-      {successMessage && <div className="success-message">{successMessage}</div>}
-      <button className="submit-btn" type="submit" disabled={isLoading}>
-        {isLoading ? 'Please wait...' : 'Send OTP'}
-      </button>
-      <div className="toggle-auth-mode">
-        <button className="toggle-btn" type="button" onClick={() => setStep('login')}>Back to Login</button>
-      </div>
-    </form>
-  );
-
-  const renderResetPassword = () => (
-    <form onSubmit={handleResetPasswordSubmit} className="auth-form">
-      <button type="button" className="back-btn" onClick={() => setStep('login')}><FaArrowLeft /> Back</button>
-      <div className="input-group">
-        <FaLock className="input-icon" />
-        <input
-          type={showPassword ? 'text' : 'password'}
-          name="newPassword"
-          placeholder="New Password"
-          value={newPassword}
-          onChange={handleInputChange}
-          autoComplete="new-password"
-          required
-        />
-        <span className="toggle-password" onClick={() => setShowPassword((prev) => !prev)}>
-          {showPassword ? <FaEyeSlash /> : <FaEye />}
-        </span>
-      </div>
-      <div className="input-group">
-        <FaLock className="input-icon" />
-        <input
-          type={showConfirmPassword ? 'text' : 'password'}
-          name="confirmNewPassword"
-          placeholder="Confirm New Password"
-          value={confirmNewPassword}
-          onChange={handleInputChange}
-          autoComplete="new-password"
-          required
-        />
-        <span className="toggle-password" onClick={() => setShowConfirmPassword((prev) => !prev)}>
-          {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
-        </span>
-      </div>
-      {errorMessage && <div className="error-message">{errorMessage}</div>}
-      {successMessage && <div className="success-message">{successMessage}</div>}
-      <button className="submit-btn" type="submit" disabled={isLoading}>
-        {isLoading ? 'Please wait...' : 'Reset Password'}
-      </button>
-    </form>
-  );
+  // --- UI for forgot password OTP flow ---
+  const renderForgot = () => {
+    if (forgotStep === 'input') {
+      return (
+        <form onSubmit={handleForgotSubmit} className="auth-form">
+          <div className="input-group">
+            <FaEnvelope className="input-icon" />
+            <input
+              type="text"
+              name="resetTarget"
+              placeholder="Email or Mobile Number"
+              value={resetTarget}
+              onChange={handleInputChange}
+              autoComplete="email"
+              required
+            />
+          </div>
+          {errorMessage && <div className="error-message">{errorMessage}</div>}
+          {successMessage && <div className="success-message">{successMessage}</div>}
+          <button className="submit-btn" type="submit" disabled={isLoading}>
+            {isLoading ? 'Please wait...' : 'Send OTP'}
+          </button>
+          <div className="toggle-auth-mode">
+            <button className="toggle-btn" type="button" onClick={() => setStep('login')}>Back to Login</button>
+          </div>
+        </form>
+      );
+    }
+    if (forgotStep === 'otp') {
+      return (
+        <form onSubmit={handleOtpVerify} className="auth-form">
+          <div className="input-group">
+            <FaLock className="input-icon" />
+            <input
+              type="text"
+              name="forgotOtp"
+              placeholder="Enter OTP"
+              value={forgotOtp}
+              onChange={e => setForgotOtp(e.target.value)}
+              maxLength={6}
+              required
+            />
+          </div>
+          {errorMessage && <div className="error-message">{errorMessage}</div>}
+          {successMessage && <div className="success-message">{successMessage}</div>}
+          <button className="submit-btn" type="submit" disabled={isLoading}>
+            {isLoading ? 'Please wait...' : 'Verify OTP'}
+          </button>
+          <div className="toggle-auth-mode">
+            <button className="toggle-btn" type="button" onClick={() => { setForgotStep('input'); setForgotOtp(''); }}>Back</button>
+          </div>
+        </form>
+      );
+    }
+    if (forgotStep === 'reset') {
+      return (
+        <form onSubmit={handleResetPasswordSubmit} className="auth-form">
+          <div className="input-group">
+            <FaLock className="input-icon" />
+            <input
+              type={showPassword ? 'text' : 'password'}
+              name="newPassword"
+              placeholder="New Password"
+              value={newPassword}
+              onChange={handleInputChange}
+              autoComplete="new-password"
+              required
+            />
+            <span className="toggle-password" onClick={() => setShowPassword((prev) => !prev)}>
+              {showPassword ? <FaEyeSlash /> : <FaEye />}
+            </span>
+          </div>
+          <div className="input-group">
+            <FaLock className="input-icon" />
+            <input
+              type={showConfirmPassword ? 'text' : 'password'}
+              name="confirmNewPassword"
+              placeholder="Confirm New Password"
+              value={confirmNewPassword}
+              onChange={handleInputChange}
+              autoComplete="new-password"
+              required
+            />
+            <span className="toggle-password" onClick={() => setShowConfirmPassword((prev) => !prev)}>
+              {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
+            </span>
+          </div>
+          {errorMessage && <div className="error-message">{errorMessage}</div>}
+          {successMessage && <div className="success-message">{successMessage}</div>}
+          <button className="submit-btn" type="submit" disabled={isLoading}>
+            {isLoading ? 'Please wait...' : 'Reset Password'}
+          </button>
+        </form>
+      );
+    }
+    return null;
+  };
 
   // At the top of the component, add a function to get the modal title based on the step
   const getModalTitle = () => {
@@ -474,17 +545,16 @@ const UserAuthModal: React.FC<UserAuthModalProps> = ({ isOpen, onClose, modalTyp
   // --- Render modal ---
   return (
     <div className="user-auth-modal-backdrop glass-bg">
-      <div className="user-auth-modal" style={{ fontFamily: 'Roboto Serif, serif' }}>
-        <div className="modal-header-row">
-          <img src="/images/Main_LOGO.png" alt="Logo" className="auth-logo-inline" />
+      <div className="user-auth-modal modern-auth-modal" style={{ fontFamily: 'Roboto Serif, serif' }}>
+        <div className="modal-header-bar">
           <span className="modal-title">{getModalTitle()}</span>
+          <button className="close-btn" onClick={onClose}>&times;</button>
         </div>
-        <button className="close-btn" onClick={onClose}>&times;</button>
         {step === 'login' && renderLogin()}
         {step === 'register' && renderRegister()}
         {step === 'mobile' && renderMobile()}
         {step === 'forgot' && renderForgot()}
-        {step === 'reset' && renderResetPassword()}
+        {step === 'reset' && renderForgot()}
       </div>
     </div>
   );

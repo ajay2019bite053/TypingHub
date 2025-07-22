@@ -5,7 +5,7 @@ import {
   faUser, faSignInAlt, faUsers,
   faFileAlt, faTrophy, faCrown,
   faUserPlus, faRocket, faGraduationCap,
-  faStar, faBookOpen, faCertificate, faGavel, faTrain
+  faStar, faBookOpen, faCertificate, faGavel, faTrain, faArrowRight
 } from '@fortawesome/free-solid-svg-icons';
 import UserAuthModal from '../components/Auth/UserAuthModal';
 import CourseDetailsModal from '../components/CourseDetailsModal';
@@ -274,12 +274,21 @@ const TypingCourseLanding: React.FC = () => {
               </div>
             ))}
           </div>
-          <section className="other-exams-hero-section">
-            <div className="other-exams-hero-content">
-              <h1>Looking for other Government Exam Typing Tests?</h1>
-              <p>We offer a vast collection of specialized mock tests and practice materials tailored for various other government examinations. Our platform provides a real exam interface and premium passages to ensure you are fully prepared to achieve your dream.</p>
+          {/* Upgraded Other Government Exams Section */}
+          <section className="other-exams-hero-section upgraded-other-exams">
+            <div className="other-exams-hero-content upgraded-content">
+              <h1>Explore Typing Mocks for Govt Exams</h1>
+              <p>Practice typing for SSC, Railways, Courts, Police, Banking, and more—all in one place.</p>
+              <ul className="other-exams-list">
+                <li>SSC CGL/CHSL</li>
+                <li>Railway (RRB-NTPC)</li>
+                <li>High Court & Supreme Court</li>
+                <li>Police & Banking</li>
+              </ul>
               <div className="other-exams-hero-buttons">
-                <button className="primary-btn" onClick={handleLoginClick}>Explore All Exams & Mocks</button>
+                <button className="primary-cta-btn" onClick={handleLoginClick}>
+                  Explore All Mock Tests <FontAwesomeIcon icon={faArrowRight} />
+                </button>
               </div>
             </div>
           </section>
@@ -367,76 +376,6 @@ const TypingCourseLanding: React.FC = () => {
                 <h3><span className="emoji-icon">🏆</span> Achieve Your Dreams</h3>
                 <p>Reach your typing goals and boost your chances of success in competitive exams.</p>
               </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Stats Section */}
-        <section id="stats" className="stats-section">
-          <h2>Our Community in Numbers</h2>
-          <div className="stats-container">
-            <div className="stat-block">
-              <div className="stat-icon-wrapper">🧑‍💻</div>
-              <div className="stat-content">
-                <h3><span id="live-users-typing">157</span></h3>
-                <p>Users Typing Now</p>
-              </div>
-            </div>
-            <div className="stat-block">
-              <div className="stat-icon-wrapper">📝</div>
-              <div className="stat-content">
-                <h3><span id="total-mock-tests">7523</span></h3>
-                <p>Total Mock Tests Completed</p>
-              </div>
-            </div>
-            <div className="stat-block">
-              <div className="stat-icon-wrapper">⚡</div>
-              <div className="stat-content">
-                <h3><span id="best-speed-today">83 WPM</span></h3>
-                <p>Best Speed Recorded Today</p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Testimonials Section */}
-        <section id="testimonials" className="testimonials-section">
-          <h2>What Our Students Say</h2>
-          <div className="testimonials-container">
-          <div className="testimonials-grid">
-            {testimonials.map((testimonial, index) => (
-              <div key={index} className="testimonial-card">
-                <img src={testimonial.avatar} alt={testimonial.name} />
-                <h3>{testimonial.name}</h3>
-                <p>{testimonial.quote}</p>
-                <div className="rating">
-                  {[...Array(testimonial.rating)].map((_, i) => (
-                    <FontAwesomeIcon key={i} icon={faStar} />
-                  ))}
-                </div>
-              </div>
-            ))}
-            </div>
-            <div className="scroll-indicators">
-              {testimonials.map((_, index) => (
-                <div 
-                  key={index} 
-                  className={`scroll-indicator ${index === 0 ? 'active' : ''}`}
-                  onClick={() => {
-                    const grid = document.querySelector('.testimonials-grid') as HTMLElement;
-                    if (grid) {
-                      const cardWidth = 320 + 32; // card width + gap
-                      grid.scrollTo({
-                        left: index * cardWidth,
-                        behavior: 'smooth'
-                      });
-                    }
-                  }}
-                />
-              ))}
-            </div>
-            <div className="scroll-hint">
-              💡 Scroll or click dots to see more testimonials
             </div>
           </div>
         </section>

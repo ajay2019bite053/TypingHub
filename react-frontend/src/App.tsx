@@ -190,11 +190,7 @@ const App = () => {
                         <Route path="/aiims-crc-test" element={<AIIMSCRCTest />} />
                         <Route path="/allahabad-high-court-test" element={<AllahabadHighCourtTest />} />
                         <Route path="/live-exam/:id" element={<LiveExamTest />} />
-                        <Route path="/verify-certificate" element={<CertificateVerification />} />
-<<<<<<< HEAD
                         <Route path="/community" element={<Community />} />
-=======
->>>>>>> 152898b79f4d33325090133ecbbb60905ce6bd4e
 
                         {/* Admin Routes */}
                         <Route path="/admin-secret-9382xj" element={

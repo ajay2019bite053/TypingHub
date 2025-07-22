@@ -48,7 +48,6 @@ const CreateTest = () => {
     { value: '400-450', label: '400-450 words' }
   ];
 
-<<<<<<< HEAD
   // Helper to get min and max word count from textLength
   const getWordRange = (length: string) => {
     switch (length) {
@@ -78,8 +77,6 @@ const CreateTest = () => {
     return text.replace(/\r?\n|\r/g, ' ').replace(/\s+/g, ' ').trim();
   };
 
-=======
->>>>>>> 152898b79f4d33325090133ecbbb60905ce6bd4e
   const generateAiTextFromSearch = async () => {
     if (!searchText.trim()) {
       alert('Please enter a topic to generate text.');
@@ -87,23 +84,12 @@ const CreateTest = () => {
     }
 
     setIsGenerating(true);
-<<<<<<< HEAD
     const { min, max } = getWordRange(textLength);
     // Create dynamic prompt based on search topic
     const prompt = `Write a passage of ${max} words about ${searchText} in the style of SSC CGL/CHSL/RRB-NTPC typing exams. Write as a continuous paragraph without titles, headings, or excessive spacing. Focus on government exams, competitive tests, and educational content. Make it suitable for typing practice with proper sentence structure and flow. Passage must be at least ${min} words, but as close to ${max} words as possible.`;
 
     for (let i = 0; i < AI_CONFIG.MODELS.length; i++) {
       const model = AI_CONFIG.MODELS[i];
-=======
-    
-    // Create dynamic prompt based on search topic
-    const prompt = `Write a ${textLength} paragraph about ${searchText} in the style of SSC CGL/CHSL/RRB-NTPC typing exams. Write as a continuous paragraph without titles, headings, or excessive spacing. Focus on government exams, competitive tests, and educational content. Make it suitable for typing practice with proper sentence structure and flow.`;
-
-    // Try each model in order until one works
-    for (let i = 0; i < AI_CONFIG.MODELS.length; i++) {
-      const model = AI_CONFIG.MODELS[i];
-      
->>>>>>> 152898b79f4d33325090133ecbbb60905ce6bd4e
       try {
         console.log(`Trying model ${i + 1}/${AI_CONFIG.MODELS.length}: ${model}`);
         console.log('With prompt:', prompt);
@@ -121,11 +107,7 @@ const CreateTest = () => {
             messages: [
               { role: 'user', content: prompt }
             ],
-<<<<<<< HEAD
             max_tokens: Math.round(max * 1.6) // buffer for tokens
-=======
-            max_tokens: getMaxLength(textLength)
->>>>>>> 152898b79f4d33325090133ecbbb60905ce6bd4e
           })
         });
 
@@ -137,7 +119,6 @@ const CreateTest = () => {
         const data = await response.json();
         console.log('OpenRouter Response:', data);
         
-<<<<<<< HEAD
         let generatedText = data.choices?.[0]?.message?.content || '';
         generatedText = generatedText.trim();
         // Trim to max words
@@ -154,21 +135,6 @@ const CreateTest = () => {
         setUseAiText(true);
         setSearchText(''); // Clear the search box after generating
         setIsGenerating(false);
-=======
-        const generatedText = data.choices?.[0]?.message?.content || '';
-
-        // Clean and format the generated text
-        const cleanedText = generatedText.trim();
-        
-        if (!cleanedText) {
-          console.log(`Model ${model} returned empty text`);
-          continue; // Try next model
-        }
-        
-        setAiGeneratedText(cleanedText);
-        setUseAiText(true);
-        setSearchText(''); // Clear the search box after generating
->>>>>>> 152898b79f4d33325090133ecbbb60905ce6bd4e
         console.log(`Successfully generated text using model: ${model}`);
         return; // Success!
         
@@ -179,11 +145,7 @@ const CreateTest = () => {
     }
     
     // If all models failed
-<<<<<<< HEAD
     alert(`Failed to generate a passage of at least ${min} words. Please try again.`);
-=======
-    alert('All AI models failed. Please try again later.');
->>>>>>> 152898b79f4d33325090133ecbbb60905ce6bd4e
     setIsGenerating(false);
   };
 
@@ -194,22 +156,11 @@ const CreateTest = () => {
     }
 
     setIsGenerating(true);
-<<<<<<< HEAD
     const { min, max } = getWordRange(textLength);
     const prompt = `Write a passage of ${max} words about ${passagePrompt} in the style of SSC CGL/CHSL/RRB-NTPC typing exams. Write as a continuous paragraph without titles, headings, or excessive spacing. Focus on government exams, competitive tests, and educational content. Make it suitable for typing practice with proper sentence structure and flow. Passage must be at least ${min} words, but as close to ${max} words as possible.`;
     
     for (let i = 0; i < AI_CONFIG.MODELS.length; i++) {
       const model = AI_CONFIG.MODELS[i];
-=======
-    
-    // Create dynamic prompt based on user input
-    const prompt = `Write a ${textLength} paragraph about ${passagePrompt} in the style of SSC CGL/CHSL/RRB-NTPC typing exams. Write as a continuous paragraph without titles, headings, or excessive spacing. Focus on government exams, competitive tests, and educational content. Make it suitable for typing practice with proper sentence structure and flow.`;
-
-    // Try each model in order until one works
-    for (let i = 0; i < AI_CONFIG.MODELS.length; i++) {
-      const model = AI_CONFIG.MODELS[i];
-      
->>>>>>> 152898b79f4d33325090133ecbbb60905ce6bd4e
       try {
         console.log(`Trying model ${i + 1}/${AI_CONFIG.MODELS.length}: ${model}`);
         console.log('With prompt:', prompt);
@@ -227,11 +178,7 @@ const CreateTest = () => {
             messages: [
               { role: 'user', content: prompt }
             ],
-<<<<<<< HEAD
             max_tokens: Math.round(max * 1.6)
-=======
-            max_tokens: getMaxLength(textLength)
->>>>>>> 152898b79f4d33325090133ecbbb60905ce6bd4e
           })
         });
 
@@ -243,7 +190,6 @@ const CreateTest = () => {
         const data = await response.json();
         console.log('OpenRouter Response:', data);
         
-<<<<<<< HEAD
         let generatedText = data.choices?.[0]?.message?.content || '';
         generatedText = generatedText.trim();
         // Trim to max words
@@ -259,20 +205,6 @@ const CreateTest = () => {
         setAiGeneratedText(cleaned);
         setUseAiText(true);
         setIsGenerating(false);
-=======
-        const generatedText = data.choices?.[0]?.message?.content || '';
-
-        // Clean and format the generated text
-        const cleanedText = generatedText.trim();
-        
-        if (!cleanedText) {
-          console.log(`Model ${model} returned empty text`);
-          continue; // Try next model
-        }
-        
-        setAiGeneratedText(cleanedText);
-        setUseAiText(true);
->>>>>>> 152898b79f4d33325090133ecbbb60905ce6bd4e
         console.log(`Successfully generated text using model: ${model}`);
         return; // Success!
         
@@ -283,11 +215,7 @@ const CreateTest = () => {
     }
     
     // If all models failed
-<<<<<<< HEAD
     alert(`Failed to generate a passage of at least ${min} words. Please try again.`);
-=======
-    alert('All AI models failed. Please try again later.');
->>>>>>> 152898b79f4d33325090133ecbbb60905ce6bd4e
     setIsGenerating(false);
   };
 

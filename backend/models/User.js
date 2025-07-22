@@ -41,6 +41,17 @@ const userSchema = new mongoose.Schema({
   resetPasswordExpires: {
     type: Date
   },
+  // OTP fields for password reset
+  otp: {
+    type: String
+  },
+  otpExpires: {
+    type: Date
+  },
+  otpVerified: {
+    type: Boolean,
+    default: false
+  },
   stats: {
     totalCourses: {
       type: Number,

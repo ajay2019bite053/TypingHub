@@ -44,7 +44,7 @@ const sendResetEmail = async (email, resetToken, role) => {
   const resetUrl = `${config.FRONTEND_URL || 'http://localhost:3000'}/${role}/reset-password/${resetToken}`;
   
   const mailOptions = {
-    from: config.EMAIL_USER || 'your-email@gmail.com',
+    from: `TypingHub <${config.EMAIL_USER || 'your-email@gmail.com'}>`,
     to: email,
     subject: 'Password Reset Request',
     html: `
@@ -96,6 +96,26 @@ const formatErrorResponse = (message, statusCode = 400) => {
   };
 };
 
+// OTP management
+const generateOTP = () => {
+  return Math.floor(100000 + Math.random() * 900000).toString(); // 6-digit OTP
+};
+
+const sendOtpEmail = async (email, otp) => {
+  const mailOptions = {
+    from: `TypingHub <${config.EMAIL_USER || 'your-email@gmail.com'}>`,
+    to: email,
+    subject: 'Your OTP for Password Reset',
+    html: `
+      <h1>Password Reset OTP</h1>
+      <p>Your OTP for password reset is: <b>${otp}</b></p>
+      <p>This OTP will expire in 10 minutes.</p>
+      <p>If you didn't request this, please ignore this email.</p>
+    `
+  };
+  await transporter.sendMail(mailOptions);
+};
+
 module.exports = {
   generateTokens,
   hashPassword,
@@ -104,5 +124,7 @@ module.exports = {
   generateResetToken,
   setCookies,
   formatAuthResponse,
-  formatErrorResponse
+  formatErrorResponse,
+  generateOTP,
+  sendOtpEmail
 }; 

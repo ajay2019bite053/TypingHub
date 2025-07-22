@@ -8,7 +8,10 @@ const {
   logout,
   checkAuth,
   refreshToken,
-  verifyResetToken
+  verifyResetToken,
+  requestOtp,
+  verifyOtp,
+  resetPasswordWithOtp
 } = require('../controllers/userAuthController');
 const userAuthMiddleware = require('../middleware/auth');
 
@@ -16,9 +19,11 @@ const userAuthMiddleware = require('../middleware/auth');
 router.post('/register', register);
 router.post('/login', login);
 router.post('/refresh-token', refreshToken);
-router.post('/forgot-password', forgotPassword);
-router.post('/reset-password/:token', resetPassword);
-router.post('/verify-reset-token/:token', verifyResetToken);
+
+// OTP-based password reset
+router.post('/request-otp', requestOtp);
+router.post('/verify-otp', verifyOtp);
+router.post('/reset-password-otp', resetPasswordWithOtp);
 
 // Protected routes
 router.post('/logout', userAuthMiddleware, logout);
