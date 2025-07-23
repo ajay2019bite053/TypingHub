@@ -46,7 +46,7 @@ const Footer: React.FC = () => {
           <div className="link-container">
             <p>Connect for Exams & Typing Updates</p>
             <div className="social-icons">
-              <a href= target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+              <a href= "123"target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
                 <i className="fab fa-whatsapp"></i>
               </a>
               <a href="https://www.instagram.com/typinghub.in/?hl=en" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
