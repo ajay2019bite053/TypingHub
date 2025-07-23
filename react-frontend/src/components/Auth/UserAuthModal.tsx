@@ -130,9 +130,9 @@ const UserAuthModal: React.FC<UserAuthModalProps> = ({ isOpen, onClose, modalTyp
       const data = await res.json();
       if (res.ok && data.success) {
         setSuccessMessage('Login successful!');
-        setSuccessMessage('');
-        onClose();
-        navigate('/user/dashboard');
+          setSuccessMessage('');
+          onClose();
+          navigate('/user/dashboard');
       } else {
         setErrorMessage(data.message || data.error || 'Login failed');
       }
@@ -440,28 +440,28 @@ const UserAuthModal: React.FC<UserAuthModalProps> = ({ isOpen, onClose, modalTyp
     if (forgotStep === 'input') {
       return (
         <form onSubmit={handleForgotSubmit} className="auth-form">
-          <div className="input-group">
-            <FaEnvelope className="input-icon" />
-            <input
-              type="text"
-              name="resetTarget"
-              placeholder="Email or Mobile Number"
-              value={resetTarget}
-              onChange={handleInputChange}
-              autoComplete="email"
-              required
-            />
-          </div>
-          {errorMessage && <div className="error-message">{errorMessage}</div>}
-          {successMessage && <div className="success-message">{successMessage}</div>}
-          <button className="submit-btn" type="submit" disabled={isLoading}>
-            {isLoading ? 'Please wait...' : 'Send OTP'}
-          </button>
-          <div className="toggle-auth-mode">
-            <button className="toggle-btn" type="button" onClick={() => setStep('login')}>Back to Login</button>
-          </div>
-        </form>
-      );
+      <div className="input-group">
+        <FaEnvelope className="input-icon" />
+        <input
+          type="text"
+          name="resetTarget"
+          placeholder="Email or Mobile Number"
+          value={resetTarget}
+          onChange={handleInputChange}
+          autoComplete="email"
+          required
+        />
+      </div>
+      {errorMessage && <div className="error-message">{errorMessage}</div>}
+      {successMessage && <div className="success-message">{successMessage}</div>}
+      <button className="submit-btn" type="submit" disabled={isLoading}>
+        {isLoading ? 'Please wait...' : 'Send OTP'}
+      </button>
+      <div className="toggle-auth-mode">
+        <button className="toggle-btn" type="button" onClick={() => setStep('login')}>Back to Login</button>
+      </div>
+    </form>
+  );
     }
     if (forgotStep === 'otp') {
       return (
@@ -491,44 +491,44 @@ const UserAuthModal: React.FC<UserAuthModalProps> = ({ isOpen, onClose, modalTyp
     }
     if (forgotStep === 'reset') {
       return (
-        <form onSubmit={handleResetPasswordSubmit} className="auth-form">
-          <div className="input-group">
-            <FaLock className="input-icon" />
-            <input
-              type={showPassword ? 'text' : 'password'}
-              name="newPassword"
-              placeholder="New Password"
-              value={newPassword}
-              onChange={handleInputChange}
-              autoComplete="new-password"
-              required
-            />
-            <span className="toggle-password" onClick={() => setShowPassword((prev) => !prev)}>
-              {showPassword ? <FaEyeSlash /> : <FaEye />}
-            </span>
-          </div>
-          <div className="input-group">
-            <FaLock className="input-icon" />
-            <input
-              type={showConfirmPassword ? 'text' : 'password'}
-              name="confirmNewPassword"
-              placeholder="Confirm New Password"
-              value={confirmNewPassword}
-              onChange={handleInputChange}
-              autoComplete="new-password"
-              required
-            />
-            <span className="toggle-password" onClick={() => setShowConfirmPassword((prev) => !prev)}>
-              {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
-            </span>
-          </div>
-          {errorMessage && <div className="error-message">{errorMessage}</div>}
-          {successMessage && <div className="success-message">{successMessage}</div>}
-          <button className="submit-btn" type="submit" disabled={isLoading}>
-            {isLoading ? 'Please wait...' : 'Reset Password'}
-          </button>
-        </form>
-      );
+    <form onSubmit={handleResetPasswordSubmit} className="auth-form">
+      <div className="input-group">
+        <FaLock className="input-icon" />
+        <input
+          type={showPassword ? 'text' : 'password'}
+          name="newPassword"
+          placeholder="New Password"
+          value={newPassword}
+          onChange={handleInputChange}
+          autoComplete="new-password"
+          required
+        />
+        <span className="toggle-password" onClick={() => setShowPassword((prev) => !prev)}>
+          {showPassword ? <FaEyeSlash /> : <FaEye />}
+        </span>
+      </div>
+      <div className="input-group">
+        <FaLock className="input-icon" />
+        <input
+          type={showConfirmPassword ? 'text' : 'password'}
+          name="confirmNewPassword"
+          placeholder="Confirm New Password"
+          value={confirmNewPassword}
+          onChange={handleInputChange}
+          autoComplete="new-password"
+          required
+        />
+        <span className="toggle-password" onClick={() => setShowConfirmPassword((prev) => !prev)}>
+          {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
+        </span>
+      </div>
+      {errorMessage && <div className="error-message">{errorMessage}</div>}
+      {successMessage && <div className="success-message">{successMessage}</div>}
+      <button className="submit-btn" type="submit" disabled={isLoading}>
+        {isLoading ? 'Please wait...' : 'Reset Password'}
+      </button>
+    </form>
+  );
     }
     return null;
   };

@@ -255,7 +255,7 @@ const TypingCourseLanding: React.FC = () => {
         </section>
 
         {/* Course Showcase */}
-        <section className="course-showcase">
+        <section className="course-showcase section-spacing">
           <h2>Our Premium Courses</h2>
           <div className="course-grid four-col-layout">
             {sharedLandingCourses.map(course => (
@@ -275,7 +275,7 @@ const TypingCourseLanding: React.FC = () => {
             ))}
           </div>
           {/* Upgraded Other Government Exams Section */}
-          <section className="other-exams-hero-section upgraded-other-exams">
+          <section className="other-exams-hero-section upgraded-other-exams section-spacing">
             <div className="other-exams-hero-content upgraded-content">
               <h1>Explore Typing Mocks for Govt Exams</h1>
               <p>Practice typing for SSC, Railways, Courts, Police, Banking, and more—all in one place.</p>
@@ -295,7 +295,7 @@ const TypingCourseLanding: React.FC = () => {
         </section>
 
         {/* Why Choose Our Course? Section */}
-        <section className="features">
+        <section className="features section-spacing">
           <h2>Why Choose Our Course?</h2>
           <div className="features-grid">
             <div className="feature-card">
@@ -332,38 +332,38 @@ const TypingCourseLanding: React.FC = () => {
         </section>
 
         {/* How It Works Section */}
-        <section className="how-it-works">
+        <section className="how-it-works section-spacing">
           <h2>How It Works</h2>
           <div className="steps-container">
-            <div className="step-wrapper left-align">
+            <div className="step-wrapper left-align" style={{ marginBottom: 16 }}>
               <div className="step-marker"></div>
               <div className="step-content">
                 <h3><span className="emoji-icon">🎯</span> Set Your Goals</h3>
                 <p>Define your typing speed and accuracy targets to personalize your learning path.</p>
               </div>
             </div>
-            <div className="step-wrapper right-align">
+            <div className="step-wrapper right-align" style={{ marginBottom: 16 }}>
               <div className="step-marker"></div>
               <div className="step-content">
                 <h3><span className="emoji-icon">✋</span> Interactive Lessons</h3>
                 <p>Engage with our structured lessons, focusing on proper finger placement and technique.</p>
               </div>
             </div>
-            <div className="step-wrapper left-align">
+            <div className="step-wrapper left-align" style={{ marginBottom: 16 }}>
               <div className="step-marker"></div>
               <div className="step-content">
                 <h3><span className="emoji-icon">🔁</span> Practice & Master</h3>
                 <p>Practice regularly with diverse exercises to build muscle memory and improve speed.</p>
               </div>
             </div>
-            <div className="step-wrapper right-align">
+            <div className="step-wrapper right-align" style={{ marginBottom: 16 }}>
               <div className="step-marker"></div>
               <div className="step-content">
                 <h3><span className="emoji-icon">📊</span> Track Progress</h3>
                 <p>Monitor your performance with detailed statistics and visualize your improvement over time.</p>
               </div>
             </div>
-            <div className="step-wrapper left-align">
+            <div className="step-wrapper left-align" style={{ marginBottom: 16 }}>
               <div className="step-marker"></div>
               <div className="step-content">
                 <h3><span className="emoji-icon">📝</span> Premium Mock Tests</h3>

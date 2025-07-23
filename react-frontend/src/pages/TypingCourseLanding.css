@@ -35,114 +35,37 @@ body, .typing-course-landing {
 /* Global heading styles */
 h1, h2, h3 {
   font-family: 'Roboto Serif', serif;
-  color: #000000;
+  color: #000;
   font-weight: 700;
 }
 
 h1 {
-  font-size: 2.5rem;
-  margin-bottom: 1.5rem;
+  font-size: 2rem;
+  margin-bottom: 1.2rem;
 }
 
 h2 {
-  font-size: 2.5rem;
-  margin-bottom: 1.5rem;
+  font-size: 2rem;
+  margin-bottom: 1.2rem;
 }
 
 h3 {
-  font-size: 1.5rem;
-  margin-bottom: 1rem;
+  font-size: 1.2rem;
+  margin-bottom: 0.8rem;
 }
 
 /* Update specific section headings */
-.typing-hero-content h1 {
-  font-size: 2.5rem;
-  color: #000000;
-  font-weight: 700;
-  margin-bottom: 1.5rem;
-  line-height: 1.2;
-  background: none;
-  -webkit-background-clip: unset;
-  -webkit-text-fill-color: unset;
-}
-
-.other-exams-hero-content h1 {
-  font-size: 2.5rem;
-  color: #000000;
-  font-weight: 700;
-  margin-bottom: 1.5rem;
-  line-height: 1.2;
-  background: none;
-  -webkit-background-clip: unset;
-  -webkit-text-fill-color: unset;
-}
-
+.typing-hero-content h1,
+.other-exams-hero-content h1,
 .features h2,
 .how-it-works h2,
-.stats-section h2,
-.testimonials-section h2,
-.faq-section h2,
-.cta-section h2 {
-  font-size: 2.5rem;
-  color: #000000;
+.cta-section h2,
+.faq-section h2 {
+  font-size: 2rem;
+  color: #000;
   font-weight: 700;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.2rem;
   text-align: center;
-  position: relative;
-  display: block;
-  width: 100%;
-}
-
-/* Update responsive styles */
-@media (max-width: 768px) {
-  h1, h2 {
-    font-size: 2.2rem;
-  }
-  
-  h3 {
-    font-size: 1.3rem;
-  }
-}
-
-@media (max-width: 480px) {
-  h1, h2 {
-    font-size: 1.8rem;
-  }
-  
-  h3 {
-    font-size: 1.2rem;
-  }
-}
-
-/* Update other text elements to use Roboto Serif */
-p, span, a, button, .btn {
-  font-family: 'Roboto Serif', serif;
-}
-
-/* Typography */
-h4, h5, h6 {
-  font-family: 'Roboto', Arial, sans-serif;
-  color: var(--text-dark);
-}
-
-h2::after {
-  display: none;
-}
-
-.highlight {
-  color: var(--accent);
-  font-weight: 700;
-  letter-spacing: 0.5px;
-}
-
-/* Features Section */
-.features {
-  padding: 0;
-  margin: -4rem 0 0 0 !important;
-  background: #f9f9f9;
-  position: relative;
-  width: 100%;
-  z-index: 1;
 }
 
 .features h2 {
@@ -266,37 +189,26 @@ h2::after {
 
 /* How It Works Section - Text Timeline */
 .how-it-works {
-  padding: 0;
-  margin: -2rem 0 0 0 !important;
-  background: #f9f9f9;
-  position: relative;
-  width: 100%;
-  z-index: 0;
+  background: #fff;
+  box-shadow: none;
+  border: none;
+  margin: 0;
+  padding: 32px 0 24px 0;
 }
-
 .how-it-works h2 {
-  font-size: 2.5rem;
-  margin-bottom: 2rem;
-  color: #1a2a44;
+  font-size: 24px;
+  color: #000;
+  font-family: 'Roboto Serif', serif;
   font-weight: 700;
-  position: relative;
-  display: block;
+  margin-bottom: 1.2rem;
   text-align: center;
-  padding-top: 1rem;
-  width: 100%;
 }
-
-.how-it-works h2::after {
-  display: none;
-}
-
 .steps-container {
   max-width: 800px;
   margin: 0 auto;
-  position: relative;
   padding: 0 1rem;
+  position: relative;
 }
-
 .steps-container::before {
   content: '';
   position: absolute;
@@ -304,130 +216,115 @@ h2::after {
   top: 0;
   bottom: 0;
   width: 2px;
-  background: linear-gradient(to bottom, #1976d2, #2196F3);
+  background: #e6eaf0;
   transform: translateX(-50%);
+  z-index: 0;
 }
-
 .step-wrapper {
   display: flex;
   align-items: center;
-  margin-bottom: 1rem;
+  margin-bottom: 1.2rem;
   position: relative;
+  z-index: 1;
 }
-
 .step-wrapper:last-child {
   margin-bottom: 0;
 }
-
+.step-wrapper:not(:last-child) {
+  margin-bottom: 16px !important;
+}
 .step-marker {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
   width: 16px;
   height: 16px;
-  background: #1976d2;
+  background: #fff;
+  border: 2.5px solid #1976d2;
   border-radius: 50%;
-  border: 3px solid white;
-  box-shadow: 0 0 0 2px rgba(25, 118, 210, 0.2);
   z-index: 2;
+  box-shadow: 0 2px 8px rgba(25, 118, 210, 0.10);
 }
-
 .step-content {
   width: 45%;
-  padding: 0.3rem 1rem;
+  padding: 1.1rem 1.5rem;
+  background: #f8fafc;
+  box-shadow: 0 4px 18px rgba(25, 118, 210, 0.07);
+  border-radius: 14px;
+  margin-bottom: 0;
+  border-left: 5px solid #1976d2;
+  border-top: 1px solid #e6eaf0;
+  border-bottom: 1px solid #e6eaf0;
+  border-right: 1px solid #e6eaf0;
+  transition: box-shadow 0.2s, border-color 0.2s;
+  position: relative;
 }
-
+.step-content:hover {
+  box-shadow: 0 8px 32px rgba(25, 118, 210, 0.13);
+  border-left: 5px solid #1565c0;
+}
 .step-wrapper.left-align .step-content {
   text-align: right;
   margin-right: 55%;
 }
-
 .step-wrapper.right-align .step-content {
   text-align: left;
   margin-left: 55%;
 }
-
 .step-content h3 {
-  font-size: 1.1rem;
+  font-size: 1.18rem;
   font-weight: 600;
   color: #1976d2;
-  margin-bottom: 0.2rem;
+  margin-bottom: 0.3rem;
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.7rem;
 }
-
 .emoji-icon {
-  font-size: 1.4rem;
+  font-size: 2rem;
   line-height: 1;
   display: inline-block;
   vertical-align: middle;
+  margin-right: 0.2em;
 }
-
 .step-content p {
-  font-size: 0.9rem;
-  color: #666;
-  line-height: 1.3;
+  font-size: 1.01rem;
+  color: #444;
+  line-height: 1.5;
+  margin: 0;
 }
-
-.step-content svg {
-  font-size: 1.2rem;
-  color: #1976d2;
-  margin-right: 0.5rem;
-}
-
-/* Media Queries */
 @media (max-width: 768px) {
-  .how-it-works {
-    margin: -1.5rem 0 0 0 !important;
-  }
-
-  .how-it-works h2 {
-    margin-bottom: 1rem;
-    font-size: 2.2rem;
-  }
-
   .steps-container::before {
     left: 30px;
   }
-
-  .step-wrapper {
-    margin-bottom: 0.8rem;
-  }
-
   .step-marker {
     left: 30px;
   }
-
   .step-content {
-  width: 100%;
+    width: 100%;
     margin-left: 60px !important;
     margin-right: 0 !important;
     text-align: left !important;
-    padding: 0.2rem 0;
+    padding: 0.9rem 0.7rem;
   }
-
-  .step-content h3 {
-    font-size: 1rem;
-  }
-
-  .step-content p {
-    font-size: 0.85rem;
+  .step-wrapper.left-align .step-content,
+  .step-wrapper.right-align .step-content {
+    margin: 0 !important;
   }
 }
-
 @media (max-width: 480px) {
-  .how-it-works {
-    margin: -1rem 0 0 0 !important;
+  .steps-container::before {
+    left: 20px;
   }
-
-  .how-it-works h2 {
-    margin-bottom: 0.8rem;
-    font-size: 1.8rem;
+  .step-marker {
+    left: 20px;
   }
-
   .step-content {
-    margin-left: 50px !important;
+    margin-left: 40px !important;
+    padding: 0.7rem 0.4rem;
+  }
+  .emoji-icon {
+    font-size: 1.3rem;
   }
 }
 
@@ -1572,100 +1469,541 @@ h2::after {
   display: none;
 }
 
+/*** 1. White theme for the whole page except hero section ***/
 .typing-course-landing {
+  background: #fff;
+}
+
+/*** 2. Consistent, reduced, and equal vertical spacing between all main sections (except hero) ***/
+.section-spacing {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  padding-top: 18px !important;
+  padding-bottom: 18px !important;
+  background: #fff !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+@media (max-width: 768px) {
+  .section-spacing {
+    margin-top: 16px !important;
+    margin-bottom: 16px !important;
+  }
+}
+.features.section-spacing,
+.how-it-works.section-spacing {
+  padding-top: 4px !important;
+}
+@media (max-width: 768px) {
+  .features.section-spacing,
+  .how-it-works.section-spacing {
+    padding-top: 2px !important;
+  }
+}
+
+/*** 3. All main section headings consistent style ***/
+.course-showcase h2,
+.other-exams-hero-content h1,
+.features h2,
+.how-it-works h2 {
+  font-size: 24px;
+  color: #000;
+  font-family: 'Roboto Serif', serif;
+  font-weight: 700;
+  margin-bottom: 1.2rem;
+  text-align: center;
+}
+
+/*** 4. Modern How It Works section ***/
+.how-it-works {
+  background: #fff;
+  box-shadow: none;
+  border: none;
+  margin: 0;
+  padding: 32px 0 24px 0;
+}
+.steps-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 1rem;
+  position: relative;
+}
+.steps-container::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: #e6eaf0;
+  transform: translateX(-50%);
+  z-index: 0;
+}
+.step-wrapper {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.2rem;
   position: relative;
   z-index: 1;
-  min-height: 100vh;
-  background: linear-gradient(135deg, #f5f7fa 0%, #e4e8eb 100%);
 }
-
-section {
+.step-wrapper:last-child {
+  margin-bottom: 0;
+}
+.step-wrapper:not(:last-child) {
+  margin-bottom: 16px !important;
+}
+.step-marker {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 16px;
+  height: 16px;
   background: #fff;
-  border-radius: 18px;
-  box-shadow: 0 2px 12px rgba(25, 118, 210, 0.04);
-  margin: 0 auto 18px auto;
-  padding: 25px 0;
-  max-width: 1400px;
-  width: 100%;
+  border: 2.5px solid #1976d2;
+  border-radius: 50%;
+  z-index: 2;
+  box-shadow: 0 2px 8px rgba(25, 118, 210, 0.10);
+}
+.step-content {
+  width: 45%;
+  padding: 1.1rem 1.5rem;
+  background: #f8fafc;
+  box-shadow: 0 4px 18px rgba(25, 118, 210, 0.07);
+  border-radius: 14px;
+  margin-bottom: 0;
+  border-left: 5px solid #1976d2;
+  border-top: 1px solid #e6eaf0;
+  border-bottom: 1px solid #e6eaf0;
+  border-right: 1px solid #e6eaf0;
+  transition: box-shadow 0.2s, border-color 0.2s;
+  position: relative;
+}
+.step-content:hover {
+  box-shadow: 0 8px 32px rgba(25, 118, 210, 0.13);
+  border-left: 5px solid #1565c0;
+}
+.step-wrapper.left-align .step-content {
+  text-align: right;
+  margin-right: 55%;
+}
+.step-wrapper.right-align .step-content {
+  text-align: left;
+  margin-left: 55%;
+}
+.step-content h3 {
+  font-size: 1.18rem;
+  font-weight: 600;
+  color: #1976d2;
+  margin-bottom: 0.3rem;
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+.emoji-icon {
+  font-size: 2rem;
+  line-height: 1;
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 0.2em;
+}
+.step-content p {
+  font-size: 1.01rem;
+  color: #444;
+  line-height: 1.5;
+  margin: 0;
+}
+@media (max-width: 768px) {
+  .steps-container::before {
+    left: 30px;
+  }
+  .step-marker {
+    left: 30px;
+  }
+  .step-content {
+    width: 100%;
+    margin-left: 60px !important;
+    margin-right: 0 !important;
+    text-align: left !important;
+    padding: 0.9rem 0.7rem;
+  }
+  .step-wrapper.left-align .step-content,
+  .step-wrapper.right-align .step-content {
+    margin: 0 !important;
+  }
+}
+@media (max-width: 480px) {
+  .steps-container::before {
+    left: 20px;
+  }
+  .step-marker {
+    left: 20px;
+  }
+  .step-content {
+    margin-left: 40px !important;
+    padding: 0.7rem 0.4rem;
+  }
+  .emoji-icon {
+    font-size: 1.3rem;
+  }
 }
 
-.typing-hero-section,
-.course-showcase,
-.features,
-.how-it-works,
-.upgraded-other-exams {
-  background: #fff;
-  border-radius: 18px;
-  box-shadow: 0 2px 12px rgba(25, 118, 210, 0.04);
-  margin: 0 auto 18px auto;
-  padding: 25px 0;
-  max-width: 1400px;
+/*** 5. Hero section original styles (do not touch) ***/
+.typing-hero-section {
+  padding: 20px 0 3px 0;
+  text-align: center;
+  position: relative;
   width: 100%;
+  background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+  color: #333;
+  margin: 0 !important;
+  margin-top: -1px;
+  margin-bottom: 0 !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid #1976d2;
+  font-family: 'Roboto Serif', serif;
+  z-index: 1;
 }
-
-.typing-hero-content,
-.other-exams-hero-content,
-.upgraded-content,
-.features-grid,
-.steps-container,
-.course-grid {
+.typing-hero-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #4CAF50, #f44336, #2196F3);
+}
+.typing-hero-section::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #2196F3, #f44336, #4CAF50);
+}
+.typing-hero-content {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 20px;
 }
 
-h1, h2, h3, .section-title {
-  color: #1a237e;
+.typing-hero-content h1 {
   font-family: 'Roboto Serif', serif;
-  font-weight: 800;
-  margin-top: 0;
-  margin-bottom: 18px;
-  text-align: center;
-  letter-spacing: 0;
+  font-size: 42px;
+  font-weight: 700;
+  color: #000;
+  margin-bottom: 20px;
+  line-height: 1.2;
+  background: none;
+  -webkit-background-clip: unset;
+  -webkit-text-fill-color: unset;
+  animation: fadeInUp 1s ease-out;
 }
 
-p, li {
-  color: #333;
+.typing-hero-content h1::after {
+  display: none;
+}
+
+.typing-hero-content p {
   font-family: 'Roboto Serif', serif;
+  font-size: 18px;
+  color: #555;
+  margin-bottom: 30px;
+  line-height: 1.6;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  animation: fadeInUp 1s ease-out 0.2s backwards;
 }
 
-.course-card-modern, .feature-card, .step-wrapper, .feature-card, .course-card, .feature-card, .feature-card-modern {
-  background: #f8fafc;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(25, 118, 210, 0.06);
-  border: 1px solid #e0e0e0;
-  margin-bottom: 18px;
+/* FAQs Section */
+.faq-section {
+  padding: 8rem 2rem;
+  background: linear-gradient(135deg, #f8fbfc 0%, #e8edf3 100%); /* Very subtle, light background */
+  margin-top: 0; /* Ensure no gap */
+  position: relative;
+  overflow: hidden;
+  box-shadow: inset 0 6px 8px -4px rgba(0,0,0,0.05), inset 0 -6px 8px -4px rgba(0,0,0,0.05);
 }
 
-.other-exams-list li {
-  background: #f8fafc;
-  color: #1976d2;
+.faq-section h2 {
+  margin-bottom: 5rem;
+  color: #2c3e50;
+  font-size: 2.8rem;
+}
+
+.faq-section h2::after {
+  display: none;
+}
+
+.faq-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.faq-item {
+  background: rgba(255, 255, 255, 0.9); /* Slightly transparent white */
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 15px;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08); /* Softer, more prominent shadow */
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+  backdrop-filter: blur(5px);
+}
+
+.faq-item.open {
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+  border-color: #1976d2;
+}
+
+.faq-question {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.8rem 2.5rem;
+  cursor: pointer;
+  font-size: 1.25rem;
   font-weight: 600;
-  border-radius: 8px;
-  padding: 0.5rem 1rem;
-  box-shadow: 0 2px 8px rgba(25, 118, 210, 0.08);
-  font-size: 0.98rem;
-  margin: 0.15rem 0;
-  border: 1px solid #e0e0e0;
+  color: #2c3e50;
+  background: transparent;
+  transition: all 0.3s ease;
 }
 
-@media (max-width: 900px) {
-  .course-grid, .features-grid, .steps-container {
-    max-width: 100%;
-    padding: 0 8px;
+.faq-question:hover {
+  background: rgba(25, 118, 210, 0.05);
+  color: #1976d2;
+}
+
+.faq-question .icon {
+  font-size: 1.8rem;
+  color: #1976d2;
+  transition: transform 0.3s ease;
+}
+
+.faq-item.open .faq-question .icon {
+  transform: rotate(45deg);
+}
+
+.faq-answer {
+  padding: 0 2.5rem 1.8rem 2.5rem;
+  font-size: 1.05rem;
+  color: #666;
+  line-height: 1.7;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease-out, padding 0.5s ease-out;
+}
+
+.faq-item.open .faq-answer {
+  max-height: 300px; /* Increased max-height for content */
+  padding-top: 1rem;
+}
+
+/* Media Queries for FAQs */
+@media (max-width: 992px) {
+  .faq-section {
+    padding: 6rem 1.5rem;
   }
-  section, .typing-hero-section, .course-showcase, .features, .how-it-works, .upgraded-other-exams {
-    padding: 14px 0;
-    border-radius: 10px;
+
+  .faq-section h2 {
+    margin-bottom: 4rem;
+    font-size: 2.5rem;
+  }
+
+  .faq-item {
+    margin-bottom: 1.2rem;
+  }
+
+  .faq-question {
+    font-size: 1.2rem;
+    padding: 1.5rem 2rem;
+  }
+
+  .faq-question .icon {
+    font-size: 1.6rem;
+  }
+
+  .faq-answer {
+    font-size: 1rem;
+    padding: 0 2rem 1.5rem 2rem;
   }
 }
-@media (max-width: 600px) {
-  .typing-hero-content, .other-exams-hero-content, .upgraded-content, .features-grid, .steps-container, .course-grid {
-    padding: 0 4px;
+
+@media (max-width: 768px) {
+  .faq-section {
+    padding: 4rem 1rem;
   }
-  h1, h2, h3, .section-title {
+
+  .faq-section h2 {
+    margin-bottom: 3rem;
+    font-size: 2.2rem;
+  }
+
+  .faq-item {
+    margin-bottom: 1rem;
+  }
+
+  .faq-question {
     font-size: 1.1rem;
-    margin-bottom: 10px;
+    padding: 1.2rem 1.5rem;
+  }
+
+  .faq-question .icon {
+    font-size: 1.4rem;
+  }
+
+  .faq-answer {
+    font-size: 0.95rem;
+    padding: 0 1.5rem 1.2rem 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .faq-section {
+    padding: 3rem 0.8rem;
+  }
+
+  .faq-section h2 {
+    margin-bottom: 2.5rem;
+    font-size: 1.8rem;
+  }
+
+  .faq-item {
+    margin-bottom: 0.8rem;
+  }
+
+  .faq-question {
+    font-size: 1rem;
+    padding: 1rem 1.2rem;
+  }
+
+  .faq-question .icon {
+    font-size: 1.2rem;
+  }
+
+  .faq-answer {
+    font-size: 0.9rem;
+    padding: 0 1.2rem 1rem 1.2rem;
+  }
+}
+
+/* Other Exams Section - Styled like Hero */
+.other-exams-hero-section {
+  background: #fff;
+  padding: 32px 0 24px 0;
+  text-align: center;
+  position: relative;
+  width: 100%;
+  margin: 0;
+  box-shadow: none;
+  border: none;
+  font-family: 'Roboto Serif', serif;
+  overflow: visible;
+}
+.other-exams-hero-section::before,
+.other-exams-hero-section::after {
+  display: none;
+}
+.other-exams-hero-content {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+.other-exams-hero-content h1 {
+  font-family: 'Roboto Serif', serif;
+  font-size: 24px;
+  font-weight: 700;
+  color: #000;
+  margin-bottom: 1.2rem;
+  line-height: 1.2;
+  background: none;
+  -webkit-background-clip: unset;
+  -webkit-text-fill-color: unset;
+  text-align: center;
+}
+.other-exams-hero-content p {
+  font-family: 'Roboto Serif', serif;
+  font-size: 16px;
+  color: #555;
+  margin-bottom: 18px;
+  line-height: 1.6;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+.other-exams-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 18px;
+  margin: 0 0 18px 0;
+  padding: 0;
+  list-style: none;
+}
+.other-exams-list li {
+  background: #f5f5f5;
+  border-radius: 8px;
+  padding: 7px 18px;
+  font-size: 15px;
+  color: #222;
+  font-weight: 500;
+}
+.other-exams-hero-buttons {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  margin-top: 10px;
+}
+.other-exams-hero-buttons .primary-cta-btn {
+  background: #1976d2;
+  color: #fff;
+  border-radius: 8px;
+  padding: 0.8rem 2rem;
+  font-weight: 600;
+  font-size: 1rem;
+  border: none;
+  box-shadow: none;
+  transition: background 0.2s;
+}
+.other-exams-hero-buttons .primary-cta-btn:hover {
+  background: #1565c0;
+}
+@media (max-width: 768px) {
+  .other-exams-hero-section {
+    padding: 24px 0 16px 0;
+  }
+  .other-exams-hero-content h1 {
+    font-size: 20px;
+  }
+  .other-exams-hero-content p {
+    font-size: 15px;
+  }
+  .other-exams-hero-buttons .primary-cta-btn {
+    padding: 0.7rem 1.5rem;
+    font-size: 0.95rem;
+  }
+}
+@media (max-width: 480px) {
+  .other-exams-hero-section {
+    padding: 16px 0 10px 0;
+  }
+  .other-exams-hero-content h1 {
+    font-size: 18px;
+  }
+  .other-exams-hero-content p {
+    font-size: 14px;
+  }
+  .other-exams-hero-buttons {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .other-exams-hero-buttons .primary-cta-btn {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.9rem;
+    min-width: 100%;
   }
 } 
 
@@ -1718,185 +2056,4 @@ p, li {
   max-height: 220px !important;
   width: 100% !important;
   box-sizing: border-box;
-} 
-
-/* Upgrade other-exams-hero-section styles for upgraded-content and other-exams-list */
-.upgraded-other-exams {
-  background: #fff;
-  padding: 40px 0 30px 0;
-  margin: 0;
-  border-radius: 20px;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
-  border: 1px solid #e0e0e0;
-  text-align: center;
-  /* No ::before or ::after pseudo-elements, no border-top, no gradient line */
-}
-.upgraded-other-exams .upgraded-content {
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 0 20px;
-}
-.upgraded-other-exams h1 {
-  font-size: 2rem;
-  color: #1a237e;
-  font-weight: 800;
-  margin-bottom: 0.8rem;
-  margin-top: 0;
-  border: none;
-  background: none;
-  box-shadow: none;
-}
-.upgraded-other-exams p {
-  font-size: 1rem;
-  color: #333;
-  margin-bottom: 1rem;
-  margin-top: 0;
-}
-.other-exams-list {
-  list-style: none;
-  padding: 0;
-  margin: 0 0 1.2rem 0;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 1rem;
-}
-.other-exams-list li {
-  background: #f8fafc;
-  color: #1976d2;
-  font-weight: 600;
-  border-radius: 8px;
-  padding: 0.5rem 1rem;
-  box-shadow: 0 2px 8px rgba(25, 118, 210, 0.08);
-  font-size: 0.98rem;
-  margin: 0.15rem 0;
-  border: 1px solid #e0e0e0;
-}
-@media (max-width: 768px) {
-  .upgraded-other-exams {
-    padding: 24px 0 18px 0;
-    border-radius: 12px;
-  }
-  .upgraded-other-exams h1 {
-    font-size: 1.2rem;
-  }
-  .other-exams-list li {
-    font-size: 0.92rem;
-    padding: 0.4rem 0.7rem;
-  }
-} 
-
-/* Remove any top border, gradient line, or pseudo-element from upgraded-other-exams and parent sections */
-.upgraded-other-exams,
-.other-exams-hero-section,
-.course-showcase {
-  border-top: none !important;
-}
-.upgraded-other-exams::before,
-.upgraded-other-exams::after,
-.other-exams-hero-section::before,
-.other-exams-hero-section::after,
-.course-showcase::before,
-.course-showcase::after {
-  display: none !important;
-  content: none !important;
-  background: none !important;
-  border: none !important;
-} 
-
-/* Hero Section - revert to original look */
-.typing-hero-section {
-  padding: 20px 0 3px 0;
-  text-align: center;
-  position: relative;
-  width: 100%;
-  background: linear-gradient(135deg, #e3f2fd, #bbdefb);
-  color: #333;
-  margin: 0 !important;
-  margin-top: -1px;
-  margin-bottom: 0 !important;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  border-bottom: 1px solid #1976d2;
-  font-family: 'Roboto Serif', serif;
-}
-.typing-hero-section::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 3px;
-  background: linear-gradient(90deg, #4CAF50, #f44336, #2196F3);
-}
-.typing-hero-content {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 20px;
-}
-.typing-hero-content h1 {
-  font-family: 'Roboto Serif', serif;
-  font-size: 42px;
-  font-weight: 700;
-  color: #000;
-  margin-bottom: 20px;
-  line-height: 1.2;
-  background: none;
-  -webkit-background-clip: unset;
-  -webkit-text-fill-color: unset;
-  animation: fadeInUp 1s ease-out;
-}
-.typing-hero-content h1::after {
-  display: none;
-}
-.typing-hero-content p {
-  font-family: 'Roboto Serif', serif;
-  font-size: 18px;
-  color: #555;
-  margin-bottom: 30px;
-  line-height: 1.6;
-  max-width: 800px;
-  margin-left: auto;
-  margin-right: auto;
-  animation: fadeInUp 1s ease-out 0.2s backwards;
-} 
-
-/* Unify section heading style to match Home page */
-.course-showcase h2,
-.upgraded-other-exams h1,
-.upgraded-other-exams h2,
-.features h2,
-.how-it-works h2 {
-  color: #000 !important;
-  font-size: 24px !important;
-  font-family: 'Roboto Serif', serif !important;
-  font-weight: 700 !important;
-  margin-bottom: 20px !important;
-  text-align: center !important;
-  letter-spacing: 0;
-} 
-
-.primary-cta-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  background: #1976d2;
-  color: #fff;
-  font-size: 1rem;
-  font-weight: 600;
-  padding: 0.85rem 2rem;
-  border-radius: 8px;
-  border: none;
-  box-shadow: 0 2px 8px rgba(25, 118, 210, 0.10);
-  cursor: pointer;
-  transition: all 0.2s ease;
-  margin: 0 auto;
-  text-transform: none;
-  letter-spacing: 0.5px;
-}
-.primary-cta-btn:hover {
-  background: #1565c0;
-  box-shadow: 0 4px 16px rgba(25, 118, 210, 0.18);
-  color: #fff;
-  transform: translateY(-2px) scale(1.02);
 } 
