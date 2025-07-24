@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState } from 'react';
+import { API_CONFIG } from '../config/api';
 
 interface DeleteRequest {
   _id: string;
@@ -33,7 +34,7 @@ export const DeleteRequestProvider: React.FC<{ children: React.ReactNode }> = ({
         throw new Error('No authentication token found');
       }
 
-      const response = await fetch('http://localhost:5000/api/delete-requests', {
+      const response = await fetch(`${API_CONFIG.BASE_URL}/delete-requests`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -62,7 +63,7 @@ export const DeleteRequestProvider: React.FC<{ children: React.ReactNode }> = ({
         throw new Error('No authentication token found');
       }
 
-      const response = await fetch(`http://localhost:5000/api/delete-requests/${requestId}/approve`, {
+      const response = await fetch(`${API_CONFIG.BASE_URL}/delete-requests/${requestId}/approve`, {
         method: 'PUT',
         headers: {
           'Authorization': `Bearer ${token}`
@@ -94,7 +95,7 @@ export const DeleteRequestProvider: React.FC<{ children: React.ReactNode }> = ({
         throw new Error('No authentication token found');
       }
 
-      const response = await fetch(`http://localhost:5000/api/delete-requests/${requestId}/reject`, {
+      const response = await fetch(`${API_CONFIG.BASE_URL}/delete-requests/${requestId}/reject`, {
         method: 'PUT',
         headers: {
           'Authorization': `Bearer ${token}`
@@ -126,7 +127,7 @@ export const DeleteRequestProvider: React.FC<{ children: React.ReactNode }> = ({
         throw new Error('No authentication token found');
       }
 
-      const response = await fetch('http://localhost:5000/api/delete-requests', {
+      const response = await fetch(`${API_CONFIG.BASE_URL}/delete-requests`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
