@@ -1,249 +1,199 @@
-# TypingHub - Fullstack Project
+# TypingHub - Government Exam Typing Practice Platform
 
-A modern React + Node.js typing test platform for government exam practice. This guide covers everything you need for local development and production deployment (e.g., typinghub.in) with minimal hassle.
+A comprehensive typing test platform built with React and Node.js, specifically designed for government exam preparation. Features include SSC, RRB, and other exam-specific typing tests with real-time analysis.
 
----
-
-## 🚀 Features
-- Automatic environment detection (no code change needed for deployment)
-- Dynamic API URLs (auto-detects localhost vs production)
-- Admin management (super admin creation and management)
-- User authentication (JWT-based with refresh tokens)
-- Typing tests (multiple test types and passages)
-- Responsive design (works on all devices)
-- Security: CORS, Helmet, rate limiting, sanitization, XSS protection
+[![Made with React](https://img.shields.io/badge/Made%20with-React-61DAFB.svg)](https://reactjs.org/)
+[![Node.js Version](https://img.shields.io/badge/Node.js-16%2B-brightgreen.svg)](https://nodejs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-Ready-blue.svg)](https://www.typescriptlang.org/)
 
 ---
 
-## 🚦 Prerequisites
-- Node.js (v16 or higher recommended)
-- MongoDB Atlas account
-- Git
-- (For production) VPS/server with Nginx & SSL (Let’s Encrypt recommended)
+## ✨ Features
+
+### 🎯 For Users
+- **Exam-Specific Tests**: SSC-CGL, SSC-CHSL, RRB-NTPC, and more
+- **Dual Language Support**: Hindi & English typing practice
+- **Real-time Analysis**: Instant speed and accuracy feedback
+- **Progress Tracking**: Detailed performance analytics
+- **Free Certification**: Completion certificates available
+- **Mobile Responsive**: Practice on any device
+
+### 💻 Technical Features
+- Modern React with TypeScript
+- Node.js & Express backend
+- MongoDB database
+- JWT authentication
+- Real-time typing analysis
+- Responsive design
+- SEO optimized
+- Security best practices
 
 ---
 
-## 📁 Folder Structure
+## 🛠️ Tech Stack
+
+### Frontend
+- React 18
+- TypeScript
+- React Router v6
+- Context API for state management
+- CSS Modules & Modern CSS
+
+### Backend
+- Node.js
+- Express.js
+- MongoDB with Mongoose
+- JWT Authentication
+- Express Rate Limit
+- Helmet Security
+
+---
+
+## 📁 Project Structure
 ```
 RDx/
 ├── backend/           # Node.js + Express API
-│   ├── .env           # Your secrets (never commit!)
-│   ├── config.js      # Loads config from .env
-│   ├── server.js      # Main server file
-│   ├── ecosystem.config.js # PM2 process config
-│   ├── ...
-├── react-frontend/    # React app
-│   ├── src/
-│   ├── build/         # Production build output
-│   └── ...
+│   ├── config/       # Configuration files
+│   ├── controllers/  # Route controllers
+│   ├── middleware/   # Custom middleware
+│   ├── models/       # Mongoose models
+│   ├── routes/       # API routes
+│   └── utils/        # Utility functions
+├── react-frontend/   # React application
+│   ├── public/      # Static files
+│   └── src/
+│       ├── admin/   # Admin components
+│       ├── components/
+│       ├── contexts/
+│       ├── hooks/
+│       ├── pages/
+│       ├── services/
+│       ├── types/
+│       └── utils/
 └── README.md
 ```
 
 ---
 
-## 🛠️ Local Development Setup
+## 🚀 Getting Started
 
-### 1. Clone the Repository
+### Prerequisites
+- Node.js (v16 or higher)
+- MongoDB
+- Git
+
+### Local Development Setup
+
+1. **Clone the Repository**
 ```bash
 git clone <repository-url>
 cd RDx
 ```
 
-### 2. Backend Setup
+2. **Backend Setup**
    ```bash
    cd backend
    npm install
-cp .env.example .env   # Fill in your real secrets in .env
-```
-
-#### Example `.env` file:
-```
-PORT=5000
-MONGO_URI=your_mongodb_connection_string
-ACCESS_TOKEN_SECRET=your_access_token_secret
-REFRESH_TOKEN_SECRET=your_refresh_token_secret
-JWT_SECRET=your_jwt_secret
-NODE_ENV=development
-DEFAULT_ADMIN_EMAIL=Contact@typinghub.in
-DEFAULT_ADMIN_PASSWORD=Simranbatwal@11102001
-CORS_ORIGIN=http://localhost:3000
+   cp .env.example .env   # Create and configure your .env file
    ```
 
-### 3. Frontend Setup
+3. **Frontend Setup**
    ```bash
 cd ../react-frontend
    npm install
    ```
 
----
+4. **Environment Configuration**
+   Create `.env` files in both backend and frontend directories. See `.env.example` for required variables.
 
-## 👨‍💻 Running Locally (Development)
-
-### Start Backend (Port 5000)
+5. **Start Development Servers**
 ```bash
+   # Terminal 1 - Backend
 cd backend
 npm run dev
-```
 
-### Start Frontend (Port 3000)
-```bash
+   # Terminal 2 - Frontend
 cd react-frontend
 npm start
 ```
 
-- Frontend: http://localhost:3000
-- Backend: http://localhost:5000
+---
+
+## 🔒 Security Features
+
+- CORS protection
+- Rate limiting
+- XSS prevention
+- SQL injection protection
+- CSRF protection
+- Security headers (Helmet)
+- Input sanitization
+- JWT with refresh tokens
+- Password hashing
+- Request validation
 
 ---
 
-## 👨‍💼 Admin Setup
+## 📱 Responsive Design
 
-Create a super admin (run once):
-   ```bash
-   cd backend
-npm run create-admin
-```
-- Email: `Contact@typinghub.in`
-- Password: `Simranbatwal@11102001`
-
----
-
-## 🚀 Production Deployment (typinghub.in)
-
-### 1. **Clone the Repository on Your Server**
-   ```bash
-git clone <repository-url>
-cd RDx
-```
-
-### 2. **Backend Setup**
-   ```bash
-cd backend
-npm install
-cp .env.example .env   # Create .env and fill with production secrets
-# Edit .env and set:
-#   - NODE_ENV=production
-#   - MONGO_URI=your_production_mongodb_url
-#   - CORS_ORIGIN=https://typinghub.in,https://www.typinghub.in
-#   - All other secrets (tokens, admin email/password, etc.)
-   ```
-
-### 3. **Frontend Setup & Build**
-   ```bash
-cd ../react-frontend
-npm install
-   npm run build:prod
-   ```
-- This creates the `build/` folder for static hosting.
-
-### 4. **Start Backend with PM2**
-```bash
-cd ../backend
-npm install -g pm2   # Only if PM2 is not installed
-pm2 start ecosystem.config.js
-pm2 save             # Save PM2 process list for restart on reboot
-pm2 startup          # Show command to enable PM2 on boot, run the command it outputs
-```
-- To check logs: `pm2 logs typinghub-backend`
-- To restart: `pm2 restart typinghub-backend`
-
-### 5. **Nginx Configuration**
-Edit your Nginx config (usually in `/etc/nginx/sites-available/`):
-```
-# Frontend (typinghub.in)
-server {
-    listen 80;
-    server_name typinghub.in www.typinghub.in;
-    root /path/to/RDx/react-frontend/build;
-    index index.html;
-    location / {
-        try_files $uri $uri/ /index.html;
-    }
-}
-
-# Backend API (api.typinghub.in)
-server {
-    listen 80;
-    server_name api.typinghub.in;
-    location / {
-        proxy_pass http://localhost:5000;
-        proxy_http_version 1.1;
-        proxy_set_header Upgrade $http_upgrade;
-        proxy_set_header Connection 'upgrade';
-        proxy_set_header Host $host;
-        proxy_cache_bypass $http_upgrade;
-    }
-}
-```
-- Reload Nginx:
-```bash
-sudo nginx -t   # Test config
-sudo systemctl reload nginx
-```
-
-### 6. **Set Up SSL (HTTPS) with Let’s Encrypt**
-```bash
-sudo apt install certbot python3-certbot-nginx
-sudo certbot --nginx -d typinghub.in -d www.typinghub.in -d api.typinghub.in
-```
-- Follow prompts to enable HTTPS for all domains.
-
-### 7. **MongoDB Atlas Security**
-- Go to MongoDB Atlas dashboard.
-- Add your server’s public IP to the IP whitelist.
-- Remove `0.0.0.0/0` if present for security.
-
-### 8. **Health Check**
-- Test backend: `curl https://api.typinghub.in/api/health` (should return `{ "status": "ok" }`)
-- Test frontend: Visit `https://typinghub.in` in your browser.
-
-### 9. **(Optional) Enable Automatic PM2 Restart on Reboot**
-   ```bash
-pm2 startup   # Follow the command it outputs
-pm2 save
-```
+- Mobile-first approach
+- Tablet & desktop optimized
+- Touch-friendly interface
+- Flexible layouts
+- Optimized images
+- Responsive typography
 
 ---
 
-## 🔄 API URL Auto-Detection (No Code Change Needed!)
-- Frontend auto-detects backend URL based on domain:
-  - On `localhost` → uses `http://localhost:5000`
-  - On `typinghub.in` → uses `https://api.typinghub.in`
-- No need to change API URLs in code for deployment!
+## 🌐 SEO Optimization
+
+- Server-side rendering ready
+- Meta tags optimization
+- Structured data
+- Sitemap generation
+- robots.txt configuration
+- Semantic HTML
+- Performance optimization
 
 ---
 
-## 🩺 Health Check Endpoint
-- Check backend status: `GET /api/health` (returns `{ "status": "ok" }`)
+## 🚀 Deployment
+
+### Production Requirements
+- VPS/Cloud server
+- Nginx
+- PM2
+- SSL certificate
+- MongoDB Atlas (recommended)
+
+### Basic Deployment Steps
+1. Set up server with Node.js, Nginx
+2. Configure SSL with Let's Encrypt
+3. Set up PM2 for process management
+4. Configure Nginx as reverse proxy
+5. Set up MongoDB Atlas
+6. Deploy using provided scripts
+
+Detailed deployment guide available in `DEPLOYMENT.md`
 
 ---
 
-## 🔒 Security Checklist
-- [x] All secrets in `.env` (never in code)
-- [x] `.env` in `.gitignore`
-- [x] CORS only allows your frontend domain in production
-- [x] Helmet, rate limiting, and sanitization middleware enabled
-- [x] MongoDB Atlas IP whitelist set to your server’s IP
-- [x] SSL/HTTPS enabled in production
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create your feature branch
+3. Commit your changes
+4. Push to the branch
+5. Create a Pull Request
 
 ---
 
-## 🐛 Troubleshooting
-- **CORS Errors:** Check `CORS_ORIGIN` in `.env` and Nginx config
-- **DB Connection:** Check `MONGO_URI` and MongoDB Atlas IP whitelist
-- **Port Conflicts:** Make sure 3000 (frontend) and 5000 (backend) are free
-- **Build Errors:** Try `rm -rf node_modules package-lock.json` then `npm install`
-- **Logs:**
-  - Backend: Check terminal or `pm2 logs`
-  - Frontend: Check browser console
+## 📝 License
+
+This project is proprietary software. All rights reserved.
 
 ---
 
-## 📞 Support
-- Email: Contact@typinghub.in
-- Create an issue in the repository
+## 🌟 Support
 
----
-
-## 📄 License
-This project is proprietary software. All rights reserved. 
+For support, email us or create an issue in the repository. 

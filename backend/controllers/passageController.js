@@ -68,12 +68,16 @@ const sanitizeInput = (input) => {
 // Get all passages (public)
 const getAllPassages = async (req, res) => {
   try {
+    console.log('Fetching all passages...');
     const passages = await Passage.find().sort({ createdAt: -1 });
-    console.log('Fetched all passages:', passages.length);
+    console.log(`Successfully fetched ${passages.length} passages`);
     res.status(200).json(passages);
   } catch (error) {
-    console.error('Error fetching passages:', error.message, error.stack);
-    res.status(500).json({ message: 'Server error', error: error.message });
+    console.error('Error in getAllPassages:', error);
+    res.status(500).json({ 
+      message: 'Failed to fetch passages',
+      error: process.env.NODE_ENV === 'development' ? error.message : undefined
+    });
   }
 };
 
@@ -101,21 +105,24 @@ const getPassageById = async (req, res) => {
 
 // Create a new passage (protected)
 const createPassage = async (req, res) => {
-  console.log('Create passage called', { title: req.body.title, by: req.user ? req.user.email : (req.admin ? req.admin.email : 'unknown') });
+  console.log('Create passage called with body:', JSON.stringify(req.body, null, 2));
+  console.log('User info:', req.user ? req.user.email : 'No user info');
+  console.log('Admin info:', req.admin ? req.admin.email : 'No admin info');
+  
   try {
     const { title, content } = req.body;
 
     // Validate title
     const titleValidation = validateTitle(title);
     if (!titleValidation.isValid) {
-      console.log('Create passage failed:', titleValidation.message);
+      console.log('Title validation failed:', titleValidation.message);
       return res.status(400).json({ message: titleValidation.message });
     }
 
     // Validate content
     const contentValidation = validateContent(content);
     if (!contentValidation.isValid) {
-      console.log('Create passage failed:', contentValidation.message);
+      console.log('Content validation failed:', contentValidation.message);
       return res.status(400).json({ message: contentValidation.message });
     }
 
@@ -129,7 +136,7 @@ const createPassage = async (req, res) => {
     });
     
     if (existingPassage) {
-      console.log('Create passage failed: Duplicate title');
+      console.log('Duplicate title found:', existingPassage.title);
       return res.status(409).json({ message: 'A passage with this title already exists' });
     }
 
@@ -139,12 +146,24 @@ const createPassage = async (req, res) => {
       testTypes: [] 
     });
     
+    console.log('Attempting to save passage:', {
+      title: sanitizedTitle,
+      contentLength: sanitizedContent.length
+    });
+    
     await passage.save();
-    console.log('Passage created:', passage._id);
+    console.log('Passage created successfully:', passage._id);
     res.status(201).json(passage);
   } catch (error) {
-    console.error('Error creating passage:', error.message, error.stack);
-    res.status(500).json({ message: 'Server error', error: error.message });
+    console.error('Error creating passage:', {
+      error: error.message,
+      stack: error.stack,
+      body: req.body
+    });
+    res.status(500).json({ 
+      message: 'Failed to create passage',
+      error: process.env.NODE_ENV === 'development' ? error.message : undefined
+    });
   }
 };
 
@@ -237,25 +256,38 @@ const deletePassage = async (req, res) => {
 const getPassagesByTestType = async (req, res) => {
   try {
     const { testType } = req.params;
+    console.log(`Fetching passages for test type: ${testType}`);
 
     if (!testType || typeof testType !== 'string') {
-      console.log('Get passages by test type failed: Valid testType required');
+      console.log('Invalid test type provided:', testType);
       return res.status(400).json({ message: 'Valid test type is required' });
     }
 
     const sanitizedTestType = sanitizeInput(testType);
-    const passages = await Passage.find({ testTypes: sanitizedTestType }).sort({ createdAt: -1 });
-    console.log(`Fetched passages for test type ${sanitizedTestType}:`, passages.length);
+    console.log(`Sanitized test type: ${sanitizedTestType}`);
+    
+    // Case-insensitive search for test type
+    const passages = await Passage.find({
+      testTypes: { 
+        $regex: new RegExp(`^${sanitizedTestType}$`, 'i')
+      }
+    }).sort({ createdAt: -1 });
+    
+    console.log(`Found ${passages.length} passages for test type ${sanitizedTestType}`);
     res.status(200).json(passages);
   } catch (error) {
-    console.error('Error fetching passages by test type:', error.message, error.stack);
-    res.status(500).json({ message: 'Server error', error: error.message });
+    console.error('Error in getPassagesByTestType:', error);
+    res.status(500).json({ 
+      message: 'Failed to fetch passages by test type',
+      error: process.env.NODE_ENV === 'development' ? error.message : undefined
+    });
   }
 };
 
 // Assign passage to test type (protected)
 const assignPassage = async (req, res) => {
   try {
+    console.log('Assign passage request:', JSON.stringify(req.body, null, 2));
     const { passageId, categories } = req.body;
 
     if (!passageId || typeof passageId !== 'string') {
@@ -284,12 +316,21 @@ const assignPassage = async (req, res) => {
       'AIIMS CRC',
       'Allahabad High Court'
     ];
+
     const sanitizedCategories = categories.map(cat => sanitizeInput(cat));
+    console.log('Sanitized categories:', sanitizedCategories);
     
+    // Case-insensitive category validation
     for (const category of sanitizedCategories) {
-      if (!validCategories.includes(category)) {
-      console.log('Assign passage failed: Invalid category');
-      return res.status(400).json({ message: 'Invalid category. Must be one of: ' + validCategories.join(', ') });
+      const isValid = validCategories.some(validCat => 
+        validCat.toLowerCase() === category.toLowerCase()
+      );
+      if (!isValid) {
+        console.log('Invalid category:', category);
+        return res.status(400).json({ 
+          message: 'Invalid category. Must be one of: ' + validCategories.join(', '),
+          invalidCategory: category
+        });
       }
     }
 
@@ -299,12 +340,17 @@ const assignPassage = async (req, res) => {
       return res.status(404).json({ message: 'Passage not found' });
     }
 
-    // Add categories to testTypes if not already present
-    const newCategories = sanitizedCategories.filter(cat => !passage.testTypes.includes(cat));
+    // Add categories to testTypes if not already present (case-insensitive)
+    const newCategories = sanitizedCategories.filter(cat => {
+      return !passage.testTypes.some(existingCat => 
+        existingCat.toLowerCase() === cat.toLowerCase()
+      );
+    });
+
     if (newCategories.length > 0) {
       passage.testTypes.push(...newCategories);
       await passage.save();
-      console.log(`Passage ${passageId} assigned to categories: ${newCategories.join(', ')}`);
+      console.log(`Passage ${passageId} assigned to categories:`, newCategories);
     } else {
       console.log(`Passage ${passageId} already assigned to all requested categories`);
     }
@@ -315,8 +361,15 @@ const assignPassage = async (req, res) => {
       newlyAssigned: newCategories
     });
   } catch (error) {
-    console.error('Error assigning passage:', error.message, error.stack);
-    res.status(500).json({ message: 'Server error', error: error.message });
+    console.error('Error assigning passage:', {
+      error: error.message,
+      stack: error.stack,
+      body: req.body
+    });
+    res.status(500).json({ 
+      message: 'Failed to assign passage',
+      error: process.env.NODE_ENV === 'development' ? error.message : undefined
+    });
   }
 };
 
