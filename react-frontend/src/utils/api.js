@@ -1,12 +1,17 @@
 // API Configuration Utility
-// Automatically detects backend URL based on hostname
+// Automatically detects backend URL based on environment variables and hostname
 
 const getBackendUrl = () => {
+  // Use environment variable if available
+  if (process.env.REACT_APP_API_URL) {
+    return process.env.REACT_APP_API_URL;
+  }
+
   const hostname = window.location.hostname;
   
   // Development environment
   if (hostname === 'localhost' || hostname === '127.0.0.1') {
-    return 'http://localhost:5000';
+    return 'http://localhost:9500';
   }
   
   // Production environment
@@ -27,6 +32,7 @@ export const api = {
     const url = `${API_BASE_URL}${endpoint}`;
     const response = await fetch(url, {
       method: 'GET',
+      credentials: 'include',
       headers: {
         'Content-Type': 'application/json',
         ...options.headers,
@@ -35,7 +41,8 @@ export const api = {
     });
     
     if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+      const errorData = await response.json().catch(() => ({}));
+      throw new Error(errorData.message || `HTTP error! status: ${response.status}`);
     }
     
     return response.json();
@@ -46,6 +53,7 @@ export const api = {
     const url = `${API_BASE_URL}${endpoint}`;
     const response = await fetch(url, {
       method: 'POST',
+      credentials: 'include',
       headers: {
         'Content-Type': 'application/json',
         ...options.headers,
@@ -55,7 +63,8 @@ export const api = {
     });
     
     if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+      const errorData = await response.json().catch(() => ({}));
+      throw new Error(errorData.message || `HTTP error! status: ${response.status}`);
     }
     
     return response.json();
@@ -66,6 +75,7 @@ export const api = {
     const url = `${API_BASE_URL}${endpoint}`;
     const response = await fetch(url, {
       method: 'PUT',
+      credentials: 'include',
       headers: {
         'Content-Type': 'application/json',
         ...options.headers,
@@ -75,7 +85,8 @@ export const api = {
     });
     
     if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+      const errorData = await response.json().catch(() => ({}));
+      throw new Error(errorData.message || `HTTP error! status: ${response.status}`);
     }
     
     return response.json();
@@ -86,6 +97,7 @@ export const api = {
     const url = `${API_BASE_URL}${endpoint}`;
     const response = await fetch(url, {
       method: 'DELETE',
+      credentials: 'include',
       headers: {
         'Content-Type': 'application/json',
         ...options.headers,
@@ -94,7 +106,8 @@ export const api = {
     });
     
     if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+      const errorData = await response.json().catch(() => ({}));
+      throw new Error(errorData.message || `HTTP error! status: ${response.status}`);
     }
     
     return response.json();
@@ -105,6 +118,7 @@ export const api = {
     const url = `${API_BASE_URL}${endpoint}`;
     const response = await fetch(url, {
       method: 'POST',
+      credentials: 'include',
       headers: {
         ...options.headers,
       },
@@ -113,7 +127,8 @@ export const api = {
     });
     
     if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+      const errorData = await response.json().catch(() => ({}));
+      throw new Error(errorData.message || `HTTP error! status: ${response.status}`);
     }
     
     return response.json();

@@ -195,7 +195,7 @@ export const useTypingTest = (config: TestConfig) => {
     }
 
     try {
-      const response = await fetch(`http://localhost:5000/api/passages/test/${encodeURIComponent(config.passageCategory)}`);
+      const response = await fetch(`http://localhost:9500/api/passages/test/${encodeURIComponent(config.passageCategory)}`);
       if (!response.ok) {
         throw new Error(`Failed to fetch passages: ${response.status}`);
       }

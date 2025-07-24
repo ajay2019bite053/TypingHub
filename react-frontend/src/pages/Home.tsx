@@ -170,9 +170,40 @@ const Home: React.FC = () => {
   const seoData = {
     title: 'TypingHub - Master Typing for Government Exams',
     description: 'Free typing practice platform for government exam aspirants. Improve your typing speed and accuracy with our comprehensive typing tests and resources.',
-    keywords: 'typing test, government exam typing, hindi typing, english typing, typing practice',
-    canonicalUrl: 'https://typinghub.com', // Replace with your actual domain
-    ogImage: '/images/typing-hub-og.jpg', // Replace with your actual OG image path
+    keywords: 'typing test, government exam typing, hindi typing, english typing, typing practice, SSC typing test, RRB typing test, CHSL typing test',
+    canonicalUrl: 'https://typinghub.in',
+    ogImage: '/images/typing-hub-og.jpg'
+  };
+
+  // JSON-LD structured data
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "TypingHub",
+    "url": "https://typinghub.in",
+    "description": "Free typing practice platform for government exam aspirants",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Web",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "INR"
+    },
+    "featureList": [
+      "SSC-CGL Typing Test",
+      "SSC-CHSL Typing Test",
+      "RRB-NTPC Typing Test",
+      "Hindi & English Typing Practice",
+      "Real-time Speed & Accuracy Analysis",
+      "Free Typing Certificate"
+    ],
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.8",
+      "ratingCount": "1000",
+      "bestRating": "5",
+      "worstRating": "1"
+    }
   };
 
   // Panel items data
@@ -325,6 +356,9 @@ const Home: React.FC = () => {
         <meta name="twitter:title" content={seoData.title} />
         <meta name="twitter:description" content={seoData.description} />
         <meta name="twitter:image" content={seoData.ogImage} />
+        <script type="application/ld+json">
+          {JSON.stringify(structuredData)}
+        </script>
       </Helmet>
 
       <HeroSection />

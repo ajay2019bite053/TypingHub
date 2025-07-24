@@ -12,7 +12,7 @@ interface Blog {
   updatedAt: string;
 }
 
-const API_BASE_URL = 'http://localhost:5000/api';
+const API_BASE_URL = 'http://localhost:9500/api';
 
 const Blog: React.FC = () => {
   const [blogs, setBlogs] = useState<Blog[]>([]);

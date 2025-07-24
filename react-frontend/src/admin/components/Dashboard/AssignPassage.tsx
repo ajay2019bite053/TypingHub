@@ -34,6 +34,8 @@ const TEST_CATEGORIES = [
   { id: 'allahabad-high-court', name: 'Allahabad High Court' }
 ];
 
+const API_BASE_URL = 'http://localhost:9500/api';
+
 const AssignPassage: React.FC<AssignPassageProps> = ({ passages, onPassageAssigned }) => {
   const [selectedPassage, setSelectedPassage] = useState('');
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
@@ -151,20 +153,24 @@ const AssignPassage: React.FC<AssignPassageProps> = ({ passages, onPassageAssign
       }
 
       // Assign passage to all selected categories in one request
-      await axios.post(
-        'http://localhost:5000/api/passages/assign',
-        {
+      const response = await fetch(`${API_BASE_URL}/passages/assign`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
           passageId: selectedPassage,
           categories: selectedCategories
-        },
-        {
-          headers: {
-            'Authorization': `Bearer ${token}`,
-            'Content-Type': 'application/json'
-          }
-        }
-      );
+        })
+      });
 
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Failed to assign passage');
+      }
+
+      const data = await response.json();
       showToast('success', `Passage assigned successfully to ${selectedCategories.length} test category(ies)!`);
       setSelectedPassage('');
       setSelectedCategories([]);
@@ -174,7 +180,7 @@ const AssignPassage: React.FC<AssignPassageProps> = ({ passages, onPassageAssign
       await onPassageAssigned();
     } catch (err: any) {
       console.error('Assignment error:', err);
-      const errorMessage = err.response?.data?.message || 'Failed to assign passage. Please try again.';
+      const errorMessage = err.message || 'Failed to assign passage. Please try again.';
       showToast('error', errorMessage);
     } finally {
       setIsSubmitting(false);

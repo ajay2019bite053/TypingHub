@@ -112,7 +112,19 @@ const AddPassage: React.FC<AddPassageProps> = ({ onPassageAdded }) => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (!validateForm()) {
+    // Validate form before submission
+    const titleError = validateTitle(title);
+    const contentError = validateContent(content);
+    
+    if (titleError || contentError) {
+      setErrors({
+        title: titleError,
+        content: contentError
+      });
+      setTouched({
+        title: true,
+        content: true
+      });
       showToast('error', 'Please fix the validation errors before submitting.');
       return;
     }
@@ -122,9 +134,11 @@ const AddPassage: React.FC<AddPassageProps> = ({ onPassageAdded }) => {
     try {
       const token = localStorage.getItem('accessToken');
       if (!token) {
-        throw new Error('Authentication required');
+        showToast('error', 'Authentication required. Please log in again.');
+        return;
       }
 
+      console.log('Submitting new passage:', { title: title.trim() });
       const response = await api.post(
         '/api/passages',
         {
@@ -139,6 +153,7 @@ const AddPassage: React.FC<AddPassageProps> = ({ onPassageAdded }) => {
         }
       );
 
+      console.log('Successfully added passage:', response._id);
       const newPassage: Passage = {
         _id: response._id,
         title: title.trim(),

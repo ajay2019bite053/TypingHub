@@ -11,6 +11,8 @@ interface LiveExam {
   timeLimit: number;
 }
 
+const API_BASE_URL = 'http://localhost:9500/api';
+
 const LiveExams: React.FC = () => {
   const [exams, setExams] = useState<LiveExam[]>([]);
   const [loading, setLoading] = useState(false);
@@ -21,11 +23,29 @@ const LiveExams: React.FC = () => {
   const fetchExams = async () => {
     setLoading(true);
     try {
-      const res = await axios.get('/api/live-exams');
-      setExams(res.data);
+      const token = localStorage.getItem('accessToken');
+      if (!token) {
+        throw new Error('Authentication required');
+      }
+
+      const response = await fetch(`${API_BASE_URL}/live-exams`, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.message || `Failed to fetch exams (${response.status})`);
+      }
+
+      const data = await response.json();
+      setExams(data);
       setError(null);
     } catch (err: any) {
-      setError('Failed to fetch exams');
+      console.error('Error fetching exams:', err);
+      setError(err.message || 'Failed to fetch exams');
     } finally {
       setLoading(false);
     }
@@ -43,41 +63,115 @@ const LiveExams: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setLoading(true);
     try {
-      if (editingId) {
-        await axios.put(`/api/live-exams/${editingId}`, form, { headers: { Authorization: `Bearer ${localStorage.getItem('accessToken')}` } });
-      } else {
-        await axios.post('/api/live-exams', form, { headers: { Authorization: `Bearer ${localStorage.getItem('accessToken')}` } });
+      const token = localStorage.getItem('accessToken');
+      if (!token) {
+        throw new Error('Authentication required');
       }
+
+      const response = await fetch(
+        editingId ? `${API_BASE_URL}/live-exams/${editingId}` : `${API_BASE_URL}/live-exams`,
+        {
+          method: editingId ? 'PUT' : 'POST',
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(form)
+        }
+      );
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.message || `Failed to ${editingId ? 'update' : 'create'} exam`);
+      }
+
       setForm({});
       setEditingId(null);
       fetchExams();
-    } catch (err) {
-      setError('Failed to save exam');
+      setError(null);
+    } catch (err: any) {
+      console.error('Error saving exam:', err);
+      setError(err.message || 'Failed to save exam');
+    } finally {
+      setLoading(false);
     }
   };
 
   const handleEdit = (exam: LiveExam) => {
-    setForm({ name: exam.name, date: exam.date.slice(0, 10), isLive: exam.isLive, joinLink: exam.joinLink, passage: exam.passage, timeLimit: exam.timeLimit });
+    setForm({
+      name: exam.name,
+      date: exam.date.slice(0, 10),
+      isLive: exam.isLive,
+      joinLink: exam.joinLink,
+      passage: exam.passage,
+      timeLimit: exam.timeLimit
+    });
     setEditingId(exam._id);
   };
 
   const handleDelete = async (id: string) => {
     if (!window.confirm('Delete this exam?')) return;
+    setLoading(true);
     try {
-      await axios.delete(`/api/live-exams/${id}`, { headers: { Authorization: `Bearer ${localStorage.getItem('accessToken')}` } });
+      const token = localStorage.getItem('accessToken');
+      if (!token) {
+        throw new Error('Authentication required');
+      }
+
+      const response = await fetch(`${API_BASE_URL}/live-exams/${id}`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.message || 'Failed to delete exam');
+      }
+
       fetchExams();
-    } catch (err) {
-      setError('Failed to delete exam');
+      setError(null);
+    } catch (err: any) {
+      console.error('Error deleting exam:', err);
+      setError(err.message || 'Failed to delete exam');
+    } finally {
+      setLoading(false);
     }
   };
 
   const handleToggleLive = async (exam: LiveExam) => {
+    setLoading(true);
     try {
-      await axios.put(`/api/live-exams/${exam._id}`, { ...exam, isLive: !exam.isLive }, { headers: { Authorization: `Bearer ${localStorage.getItem('accessToken')}` } });
+      const token = localStorage.getItem('accessToken');
+      if (!token) {
+        throw new Error('Authentication required');
+      }
+
+      const response = await fetch(`${API_BASE_URL}/live-exams/${exam._id}`, {
+        method: 'PUT',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ ...exam, isLive: !exam.isLive })
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.message || 'Failed to update live status');
+      }
+
       fetchExams();
-    } catch (err) {
-      setError('Failed to update live status');
+      setError(null);
+    } catch (err: any) {
+      console.error('Error updating live status:', err);
+      setError(err.message || 'Failed to update live status');
+    } finally {
+      setLoading(false);
     }
   };
 

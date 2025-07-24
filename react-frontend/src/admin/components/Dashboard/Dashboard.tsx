@@ -67,7 +67,7 @@ interface ConfirmationDialog {
 const SESSION_TIMEOUT = 30 * 60 * 1000; // 30 minutes
 const MAX_LOGIN_ATTEMPTS = 5;
 const LOCKOUT_DURATION = 15 * 60 * 1000; // 15 minutes
-const API_BASE_URL = 'http://localhost:5000/api';
+const API_BASE_URL = 'http://localhost:9500/api';
 
 const Dashboard: React.FC = () => {
   const navigate = useNavigate();

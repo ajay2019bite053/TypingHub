@@ -36,37 +36,37 @@ const app = express();
 // Security Configurations
 const securityConfig = {
   helmet: {
-  contentSecurityPolicy: {
-    directives: {
-      defaultSrc: ["'self'"],
-      scriptSrc: ["'self'", "'unsafe-inline'"],
-      styleSrc: ["'self'", "'unsafe-inline'"],
-      imgSrc: ["'self'", "data:", "blob:"],
-      connectSrc: ["'self'"],
-      fontSrc: ["'self'"],
-      objectSrc: ["'none'"],
-      mediaSrc: ["'self'"],
-      frameSrc: ["'none'"],
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'self'"],
+        scriptSrc: ["'self'", "'unsafe-inline'"],
+        styleSrc: ["'self'", "'unsafe-inline'"],
+        imgSrc: ["'self'", "data:", "blob:"],
+        connectSrc: ["'self'", "http://localhost:3000", "http://localhost:9500"],
+        fontSrc: ["'self'"],
+        objectSrc: ["'none'"],
+        mediaSrc: ["'self'"],
+        frameSrc: ["'none'"],
+      },
     },
-  },
-  crossOriginEmbedderPolicy: true,
-  crossOriginOpenerPolicy: true,
-  crossOriginResourcePolicy: { policy: "same-site" },
-  dnsPrefetchControl: true,
-  frameguard: { action: "deny" },
-  hidePoweredBy: true,
-  hsts: true,
-  ieNoOpen: true,
-  noSniff: true,
-  referrerPolicy: { policy: "strict-origin-when-cross-origin" },
-  xssFilter: true,
+    crossOriginEmbedderPolicy: false,
+    crossOriginOpenerPolicy: false,
+    crossOriginResourcePolicy: { policy: "cross-origin" },
+    dnsPrefetchControl: true,
+    frameguard: { action: "deny" },
+    hidePoweredBy: true,
+    hsts: true,
+    ieNoOpen: true,
+    noSniff: true,
+    referrerPolicy: { policy: "strict-origin-when-cross-origin" },
+    xssFilter: true,
   },
   cors: {
-    origin: config.CORS_ORIGIN,
-  credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-  exposedHeaders: ['Content-Range', 'X-Content-Range'],
+    origin: ['http://localhost:3000'],
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    exposedHeaders: ['Content-Range', 'X-Content-Range'],
     maxAge: 600
   },
   rateLimits: {
@@ -85,9 +85,12 @@ const securityConfig = {
 // Apply security middleware
 app.use(helmet(securityConfig.helmet));
 app.use(cors(securityConfig.cors));
-// Temporarily disable rate limiting for development
-// app.use('/api/auth', rateLimit(securityConfig.rateLimits.auth));
 app.use('/api', rateLimit(securityConfig.rateLimits.api));
+
+// Basic middleware
+app.use(express.json({ limit: '10kb' }));
+app.use(express.urlencoded({ extended: true, limit: '10kb' }));
+app.use(cookieParser());
 app.use(mongoSanitize());
 app.use(xss());
 app.use(hpp());
@@ -120,20 +123,14 @@ const upload = multer({
   fileFilter
 });
 
-// Basic middleware
-app.use(express.json({ limit: '10kb' }));
-app.use(express.urlencoded({ extended: true, limit: '10kb' }));
-app.use(cookieParser());
-
-// Static file serving
-app.use('/uploads', express.static('uploads'));
-app.use('/api/uploads', express.static('uploads')); // Workaround for frontend adding /api prefix
+// Serve static files
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // API Routes
 app.use('/api/admin/auth', authRoutes);
 app.use('/api/auth', userAuthRoutes);
 app.use('/api/passages', passageRoutes);
-app.use('/api/admin', adminRequestsRoutes);
+app.use('/api/admin/requests', adminRequestsRoutes);
 app.use('/api/delete-requests', deleteRequestRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/live-exams', liveExamsRoutes);
@@ -146,30 +143,37 @@ app.get('/api/health', (req, res) => {
   res.status(200).json({ status: 'ok' });
 });
 
-// Error handling
+// Error handling middleware
 app.use(notFoundHandler);
 app.use(errorHandler);
 
-// Database connection
-const connectDB = async () => {
-  try {
-    await mongoose.connect(config.DB_URL, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-    });
-    console.log('Connected to MongoDB Atlas');
-  } catch (error) {
-    console.error('MongoDB connection error:', error);
-    process.exit(1);
+// Database connection with retry mechanism
+const connectDB = async (retries = 5, delay = 5000) => {
+  for (let i = 0; i < retries; i++) {
+    try {
+      await mongoose.connect(config.DB_URL, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+      });
+      console.log('Connected to MongoDB Atlas');
+      return;
+    } catch (error) {
+      console.error(`MongoDB connection attempt ${i + 1} failed:`, error.message);
+      if (i < retries - 1) {
+        console.log(`Retrying in ${delay / 1000} seconds...`);
+        await new Promise(resolve => setTimeout(resolve, delay));
+      }
+    }
   }
+  throw new Error('Failed to connect to MongoDB after multiple attempts');
 };
 
-// Start server
+// Start server with error handling
 const startServer = async () => {
   try {
     await connectDB();
     const PORT = config.PORT;
-app.listen(PORT, () => {
+    const server = app.listen(PORT, () => {
       console.log(`Server running on port ${PORT} in ${config.NODE_ENV} mode`);
       if (config.NODE_ENV === 'development') {
         console.log('Configuration loaded:', {
@@ -178,9 +182,59 @@ app.listen(PORT, () => {
           ACCESS_TOKEN_SECRET: config.ACCESS_TOKEN_SECRET ? 'Set' : 'Not Set',
           REFRESH_TOKEN_SECRET: config.REFRESH_TOKEN_SECRET ? 'Set' : 'Not Set',
           CORS_ORIGIN: config.CORS_ORIGIN
-  });
+        });
       }
     });
+
+    // Handle server errors
+    server.on('error', (error) => {
+      console.error('Server error:', error);
+      if (error.code === 'EADDRINUSE') {
+        console.error(`Port ${PORT} is already in use`);
+        process.exit(1);
+      }
+    });
+
+    // Handle process errors
+    process.on('uncaughtException', (error) => {
+      console.error('Uncaught Exception:', error);
+      // Give the server a chance to finish handling existing connections
+      server.close(() => {
+        process.exit(1);
+      });
+    });
+
+    process.on('unhandledRejection', (error) => {
+      console.error('Unhandled Rejection:', error);
+      // Give the server a chance to finish handling existing connections
+      server.close(() => {
+        process.exit(1);
+      });
+    });
+
+    // Graceful shutdown
+    process.on('SIGTERM', () => {
+      console.log('SIGTERM received. Shutting down gracefully...');
+      server.close(() => {
+        console.log('Server closed');
+        mongoose.connection.close(false, () => {
+          console.log('MongoDB connection closed');
+          process.exit(0);
+        });
+      });
+    });
+
+    process.on('SIGINT', () => {
+      console.log('SIGINT received. Shutting down gracefully...');
+      server.close(() => {
+        console.log('Server closed');
+        mongoose.connection.close(false, () => {
+          console.log('MongoDB connection closed');
+          process.exit(0);
+        });
+      });
+    });
+
   } catch (error) {
     console.error('Failed to start server:', error);
     process.exit(1);

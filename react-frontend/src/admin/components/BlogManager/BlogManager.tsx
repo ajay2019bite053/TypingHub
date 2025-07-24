@@ -16,7 +16,7 @@ interface Blog {
   updatedAt: string;
 }
 
-const API_BASE_URL = 'http://localhost:5000/api';
+const API_BASE_URL = 'http://localhost:9500/api';
 
 const BlogManager: React.FC = () => {
   const [blogs, setBlogs] = useState<Blog[]>([]);
@@ -31,38 +31,78 @@ const BlogManager: React.FC = () => {
   const blogsPerPage = 10;
   const [toast, setToast] = useState<{ show: boolean; type: ToastType; message: string }>({ show: false, type: 'info', message: '' });
 
-  useEffect(() => { fetchBlogs(); }, []);
-
   const fetchBlogs = async () => {
     setLoading(true);
     setError(null);
     try {
-      const res = await axios.get(`${API_BASE_URL}/blogs`);
-      setBlogs(res.data);
+      const token = localStorage.getItem('accessToken');
+      if (!token) {
+        throw new Error('Authentication required');
+      }
+
+      const response = await fetch(`${API_BASE_URL}/blogs`, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.message || `Failed to fetch blogs (${response.status})`);
+      }
+
+      const data = await response.json();
+      setBlogs(data);
+      setError(null);
     } catch (err: any) {
-      setError('Failed to load blogs');
+      console.error('Error fetching blogs:', err);
+      setError(err.message || 'Failed to load blogs');
     } finally {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    fetchBlogs();
+  }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setForm({ ...form, [name]: value });
   };
 
-  const handleImageChange = async (e: ChangeEvent<HTMLInputElement>) => {
+  const handleImageUpload = async (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       setImageUploading(true);
       try {
+        const token = localStorage.getItem('accessToken');
+        if (!token) {
+          throw new Error('Authentication required');
+        }
+
         const formData = new FormData();
         formData.append('image', e.target.files[0]);
-        const res = await axios.post(`${API_BASE_URL}/uploads`, formData, {
-          headers: { 'Content-Type': 'multipart/form-data' }
+
+        const response = await fetch(`${API_BASE_URL}/uploads`, {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${token}`
+          },
+          body: formData
         });
-        setForm(f => ({ ...f, image: res.data.url }));
-      } catch (err) {
-        setFormError('Image upload failed');
+
+        if (!response.ok) {
+          const errorData = await response.json().catch(() => ({}));
+          throw new Error(errorData.message || 'Failed to upload image');
+        }
+
+        const data = await response.json();
+        setForm(f => ({ ...f, image: data.url }));
+        setFormError(null);
+      } catch (err: any) {
+        console.error('Error uploading image:', err);
+        setFormError(err.message || 'Failed to upload image');
       } finally {
         setImageUploading(false);
       }
@@ -79,45 +119,38 @@ const BlogManager: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setActionLoading(true);
-    setFormError(null);
-    if (editingId) {
-      // Optimistic update for edit
-      const prevBlogs = [...blogs];
-      const updatedBlog = { ...blogs.find(b => b._id === editingId)!, title: form.title!, content: form.content! };
-      setBlogs(blogs => blogs.map(b => b._id === editingId ? updatedBlog : b));
-      try {
-        const res = await axios.put(`${API_BASE_URL}/blogs/${editingId}`,
-          { title: form.title, content: form.content, image: form.image });
-        setBlogs(blogs => blogs.map(b => b._id === editingId ? res.data : b));
-        showToast('success', 'Blog updated successfully!');
-      } catch (err) {
-        setBlogs(prevBlogs);
-        setFormError('Failed to save blog');
-        showToast('error', 'Failed to save blog');
+    try {
+      const token = localStorage.getItem('accessToken');
+      if (!token) {
+        throw new Error('Authentication required');
+      }
+
+      const response = await fetch(
+        editingId ? `${API_BASE_URL}/blogs/${editingId}` : `${API_BASE_URL}/blogs`,
+        {
+          method: editingId ? 'PUT' : 'POST',
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(form)
+        }
+      );
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.message || `Failed to ${editingId ? 'update' : 'create'} blog`);
+      }
+
+      fetchBlogs();
+      setForm({});
+      setEditingId(null);
+      setFormError(null);
+    } catch (err: any) {
+      console.error('Error saving blog:', err);
+      setFormError(err.message || 'Failed to save blog');
       } finally {
         setActionLoading(false);
-        setForm({});
-        setEditingId(null);
-      }
-    } else {
-      // Optimistic update for add
-      const tempId = 'temp-' + Date.now();
-      const optimisticBlog = { _id: tempId, title: form.title!, content: form.content!, image: '', likes: 0, comments: [], shareCount: 0, createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() };
-      setBlogs(blogs => [optimisticBlog, ...blogs]);
-      try {
-        const res = await axios.post(`${API_BASE_URL}/blogs`,
-          { title: form.title, content: form.content, image: form.image });
-        setBlogs(blogs => blogs.map(b => b._id === tempId ? res.data : b));
-        showToast('success', 'Blog added successfully!');
-      } catch (err) {
-        setBlogs(blogs => blogs.filter(b => b._id !== tempId));
-        setFormError('Failed to save blog');
-        showToast('error', 'Failed to save blog');
-      } finally {
-        setActionLoading(false);
-        setForm({});
-        setEditingId(null);
-      }
     }
   };
 
@@ -128,18 +161,32 @@ const BlogManager: React.FC = () => {
   };
 
   const handleDelete = async (id: string) => {
-    if (!window.confirm('Delete this blog?')) return;
+    if (!window.confirm('Delete this blog post?')) return;
     setActionLoading(true);
-    // Optimistic update for delete
-    const prevBlogs = [...blogs];
-    setBlogs(blogs => blogs.filter(b => b._id !== id));
     try {
-      await axios.delete(`${API_BASE_URL}/blogs/${id}`);
-      showToast('success', 'Blog deleted successfully!');
-    } catch (err) {
-      setBlogs(prevBlogs);
-      setError('Failed to delete blog');
-      showToast('error', 'Failed to delete blog');
+      const token = localStorage.getItem('accessToken');
+      if (!token) {
+        throw new Error('Authentication required');
+      }
+
+      const response = await fetch(`${API_BASE_URL}/blogs/${id}`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.message || 'Failed to delete blog');
+      }
+
+      fetchBlogs();
+      setFormError(null);
+    } catch (err: any) {
+      console.error('Error deleting blog:', err);
+      setFormError(err.message || 'Failed to delete blog');
     } finally {
       setActionLoading(false);
     }

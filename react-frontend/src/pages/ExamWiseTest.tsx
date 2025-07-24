@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import './ExamWiseTest.css';
+// import Breadcrumb from '../components/common/Breadcrumb';
 
 const ExamWiseTest: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -13,7 +15,13 @@ const ExamWiseTest: React.FC = () => {
       title: 'SSC-CGL Typing Test',
       description: 'Practice for SSC-CGL with 2000 key depressions in 15 minutes.',
       link: '/ssc-cgl-test',
-      category: 'SSC'
+      category: 'SSC',
+      requirements: {
+        speed: '35 WPM (English), 30 WPM (Hindi)',
+        duration: '15 minutes',
+        keystrokes: '2000 key depressions',
+        accuracy: '95%'
+      }
     },
     {
       id: 'ssc-chsl',
@@ -21,7 +29,13 @@ const ExamWiseTest: React.FC = () => {
       title: 'SSC-CHSL Typing Test',
       description: 'Prepare for SSC-CHSL with real exam passages and speed goals.',
       link: '/ssc-chsl-test',
-      category: 'SSC'
+      category: 'SSC',
+      requirements: {
+        speed: '35 WPM (English), 30 WPM (Hindi)',
+        duration: '15 minutes',
+        keystrokes: '2000 key depressions',
+        accuracy: '95%'
+      }
     },
     {
       id: 'rrb-ntpc',
@@ -29,7 +43,13 @@ const ExamWiseTest: React.FC = () => {
       title: 'RRB-NTPC Typing Test',
       description: 'Master RRB-NTPC typing with Hindi and English passages.',
       link: '/rrb-ntpc-test',
-      category: 'Railway'
+      category: 'Railway',
+      requirements: {
+        speed: '30 WPM',
+        duration: '10 minutes',
+        keystrokes: '1500 key depressions',
+        accuracy: '90%'
+      }
     },
     {
       id: 'junior-assistant',
@@ -89,6 +109,28 @@ const ExamWiseTest: React.FC = () => {
     }
   ];
 
+  // Structured data for SEO
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Government Exam Typing Tests - SSC, RRB, NTPC",
+    "description": "Free typing practice tests for SSC-CGL, SSC-CHSL, RRB-NTPC and other government exams. Practice in both Hindi and English with real exam patterns.",
+    "provider": {
+      "@type": "Organization",
+      "name": "TypingHub",
+      "url": "https://typinghub.in"
+    },
+    "offers": examCards.map(exam => ({
+      "@type": "Offer",
+      "name": exam.title,
+      "description": exam.description,
+      "category": exam.category,
+      "url": `https://typinghub.in${exam.link}`,
+      "price": "0",
+      "priceCurrency": "INR"
+    }))
+  };
+
   const handleExamClick = (examId: string) => {
     const exam = examCards.find(card => card.id === examId);
     if (exam) {
@@ -104,95 +146,137 @@ const ExamWiseTest: React.FC = () => {
 
   const filteredExams = examCards.filter(filterExams);
 
-  return (
-    <div className="main-content">
-      <div className="container">
-        <div className="panel">
-          {/* Header Section */}
-          <div className="header-section">
-              <div className="logo-container">
-                <div className="logo-item">
-                  <img src="/images/SSC.png" className="logo-ssc" alt="SSC Logo" />
-                  <span className="logo-label">SSC</span>
-                </div>
-                <div className="logo-item">
-                  <img src="/images/RAILWAY.png" className="logo-railway" alt="Railway Logo" />
-                  <span className="logo-label">RAILWAY</span>
-                </div>
-                <div className="logo-item">
-                  <img src="/images/Cbse.png" className="logo-cbse" alt="CBSE Logo" />
-                  <span className="logo-label">CBSE</span>
-                </div>
-                <div className="logo-item">
-                  <img src="/images/court.png" className="logo-court" alt="Supreme Court Logo" />
-                  <span className="logo-label">SUPREME COURT</span>
-                </div>
-              </div>
-          </div>
+  // const breadcrumbItems = [ // Remove visual breadcrumb
+  //   { label: 'Home', path: '/' },
+  //   { label: 'Exam Wise Tests', path: '/exam-wise-test', isLast: true }
+  // ];
 
-          {/* Search Section */}
-          <div className="search-section">
-            <div className="search-container">
-              <div className="search-item">
-                <input 
-                  type="text" 
-                  id="searchInput" 
-                  placeholder="Search exams by name or category..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                />
-                {searchTerm && (
-                  <div className="search-results">
-                    <span>{filteredExams.length} exam{filteredExams.length !== 1 ? 's' : ''} found</span>
+  return (
+    <div className="exam-wise-test-page">
+      <Helmet>
+        <title>Government Exam Typing Tests - SSC, RRB, NTPC | TypingHub</title>
+        <meta name="description" content="Practice typing tests for SSC-CGL, SSC-CHSL, RRB-NTPC and other government exams. Free mock tests with real exam patterns in Hindi and English." />
+        <meta name="keywords" content="SSC typing test, RRB typing test, NTPC typing test, government exam typing, Hindi typing practice, English typing practice, SSC-CGL typing, SSC-CHSL typing" />
+        <link rel="canonical" href="https://typinghub.in/exam-wise-test" />
+        
+        {/* Open Graph / Social Media Meta Tags */}
+        <meta property="og:title" content="Government Exam Typing Tests - SSC, RRB, NTPC" />
+        <meta property="og:description" content="Free typing practice tests for SSC-CGL, SSC-CHSL, RRB-NTPC and other government exams. Practice in both Hindi and English with real exam patterns." />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://typinghub.in/exam-wise-test" />
+        <meta property="og:image" content="https://typinghub.in/images/exam-wise-test-og.jpg" />
+        
+        {/* Twitter Card Meta Tags */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Government Exam Typing Tests - SSC, RRB, NTPC" />
+        <meta name="twitter:description" content="Free typing practice tests for SSC-CGL, SSC-CHSL, RRB-NTPC and other government exams." />
+        <meta name="twitter:image" content="https://typinghub.in/images/exam-wise-test-og.jpg" />
+        
+        {/* Additional Meta Tags */}
+        <meta name="robots" content="index, follow" />
+        <meta name="language" content="English" />
+        <meta name="revisit-after" content="1 days" />
+        <meta name="author" content="TypingHub" />
+
+        {/* Structured Data */}
+        <script type="application/ld+json">
+          {JSON.stringify(structuredData)}
+        </script>
+      </Helmet>
+
+      <div className="main-content">
+        <div className="container">
+          {/* Breadcrumb structured data only, visually hidden */}
+          <script type="application/ld+json" style={{ display: 'none' }}>
+            {JSON.stringify(structuredData)}
+          </script>
+          <div className="panel">
+            {/* Header Section */}
+            <div className="header-section">
+                <div className="logo-container">
+                  <div className="logo-item">
+                    <img src="/images/SSC.png" className="logo-ssc" alt="SSC Logo" />
+                    <span className="logo-label">SSC</span>
                   </div>
-                )}
-              </div>
-              <div className="search-title">
-                <h2>Available Typing Tests</h2>
-                <p>Select an exam to start practicing</p>
-              </div>
-              </div>
+                  <div className="logo-item">
+                    <img src="/images/RAILWAY.png" className="logo-railway" alt="Railway Logo" />
+                    <span className="logo-label">RAILWAY</span>
+                  </div>
+                  <div className="logo-item">
+                    <img src="/images/Cbse.png" className="logo-cbse" alt="CBSE Logo" />
+                    <span className="logo-label">CBSE</span>
+                  </div>
+                  <div className="logo-item">
+                    <img src="/images/court.png" className="logo-court" alt="Supreme Court Logo" />
+                    <span className="logo-label">SUPREME COURT</span>
+                  </div>
+                </div>
             </div>
 
-          {/* Exams Grid Section */}
-          <div className="exams-section">
-            <section className="panel-container">
-              {filteredExams.length > 0 ? (
-                filteredExams.map(exam => (
-                <div 
-                  key={exam.id} 
-                  className="exam-card" 
-                  data-exam={exam.id}
-                  onClick={() => handleExamClick(exam.id)}
-                  style={{ cursor: 'pointer' }}
-                >
-                    <div className="exam-icon">
-                  <i className={exam.icon}></i>
+            {/* Search Section */}
+            <div className="search-section">
+              <div className="search-container">
+                <div className="search-item">
+                  <input 
+                    type="text" 
+                    id="searchInput" 
+                    placeholder="Search exams by name or category..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                  />
+                  {searchTerm && (
+                    <div className="search-results">
+                      <span>{filteredExams.length} exam{filteredExams.length !== 1 ? 's' : ''} found</span>
                     </div>
-                    <div className="exam-content">
-                  <h5>{exam.title}</h5>
-                  <p>{exam.description}</p>
-                      <span className="exam-category">{exam.category}</span>
-                    </div>
-                  <button 
-                    className="btn btn-primary"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleExamClick(exam.id);
-                    }}
-                  >
-                      Start Test
-                  </button>
-                  </div>
-                ))
-              ) : (
-                <div className="no-results">
-                  <i className="fas fa-search"></i>
-                  <h3>No exams found</h3>
-                  <p>Try adjusting your search terms</p>
+                  )}
                 </div>
-              )}
-            </section>
+                <div className="search-title">
+                  <h2>Available Typing Tests</h2>
+                  <p>Select an exam to start practicing</p>
+                </div>
+                </div>
+              </div>
+
+            {/* Exams Grid Section */}
+            <div className="exams-section">
+              <section className="panel-container">
+                {filteredExams.length > 0 ? (
+                  filteredExams.map(exam => (
+                  <div 
+                    key={exam.id} 
+                    className="exam-card" 
+                    data-exam={exam.id}
+                    onClick={() => handleExamClick(exam.id)}
+                    style={{ cursor: 'pointer' }}
+                  >
+                      <div className="exam-icon">
+                    <i className={exam.icon}></i>
+                      </div>
+                      <div className="exam-content">
+                    <h5>{exam.title}</h5>
+                    <p>{exam.description}</p>
+                        <span className="exam-category">{exam.category}</span>
+                      </div>
+                    <button 
+                      className="btn btn-primary"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleExamClick(exam.id);
+                      }}
+                    >
+                        Start Test
+                    </button>
+                    </div>
+                  ))
+                ) : (
+                  <div className="no-results">
+                    <i className="fas fa-search"></i>
+                    <h3>No exams found</h3>
+                    <p>Try adjusting your search terms</p>
+                  </div>
+                )}
+              </section>
+            </div>
           </div>
         </div>
       </div>

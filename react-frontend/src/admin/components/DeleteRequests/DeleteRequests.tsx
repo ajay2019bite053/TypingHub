@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { useDeleteRequest } from '../../../contexts/DeleteRequestContext';
-import { useAuth } from '../../../contexts/AuthContext';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../../contexts/AuthContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
   faCheck, 
@@ -13,57 +12,130 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import './DeleteRequests.css';
 
+interface DeleteRequest {
+  _id: string;
+  type: 'passage' | 'test' | 'question';
+  itemId: string;
+  itemName: string;
+  status: 'pending' | 'approved' | 'rejected';
+  requestedBy: {
+    id: string;
+    email: string;
+  };
+  createdAt: string;
+}
+
+const API_BASE_URL = 'http://localhost:9500/api';
+
 const DeleteRequests: React.FC = () => {
-  const { deleteRequests, approveDeleteRequest, rejectDeleteRequest, fetchDeleteRequests } = useDeleteRequest();
-  const { user } = useAuth();
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(true);
+  const { user } = useAuth();
+  const [requests, setRequests] = useState<DeleteRequest[]>([]);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [filter, setFilter] = useState<'all' | 'pending' | 'approved' | 'rejected'>('all');
 
-  // Check if user is default admin
-  useEffect(() => {
-    if (user && user.role !== 'super_admin') {
-      navigate('/admin/dashboard');
-      return;
-    }
-  }, [user, navigate]);
-
-  useEffect(() => {
-    const loadRequests = async () => {
-      try {
-        await fetchDeleteRequests();
-        setError(null);
-      } catch (err) {
-        setError('Failed to load delete requests');
-      } finally {
-        setLoading(false);
+  const fetchRequests = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const token = localStorage.getItem('accessToken');
+      if (!token) {
+        throw new Error('Authentication required');
       }
-    };
 
-    // Only load requests if user is super admin
-    if (user?.role === 'super_admin') {
-      loadRequests();
+      const response = await fetch(`${API_BASE_URL}/delete-requests`, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.message || `Failed to fetch delete requests (${response.status})`);
+      }
+
+      const data = await response.json();
+      setRequests(data);
+      setError(null);
+    } catch (err: any) {
+      console.error('Error fetching delete requests:', err);
+      setError(err.message || 'Failed to load delete requests');
+    } finally {
+      setLoading(false);
     }
-  }, [fetchDeleteRequests, user]);
+  };
+
+  useEffect(() => {
+    fetchRequests();
+  }, []);
 
   const handleApprove = async (requestId: string) => {
+    if (!window.confirm('Are you sure you want to approve this delete request?')) return;
+    setLoading(true);
     try {
-      await approveDeleteRequest(requestId);
-    } catch (err) {
-      setError('Failed to approve delete request');
+      const token = localStorage.getItem('accessToken');
+      if (!token) {
+        throw new Error('Authentication required');
+      }
+
+      const response = await fetch(`${API_BASE_URL}/delete-requests/${requestId}/approve`, {
+        method: 'PUT',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.message || 'Failed to approve delete request');
+      }
+
+      fetchRequests();
+      setError(null);
+    } catch (err: any) {
+      console.error('Error approving delete request:', err);
+      setError(err.message || 'Failed to approve delete request');
+    } finally {
+      setLoading(false);
     }
   };
 
   const handleReject = async (requestId: string) => {
+    if (!window.confirm('Are you sure you want to reject this delete request?')) return;
+    setLoading(true);
     try {
-      await rejectDeleteRequest(requestId);
-    } catch (err) {
-      setError('Failed to reject delete request');
+      const token = localStorage.getItem('accessToken');
+      if (!token) {
+        throw new Error('Authentication required');
+      }
+
+      const response = await fetch(`${API_BASE_URL}/delete-requests/${requestId}/reject`, {
+        method: 'PUT',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.message || 'Failed to reject delete request');
+      }
+
+      fetchRequests();
+      setError(null);
+    } catch (err: any) {
+      console.error('Error rejecting delete request:', err);
+      setError(err.message || 'Failed to reject delete request');
+    } finally {
+      setLoading(false);
     }
   };
 
-  const filteredRequests = deleteRequests.filter(request => {
+  const filteredRequests = requests.filter(request => {
     if (filter === 'all') return true;
     return request.status === filter;
   });
@@ -96,7 +168,7 @@ const DeleteRequests: React.FC = () => {
       <div className="delete-requests-error">
         <FontAwesomeIcon icon={faExclamationTriangle} size="2x" />
         <p>{error}</p>
-        <button onClick={() => fetchDeleteRequests()} className="retry-btn">
+        <button onClick={() => fetchRequests()} className="retry-btn">
           <FontAwesomeIcon icon={faSpinner} spin /> Retry
         </button>
       </div>

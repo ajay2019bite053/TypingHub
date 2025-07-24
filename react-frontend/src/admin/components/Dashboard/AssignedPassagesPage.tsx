@@ -35,7 +35,7 @@ const TEST_CATEGORIES = [
   { id: 'allahabad-high-court', name: 'Allahabad High Court' }
 ];
 
-const API_BASE_URL = 'http://localhost:5000/api';
+const API_BASE_URL = 'http://localhost:9500/api';
 
 const AssignedPassagesPage: React.FC = () => {
   const navigate = useNavigate();

@@ -18,13 +18,10 @@ router.get('/', getAllPassages);
 router.get('/test/:testType', getPassagesByTestType);
 
 // Protected routes (admin only)
-// Specific routes first
 router.post('/assign', adminAuthMiddleware, assignPassage);
 router.post('/unassign', adminAuthMiddleware, unassignPassage);
 router.post('/bulk-import', adminAuthMiddleware, bulkImportPassages);
 router.post('/', adminAuthMiddleware, createPassage);
-
-// Parameterized routes last
 router.get('/:id', adminAuthMiddleware, getPassageById);
 router.put('/:id', adminAuthMiddleware, updatePassage);
 router.delete('/:id', adminAuthMiddleware, deletePassage);

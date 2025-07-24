@@ -11,6 +11,8 @@ interface Card {
   isActive: boolean;
 }
 
+const API_BASE_URL = 'http://localhost:9500/api';
+
 const AdminCardManager: React.FC = () => {
   const [cards, setCards] = useState<Card[]>([]);
   const [editingCard, setEditingCard] = useState<Card | null>(null);
@@ -24,10 +26,28 @@ const AdminCardManager: React.FC = () => {
     setLoading(true);
     setError(null);
     try {
-      const res = await axios.get('/api/cards');
-      setCards(res.data.map((c: any) => ({ ...c, id: c._id })));
-    } catch (err) {
-      setError('Failed to load cards');
+      const token = localStorage.getItem('accessToken');
+      if (!token) {
+        throw new Error('Authentication required');
+      }
+
+      const response = await fetch(`${API_BASE_URL}/cards`, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.message || `Failed to fetch cards (${response.status})`);
+      }
+
+      const data = await response.json();
+      setCards(data.map((c: any) => ({ ...c, id: c._id })));
+    } catch (err: any) {
+      console.error('Error fetching cards:', err);
+      setError(err.message || 'Failed to load cards');
     } finally {
       setLoading(false);
     }
@@ -36,6 +56,45 @@ const AdminCardManager: React.FC = () => {
   useEffect(() => {
     fetchCards();
   }, []);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    try {
+      const token = localStorage.getItem('accessToken');
+      if (!token) {
+        throw new Error('Authentication required');
+      }
+
+      const response = await fetch(
+        editingCard ? `${API_BASE_URL}/cards/${editingCard.id}` : `${API_BASE_URL}/cards`,
+        {
+          method: editingCard ? 'PUT' : 'POST',
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(form)
+        }
+      );
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.message || `Failed to ${editingCard ? 'update' : 'create'} card`);
+      }
+
+      fetchCards();
+      setShowForm(false);
+      setEditingCard(null);
+      setForm({});
+      setError(null);
+    } catch (err: any) {
+      console.error('Error saving card:', err);
+      setError(err.message || 'Failed to save card');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleEdit = (card: Card) => {
     setEditingCard(card);
@@ -55,10 +114,29 @@ const AdminCardManager: React.FC = () => {
     setLoading(true);
     setError(null);
     try {
-      await axios.delete(`/api/cards/${id}`);
+      const token = localStorage.getItem('accessToken');
+      if (!token) {
+        throw new Error('Authentication required');
+      }
+
+      const response = await fetch(`${API_BASE_URL}/cards/${id}`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.message || 'Failed to delete card');
+      }
+
       setCards(cards.filter(card => card.id !== id));
-    } catch (err) {
-      setError('Failed to delete card');
+      setError(null);
+    } catch (err: any) {
+      console.error('Error deleting card:', err);
+      setError(err.message || 'Failed to delete card');
     } finally {
       setLoading(false);
     }
@@ -75,30 +153,6 @@ const AdminCardManager: React.FC = () => {
     setForm(prev => ({ ...prev, [name]: name.includes('Price') ? Number(value) : value }));
   };
 
-  const handleFormSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoading(true);
-    setError(null);
-    try {
-      if (editingCard) {
-        // Update
-        const res = await axios.put(`/api/cards/${editingCard.id}`, form);
-        setCards(cards.map(card => card.id === editingCard.id ? { ...res.data, id: res.data._id } : card));
-      } else {
-        // Add
-        const res = await axios.post('/api/cards', form);
-        setCards([...cards, { ...res.data, id: res.data._id }]);
-      }
-      setShowForm(false);
-      setEditingCard(null);
-      setForm({});
-    } catch (err) {
-      setError('Failed to save card');
-    } finally {
-      setLoading(false);
-    }
-  };
-
   return (
     <div style={{ maxWidth: 900, margin: '0 auto', padding: 24 }}>
       <h2 style={{ color: '#1976d2', marginBottom: 18 }}>Card Management</h2>
@@ -108,7 +162,7 @@ const AdminCardManager: React.FC = () => {
       {showForm && (
         <div style={{ background: '#f8fafc', border: '1.5px solid #90caf9', borderRadius: 14, padding: 20, marginBottom: 32, boxShadow: '0 2px 12px rgba(25,118,210,0.07)', maxWidth: 500, marginLeft: 'auto', marginRight: 'auto' }}>
           <h3 style={{ color: '#1976d2', marginBottom: 18, textAlign: 'center' }}>{editingCard ? 'Edit Card' : 'Add New Card'}</h3>
-          <form onSubmit={handleFormSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 18 }}>
+          <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 18 }}>
             <div>
               <label style={{ fontWeight: 500, display: 'block', marginBottom: 6 }}>Title</label>
               <input name="title" value={form.title || ''} onChange={handleFormChange} required style={{ width: '100%', padding: 8, borderRadius: 6, border: '1px solid #bdbdbd' }} />

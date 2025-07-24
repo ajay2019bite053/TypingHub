@@ -141,7 +141,7 @@ body {
   width: 100%;
 }
 
-.panel-item {
+#home-page .panel-item {
   padding: 20px;
   border-radius: 15px;
   text-align: left;
@@ -156,18 +156,18 @@ body {
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
 }
 
-.panel-item:hover {
+#home-page .panel-item:hover {
   transform: translateY(-5px);
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
 }
 
-.panel-item i {
+#home-page .panel-item i {
   font-size: 42px;
   color: #1976d2;
   margin-bottom: 15px;
 }
 
-.panel-item h3 {
+#home-page .panel-item h3 {
   color: #000 !important;
   font-size: 22px;
   margin-bottom: 20px;
@@ -177,13 +177,13 @@ body {
   font-family: 'Roboto Serif', serif;
 }
 
-.panel-item h3 i {
+#home-page .panel-item h3 i {
   font-size: 48px;
   margin-bottom: 0;
   color: #1976d2;
 }
 
-.panel-item p {
+#home-page .panel-item p {
   font-size: 16px;
   color: #555;
   line-height: 1.6;
@@ -195,7 +195,7 @@ body {
   min-height: 80px;
 }
 
-.panel-btn {
+#home-page .panel-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -389,7 +389,7 @@ body {
 
 /* Media Queries */
 @media (max-width: 1024px) {
-  .panel-container {
+  #home-page .panel-container {
     grid-template-columns: repeat(2, 1fr);
     gap: 20px;
   }
@@ -671,7 +671,7 @@ body {
 }
 
 /* New Features Section */
-.features-grid {
+#home-page .features-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 30px;
@@ -680,7 +680,7 @@ body {
   padding: 0 20px;
 }
 
-.feature-card {
+#home-page .feature-card {
   background: white;
   padding: 30px;
   border-radius: 15px;
@@ -689,25 +689,25 @@ body {
   border: 1px solid rgba(25, 118, 210, 0.1);
 }
 
-.feature-card:hover {
+#home-page .feature-card:hover {
   transform: translateY(-5px);
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
 }
 
-.feature-icon {
+#home-page .feature-icon {
   font-size: 48px;
   color: #1976d2;
   margin-bottom: 20px;
 }
 
-.feature-title {
+#home-page .feature-title {
   font-size: 20px;
   color: #333;
   margin-bottom: 15px;
   font-weight: 600;
 }
 
-.feature-description {
+#home-page .feature-description {
   font-size: 15px;
   color: #666;
   line-height: 1.6;
@@ -834,16 +834,65 @@ body {
 }
 
 @media (max-width: 768px) {
-  .panel-container,
-  .features-grid,
-  .testimonial-grid,
-  .achievements-grid {
+  #home-page .panel-container,
+  #home-page .features-grid {
     grid-template-columns: 1fr;
   }
 
-  .panel-item {
+  #home-page .panel-item {
     height: auto;
     min-height: 220px;
+  }
+
+  #home-page .feature-card {
+    padding: 20px;
+  }
+
+  #home-page .feature-icon {
+    font-size: 36px;
+  }
+
+  #home-page .feature-title {
+    font-size: 18px;
+  }
+
+  #home-page .feature-description {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  #home-page .panel-item {
+    padding: 15px;
+  }
+
+  #home-page .panel-item h3 {
+    font-size: 20px;
+  }
+
+  #home-page .panel-item p {
+    font-size: 14px;
+  }
+
+  #home-page .panel-btn {
+    padding: 10px 20px;
+    font-size: 14px;
+  }
+
+  #home-page .feature-card {
+    padding: 15px;
+  }
+
+  #home-page .feature-icon {
+    font-size: 32px;
+  }
+
+  #home-page .feature-title {
+    font-size: 16px;
+  }
+
+  #home-page .feature-description {
+    font-size: 13px;
   }
 }
 
@@ -1475,8 +1524,7 @@ section, .features-grid, .testimonials, .achievements, .resources-section, .typi
   color: #000 !important;
 } 
 
-/* Modern dashboard card styles */
-.modern-panel-card {
+#home-page .modern-panel-card {
   position: relative;
   background: linear-gradient(135deg, #f8fafc 80%, #e3f2fd 100%);
   border-radius: 22px;
@@ -1489,7 +1537,8 @@ section, .features-grid, .testimonials, .achievements, .resources-section, .typi
   min-height: 110px;
   overflow: visible;
 }
-.modern-panel-icon-wrapper {
+
+#home-page .modern-panel-icon-wrapper {
   position: absolute;
   top: -32px;
   left: 50%;
@@ -1504,11 +1553,13 @@ section, .features-grid, .testimonials, .achievements, .resources-section, .typi
   border: 4px solid #fff;
   z-index: 2;
 }
-.modern-panel-icon {
+
+#home-page .modern-panel-icon {
   color: #fff;
   font-size: 32px;
 }
-.modern-panel-title {
+
+#home-page .modern-panel-title {
   margin-top: 24px;
   font-size: 22px;
   font-weight: 700;
@@ -1517,14 +1568,16 @@ section, .features-grid, .testimonials, .achievements, .resources-section, .typi
   margin-bottom: 12px;
   font-family: 'Roboto Serif', serif;
 }
-.modern-panel-desc {
+
+#home-page .modern-panel-desc {
   color: #666;
   font-size: 15px;
   text-align: center;
   margin-bottom: 32px;
   min-height: 48px;
 }
-.modern-panel-btn {
+
+#home-page .modern-panel-btn {
   width: 100%;
   display: flex;
   align-items: center;
@@ -1541,40 +1594,49 @@ section, .features-grid, .testimonials, .achievements, .resources-section, .typi
   transition: background 0.18s;
   margin-top: auto;
 }
-.modern-panel-btn:hover {
+
+#home-page .modern-panel-btn:hover {
   background: #1565c0 !important;
   color: #fff;
 }
+
 @media (max-width: 900px) {
-  .four-col-layout {
+  #home-page .four-col-layout {
     grid-template-columns: 1fr 1fr !important;
   }
 }
+
 @media (max-width: 600px) {
-  .four-col-layout {
+  #home-page .four-col-layout {
     grid-template-columns: 1fr !important;
   }
-  .modern-panel-card {
+  
+  #home-page .modern-panel-card {
     min-height: 0;
     padding: 12px 4px 6px 4px;
   }
-  .modern-panel-title {
+  
+  #home-page .modern-panel-title {
     margin-top: 18px;
   }
-  .modern-panel-desc {
+  
+  #home-page .modern-panel-desc {
     font-size: 14px;
     margin-bottom: 18px;
   }
-  .modern-panel-btn {
+  
+  #home-page .modern-panel-btn {
     font-size: 15px;
     padding: 12px 0;
   }
-  .modern-panel-icon-wrapper {
+  
+  #home-page .modern-panel-icon-wrapper {
     width: 48px;
     height: 48px;
     top: -24px;
   }
-  .modern-panel-icon {
+  
+  #home-page .modern-panel-icon {
     font-size: 22px;
   }
 } 

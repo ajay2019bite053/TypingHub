@@ -1,3 +1,9 @@
 # https://www.robotstxt.org/robotstxt.html
 User-agent: *
-Allow: / 
+Allow: /
+Disallow: /admin/*
+Disallow: /admin-secret-9382xj
+Disallow: /create-test/testing
+
+# Sitemaps
+Sitemap: https://typinghub.in/sitemap.xml 

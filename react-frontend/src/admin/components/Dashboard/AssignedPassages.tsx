@@ -120,8 +120,12 @@ const AssignedPassages: React.FC<AssignedPassagesProps> = ({ onClose, className 
     setError(null);
     try {
       const token = localStorage.getItem('accessToken');
-      if (!token) throw new Error('No authentication token found');
+      if (!token) {
+        setError('Authentication token not found. Please log in again.');
+        return;
+      }
 
+      console.log(`Fetching passages for test type: ${testType}`);
       const response = await fetch(`${API_BASE_URL}/passages/test/${encodeURIComponent(testType)}`, {
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -130,13 +134,16 @@ const AssignedPassages: React.FC<AssignedPassagesProps> = ({ onClose, className 
       });
 
       if (!response.ok) {
-        throw new Error('Failed to fetch passages');
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.message || `Failed to fetch passages (${response.status})`);
       }
 
       const data = await response.json();
+      console.log(`Received ${data.length} passages for test type: ${testType}`);
       setAssignedPassages(data || []);
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'An error occurred');
+      console.error('Error fetching passages:', err);
+      setError(err instanceof Error ? err.message : 'An error occurred while fetching passages');
       setAssignedPassages([]);
     } finally {
       setIsLoading(false);

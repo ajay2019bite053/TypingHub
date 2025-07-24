@@ -1,12 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import TypingEngine from '../components/common/TypingEngine';
-import { AI_CONFIG, getMaxLength, cleanGeneratedText } from '../config/aiConfig';
+import { AI_CONFIG } from '../config/aiConfig';
 import './CreateTest.css';
 
 const CreateTest = () => {
   const navigate = useNavigate();
-  const location = useLocation();
   const [showSetup, setShowSetup] = useState(true);
   const [customText, setCustomText] = useState('');
   const [aiGeneratedText, setAiGeneratedText] = useState('');
@@ -16,27 +15,6 @@ const CreateTest = () => {
   const [useAiText, setUseAiText] = useState(true);
   const [loading, setLoading] = useState(false);
   const [searchText, setSearchText] = useState('');
-
-  // Handle browser back button
-  useEffect(() => {
-    const handlePopState = () => {
-      if (!showSetup) {
-        setShowSetup(true);
-      }
-    };
-
-    window.addEventListener('popstate', handlePopState);
-    return () => window.removeEventListener('popstate', handlePopState);
-  }, [showSetup]);
-
-  // Update URL when test starts
-  useEffect(() => {
-    if (!showSetup) {
-      navigate('/create-test/testing', { replace: true });
-    } else {
-      navigate('/create-test', { replace: true });
-    }
-  }, [showSetup, navigate]);
 
   const lengthOptions = [
     { value: '100-150', label: '100-150 words' },
@@ -85,68 +63,65 @@ const CreateTest = () => {
 
     setIsGenerating(true);
     const { min, max } = getWordRange(textLength);
-    // Create dynamic prompt based on search topic
     const prompt = `Write a passage of ${max} words about ${searchText} in the style of SSC CGL/CHSL/RRB-NTPC typing exams. Write as a continuous paragraph without titles, headings, or excessive spacing. Focus on government exams, competitive tests, and educational content. Make it suitable for typing practice with proper sentence structure and flow. Passage must be at least ${min} words, but as close to ${max} words as possible.`;
 
     for (let i = 0; i < AI_CONFIG.MODELS.length; i++) {
       const model = AI_CONFIG.MODELS[i];
       try {
         console.log(`Trying model ${i + 1}/${AI_CONFIG.MODELS.length}: ${model}`);
-        console.log('With prompt:', prompt);
         
         const response = await fetch(`${AI_CONFIG.BASE_URL}/chat/completions`, {
           method: 'POST',
-          headers: {
-            'Authorization': `Bearer ${AI_CONFIG.OPENROUTER_API_KEY}`,
-            'Content-Type': 'application/json',
-            'HTTP-Referer': 'https://typinghub.com',
-            'X-Title': 'TypingHub'
-          },
+          headers: AI_CONFIG.HEADERS,
           body: JSON.stringify({
             model: model,
-            messages: [
-              { role: 'user', content: prompt }
-            ],
-            max_tokens: Math.round(max * 1.6) // buffer for tokens
+            messages: [{ role: 'user', content: prompt }],
+            ...AI_CONFIG.DEFAULT_PARAMS,
+            max_tokens: Math.round(max * 4) // Ensure enough tokens for the response
           })
         });
 
         if (!response.ok) {
-          console.log(`Model ${model} failed with status: ${response.status}`);
+          const errorData = await response.json().catch(() => ({}));
+          console.error(`Model ${model} failed:`, {
+            status: response.status,
+            statusText: response.statusText,
+            error: errorData
+          });
           continue; // Try next model
         }
 
         const data = await response.json();
-        console.log('OpenRouter Response:', data);
+        console.log('API Response:', data);
         
-        let generatedText = data.choices?.[0]?.message?.content || '';
-        generatedText = generatedText.trim();
-        // Trim to max words
-        const trimmed = trimToMaxWords(generatedText, max);
-        const cleaned = cleanParagraphs(trimmed);
+        if (!data.choices?.[0]?.message?.content) {
+          console.error('No content in response');
+          continue;
+        }
+
+        let generatedText = data.choices[0].message.content.trim();
+        const cleaned = cleanParagraphs(generatedText);
         const wordCount = cleaned.split(/\s+/).filter(w => w.length > 0).length;
         
         if (wordCount < min) {
-          console.log(`Model ${model} returned text with ${wordCount} words, which is less than ${min} words.`);
-          continue; // Try next model
+          console.log(`Generated text too short (${wordCount} words), trying next model`);
+          continue;
         }
         
         setAiGeneratedText(cleaned);
-        setUseAiText(true);
-        setSearchText(''); // Clear the search box after generating
+        setSearchText('');
         setIsGenerating(false);
-        console.log(`Successfully generated text using model: ${model}`);
-        return; // Success!
+        return;
         
       } catch (error) {
         console.error(`Error with model ${model}:`, error);
-        continue; // Try next model
+        continue;
       }
     }
     
     // If all models failed
-    alert(`Failed to generate a passage of at least ${min} words. Please try again.`);
     setIsGenerating(false);
+    alert('Failed to generate text. Please try again or use a different topic.');
   };
 
   const generateAiText = async () => {
@@ -220,13 +195,13 @@ const CreateTest = () => {
   };
 
   const handleProceed = () => {
+    if (useAiText && !aiGeneratedText.trim()) {
+      alert('Please generate some text using AI first');
+      return;
+    }
       setShowSetup(false);
   };
 
-  // Allow proceeding even if customText is empty
-  const canProceed = () => true;
-
-  // Only include customPassage if customText is not empty
   const config = {
     testName: 'Create Test',
     timeLimit: 600,
@@ -235,11 +210,40 @@ const CreateTest = () => {
       minWpm: 25,
       minAccuracy: 85
     },
-    ...(useAiText && aiGeneratedText.trim() ? { customPassage: aiGeneratedText.trim() } : 
-        customText.trim() ? { customPassage: customText.trim() } : {})
+    customPassage: useAiText ? aiGeneratedText.trim() : customText.trim()
   };
 
-  if (showSetup) {
+  if (!showSetup) {
+    return (
+      <div className="create-test-page">
+        <TypingEngine 
+          config={config} 
+          backButton={
+            <button
+              onClick={() => setShowSetup(true)}
+              style={{
+                background: 'linear-gradient(135deg, #6c757d 0%, #495057 100%)',
+                color: 'white',
+                border: 'none',
+                padding: '8px 16px',
+                borderRadius: '6px',
+                fontSize: '13px',
+                fontWeight: '600',
+                cursor: 'pointer',
+                fontFamily: 'inherit',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '6px'
+              }}
+            >
+              ⬅️ Back to Settings
+            </button>
+          }
+        />
+      </div>
+    );
+  }
+
   return (
       <div className="create-test-setup">
         <div className="setup-container" style={{ paddingTop: '0', marginTop: '0' }}>
@@ -422,7 +426,7 @@ const CreateTest = () => {
                       <button
                         className="proceed-button"
                         onClick={handleProceed}
-                        disabled={loading}
+                      disabled={loading || (useAiText && !aiGeneratedText.trim())}
                         style={{
                           background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
                           color: 'white',
@@ -431,10 +435,10 @@ const CreateTest = () => {
                           borderRadius: '6px',
                           fontSize: '0.9rem',
                           fontWeight: '600',
-                          cursor: loading ? 'not-allowed' : 'pointer',
+                        cursor: (loading || (useAiText && !aiGeneratedText.trim())) ? 'not-allowed' : 'pointer',
                           fontFamily: 'inherit',
                           transition: 'all 0.3s ease',
-                          opacity: loading ? 0.7 : 1,
+                        opacity: (loading || (useAiText && !aiGeneratedText.trim())) ? 0.7 : 1,
                           display: 'flex',
                           alignItems: 'center',
                           gap: '6px'
@@ -501,43 +505,8 @@ const CreateTest = () => {
             </div>
           </div>
             )}
-          </div>
-
-          {/* Action Section - Removed since buttons are now in each section */}
         </div>
           </div>
-    );
-  }
-
-  return (
-    <div className="create-test-page">
-      <TypingEngine 
-        config={config} 
-        backButton={
-          <button
-            onClick={() => {
-              setShowSetup(true);
-              navigate('/create-test', { replace: true });
-            }}
-            style={{
-              background: 'linear-gradient(135deg, #6c757d 0%, #495057 100%)',
-              color: 'white',
-              border: 'none',
-              padding: '8px 16px',
-              borderRadius: '6px',
-              fontSize: '13px',
-              fontWeight: '600',
-              cursor: 'pointer',
-              fontFamily: 'inherit',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '6px'
-            }}
-          >
-            ⬅️ Back to Settings
-          </button>
-        }
-      />
     </div>
   );
 };

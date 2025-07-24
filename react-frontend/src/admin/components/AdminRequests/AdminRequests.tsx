@@ -1,197 +1,179 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../../contexts/AuthContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
   faCheck, 
   faTimes, 
-  faTrash, 
-  faSpinner, 
+  faTrash,
+  faSpinner,
   faExclamationTriangle,
   faUserCheck,
   faUserClock,
   faEye,
   faLock
 } from '@fortawesome/free-solid-svg-icons';
-import { useAuth } from '../../../contexts/AuthContext';
 import './AdminRequests.css';
 
 interface Admin {
   _id: string;
-  name: string;
   email: string;
+  name: string;
   phone: string;
   address: string;
   aadharNumber: string;
   aadharImage: string;
   isApproved: boolean;
   registrationDate: string;
-  isDefaultAdmin?: boolean;
+  role: 'super_admin' | 'sub_admin';
 }
 
-// NOTE: API_BASE_URL is for API calls. Static files are served directly from http://localhost:5000/uploads
-const API_BASE_URL = 'http://localhost:5000/api';
-const STATIC_FILE_BASE_URL = 'http://localhost:5000/uploads';
+const API_BASE_URL = 'http://localhost:9500/api';
+const STATIC_FILE_BASE_URL = 'http://localhost:9500/uploads';
 
 const AdminRequests: React.FC = () => {
+  const navigate = useNavigate();
+  const { user } = useAuth();
   const [pendingAdmins, setPendingAdmins] = useState<Admin[]>([]);
   const [approvedAdmins, setApprovedAdmins] = useState<Admin[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [showApproved, setShowApproved] = useState(false); // State to toggle between pending/approved
-  const navigate = useNavigate();
-  const { user } = useAuth();
+  const [showApproved, setShowApproved] = useState(false);
 
-  // Check if user is super admin
   useEffect(() => {
     if (user && user.role !== 'super_admin') {
       navigate('/admin/dashboard');
       return;
     }
+    fetchAdminRequests();
   }, [user, navigate]);
 
   const fetchAdminRequests = async () => {
+    setLoading(true);
+    setError(null);
     try {
-      console.log('Fetching admin requests...');
       const token = localStorage.getItem('accessToken');
-      
       if (!token) {
-        console.log('No access token found, redirecting to login...');
-        navigate('/admin/login');
-        return;
+        throw new Error('Authentication required');
       }
 
-      console.log('Making API request to:', `${API_BASE_URL}/admin/requests`);
-      const response = await axios.get(`${API_BASE_URL}/admin/requests`, {
+      const response = await fetch(`${API_BASE_URL}/admin/requests`, {
         headers: {
-          Authorization: `Bearer ${token}`
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
         }
       });
 
-      console.log('API Response:', response.data);
-      setPendingAdmins(response.data.pendingAdmins);
-      setApprovedAdmins(response.data.approvedAdmins);
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.message || `Failed to fetch admin requests (${response.status})`);
+      }
+
+      const data = await response.json();
+      setPendingAdmins(data.pendingAdmins || []);
+      setApprovedAdmins(data.approvedAdmins || []);
       setError(null);
     } catch (err: any) {
-      console.error('Error details:', {
-        message: err.message,
-        response: err.response?.data,
-        status: err.response?.status
-      });
-
-      if (err.response?.status === 401) {
-        console.log('Unauthorized, redirecting to login...');
-        navigate('/admin/login');
-      } else {
-        const errorMessage = err.response?.data?.message || err.message || 'Failed to fetch admin requests';
-        console.error('Setting error message:', errorMessage);
-        setError(errorMessage);
-      }
+      console.error('Error fetching admin requests:', err);
+      setError(err.message || 'Failed to load admin requests');
     } finally {
       setLoading(false);
     }
   };
 
-  useEffect(() => {
-    console.log('AdminRequests component mounted');
-    // Only fetch requests if user is super admin
-    if (user?.role === 'super_admin') {
-      fetchAdminRequests();
-    }
-  }, [navigate, user]);
-
-  const handleApprove = async (adminId: string) => {
+  const handleApprove = async (id: string) => {
+    if (!window.confirm('Are you sure you want to approve this admin?')) return;
+    setLoading(true);
     try {
-      console.log('Approving admin:', adminId);
       const token = localStorage.getItem('accessToken');
-      
       if (!token) {
-        navigate('/admin/login');
-        return;
+        throw new Error('Authentication required');
       }
 
-      await axios.put(
-        `${API_BASE_URL}/admin/approve/${adminId}`,
-        {},
-        {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
+      const response = await fetch(`${API_BASE_URL}/admin/approve/${id}`, {
+        method: 'PUT',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
         }
-      );
-      
-      console.log('Admin approved successfully');
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.message || 'Failed to approve admin');
+      }
+
       fetchAdminRequests();
+      setError(null);
     } catch (err: any) {
       console.error('Error approving admin:', err);
-      if (err.response?.status === 401) {
-        navigate('/admin/login');
-      } else {
-        setError(err.response?.data?.message || 'Failed to approve admin');
-      }
+      setError(err.message || 'Failed to approve admin');
+    } finally {
+      setLoading(false);
     }
   };
 
-  const handleReject = async (adminId: string) => {
+  const handleReject = async (id: string) => {
+    if (!window.confirm('Are you sure you want to reject this admin?')) return;
+    setLoading(true);
     try {
-      console.log('Rejecting admin:', adminId);
       const token = localStorage.getItem('accessToken');
-      
       if (!token) {
-        navigate('/admin/login');
-        return;
+        throw new Error('Authentication required');
       }
 
-      await axios.put(
-        `${API_BASE_URL}/admin/reject/${adminId}`,
-        {},
-        {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
+      const response = await fetch(`${API_BASE_URL}/admin/reject/${id}`, {
+        method: 'PUT',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
         }
-      );
-      
-      console.log('Admin rejected successfully');
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.message || 'Failed to reject admin');
+      }
+
       fetchAdminRequests();
+      setError(null);
     } catch (err: any) {
       console.error('Error rejecting admin:', err);
-      if (err.response?.status === 401) {
-        navigate('/admin/login');
-      } else {
-        setError(err.response?.data?.message || 'Failed to reject admin');
-      }
+      setError(err.message || 'Failed to reject admin');
+    } finally {
+      setLoading(false);
     }
   };
 
-  const handleRemove = async (adminId: string) => {
+  const handleRemove = async (id: string) => {
+    if (!window.confirm('Are you sure you want to remove this admin?')) return;
+    setLoading(true);
     try {
-      console.log('Removing admin:', adminId);
       const token = localStorage.getItem('accessToken');
-      
       if (!token) {
-        navigate('/admin/login');
-        return;
+        throw new Error('Authentication required');
       }
 
-      await axios.delete(
-        `${API_BASE_URL}/admin/remove/${adminId}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
+      const response = await fetch(`${API_BASE_URL}/admin/remove/${id}`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
         }
-      );
-      
-      console.log('Admin removed successfully');
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.message || 'Failed to remove admin');
+      }
+
       fetchAdminRequests();
+      setError(null);
     } catch (err: any) {
       console.error('Error removing admin:', err);
-      if (err.response?.status === 401) {
-        navigate('/admin/login');
-      } else {
-        setError(err.response?.data?.message || 'Failed to remove admin');
-      }
+      setError(err.message || 'Failed to remove admin');
+    } finally {
+      setLoading(false);
     }
   };
 

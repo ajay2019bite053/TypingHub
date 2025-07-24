@@ -13,6 +13,8 @@ import ReactDOM from 'react-dom';
 import './TypingCourseLanding.css';
 import '../components/UserDashboard/Dashboard.css';
 import { sharedLandingCourses } from '../components/UserDashboard/Dashboard';
+import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 
 interface CourseDetail {
   title: string;
@@ -139,6 +141,64 @@ const TypingCourseLanding: React.FC = () => {
     },
   };
 
+  // Course details for structured data
+  const courseDetails = {
+    name: "Government Exam Typing Course",
+    description: "Comprehensive typing course designed specifically for government exam preparation. Master typing with expert guidance and real exam patterns.",
+    provider: {
+      "@type": "Organization",
+      "name": "TypingHub",
+      "url": "https://typinghub.in"
+    },
+    features: [
+      "SSC-CGL/CHSL specific training",
+      "RRB-NTPC typing patterns",
+      "Hindi & English typing practice",
+      "Real exam simulations",
+      "Expert instructor guidance",
+      "Performance tracking",
+      "Practice exercises",
+      "Mock tests"
+    ],
+    duration: "P8W", // 8 weeks in ISO 8601 duration format
+    coursePrerequisites: "Basic computer knowledge",
+    educationalLevel: "Beginner to Advanced",
+    occupationalCategory: "Government Exam Preparation",
+    timeRequired: "PT2H", // 2 hours per day in ISO 8601 duration format
+    availableLanguage: ["English", "Hindi"]
+  };
+
+  // Structured data for SEO
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "Course",
+    ...courseDetails,
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "INR",
+      "availability": "https://schema.org/InStock",
+      "validFrom": "2024-01-01"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.8",
+      "ratingCount": "850",
+      "bestRating": "5",
+      "worstRating": "1"
+    },
+    "hasCourseInstance": {
+      "@type": "CourseInstance",
+      "courseMode": "online",
+      "courseWorkload": "PT14H",
+      "distance": "0",
+      "instructor": {
+        "@type": "Person",
+        "name": "Expert Typing Instructors"
+      }
+    }
+  };
+
   // Handle auth modal
   const handleAuthClose = useCallback(() => {
     setIsAuthModalOpen(false);
@@ -219,6 +279,37 @@ const TypingCourseLanding: React.FC = () => {
 
   return (
     <>
+      <Helmet>
+        <title>Government Exam Typing Course | SSC, RRB Typing Training</title>
+        <meta name="description" content="Master typing for government exams with our comprehensive course. Expert-led training for SSC-CGL, CHSL, RRB-NTPC with real exam patterns in Hindi & English." />
+        <meta name="keywords" content="typing course, government exam typing, SSC typing training, RRB typing course, Hindi typing course, English typing course, typing certification" />
+        <link rel="canonical" href="https://typinghub.in/typing-course" />
+        
+        {/* Open Graph / Social Media Meta Tags */}
+        <meta property="og:title" content="Government Exam Typing Course | SSC, RRB Training" />
+        <meta property="og:description" content="Master typing for government exams with expert-led training. Real exam patterns, comprehensive practice, and certification." />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://typinghub.in/typing-course" />
+        <meta property="og:image" content="https://typinghub.in/images/typing-course-og.jpg" />
+        
+        {/* Twitter Card Meta Tags */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Government Exam Typing Course" />
+        <meta name="twitter:description" content="Expert-led typing training for government exams. SSC, RRB patterns." />
+        <meta name="twitter:image" content="https://typinghub.in/images/typing-course-og.jpg" />
+        
+        {/* Additional Meta Tags */}
+        <meta name="robots" content="index, follow" />
+        <meta name="language" content="English" />
+        <meta name="revisit-after" content="1 days" />
+        <meta name="author" content="TypingHub" />
+
+        {/* Structured Data */}
+        <script type="application/ld+json">
+          {JSON.stringify(structuredData)}
+        </script>
+      </Helmet>
+
       {/* User Auth Modal */}
       <UserAuthModal
         isOpen={isAuthModalOpen}
@@ -274,24 +365,16 @@ const TypingCourseLanding: React.FC = () => {
               </div>
             ))}
           </div>
-          {/* Upgraded Other Government Exams Section */}
-          <section className="other-exams-hero-section upgraded-other-exams section-spacing">
-            <div className="other-exams-hero-content upgraded-content">
-              <h1>Explore Typing Mocks for Govt Exams</h1>
-              <p>Practice typing for SSC, Railways, Courts, Police, Banking, and more—all in one place.</p>
-              <ul className="other-exams-list">
-                <li>SSC CGL/CHSL</li>
-                <li>Railway (RRB-NTPC)</li>
-                <li>High Court & Supreme Court</li>
-                <li>Police & Banking</li>
-              </ul>
-              <div className="other-exams-hero-buttons">
-                <button className="primary-cta-btn" onClick={handleLoginClick}>
-                  Explore All Mock Tests <FontAwesomeIcon icon={faArrowRight} />
-                </button>
-              </div>
-            </div>
-          </section>
+
+          {/* More Courses Message */}
+          <div className="more-courses-message">
+            <h3>Discover More Specialized Courses</h3>
+            <p>We offer many more specialized courses for various government exams. Register or login to explore our full catalog.</p>
+            <button className="cta-button" onClick={handleSignUpClick}>
+              <FontAwesomeIcon icon={faUserPlus} />
+              Register Now to Explore More
+            </button>
+          </div>
         </section>
 
         {/* Why Choose Our Course? Section */}
@@ -335,45 +418,63 @@ const TypingCourseLanding: React.FC = () => {
         <section className="how-it-works section-spacing">
           <h2>How It Works</h2>
           <div className="steps-container">
-            <div className="step-wrapper left-align" style={{ marginBottom: 16 }}>
-              <div className="step-marker"></div>
+            <div className="step-wrapper">
+              <div className="step-number">1</div>
               <div className="step-content">
-                <h3><span className="emoji-icon">🎯</span> Set Your Goals</h3>
+                <h3>
+                  <span className="emoji-icon">🎯</span>
+                  Set Your Goals
+                </h3>
                 <p>Define your typing speed and accuracy targets to personalize your learning path.</p>
               </div>
             </div>
-            <div className="step-wrapper right-align" style={{ marginBottom: 16 }}>
-              <div className="step-marker"></div>
+            <div className="step-wrapper">
+              <div className="step-number">2</div>
               <div className="step-content">
-                <h3><span className="emoji-icon">✋</span> Interactive Lessons</h3>
+                <h3>
+                  <span className="emoji-icon">✋</span>
+                  Interactive Lessons
+                </h3>
                 <p>Engage with our structured lessons, focusing on proper finger placement and technique.</p>
               </div>
             </div>
-            <div className="step-wrapper left-align" style={{ marginBottom: 16 }}>
-              <div className="step-marker"></div>
+            <div className="step-wrapper">
+              <div className="step-number">3</div>
               <div className="step-content">
-                <h3><span className="emoji-icon">🔁</span> Practice & Master</h3>
+                <h3>
+                  <span className="emoji-icon">🔁</span>
+                  Practice & Master
+                </h3>
                 <p>Practice regularly with diverse exercises to build muscle memory and improve speed.</p>
               </div>
             </div>
-            <div className="step-wrapper right-align" style={{ marginBottom: 16 }}>
-              <div className="step-marker"></div>
+            <div className="step-wrapper">
+              <div className="step-number">4</div>
               <div className="step-content">
-                <h3><span className="emoji-icon">📊</span> Track Progress</h3>
+                <h3>
+                  <span className="emoji-icon">📊</span>
+                  Track Progress
+                </h3>
                 <p>Monitor your performance with detailed statistics and visualize your improvement over time.</p>
               </div>
             </div>
-            <div className="step-wrapper left-align" style={{ marginBottom: 16 }}>
-              <div className="step-marker"></div>
+            <div className="step-wrapper">
+              <div className="step-number">5</div>
               <div className="step-content">
-                <h3><span className="emoji-icon">📝</span> Premium Mock Tests</h3>
+                <h3>
+                  <span className="emoji-icon">📝</span>
+                  Premium Mock Tests
+                </h3>
                 <p>Challenge yourself with full-length mock tests designed for government exams to simulate real conditions.</p>
               </div>
             </div>
-            <div className="step-wrapper right-align">
-              <div className="step-marker"></div>
+            <div className="step-wrapper">
+              <div className="step-number">6</div>
               <div className="step-content">
-                <h3><span className="emoji-icon">🏆</span> Achieve Your Dreams</h3>
+                <h3>
+                  <span className="emoji-icon">🏆</span>
+                  Achieve Your Dreams
+                </h3>
                 <p>Reach your typing goals and boost your chances of success in competitive exams.</p>
               </div>
             </div>

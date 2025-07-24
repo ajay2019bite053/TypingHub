@@ -1,26 +1,36 @@
 // OpenRouter API Configuration
 export const AI_CONFIG = {
-  // OpenRouter API key
-  OPENROUTER_API_KEY: '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',
+  // OpenRouter API key from environment variable
+  OPENROUTER_API_KEY: process.env.REACT_APP_OPENROUTER_API_KEY || '',
   
   // API Endpoints
   BASE_URL: 'https://openrouter.ai/api/v1',
   
-  // Model Configuration - Free & High-Quality Models
+  // Required headers for OpenRouter API
+  HEADERS: {
+    'Authorization': `Bearer ${process.env.REACT_APP_OPENROUTER_API_KEY || ''}`,
+    'Content-Type': 'application/json',
+    'HTTP-Referer': process.env.REACT_APP_DOMAIN ? `${process.env.REACT_APP_PROTOCOL}://${process.env.REACT_APP_DOMAIN}` : 'http://localhost:3000',
+    'X-Title': 'TypingHub'
+  },
+  
+  // Model Configuration - Using exact OpenRouter model names
   MODELS: [
-    'mistral/mistral-7b-instruct', // Primary model
-    'meta-llama/llama-3-8b-instruct', // Fallback 1
-    'anthropic/claude-3-haiku' // Fallback 2
+    'openai/gpt-3.5-turbo',  // Primary model
+    'anthropic/claude-2',     // Fallback 1
+    'google/palm-2-chat-bison', // Fallback 2
+    'meta-llama/llama-2-13b-chat', // Fallback 3
   ],
-  MODEL: 'mistral/mistral-7b-instruct', // Default model
+  
+  MODEL: 'openai/gpt-3.5-turbo', // Default model
   
   // Generation Parameters
   DEFAULT_PARAMS: {
-    max_length: 200,
-    temperature: 0.8,
-    do_sample: true,
+    max_tokens: 500,
+    temperature: 0.7,
     top_p: 0.9,
-    repetition_penalty: 1.1
+    frequency_penalty: 0,
+    presence_penalty: 0
   },
   
   // Topic-specific prompts for government exams
@@ -82,24 +92,17 @@ export const getMaxLength = (length: string) => {
   }
 };
 
-export const cleanGeneratedText = (text: string, topic: string, length: string) => {
-  // Remove the original prompt from the generated text
-  const prompt = AI_CONFIG.TOPIC_PROMPTS[topic as keyof typeof AI_CONFIG.TOPIC_PROMPTS]?.[length as keyof typeof AI_CONFIG.TOPIC_PROMPTS.general] || 
-         "The importance of continuous learning and skill development";
+export const cleanGeneratedText = (text: string) => {
+  // Remove any potential HTML tags
+  let cleanedText = text.replace(/<[^>]*>/g, '');
   
-  let cleanedText = text.replace(prompt, '').trim();
+  // Remove multiple spaces and newlines
+  cleanedText = cleanedText.replace(/\s+/g, ' ');
   
   // Ensure proper sentence structure
   if (!cleanedText.endsWith('.') && !cleanedText.endsWith('!') && !cleanedText.endsWith('?')) {
     cleanedText += '.';
   }
   
-  // Limit length based on selection
-  const maxWords = length === 'short' ? 100 : length === 'medium' ? 200 : 300;
-  const words = cleanedText.split(' ');
-  if (words.length > maxWords) {
-    cleanedText = words.slice(0, maxWords).join(' ') + '.';
-  }
-  
-  return cleanedText;
+  return cleanedText.trim();
 }; 
