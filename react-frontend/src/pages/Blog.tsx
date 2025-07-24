@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { Helmet } from 'react-helmet-async';
+import { Helmet } from 'react-helmet';
 import axios from 'axios';
 import './Blog.css';
+import { API_CONFIG } from '../config/api';
 
 interface Blog {
   _id: string;
@@ -11,8 +12,6 @@ interface Blog {
   createdAt: string;
   updatedAt: string;
 }
-
-const API_BASE_URL = 'http://localhost:9500/api';
 
 const Blog: React.FC = () => {
   const [blogs, setBlogs] = useState<Blog[]>([]);
@@ -27,7 +26,7 @@ const Blog: React.FC = () => {
     setLoading(true);
     setError(null);
     try {
-      const res = await axios.get(`${API_BASE_URL}/blogs`);
+      const res = await axios.get(`${API_CONFIG.BASE_URL}/blogs`);
       setBlogs(res.data);
     } catch (err: any) {
       setError('Failed to load blogs');

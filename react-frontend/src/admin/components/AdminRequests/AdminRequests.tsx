@@ -14,6 +14,7 @@ import {
   faLock
 } from '@fortawesome/free-solid-svg-icons';
 import './AdminRequests.css';
+import { API_CONFIG } from '../../../config/api';
 
 interface Admin {
   _id: string;
@@ -28,7 +29,6 @@ interface Admin {
   role: 'super_admin' | 'sub_admin';
 }
 
-const API_BASE_URL = 'http://localhost:9500/api';
 const STATIC_FILE_BASE_URL = 'http://localhost:9500/uploads';
 
 const AdminRequests: React.FC = () => {
@@ -57,7 +57,7 @@ const AdminRequests: React.FC = () => {
         throw new Error('Authentication required');
       }
 
-      const response = await fetch(`${API_BASE_URL}/admin/requests`, {
+      const response = await fetch(`${API_CONFIG.BASE_URL}/admin/requests`, {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
@@ -90,7 +90,7 @@ const AdminRequests: React.FC = () => {
         throw new Error('Authentication required');
       }
 
-      const response = await fetch(`${API_BASE_URL}/admin/approve/${id}`, {
+      const response = await fetch(`${API_CONFIG.BASE_URL}/admin/approve/${id}`, {
         method: 'PUT',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -122,7 +122,7 @@ const AdminRequests: React.FC = () => {
         throw new Error('Authentication required');
       }
 
-      const response = await fetch(`${API_BASE_URL}/admin/reject/${id}`, {
+      const response = await fetch(`${API_CONFIG.BASE_URL}/admin/reject/${id}`, {
         method: 'PUT',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -154,7 +154,7 @@ const AdminRequests: React.FC = () => {
         throw new Error('Authentication required');
       }
 
-      const response = await fetch(`${API_BASE_URL}/admin/remove/${id}`, {
+      const response = await fetch(`${API_CONFIG.BASE_URL}/admin/remove/${id}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`,

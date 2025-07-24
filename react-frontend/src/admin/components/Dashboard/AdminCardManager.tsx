@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import { API_CONFIG } from '../../../config/api';
 import './Dashboard.css';
 
 interface Card {
@@ -10,8 +10,6 @@ interface Card {
   offerPrice: number;
   isActive: boolean;
 }
-
-const API_BASE_URL = 'http://localhost:9500/api';
 
 const AdminCardManager: React.FC = () => {
   const [cards, setCards] = useState<Card[]>([]);
@@ -31,7 +29,7 @@ const AdminCardManager: React.FC = () => {
         throw new Error('Authentication required');
       }
 
-      const response = await fetch(`${API_BASE_URL}/cards`, {
+      const response = await fetch(`${API_CONFIG.BASE_URL}/cards`, {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
@@ -67,7 +65,7 @@ const AdminCardManager: React.FC = () => {
       }
 
       const response = await fetch(
-        editingCard ? `${API_BASE_URL}/cards/${editingCard.id}` : `${API_BASE_URL}/cards`,
+        editingCard ? `${API_CONFIG.BASE_URL}/cards/${editingCard.id}` : `${API_CONFIG.BASE_URL}/cards`,
         {
           method: editingCard ? 'PUT' : 'POST',
           headers: {
@@ -119,7 +117,7 @@ const AdminCardManager: React.FC = () => {
         throw new Error('Authentication required');
       }
 
-      const response = await fetch(`${API_BASE_URL}/cards/${id}`, {
+      const response = await fetch(`${API_CONFIG.BASE_URL}/cards/${id}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`,

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { API_CONFIG } from '../../../config/api';
 
 interface LiveExam {
   _id: string;
@@ -10,8 +11,6 @@ interface LiveExam {
   passage: string;
   timeLimit: number;
 }
-
-const API_BASE_URL = 'http://localhost:9500/api';
 
 const LiveExams: React.FC = () => {
   const [exams, setExams] = useState<LiveExam[]>([]);
@@ -28,7 +27,7 @@ const LiveExams: React.FC = () => {
         throw new Error('Authentication required');
       }
 
-      const response = await fetch(`${API_BASE_URL}/live-exams`, {
+      const response = await fetch(`${API_CONFIG.BASE_URL}/live-exams`, {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
@@ -71,7 +70,7 @@ const LiveExams: React.FC = () => {
       }
 
       const response = await fetch(
-        editingId ? `${API_BASE_URL}/live-exams/${editingId}` : `${API_BASE_URL}/live-exams`,
+        editingId ? `${API_CONFIG.BASE_URL}/live-exams/${editingId}` : `${API_CONFIG.BASE_URL}/live-exams`,
         {
           method: editingId ? 'PUT' : 'POST',
           headers: {
@@ -120,7 +119,7 @@ const LiveExams: React.FC = () => {
         throw new Error('Authentication required');
       }
 
-      const response = await fetch(`${API_BASE_URL}/live-exams/${id}`, {
+      const response = await fetch(`${API_CONFIG.BASE_URL}/live-exams/${id}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -151,7 +150,7 @@ const LiveExams: React.FC = () => {
         throw new Error('Authentication required');
       }
 
-      const response = await fetch(`${API_BASE_URL}/live-exams/${exam._id}`, {
+      const response = await fetch(`${API_CONFIG.BASE_URL}/live-exams/${exam._id}`, {
         method: 'PUT',
         headers: {
           'Authorization': `Bearer ${token}`,

@@ -3,6 +3,7 @@ import axios from 'axios';
 import Toast, { ToastType } from '../../../components/Toast/Toast';
 import LoadingSpinner from '../../../components/LoadingSpinner/LoadingSpinner';
 import './BlogManager.css';
+import { API_CONFIG } from '../../../config/api';
 
 interface Blog {
   _id: string;
@@ -15,8 +16,6 @@ interface Blog {
   createdAt: string;
   updatedAt: string;
 }
-
-const API_BASE_URL = 'http://localhost:9500/api';
 
 const BlogManager: React.FC = () => {
   const [blogs, setBlogs] = useState<Blog[]>([]);
@@ -40,7 +39,7 @@ const BlogManager: React.FC = () => {
         throw new Error('Authentication required');
       }
 
-      const response = await fetch(`${API_BASE_URL}/blogs`, {
+      const response = await fetch(`${API_CONFIG.BASE_URL}/blogs`, {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
@@ -84,7 +83,7 @@ const BlogManager: React.FC = () => {
         const formData = new FormData();
         formData.append('image', e.target.files[0]);
 
-        const response = await fetch(`${API_BASE_URL}/uploads`, {
+        const response = await fetch(`${API_CONFIG.BASE_URL}/uploads`, {
           method: 'POST',
           headers: {
             'Authorization': `Bearer ${token}`
@@ -126,7 +125,7 @@ const BlogManager: React.FC = () => {
       }
 
       const response = await fetch(
-        editingId ? `${API_BASE_URL}/blogs/${editingId}` : `${API_BASE_URL}/blogs`,
+        editingId ? `${API_CONFIG.BASE_URL}/blogs/${editingId}` : `${API_CONFIG.BASE_URL}/blogs`,
         {
           method: editingId ? 'PUT' : 'POST',
           headers: {
@@ -169,7 +168,7 @@ const BlogManager: React.FC = () => {
         throw new Error('Authentication required');
       }
 
-      const response = await fetch(`${API_BASE_URL}/blogs/${id}`, {
+      const response = await fetch(`${API_CONFIG.BASE_URL}/blogs/${id}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`,

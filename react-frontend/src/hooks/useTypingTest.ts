@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
+import { API_CONFIG } from '../config/api';
 
 interface TypingStats {
   grossSpeed: number;
@@ -195,7 +196,7 @@ export const useTypingTest = (config: TestConfig) => {
     }
 
     try {
-      const response = await fetch(`http://localhost:9500/api/passages/test/${encodeURIComponent(config.passageCategory)}`);
+      const response = await fetch(`${API_CONFIG.BASE_URL}/passages/test/${encodeURIComponent(config.passageCategory)}`);
       if (!response.ok) {
         throw new Error(`Failed to fetch passages: ${response.status}`);
       }
