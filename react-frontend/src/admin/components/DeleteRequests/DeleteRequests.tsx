@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../../contexts/AuthContext';
+import { API_CONFIG } from '../../../config/api';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
   faCheck, 
@@ -11,7 +12,6 @@ import {
   faLock
 } from '@fortawesome/free-solid-svg-icons';
 import './DeleteRequests.css';
-import { API_BASE_URL } from '../../../utils/api';
 
 interface DeleteRequest {
   _id: string;
@@ -25,6 +25,8 @@ interface DeleteRequest {
   };
   createdAt: string;
 }
+
+const API_BASE_URL = API_CONFIG.BASE_URL;
 
 const DeleteRequests: React.FC = () => {
   const navigate = useNavigate();

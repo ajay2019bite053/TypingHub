@@ -11,7 +11,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
 import './AssignedPassagesPage.css';
-import { API_BASE_URL } from '../../../utils/api';
+import { API_CONFIG } from '../../../config/api';
 
 interface Passage {
   _id: string;
@@ -35,6 +35,8 @@ const TEST_CATEGORIES = [
   { id: 'aiims-crc', name: 'AIIMS CRC' },
   { id: 'allahabad-high-court', name: 'Allahabad High Court' }
 ];
+
+const API_BASE_URL = API_CONFIG.BASE_URL;
 
 const AssignedPassagesPage: React.FC = () => {
   const navigate = useNavigate();

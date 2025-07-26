@@ -11,7 +11,7 @@ const getBackendUrl = () => {
   
   // Development environment
   if (hostname === 'localhost' || hostname === '127.0.0.1') {
-    return 'https://localhost:9500';
+    return 'http://localhost:9500';
   }
   
   // Production environment

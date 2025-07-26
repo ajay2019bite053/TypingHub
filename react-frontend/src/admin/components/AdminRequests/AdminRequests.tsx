@@ -15,7 +15,6 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import './AdminRequests.css';
 import { API_CONFIG } from '../../../config/api';
-import { API_BASE_URL } from '../../../utils/api';
 
 interface Admin {
   _id: string;
@@ -30,7 +29,7 @@ interface Admin {
   role: 'super_admin' | 'sub_admin';
 }
 
-const STATIC_FILE_BASE_URL = `${API_BASE_URL}/uploads`;
+const STATIC_FILE_BASE_URL = API_CONFIG.STATIC_URL;
 
 const AdminRequests: React.FC = () => {
   const navigate = useNavigate();
