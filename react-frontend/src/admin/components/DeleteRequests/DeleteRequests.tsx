@@ -11,6 +11,7 @@ import {
   faLock
 } from '@fortawesome/free-solid-svg-icons';
 import './DeleteRequests.css';
+import { API_BASE_URL } from '../../../utils/api';
 
 interface DeleteRequest {
   _id: string;
@@ -24,8 +25,6 @@ interface DeleteRequest {
   };
   createdAt: string;
 }
-
-const API_BASE_URL = 'http://localhost:9500/api';
 
 const DeleteRequests: React.FC = () => {
   const navigate = useNavigate();

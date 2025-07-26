@@ -7,6 +7,7 @@ import Toast, { ToastType } from '../../../components/Toast/Toast';
 import './AssignPassage.css';
 import { useAdmin } from '../../../contexts/AdminContext';
 import { Passage } from '../../../types/Passage';
+import { API_BASE_URL } from '../../../utils/api';
 
 interface AssignPassageProps {
   passages: Passage[];
@@ -33,8 +34,6 @@ const TEST_CATEGORIES = [
   { id: 'aiims-crc', name: 'AIIMS CRC' },
   { id: 'allahabad-high-court', name: 'Allahabad High Court' }
 ];
-
-const API_BASE_URL = 'http://localhost:9500/api';
 
 const AssignPassage: React.FC<AssignPassageProps> = ({ passages, onPassageAssigned }) => {
   const [selectedPassage, setSelectedPassage] = useState('');

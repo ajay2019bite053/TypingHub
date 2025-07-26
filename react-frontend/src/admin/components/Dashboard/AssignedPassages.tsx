@@ -12,6 +12,7 @@ import {
   faCheckCircle
 } from '@fortawesome/free-solid-svg-icons';
 import './AssignedPassages.css';
+import { API_BASE_URL } from '../../../utils/api';
 
 interface AssignedPassagesProps {
   onClose: () => void;
@@ -50,8 +51,6 @@ const TEST_CATEGORIES = [
   { id: 'aiims-crc', name: 'AIIMS CRC' },
   { id: 'allahabad-high-court', name: 'Allahabad High Court' }
 ];
-
-const API_BASE_URL = 'http://localhost:9500/api';
 
 const AssignedPassages: React.FC<AssignedPassagesProps> = ({ onClose, className }) => {
   const [selectedTestType, setSelectedTestType] = useState<string | null>(null);
