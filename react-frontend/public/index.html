@@ -10,9 +10,29 @@
     <meta name="theme-color" content="#000000" />
     <meta
       name="description"
-      content="RDx - Your Ultimate Typing Practice Platform"
+      content="TypingHub.in - Your Ultimate Typing Practice Platform"
     />
-    <meta name="keywords" content="typing test, SSC typing, RRB typing, CPCT typing, government exam preparation, Hindi typing, English typing" />
+    <meta name="keywords" content="typing test, SSC typing, RRB typing, CPCT typing, government exam preparation, Hindi typing, English typing, typing speed test, typing accuracy, government job typing, SSC CGL typing, SSC CHSL typing, RRB NTPC typing, typing practice online, free typing test" />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://typinghub.in/" />
+    <meta property="og:title" content="TypingHub.in - Your Ultimate Typing Practice Platform" />
+    <meta property="og:description" content="Practice typing for government exams like SSC CGL, CHSL, RRB NTPC. Free online typing test with speed and accuracy measurement." />
+    <meta property="og:image" content="https://typinghub.in/images/Main_LOGO.png" />
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://typinghub.in/" />
+    <meta property="twitter:title" content="TypingHub.in - Your Ultimate Typing Practice Platform" />
+    <meta property="twitter:description" content="Practice typing for government exams like SSC CGL, CHSL, RRB NTPC. Free online typing test with speed and accuracy measurement." />
+    <meta property="twitter:image" content="https://typinghub.in/images/Main_LOGO.png" />
+    
+    <!-- Additional SEO -->
+    <meta name="author" content="TypingHub.in" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://typinghub.in/" />
+    
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
     
     <!-- Google Fonts -->
@@ -21,7 +41,7 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <title>RDx - Typing Practice Platform</title>
+    <title>TypingHub.in - Typing Practice Platform</title>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
@@ -38,7 +58,18 @@
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-      gtag('config', 'G-815F7YF0FN');
+      gtag('config', 'G-815F7YF0FN', {
+        page_title: document.title,
+        page_location: window.location.href,
+        send_page_view: true
+      });
+      
+      // Enhanced event tracking
+      gtag('event', 'page_view', {
+        page_title: document.title,
+        page_location: window.location.href,
+        custom_parameter: 'typinghub'
+      });
     </script>
     <!-- End Google Analytics -->
   </body>

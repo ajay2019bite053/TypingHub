@@ -1,8 +1,11 @@
 # https://www.robotstxt.org/robotstxt.html
 User-agent: *
 Allow: /
+# Block all admin panel and secret login URLs from indexing
+Disallow: /admin/
 Disallow: /admin/*
 Disallow: /admin-secret-9382xj
+# Block test/dev routes
 Disallow: /create-test/testing
 
 # Sitemaps

@@ -42,7 +42,7 @@ const securityConfig = {
         scriptSrc: ["'self'", "'unsafe-inline'"],
         styleSrc: ["'self'", "'unsafe-inline'"],
         imgSrc: ["'self'", "data:", "blob:"],
-        connectSrc: ["'self'", "http://localhost:3000", "http://localhost:9500"],
+        connectSrc: ["'self'", ...config.CORS_ORIGIN],
         fontSrc: ["'self'"],
         objectSrc: ["'none'"],
         mediaSrc: ["'self'"],
@@ -62,7 +62,7 @@ const securityConfig = {
     xssFilter: true,
   },
   cors: {
-    origin: ['http://localhost:3000'],
+    origin: config.CORS_ORIGIN,
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],

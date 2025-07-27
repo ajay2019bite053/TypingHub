@@ -41,7 +41,7 @@ const transporter = nodemailer.createTransport({
 });
 
 const sendResetEmail = async (email, resetToken, role) => {
-  const resetUrl = `${config.FRONTEND_URL || 'http://localhost:3000'}/${role}/reset-password/${resetToken}`;
+  const resetUrl = `${config.FRONTEND_URL}/${role}/reset-password/${resetToken}`;
   
   const mailOptions = {
     from: `TypingHub <${config.EMAIL_USER || 'your-email@gmail.com'}>`,

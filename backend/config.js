@@ -9,13 +9,13 @@ let port;
 let corsOrigin;
 if (isProduction) {
   port = process.env.PORT || 80;
-  corsOrigin = [
+  corsOrigin = process.env.CORS_ORIGIN ? process.env.CORS_ORIGIN.split(',') : [
     'https://typinghub.in',
     'https://www.typinghub.in'
   ];
 } else {
   port = process.env.PORT || 9500;
-  corsOrigin = ['http://localhost:3000'];
+  corsOrigin = process.env.CORS_ORIGIN ? process.env.CORS_ORIGIN.split(',') : ['http://localhost:3000'];
 }
 
 const config = {
@@ -27,11 +27,12 @@ const config = {
   NODE_ENV: process.env.NODE_ENV || 'development',
   DEFAULT_ADMIN_EMAIL: process.env.DEFAULT_ADMIN_EMAIL,
   DEFAULT_ADMIN_PASSWORD: process.env.DEFAULT_ADMIN_PASSWORD,
+  FRONTEND_URL: process.env.FRONTEND_URL,
   CORS_ORIGIN: corsOrigin
 };
 
 // Validate required fields
-const requiredFields = ['PORT', 'DB_URL', 'ACCESS_TOKEN_SECRET', 'REFRESH_TOKEN_SECRET', 'JWT_SECRET', 'DEFAULT_ADMIN_EMAIL', 'DEFAULT_ADMIN_PASSWORD'];
+const requiredFields = ['PORT', 'DB_URL', 'ACCESS_TOKEN_SECRET', 'REFRESH_TOKEN_SECRET', 'JWT_SECRET', 'DEFAULT_ADMIN_EMAIL', 'DEFAULT_ADMIN_PASSWORD', 'FRONTEND_URL'];
 requiredFields.forEach(field => {
   if (!config[field]) {
     throw new Error(`Missing required configuration field: ${field}`);

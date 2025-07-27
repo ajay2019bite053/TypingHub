@@ -145,7 +145,7 @@ const CreateTest = () => {
           headers: {
             'Authorization': `Bearer ${AI_CONFIG.OPENROUTER_API_KEY}`,
             'Content-Type': 'application/json',
-            'HTTP-Referer': 'https://typinghub.com',
+            'HTTP-Referer': window.location.origin,
             'X-Title': 'TypingHub'
           },
           body: JSON.stringify({

@@ -25,7 +25,7 @@ A modern React + Node.js typing test platform for government exam practice. This
 
 ## 📁 Folder Structure
 ```
-RDx/
+TypingHub.in/
 ├── backend/           # Node.js + Express API
 │   ├── .env           # Your secrets (never commit!)
 │   ├── config.js      # Loads config from .env
@@ -46,7 +46,7 @@ RDx/
 ### 1. Clone the Repository
 ```bash
 git clone <repository-url>
-cd RDx
+cd TypingHub.in
 ```
 
 ### 2. Backend Setup
@@ -115,7 +115,7 @@ npm run create-admin
 ### 1. **Clone the Repository on Your Server**
    ```bash
 git clone <repository-url>
-cd RDx
+cd TypingHub.in
 ```
 
 ### 2. **Backend Setup**
@@ -174,7 +174,7 @@ server {
     listen 80;
     server_name typinghub.in www.typinghub.in;
     
-    root /path/to/RDx/react-frontend/build;
+    root /path/to/TypingHub.in/react-frontend/build;
     index index.html;
     
     # Gzip compression
