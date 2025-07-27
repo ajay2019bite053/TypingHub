@@ -23,6 +23,11 @@ const getBackendUrl = () => {
   return `https://api.${hostname}`;
 };
 
+// Debug logging
+console.log('API_BASE_URL:', getBackendUrl());
+console.log('Current hostname:', window.location.hostname);
+console.log('Environment:', process.env.NODE_ENV);
+
 const API_BASE_URL = getBackendUrl();
 
 // API helper functions

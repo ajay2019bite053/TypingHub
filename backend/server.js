@@ -62,7 +62,7 @@ const securityConfig = {
     xssFilter: true,
   },
   cors: {
-    origin: config.CORS_ORIGIN,
+    origin: config.CORS_ORIGIN || ['http://localhost:3000', 'https://typinghub.in'],
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
