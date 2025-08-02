@@ -16,11 +16,11 @@ const getBackendUrl = () => {
   
   // Production environment
   if (hostname === 'typinghub.in' || hostname === 'www.typinghub.in') {
-    return 'https://api.typinghub.in';
+    return 'https://typinghub.in';
   }
   
   // For any other domain (staging, testing, etc.)
-  return `https://api.${hostname}`;
+  return `https://${hostname}`;
 };
 
 // Debug logging
