@@ -203,7 +203,7 @@ export const useTypingTest = (config: TestConfig) => {
       const data = await response.json();
       if (data && data.length > 0) {
         setPassages(data);
-        console.log('Passages fetched successfully:', data);
+        console.log('Passages fetched successfuly:', data);
       } else {
         console.warn('Using default passages as no valid passages were returned from the API');
       }
