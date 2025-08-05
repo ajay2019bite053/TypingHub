@@ -7,12 +7,12 @@ module.exports = {
       exec_mode: "fork",
       env: {
         NODE_ENV: "development",
-        PORT: 9500,
+        PORT: 9501,
         FRONTEND_URL: "https://typinghub.in"
       },
       env_production: {
         NODE_ENV: "production",
-        PORT: 9500,
+        PORT: 9501,
         FRONTEND_URL: "https://typinghub.in"
       },
       error_file: "./logs/err.log",
@@ -20,9 +20,12 @@ module.exports = {
       log_file: "./logs/combined.log",
       time: true,
       max_memory_restart: "1G",
-      restart_delay: 4000,
+      restart_delay: 10000,
       max_restarts: 10,
-      min_uptime: "10s"
+      min_uptime: "10s",
+      kill_timeout: 5000,
+      wait_ready: true,
+      listen_timeout: 10000
     }
   ]
 }; 

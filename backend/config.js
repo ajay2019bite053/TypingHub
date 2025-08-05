@@ -1,4 +1,4 @@
-// The backend server will listen on port 9500 by default in both development and production.
+// The backend server will listen on port 9501 by default in both development and production.
 // To change the port, set the PORT environment variable in your .env file or server environment.
 // Backend Configuration
 // Loads configuration from environment variables
@@ -14,7 +14,7 @@ if (isProduction) {
     'https://www.typinghub.in'
   ];
 } else {
-  port = process.env.PORT || 9500;
+  port = process.env.PORT || 9501;
   corsOrigin = process.env.CORS_ORIGIN ? process.env.CORS_ORIGIN.split(',') : ['http://localhost:3000'];
 }
 
