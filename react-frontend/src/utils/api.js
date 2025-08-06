@@ -16,6 +16,7 @@ const getBackendUrl = () => {
   
   // Production environment
   if (hostname === 'typinghub.in' || hostname === 'www.typinghub.in') {
+    // In production, the backend runs on the same domain (port 80)
     return 'https://typinghub.in';
   }
   
@@ -23,10 +24,12 @@ const getBackendUrl = () => {
   return `https://${hostname}`;
 };
 
-// Debug logging
-console.log('API_BASE_URL:', getBackendUrl());
-console.log('Current hostname:', window.location.hostname);
-console.log('Environment:', process.env.NODE_ENV);
+// Debug logging (only in development)
+if (process.env.NODE_ENV === 'development') {
+  console.log('API_BASE_URL:', getBackendUrl());
+  console.log('Current hostname:', window.location.hostname);
+  console.log('Environment:', process.env.NODE_ENV);
+}
 
 const API_BASE_URL = getBackendUrl();
 
