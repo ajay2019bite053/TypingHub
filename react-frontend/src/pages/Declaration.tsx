@@ -199,7 +199,7 @@ const Declaration: React.FC = () => {
             </div>
             <h2 className="modern-panel-title">User Support</h2>
             <ul>
-              <li>Email support: support@typinghub.in</li>
+              <li>Email support: Contact@typinghub.in</li>
               <li>Live chat assistance</li>
               <li>Help documentation</li>
               <li>Video tutorials</li>
@@ -271,7 +271,6 @@ const Declaration: React.FC = () => {
       >
         <FontAwesomeIcon icon={faArrowUp} />
       </button>
-      <Footer />
     </div>
   );
 };

@@ -11,6 +11,9 @@ interface LiveExam {
   date: string;
   isLive: boolean;
   joinLink: string;
+  timeLimit: number;
+  startTime?: string;
+  endTime?: string;
 }
 
 const LiveTypingTest: React.FC = () => {
@@ -60,15 +63,57 @@ const LiveTypingTest: React.FC = () => {
           <div className="exam-list" style={{ display: 'flex', flexDirection: 'column', gap: 10, marginTop: 14 }}>
               {exams.length === 0 ? (
                 <div style={{ color: '#888', fontSize: 15 }}>No live exams at the moment.</div>
-              ) : exams.map((exam) => (
-                <div key={exam._id} className="exam-row" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: '#fff', borderRadius: 8, padding: '10px 14px', boxShadow: '0 1px 6px rgba(25,118,210,0.04)', fontSize: 14 }}>
-                <div style={{ textAlign: 'left' }}>
-                  <div style={{ fontWeight: 600, color: '#1976d2', fontSize: 14 }}>{exam.name}</div>
-                    <div style={{ fontSize: 13, color: '#1a2a44', marginTop: 2 }}>Exam Date: <b>{new Date(exam.date).toLocaleDateString()}</b></div>
-                </div>
-                  <a href={`/live-exam/${exam._id}`} className="join-live-btn" style={{ background: '#d6001c', color: '#fff', borderRadius: 6, padding: '7px 14px', fontWeight: 600, textDecoration: 'none', fontSize: 13, boxShadow: '0 2px 8px #d6001c22', transition: 'background 0.2s' }}>Join Live Mock Test</a>
-              </div>
-            ))}
+              ) : exams.map((exam) => {
+                const now = new Date();
+                const currentMinutes = now.getHours() * 60 + now.getMinutes();
+                let showJoin = true;
+                let liveTiming = '';
+                if (exam.startTime && exam.endTime) {
+                  liveTiming = `${formatTime(exam.startTime)} - ${formatTime(exam.endTime)}`;
+                  const [startH, startM] = exam.startTime.split(':').map(Number);
+                  const [endH, endM] = exam.endTime.split(':').map(Number);
+                  const startMinutes = startH * 60 + startM;
+                  const endMinutes = endH * 60 + endM;
+                  showJoin = currentMinutes >= startMinutes && currentMinutes <= endMinutes;
+                } else {
+                  liveTiming = 'N/A';
+                }
+                return (
+                  <div key={exam._id} className="exam-row" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: '#fff', borderRadius: 8, padding: '10px 14px', boxShadow: '0 1px 6px rgba(25,118,210,0.04)', fontSize: 14 }}>
+                    <div style={{ textAlign: 'left' }}>
+                      <div style={{ fontWeight: 600, color: '#1976d2', fontSize: 14 }}>{exam.name}</div>
+                      <div style={{ fontSize: 13, color: '#1a2a44', marginTop: 2 }}>Official Exam Date: <b>{new Date(exam.date).toLocaleDateString()}</b></div>
+                    </div>
+                    <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', minWidth: 260, gap: 14, justifyContent: 'flex-end' }}>
+                      <span style={{ fontSize: 13, color: '#d6001c', fontWeight: 600, whiteSpace: 'nowrap' }}>Live Timing: <b>{liveTiming}</b></span>
+                      <div style={{ width: 20 }}></div> {/* Gap between Live Timing and Join button */}
+                      {showJoin ? (
+                        <a 
+                          href={`/live-exam/${exam._id}`}
+                          className="join-live-btn" 
+                          style={{ 
+                            background: '#d6001c', 
+                            color: '#fff', 
+                            borderRadius: 6, 
+                            padding: '7px 14px', 
+                            fontWeight: 600, 
+                            textDecoration: 'none', 
+                            fontSize: 13, 
+                            boxShadow: '0 2px 8px #d6001c22', 
+                            transition: 'background 0.2s', 
+                            marginTop: 0,
+                            display: 'inline-block'
+                          }}
+                        >
+                          Start Typing Test
+                        </a>
+                      ) : (
+                        <span style={{ color: '#888', fontWeight: 600, fontSize: 13, marginTop: 0 }}>Test Closed</span>
+                      )}
+                    </div>
+                  </div>
+                );
+              })}
           </div>
           )}
           {/* Restore join for more updates text above the social icons */}
@@ -86,5 +131,16 @@ const LiveTypingTest: React.FC = () => {
     </>
   );
 };
+
+// Helper to format 'HH:mm' to 'h:mm AM/PM'
+function formatTime(time: string) {
+  if (!time) return '';
+  const [h, m] = time.split(':');
+  const hour = parseInt(h, 10);
+  const minute = parseInt(m, 10);
+  const ampm = hour >= 12 ? 'PM' : 'AM';
+  const hour12 = hour % 12 === 0 ? 12 : hour % 12;
+  return `${hour12}:${minute.toString().padStart(2, '0')} ${ampm}`;
+}
 
 export default LiveTypingTest; 

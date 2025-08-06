@@ -23,7 +23,7 @@
 }
 
 /* Global Styles */
-body, .typing-course-landing {
+.typing-course-landing {
   font-family: 'Roboto', Arial, sans-serif;
   background: linear-gradient(135deg, #f5f7fa 0%, #e4e8eb 100%);
   min-height: 100vh;
@@ -89,7 +89,7 @@ h3 {
   margin: 0 auto;
 }
 
-.feature-card {
+.typing-course-landing .feature-card {
   background: white;
   padding: 1.5rem;
   border-radius: 15px;
@@ -108,24 +108,24 @@ h3 {
   max-width: 380px;
 }
 
-.feature-card:hover {
+.typing-course-landing .feature-card:hover {
   transform: translateY(-5px);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
   background: var(--white);
 }
 
-.feature-card .feature-icon {
+.typing-course-landing .feature-card .feature-icon {
   font-size: 2.5rem;
   margin-bottom: 1rem;
 }
 
-.feature-card svg {
+.typing-course-landing .feature-card svg {
   font-size: 2.5rem;
   color: #555;
   margin-bottom: 1rem;
 }
 
-.feature-card h3 {
+.typing-course-landing .feature-card h3 {
   color: var(--primary);
   margin: 0.3rem 0;
   font-size: 1.3rem;
@@ -133,7 +133,7 @@ h3 {
   width: 100%;
 }
 
-.feature-card p {
+.typing-course-landing .feature-card p {
   color: var(--text-secondary);
   font-size: 0.95rem;
   line-height: 1.5;
@@ -141,7 +141,7 @@ h3 {
   width: 100%;
 }
 
-.feature-card i {
+.typing-course-landing .feature-card i {
   font-size: 2.2rem;
   color: var(--primary);
   margin-bottom: 0.2rem;
@@ -159,7 +159,7 @@ h3 {
     padding-top: 0.8rem;
   }
 
-  .feature-card {
+  .typing-course-landing .feature-card {
     height: 200px;
     max-width: 100%;
   }
@@ -178,7 +178,7 @@ h3 {
     padding-top: 0.5rem;
   }
 
-  .feature-card {
+  .typing-course-landing .feature-card {
     height: 180px;
   }
 

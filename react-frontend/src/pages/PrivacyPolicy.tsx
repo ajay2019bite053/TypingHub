@@ -3,6 +3,7 @@ import { Helmet } from 'react-helmet-async';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheckCircle, faUserShield, faUser, faDatabase, faLock, faCookieBite, faUserSecret, faUserFriends, faSyncAlt, faEnvelope, faArrowUp, faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
 import './PrivacyPolicy.css';
+import { Link } from 'react-router-dom';
 
 const sidebarLinks = [
   { id: 'overview', label: 'Overview' },
@@ -313,8 +314,8 @@ const PrivacyPolicy: React.FC = () => {
             <h2 className="modern-panel-title">Contact Us</h2>
             <p>If you have any questions about this Privacy Policy, please contact us:</p>
             <ul>
-              <li>Email: privacy@typinghub.in</li>
-              <li>Contact Form: <a href="contact-us.html">Contact Us</a></li>
+              <li>Email: Contact@typinghub.in</li>
+              <li>Contact Form: <Link to="/contact-us">Contact Us</Link></li>
             </ul>
             <div className="important-notice">
               <h4><FontAwesomeIcon icon={faUserShield} style={{ color: '#ff9800', marginRight: 8 }} /> Data Protection Officer</h4>

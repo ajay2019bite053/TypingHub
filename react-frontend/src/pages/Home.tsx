@@ -42,7 +42,7 @@ const HeroSection = memo(() => (
       <section className="hero-section">
         <div className="hero-content">
       <h1>Free Typing Test Practice for Government Exams</h1>
-          <p>Practice for SSC-CGL, SSC-CHSL, RRB-NTPC, Police, and other govt exams — Hindi & English.</p>
+          <p>Practice for SSC-CGL, SSC-CHSL, RRB-NTPC, Police, and other govt exams.</p>
           <div className="hero-buttons">
             <Link to="/typing-test" className="btn primary-btn">
               <FontAwesomeIcon icon={faRocket} />
@@ -395,23 +395,59 @@ const Home: React.FC = () => {
       </div>
       </section>
 
-      <section className="highlight-sections">
-        <div className="certificate-section">
-          <h2><FontAwesomeIcon icon={faCertificate} /> Get Your Free Certificate</h2>
-          <p>Complete our typing test and get a certificate to showcase your skills. Perfect for your resume and professional profile.</p>
-          <Link to="/certificate" className="btn primary-btn">
-            <FontAwesomeIcon icon={faCertificate} />
-            Get Certificate <FontAwesomeIcon icon={faArrowRight} />
-          </Link>
-        </div>
-
-        <div className="course-ad-section">
-          <h2><FontAwesomeIcon icon={faChalkboardTeacher} /> Enroll in Our Typing Course</h2>
-          <p>Master typing with our comprehensive course designed specifically for government exam aspirants. Learn from experts and get personalized feedback.</p>
-          <Link to="/typing-course" className="btn primary-btn">
-            <FontAwesomeIcon icon={faUserPlus} />
-            Enroll Now <FontAwesomeIcon icon={faArrowRight} />
-          </Link>
+      {/* Demo Certificate Section */}
+      <section className="demo-certificate-section" style={{ background: '#fff', padding: '12px 0 10px 0' }}>
+        <div className="demo-certificate-wrapper" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
+          <div className="demo-certificate-card">
+            <div className="pattern-bg"></div>
+            <div className="flag-ribbon"></div>
+            <img
+              src="/images/ashoka-chakra.png"
+              alt="Ashoka Chakra"
+              className="ashoka-chakra"
+              draggable={false}
+            />
+            <img src="/images/Main_LOGO.png" alt="TypingHub Logo" className="main-logo" />
+            <h2>
+              TYPING CERTIFICATE
+              <span className="laurel-svg">
+                <svg width="120" height="18" viewBox="0 0 120 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M10 9 Q20 18, 60 18 Q100 18, 110 9" stroke="#e0c36a" strokeWidth="2" fill="none"/>
+                </svg>
+              </span>
+            </h2>
+            <p style={{ fontSize: 16, color: '#333', marginBottom: 12 }}>This is to certify that</p>
+            <h3>Amit Kumar</h3>
+            <p style={{ fontSize: 16, color: '#333', marginBottom: 14 }}>has successfully completed the typing test with</p>
+            <div style={{ display: 'flex', gap: 32, marginBottom: 14 }}>
+              <div style={{ textAlign: 'center' }}>
+                <div style={{ fontSize: 26, fontWeight: 700, color: '#1976d2' }}>42</div>
+                <div style={{ fontSize: 15, color: '#555' }}>WPM</div>
+              </div>
+              <div style={{ textAlign: 'center' }}>
+                <div style={{ fontSize: 26, fontWeight: 700, color: '#43a047' }}>97%</div>
+                <div style={{ fontSize: 15, color: '#555' }}>Accuracy</div>
+              </div>
+            </div>
+            <div style={{ fontSize: 15, color: '#333', marginBottom: 6 }}><b>Certificate ID:</b> DEMO-123456</div>
+            <div style={{ fontSize: 15, color: '#333', marginBottom: 6 }}><b>Test Date:</b> 01/06/2024</div>
+            <div style={{ fontSize: 15, color: '#333', marginBottom: 6 }}><b>Verification Code:</b> VC-DEMO123</div>
+            <div className="decorative-line"></div>
+            <div className="gold-seal">
+              <img src="/images/gold-seal.png" alt="Gold Seal" />
+            </div>
+            <div className="footer">TypingHub.in</div>
+          </div>
+          <div className="certificate-buttons" style={{ marginTop: 32, display: 'flex', gap: 18 }}>
+            <Link to="/certificate" className="btn primary-btn no-hover">
+              <FontAwesomeIcon icon={faCertificate} />
+              Get Certificate
+            </Link>
+            <Link to="/certificate-verification" className="btn secondary-btn no-hover">
+              <FontAwesomeIcon icon={faSearch} />
+              Verify Certificate
+            </Link>
+          </div>
         </div>
       </section>
 

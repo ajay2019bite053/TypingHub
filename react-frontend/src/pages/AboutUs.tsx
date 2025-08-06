@@ -200,28 +200,28 @@ const AboutUs: React.FC = () => {
                 <div className="timeline-item">
                   <div className="timeline-dot"></div>
                   <div className="timeline-content">
-                    <h3>2020</h3>
+                    <h3>2022</h3>
                     <p>Founded with a vision to revolutionize typing education</p>
                   </div>
                 </div>
                 <div className="timeline-item">
                   <div className="timeline-dot"></div>
                   <div className="timeline-content">
-                    <h3>2021</h3>
+                    <h3>2023</h3>
                     <p>Launched comprehensive exam-specific typing courses</p>
                   </div>
                 </div>
                 <div className="timeline-item">
                   <div className="timeline-dot"></div>
                   <div className="timeline-content">
-                    <h3>2022</h3>
+                    <h3>2024</h3>
                     <p>Reached 25,000+ students milestone</p>
                   </div>
                 </div>
                 <div className="timeline-item">
                   <div className="timeline-dot"></div>
                   <div className="timeline-content">
-                    <h3>2023</h3>
+                    <h3>2025</h3>
                     <p>Expanded to cover all major government exams</p>
               </div>
                 </div>

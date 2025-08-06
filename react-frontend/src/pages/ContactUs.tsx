@@ -134,7 +134,7 @@ const ContactUs: React.FC = () => {
           <div className="contact-method">
             <h3><FontAwesomeIcon icon={faEnvelope} /> Email Support</h3>
             <p>General Inquiries:</p>
-            <p><a href="mailto:support@typinghub.in">support@typinghub.in</a></p>
+            <p><a href="mailto:Contact@typinghub.in">Contact@typinghub.in</a></p>
             <p>Technical Support:</p>
             <p><a href="mailto:tech@typinghub.in">tech@typinghub.in</a></p>
           </div>

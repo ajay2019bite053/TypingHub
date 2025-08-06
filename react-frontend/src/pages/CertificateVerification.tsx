@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import './CertificateVerification.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCertificate, faCheckCircle, faSearch, faUser, faIdCard, faCalendarAlt, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 
 interface CertificateData {
   userName: string;
@@ -57,13 +59,29 @@ const CertificateVerification: React.FC = () => {
 
   return (
     <div className="certificate-verification-page">
-      <div className="verification-container">
-        <div className="verification-header">
-          <h1>Certificate Verification</h1>
-          <p>Enter the verification code to verify a typing certificate</p>
+      <div className="certificate-content">
+        <h1>Verify a Typing Certificate</h1>
+        <p style={{ marginBottom: 24 }}>
+          Instantly check the authenticity of any TypingHub certificate using its unique verification code.
+        </p>
+        <div className="features-grid">
+          <div className="feature-card">
+            <FontAwesomeIcon icon={faCertificate} style={{ fontSize: '24px', color: '#1976d2', marginBottom: '10px' }} />
+            <h3>Official Certificate</h3>
+            <p>All certificates are digitally signed and verifiable</p>
+          </div>
+          <div className="feature-card">
+            <FontAwesomeIcon icon={faCheckCircle} style={{ fontSize: '24px', color: '#43a047', marginBottom: '10px' }} />
+            <h3>Instant Verification</h3>
+            <p>Get results in seconds, 24x7</p>
+          </div>
+          <div className="feature-card">
+            <FontAwesomeIcon icon={faSearch} style={{ fontSize: '24px', color: '#fbc02d', marginBottom: '10px' }} />
+            <h3>Unique Code</h3>
+            <p>Each certificate has a unique code for verification</p>
+          </div>
         </div>
-
-        <div className="verification-form-container">
+        <div className="verification-form-card">
           <form onSubmit={handleVerification} className="verification-form">
             <div className="input-group">
               <label htmlFor="verificationCode">Verification Code</label>
@@ -75,15 +93,15 @@ const CertificateVerification: React.FC = () => {
                 placeholder="Enter verification code (e.g., VC-ABC123DEF)"
                 className="verification-input"
                 disabled={loading}
+                autoFocus
               />
             </div>
-
             {error && (
-              <div className="error-message">
+              <div className="error-message" style={{ marginBottom: 8 }}>
+                <FontAwesomeIcon icon={faTimesCircle} style={{ color: '#d6001c', marginRight: 6 }} />
                 {error}
               </div>
             )}
-
             <div className="form-actions">
               <button
                 type="submit"
@@ -92,7 +110,6 @@ const CertificateVerification: React.FC = () => {
               >
                 {loading ? 'Verifying...' : 'Verify Certificate'}
               </button>
-              
               {verified && (
                 <button
                   type="button"
@@ -105,85 +122,37 @@ const CertificateVerification: React.FC = () => {
             </div>
           </form>
         </div>
-
         {verified && certificate && (
-          <div className="certificate-result">
+          <div className="certificate-result-card">
             <div className="result-header">
-              <h2>✅ Certificate Verified</h2>
-              <p>This certificate is authentic and has been verified</p>
+              <FontAwesomeIcon icon={faCheckCircle} style={{ color: '#43a047', fontSize: 32, marginBottom: 8 }} />
+              <h2 style={{ margin: 0 }}>Certificate Verified</h2>
+              <p style={{ color: '#43a047', marginBottom: 12 }}>This certificate is authentic and has been verified</p>
             </div>
-
-            <div className="certificate-details">
-              <div className="certificate-card">
-                <div className="certificate-header">
-                  <h3>TYPING CERTIFICATE</h3>
-                </div>
-                
-                <div className="certificate-content">
-                  <div className="user-info">
-                    <p>This is to certify that</p>
-                    <h4>{certificate.userName}</h4>
-                    <p>has successfully completed the typing test with</p>
-                  </div>
-
-                  <div className="performance-stats">
-                    <div className="stat">
-                      <span className="value">{certificate.typingSpeed}</span>
-                      <span className="label">WPM</span>
-                    </div>
-                    <div className="stat">
-                      <span className="value">{certificate.accuracy}%</span>
-                      <span className="label">Accuracy</span>
-                    </div>
-                  </div>
-
-                  <div className="certificate-meta">
-                    <p><strong>Certificate ID:</strong> {certificate.certificateId}</p>
-                    <p><strong>Test Date:</strong> {new Date(certificate.testDate).toLocaleDateString()}</p>
-                    <p><strong>Verification Code:</strong> {verificationCode}</p>
-                  </div>
-                </div>
+            <div className="certificate-details-grid">
+              <div className="certificate-detail">
+                <FontAwesomeIcon icon={faUser} style={{ color: '#1976d2', marginRight: 6 }} />
+                <span><strong>Name:</strong> {certificate.userName}</span>
               </div>
-            </div>
-
-            <div className="verification-info">
-              <h4>About Certificate Verification</h4>
-              <ul>
-                <li>Each certificate has a unique verification code</li>
-                <li>Verification codes are case-sensitive</li>
-                <li>Certificates are permanently stored and verifiable</li>
-                <li>This verification confirms the authenticity of the certificate</li>
-              </ul>
-            </div>
-          </div>
-        )}
-
-        {!verified && !loading && (
-          <div className="verification-info-section">
-            <h3>How to Verify a Certificate</h3>
-            <div className="info-steps">
-              <div className="step">
-                <div className="step-number">1</div>
-                <div className="step-content">
-                  <h4>Get the Verification Code</h4>
-                  <p>Ask the certificate holder for their verification code</p>
-                </div>
+              <div className="certificate-detail">
+                <FontAwesomeIcon icon={faCheckCircle} style={{ color: '#43a047', marginRight: 6 }} />
+                <span><strong>Speed:</strong> {certificate.typingSpeed} WPM</span>
               </div>
-              
-              <div className="step">
-                <div className="step-number">2</div>
-                <div className="step-content">
-                  <h4>Enter the Code</h4>
-                  <p>Type the verification code in the input field above</p>
-                </div>
+              <div className="certificate-detail">
+                <FontAwesomeIcon icon={faCheckCircle} style={{ color: '#43a047', marginRight: 6 }} />
+                <span><strong>Accuracy:</strong> {certificate.accuracy}%</span>
               </div>
-              
-              <div className="step">
-                <div className="step-number">3</div>
-                <div className="step-content">
-                  <h4>Verify</h4>
-                  <p>Click "Verify Certificate" to check authenticity</p>
-                </div>
+              <div className="certificate-detail">
+                <FontAwesomeIcon icon={faIdCard} style={{ color: '#8e24aa', marginRight: 6 }} />
+                <span><strong>Certificate ID:</strong> {certificate.certificateId}</span>
+              </div>
+              <div className="certificate-detail">
+                <FontAwesomeIcon icon={faCalendarAlt} style={{ color: '#fbc02d', marginRight: 6 }} />
+                <span><strong>Test Date:</strong> {new Date(certificate.testDate).toLocaleDateString()}</span>
+              </div>
+              <div className="certificate-detail">
+                <FontAwesomeIcon icon={faSearch} style={{ color: '#1976d2', marginRight: 6 }} />
+                <span><strong>Verification Code:</strong> {verificationCode}</span>
               </div>
             </div>
           </div>

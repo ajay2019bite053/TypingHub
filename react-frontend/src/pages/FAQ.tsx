@@ -99,7 +99,7 @@ const FAQ: React.FC = () => {
           <p>TypingHub.in is a comprehensive online platform designed to help users improve their typing skills. We offer:</p>
           <ul>
             <li>Free typing tests and practice sessions</li>
-            <li>Exam-specific typing tests (SSC, CHSL, etc.)</li>
+            <li>Exam-specific typing tests (SSC, CHSL,RRB-NTPC etc.)</li>
             <li>Structured typing courses</li>
             <li>Performance tracking and analytics</li>
             <li>Typing certificates</li>
@@ -173,7 +173,7 @@ const FAQ: React.FC = () => {
               <div className="faq-answer">
                 <p>We offer various types of typing tests:</p>
                 <ul>
-                  <li>General typing tests (1-5 minutes)</li>
+                  <li>General typing tests</li>
                   <li>SSC CGL typing test</li>
                   <li>SSC CHSL typing test</li>
                   <li>RRB NTPC typing test</li>

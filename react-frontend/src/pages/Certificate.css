@@ -1,47 +1,50 @@
 .certificate-page {
   width: 100%;
   min-height: 100vh;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  padding: 20px 0;
+  background: #ffffff;
+  padding: 10px 0;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Roboto Serif', serif;
 }
 
 .certificate-content {
-  max-width: 900px;
+  max-width: 1200px;
   margin: 0 auto;
   text-align: center;
-  padding: 40px;
-  background: rgba(255, 255, 255, 0.95);
+  padding: 30px;
+  background: #ffffff;
   border-radius: 20px;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e0e0e0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .certificate-content h1 {
   font-family: 'Roboto Serif', serif;
-  font-size: 36px;
+  font-size: 32px;
   font-weight: 700;
-  color: #1a2a44;
-  margin-bottom: 20px;
-  background: linear-gradient(135deg, #667eea, #764ba2);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: #1976d2;
+  margin-bottom: 15px;
 }
 
 .certificate-content p {
-  font-size: 18px;
+  font-size: 16px;
   color: #555;
-  margin-bottom: 25px;
+  margin-bottom: 20px;
   line-height: 1.6;
+  font-family: 'Roboto Serif', serif;
 }
 
 .progress-section {
-  background: linear-gradient(135deg, #e3f2fd, #f3e5f5);
-  padding: 30px;
+  background: #f8f9fa;
+  padding: 20px;
   border-radius: 15px;
-  margin: 30px 0;
-  border: 2px solid #e8f4fd;
+  margin: 20px 0;
+  border: 1px solid #e9ecef;
   position: relative;
   overflow: hidden;
 }
@@ -53,20 +56,20 @@
   left: 0;
   right: 0;
   height: 4px;
-  background: linear-gradient(90deg, #667eea, #764ba2);
+  background: #1976d2;
 }
 
 .progress-bar {
-  background: rgba(255, 255, 255, 0.8);
-  padding: 25px;
+  background: #ffffff;
+  padding: 20px;
   border-radius: 12px;
-  margin: 20px 0;
+  margin: 15px 0;
   border: 1px solid #e0e0e0;
   position: relative;
 }
 
 .progress-bar p {
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 600;
   color: #1976d2;
   margin: 0;
@@ -74,13 +77,14 @@
   align-items: center;
   justify-content: center;
   gap: 10px;
+  font-family: 'Roboto Serif', serif;
 }
 
 .progress-indicator {
   display: flex;
   justify-content: center;
   gap: 15px;
-  margin-top: 20px;
+  margin-top: 15px;
 }
 
 .progress-dot {
@@ -94,7 +98,7 @@
 }
 
 .progress-dot.completed {
-  background: linear-gradient(135deg, #667eea, #764ba2);
+  background: #1976d2;
   transform: scale(1.2);
 }
 
@@ -113,27 +117,28 @@
   display: flex;
   gap: 20px;
   justify-content: center;
-  margin-top: 30px;
+  margin: 20px 0;
   flex-wrap: wrap;
 }
 
 .btn {
-  padding: 15px 30px;
+  padding: 12px 20px;
   border: none;
   border-radius: 12px;
-  font-size: 18px;
+  font-size: 14px;
   font-weight: 500;
-  font-family: inherit;
+  font-family: 'Roboto Serif', serif;
   cursor: pointer;
   transition: all 0.3s ease;
   display: inline-flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   text-decoration: none;
   position: relative;
   overflow: hidden;
-  min-width: 200px;
+  min-width: 160px;
   justify-content: center;
+  white-space: nowrap;
 }
 
 .btn::before {
@@ -152,14 +157,15 @@
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, #667eea, #764ba2);
+  background: #1976d2;
   color: #fff;
-  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+  box-shadow: 0 8px 25px rgba(25, 118, 210, 0.3);
 }
 
 .btn-primary:hover {
   transform: translateY(-3px);
-  box-shadow: 0 12px 35px rgba(102, 126, 234, 0.4);
+  box-shadow: 0 12px 35px rgba(25, 118, 210, 0.4);
+  background: #1565c0;
 }
 
 .btn-disabled {
@@ -175,7 +181,7 @@
 }
 
 .btn-success {
-  background: linear-gradient(135deg, #4caf50, #45a049);
+  background: #4caf50;
   color: #fff;
   box-shadow: 0 8px 25px rgba(76, 175, 80, 0.3);
 }
@@ -183,22 +189,25 @@
 .btn-success:hover {
   transform: translateY(-3px);
   box-shadow: 0 12px 35px rgba(76, 175, 80, 0.4);
+  background: #45a049;
 }
 
 .features-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 20px;
-  margin: 30px 0;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;
+  margin: 20px 0;
 }
 
 .feature-card {
-  background: rgba(255, 255, 255, 0.8);
-  padding: 25px;
+  background: #ffffff;
+  padding: 20px 15px;
   border-radius: 15px;
   border: 1px solid #e0e0e0;
   text-align: center;
   transition: all 0.3s ease;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  font-family: 'Roboto Serif', serif;
 }
 
 .feature-card:hover {
@@ -207,15 +216,17 @@
 }
 
 .feature-card h3 {
-  color: #1a2a44;
-  margin-bottom: 10px;
-  font-size: 18px;
+  color: #1976d2;
+  margin-bottom: 8px;
+  font-size: 16px;
+  font-family: 'Roboto Serif', serif;
 }
 
 .feature-card p {
   color: #666;
-  font-size: 14px;
+  font-size: 13px;
   margin: 0;
+  font-family: 'Roboto Serif', serif;
 }
 
 .ad-modal {
@@ -251,6 +262,7 @@
   width: 90%;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
   animation: slideUp 0.3s ease;
+  font-family: 'Roboto Serif', serif;
 }
 
 @keyframes slideUp {
@@ -269,14 +281,15 @@
   margin: 15px 0;
   font-size: 16px;
   color: #555;
+  font-family: 'Roboto Serif', serif;
 }
 
 .certificate-preview {
-  background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+  background: #f8f9fa;
   padding: 30px;
   border-radius: 15px;
   margin: 30px 0;
-  border: 2px solid #dee2e6;
+  border: 1px solid #e9ecef;
   position: relative;
 }
 
@@ -294,7 +307,7 @@
 }
 
 .certificate-preview h3 {
-  color: #1a2a44;
+  color: #1976d2;
   margin-bottom: 15px;
   font-size: 20px;
 }
@@ -322,22 +335,22 @@
 
 @media (max-width: 768px) {
   .certificate-content {
-    margin: 20px auto;
-    padding: 30px 20px;
+    margin: 10px auto;
+    padding: 20px 15px;
   }
   
   .certificate-content h1 {
-    font-size: 28px;
+    font-size: 24px;
   }
   
   .certificate-content p {
-    font-size: 16px;
+    font-size: 14px;
   }
   
   .btn {
-    padding: 12px 25px;
+    padding: 12px 20px;
     font-size: 14px;
-    min-width: 180px;
+    min-width: 160px;
   }
   
   .certificate-buttons {
@@ -346,7 +359,8 @@
   }
   
   .features-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
   }
   
   .progress-indicator {
@@ -361,11 +375,11 @@
 
 @media (max-width: 600px) {
   .certificate-content h1 {
-    font-size: 24px;
+    font-size: 20px;
   }
   
   .certificate-content p {
-    font-size: 14px;
+    font-size: 13px;
   }
   
   .progress-bar p {
@@ -374,5 +388,9 @@
   
   .btn {
     min-width: 100%;
+  }
+  
+  .features-grid {
+    grid-template-columns: 1fr;
   }
 } 
