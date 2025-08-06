@@ -327,19 +327,37 @@ const TypingCourseLanding: React.FC = () => {
           />
         )}
         
+        {/* Development Banner */}
+        <div className="development-banner">
+          <div className="development-content">
+            <div className="development-icon">🚧</div>
+            <div className="development-text">
+              <h3>🚀 Coming Soon!</h3>
+              <p>Our premium typing courses are under development. We're working hard to bring you the best learning experience with expert-led training, interactive lessons, and comprehensive mock tests.</p>
+              <div className="development-features">
+                <span>✅ Interactive Lessons</span>
+                <span>✅ Expert Guidance</span>
+                <span>✅ Mock Tests</span>
+                <span>✅ Progress Tracking</span>
+              </div>
+              <p className="development-note">Registration and login will be available once the courses are ready. Stay tuned!</p>
+            </div>
+          </div>
+        </div>
+
         {/* Hero Section */}
         <section className="typing-hero-section">
           <div className="typing-hero-content">
             <h1>Master Typing for Govt Exams with Smart Courses & Premium Mock Tests</h1>
             <p>Learn from basics, then test yourself with premium SSC-CGL/CHSL, RRB-NTPC and other Government Exams mocks.</p>
             <div className="typing-hero-buttons">
-              <button className="primary-btn" onClick={handleSignUpClick}>
+              <button className="primary-btn disabled" disabled>
                 <FontAwesomeIcon icon={faUserPlus} />
-                Register Now
+                Register Now (Coming Soon)
               </button>
-              <button className="secondary-btn" onClick={handleLoginClick}>
+              <button className="secondary-btn disabled" disabled>
                 <FontAwesomeIcon icon={faSignInAlt} />
-                Login
+                Login (Coming Soon)
               </button>
             </div>
           </div>
@@ -359,7 +377,7 @@ const TypingCourseLanding: React.FC = () => {
                   <p>{course.description}</p>
                   <div className="course-bottom-row">
                     <span className="course-price">₹{course.price}</span>
-                    <button className="course-action-btn-modern primary" onClick={() => alert('Please register and login to buy the course.')}>Buy Now</button>
+                    <button className="course-action-btn-modern primary disabled" disabled>Coming Soon</button>
                   </div>
                 </div>
               </div>
@@ -370,9 +388,9 @@ const TypingCourseLanding: React.FC = () => {
           <div className="more-courses-message">
             <h3>Discover More Specialized Courses</h3>
             <p>We offer many more specialized courses for various government exams. Register or login to explore our full catalog.</p>
-            <button className="cta-button" onClick={handleSignUpClick}>
+            <button className="cta-button disabled" disabled>
               <FontAwesomeIcon icon={faUserPlus} />
-              Register Now to Explore More
+              Register Now (Coming Soon)
             </button>
           </div>
         </section>

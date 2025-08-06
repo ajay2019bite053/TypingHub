@@ -1,8 +1,18 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import TypingEngine from '../components/common/TypingEngine';
-import { AI_CONFIG } from '../config/aiConfig';
 import './CreateTest.css';
+
+// API Configuration
+const getBackendUrl = () => {
+  const hostname = window.location.hostname;
+  if (hostname === 'localhost' || hostname === '127.0.0.1') {
+    return 'http://localhost:9501';
+  }
+  return `https://${hostname}`;
+};
+
+const API_BASE_URL = getBackendUrl();
 
 const CreateTest = () => {
   const navigate = useNavigate();
@@ -62,66 +72,36 @@ const CreateTest = () => {
     }
 
     setIsGenerating(true);
-    const { min, max } = getWordRange(textLength);
-    const prompt = `Write a passage of ${max} words about ${searchText} in the style of SSC CGL/CHSL/RRB-NTPC typing exams. Write as a continuous paragraph without titles, headings, or excessive spacing. Focus on government exams, competitive tests, and educational content. Make it suitable for typing practice with proper sentence structure and flow. Passage must be at least ${min} words, but as close to ${max} words as possible.`;
-
-    for (let i = 0; i < AI_CONFIG.MODELS.length; i++) {
-      const model = AI_CONFIG.MODELS[i];
-      try {
-        console.log(`Trying model ${i + 1}/${AI_CONFIG.MODELS.length}: ${model}`);
-        
-        const response = await fetch(`${AI_CONFIG.BASE_URL}/chat/completions`, {
-          method: 'POST',
-          headers: AI_CONFIG.HEADERS,
-          body: JSON.stringify({
-            model: model,
-            messages: [{ role: 'user', content: prompt }],
-            ...AI_CONFIG.DEFAULT_PARAMS,
-            max_tokens: Math.round(max * 4) // Ensure enough tokens for the response
-          })
-        });
-
-        if (!response.ok) {
-          const errorData = await response.json().catch(() => ({}));
-          console.error(`Model ${model} failed:`, {
-            status: response.status,
-            statusText: response.statusText,
-            error: errorData
-          });
-          continue; // Try next model
-        }
-
-        const data = await response.json();
-        console.log('API Response:', data);
-        
-        if (!data.choices?.[0]?.message?.content) {
-          console.error('No content in response');
-          continue;
-        }
-
-        let generatedText = data.choices[0].message.content.trim();
-        const cleaned = cleanParagraphs(generatedText);
-        const wordCount = cleaned.split(/\s+/).filter(w => w.length > 0).length;
-        
-        if (wordCount < min) {
-          console.log(`Generated text too short (${wordCount} words), trying next model`);
-          continue;
-        }
-        
-        setAiGeneratedText(cleaned);
-        setSearchText('');
-        setIsGenerating(false);
-        return;
-        
-      } catch (error) {
-        console.error(`Error with model ${model}:`, error);
-        continue;
-      }
-    }
     
-    // If all models failed
-    setIsGenerating(false);
-    alert('Failed to generate text. Please try again or use a different topic.');
+    try {
+      const response = await fetch(`${API_BASE_URL}/api/ai/generate-text`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          searchText: searchText.trim(),
+          textLength: textLength
+        })
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Failed to generate text');
+      }
+
+      const data = await response.json();
+      console.log('AI Response:', data);
+      
+      setAiGeneratedText(data.text);
+      setSearchText('');
+      setIsGenerating(false);
+      
+    } catch (error: any) {
+      console.error('AI generation error:', error);
+      alert(error.message || 'Failed to generate text. Please try again or use a different topic.');
+      setIsGenerating(false);
+    }
   };
 
   const generateAiText = async () => {
@@ -131,67 +111,36 @@ const CreateTest = () => {
     }
 
     setIsGenerating(true);
-    const { min, max } = getWordRange(textLength);
-    const prompt = `Write a passage of ${max} words about ${passagePrompt} in the style of SSC CGL/CHSL/RRB-NTPC typing exams. Write as a continuous paragraph without titles, headings, or excessive spacing. Focus on government exams, competitive tests, and educational content. Make it suitable for typing practice with proper sentence structure and flow. Passage must be at least ${min} words, but as close to ${max} words as possible.`;
     
-    for (let i = 0; i < AI_CONFIG.MODELS.length; i++) {
-      const model = AI_CONFIG.MODELS[i];
-      try {
-        console.log(`Trying model ${i + 1}/${AI_CONFIG.MODELS.length}: ${model}`);
-        console.log('With prompt:', prompt);
-        
-        const response = await fetch(`${AI_CONFIG.BASE_URL}/chat/completions`, {
-          method: 'POST',
-          headers: {
-            'Authorization': `Bearer ${AI_CONFIG.OPENROUTER_API_KEY}`,
-            'Content-Type': 'application/json',
-            'HTTP-Referer': window.location.origin,
-            'X-Title': 'TypingHub'
-          },
-          body: JSON.stringify({
-            model: model,
-            messages: [
-              { role: 'user', content: prompt }
-            ],
-            max_tokens: Math.round(max * 1.6)
-          })
-        });
+    try {
+      const response = await fetch(`${API_BASE_URL}/api/ai/generate-text`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          prompt: passagePrompt.trim(),
+          textLength: textLength
+        })
+      });
 
-        if (!response.ok) {
-          console.log(`Model ${model} failed with status: ${response.status}`);
-          continue; // Try next model
-        }
-
-        const data = await response.json();
-        console.log('OpenRouter Response:', data);
-        
-        let generatedText = data.choices?.[0]?.message?.content || '';
-        generatedText = generatedText.trim();
-        // Trim to max words
-        const trimmed = trimToMaxWords(generatedText, max);
-        const cleaned = cleanParagraphs(trimmed);
-        const wordCount = cleaned.split(/\s+/).filter(w => w.length > 0).length;
-        
-        if (wordCount < min) {
-          console.log(`Model ${model} returned text with ${wordCount} words, which is less than ${min} words.`);
-          continue; // Try next model
-        }
-        
-        setAiGeneratedText(cleaned);
-        setUseAiText(true);
-        setIsGenerating(false);
-        console.log(`Successfully generated text using model: ${model}`);
-        return; // Success!
-        
-      } catch (error) {
-        console.error(`Error with model ${model}:`, error);
-        continue; // Try next model
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Failed to generate text');
       }
+
+      const data = await response.json();
+      console.log('AI Response:', data);
+      
+      setAiGeneratedText(data.text);
+      setUseAiText(true);
+      setIsGenerating(false);
+      
+    } catch (error: any) {
+      console.error('AI generation error:', error);
+      alert(error.message || 'Failed to generate text. Please try again.');
+      setIsGenerating(false);
     }
-    
-    // If all models failed
-    alert(`Failed to generate a passage of at least ${min} words. Please try again.`);
-    setIsGenerating(false);
   };
 
   const handleProceed = () => {
@@ -330,13 +279,14 @@ const CreateTest = () => {
                     <span style={{ fontSize: '1.5rem' }}>🤖</span>
                     <h3 style={{ margin: '0', color: '#2c3e50', fontSize: '1.4rem' }}>AI Text Generator</h3>
                   </div>
-                                    <div style={{ display: 'flex', gap: '15px' }}>
+                                    <div className="search-container">
                     <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flex: '1' }}>
-                      <label style={{ fontWeight: '600', color: '#2c3e50', fontSize: '0.9rem', whiteSpace: 'nowrap' }}>
+                      <label className="search-label">
                         Search Text:
                       </label>
                       <input
                         type="text"
+                        className="search-input"
                         value={searchText}
                         onChange={(e) => setSearchText(e.target.value)}
                         onKeyPress={(e) => {
@@ -345,35 +295,17 @@ const CreateTest = () => {
                           }
                         }}
                         placeholder="Type a topic (e.g., modi ji, pollution, education) and press Enter..."
-                        style={{
-                          padding: '8px 12px',
-                          border: '2px solid #e0e0e0',
-                          borderRadius: '6px',
-                          fontSize: '13px',
-                          fontFamily: 'inherit',
-                          backgroundColor: '#fff',
-                          width: '100%',
-                          boxSizing: 'border-box',
-                          flex: '1'
-                        }}
                       />
                     </div>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                      <label style={{ fontWeight: '600', color: '#2c3e50', fontSize: '0.9rem', whiteSpace: 'nowrap' }}>
+                      <label className="search-label">
                         Length:
                       </label>
                       <select 
                         value={textLength} 
                         onChange={(e) => setTextLength(e.target.value)}
-                        style={{
-                          padding: '8px 12px',
-                          border: '2px solid #e0e0e0',
-                          borderRadius: '6px',
-                          fontSize: '13px',
-                          fontFamily: 'inherit',
-                          backgroundColor: '#fff',
-                          minWidth: '120px'
-                        }}
+                        className="search-input"
+                        style={{ minWidth: '120px' }}
                       >
                         {lengthOptions.map(option => (
                           <option key={option.value} value={option.value}>
@@ -384,25 +316,9 @@ const CreateTest = () => {
                     </div>
                     <div style={{ display: 'flex', alignItems: 'end' }}>
                       <button
+                        className="search-button"
                         onClick={generateAiTextFromSearch}
                         disabled={isGenerating || !searchText.trim()}
-                        style={{
-                          background: 'linear-gradient(135deg, #28a745 0%, #20c997 100%)',
-                          color: 'white',
-                          border: 'none',
-                          padding: '8px 16px',
-                          borderRadius: '6px',
-                          fontSize: '13px',
-                          fontWeight: '600',
-                          cursor: (isGenerating || !searchText.trim()) ? 'not-allowed' : 'pointer',
-                          fontFamily: 'inherit',
-                          opacity: (isGenerating || !searchText.trim()) ? 0.7 : 1,
-                          display: 'flex',
-                          alignItems: 'center',
-                          gap: '6px',
-                          height: 'fit-content',
-                          marginTop: 'auto'
-                        }}
                       >
                         {isGenerating ? '🔄 Generating...' : '🚀 Generate Passage'}
                       </button>

@@ -28,7 +28,9 @@ const config = {
   DEFAULT_ADMIN_EMAIL: process.env.DEFAULT_ADMIN_EMAIL,
   DEFAULT_ADMIN_PASSWORD: process.env.DEFAULT_ADMIN_PASSWORD,
   FRONTEND_URL: process.env.FRONTEND_URL,
-  CORS_ORIGIN: corsOrigin
+  CORS_ORIGIN: corsOrigin,
+  // OpenRouter API Key - Replace with your actual key
+  OPENROUTER_API_KEY: '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'
 };
 
 // Validate required fields

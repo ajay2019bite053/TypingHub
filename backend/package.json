@@ -8,6 +8,7 @@
     "start:prod": "NODE_ENV=production node server.js",
     "start:dev": "NODE_ENV=development node server.js",
     "create-admin": "NODE_ENV=development node scripts/createQuickAdmin.js",
+    "setup-ai": "node setup-ai.js",
     "pm2:start": "pm2 start ecosystem.config.js",
     "pm2:stop": "pm2 stop typinghub-backend",
     "pm2:restart": "pm2 restart typinghub-backend",

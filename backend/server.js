@@ -25,6 +25,7 @@ const liveExamsRoutes = require('./routes/liveExams');
 const cardRoutes = require('./routes/cardRoutes');
 const certificateRoutes = require('./routes/certificates');
 const blogRoutes = require('./routes/blogs');
+const aiRoutes = require('./routes/ai');
 
 // Import middleware and utils
 const authMiddleware = require('./middleware/authMiddleware');
@@ -137,6 +138,7 @@ app.use('/api/live-exams', liveExamsRoutes);
 app.use('/api/cards', cardRoutes);
 app.use('/api/certificates', certificateRoutes);
 app.use('/api/blogs', blogRoutes);
+app.use('/api/ai', aiRoutes);
 
 // Health check endpoint
 app.get('/api/health', (req, res) => {
