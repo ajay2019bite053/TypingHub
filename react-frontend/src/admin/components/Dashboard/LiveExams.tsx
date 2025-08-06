@@ -26,14 +26,12 @@ const LiveExams: React.FC = () => {
     setLoading(true);
     try {
       const token = localStorage.getItem('accessToken');
-      console.log('Frontend: Token found:', !!token);
       
       if (!token) {
         throw new Error('Authentication required');
       }
 
       const url = `${API_CONFIG.BASE_URL}/live-exams/admin`;
-      console.log('Frontend: Making request to:', url);
       
       const response = await fetch(url, {
         headers: {
@@ -42,21 +40,15 @@ const LiveExams: React.FC = () => {
         }
       });
 
-      console.log('Frontend: Response status:', response.status);
-      console.log('Frontend: Response headers:', response.headers);
-
       if (!response.ok) {
         const errorData = await response.json().catch(() => ({}));
-        console.error('Frontend: Error response:', errorData);
         throw new Error(errorData.message || `Failed to fetch exams (${response.status})`);
       }
 
       const data = await response.json();
-      console.log('Frontend: Success response:', data);
       setExams(data);
       setError(null);
     } catch (err: any) {
-      console.error('Frontend: Error fetching exams:', err);
       setError(err.message || 'Failed to fetch exams');
     } finally {
       setLoading(false);
@@ -132,7 +124,6 @@ const LiveExams: React.FC = () => {
       fetchExams();
       setError(null);
     } catch (err: any) {
-      console.error('Error saving exam:', err);
       setError(err.message || 'Failed to save exam');
     } finally {
       setLoading(false);
@@ -178,7 +169,6 @@ const LiveExams: React.FC = () => {
       fetchExams();
       setError(null);
     } catch (err: any) {
-      console.error('Error deleting exam:', err);
       setError(err.message || 'Failed to delete exam');
     } finally {
       setLoading(false);
@@ -220,7 +210,6 @@ const LiveExams: React.FC = () => {
       fetchExams();
       setError(null);
     } catch (err: any) {
-      console.error('Error updating live status:', err);
       setError(err.message || 'Failed to update live status');
     } finally {
       setLoading(false);
@@ -240,7 +229,7 @@ const LiveExams: React.FC = () => {
           <strong>Note:</strong> 
           <ul style={{ margin: '8px 0 0 20px', padding: 0 }}>
             <li><strong>Join Link:</strong> Google Meet/Zoom link for live interaction</li>
-            <li><strong>Exam Link:</strong> Direct link to the typing test (auto-generated)</li>
+            <li><strong>Exam Link:</strong> Direct link to the typing test</li>
           </ul>
         </div>
         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>

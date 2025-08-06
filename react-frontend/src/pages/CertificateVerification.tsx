@@ -133,11 +133,11 @@ const CertificateVerification: React.FC = () => {
               <div className="certificate-detail">
                 <FontAwesomeIcon icon={faUser} style={{ color: '#1976d2', marginRight: 6 }} />
                 <span><strong>Name:</strong> {certificate.userName}</span>
-              </div>
+                </div>
               <div className="certificate-detail">
                 <FontAwesomeIcon icon={faCheckCircle} style={{ color: '#43a047', marginRight: 6 }} />
                 <span><strong>Speed:</strong> {certificate.typingSpeed} WPM</span>
-              </div>
+                  </div>
               <div className="certificate-detail">
                 <FontAwesomeIcon icon={faCheckCircle} style={{ color: '#43a047', marginRight: 6 }} />
                 <span><strong>Accuracy:</strong> {certificate.accuracy}%</span>

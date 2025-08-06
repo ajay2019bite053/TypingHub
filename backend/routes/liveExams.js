@@ -25,6 +25,16 @@ router.get('/', async (req, res) => {
   }
 });
 
+// Get all exams for admin (both live and stopped)
+router.get('/admin', adminAuthMiddleware, async (req, res) => {
+  try {
+    const exams = await LiveExam.find().sort({ date: -1, createdAt: -1 });
+    res.json(exams);
+  } catch (err) {
+    res.status(500).json({ message: 'Server error', error: err.message });
+  }
+});
+
 // Get a single live exam by ID (public)
 router.get('/:id', async (req, res) => {
   try {
