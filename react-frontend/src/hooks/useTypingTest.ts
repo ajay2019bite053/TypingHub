@@ -311,14 +311,15 @@ export const useTypingTest = (config: TestConfig) => {
     const lineNumber = Math.floor(currentTypingWordIndex / wordsPerLine);
     if (lineNumber > currentLine && sampleTextContainerRef.current) {
       setCurrentLine(lineNumber);
-      const lineHeight = 28;
-      const containerHeight = sampleTextContainerRef.current.clientHeight;
-      const contentHeight = sampleTextRef.current?.offsetHeight || 0;
-      const maxScroll = contentHeight - containerHeight;
+      // Autoscrolling disabled - user will scroll manually
+      // const lineHeight = 28;
+      // const containerHeight = sampleTextContainerRef.current.clientHeight;
+      // const contentHeight = sampleTextRef.current?.offsetHeight || 0;
+      // const maxScroll = contentHeight - containerHeight;
 
-      if (sampleTextContainerRef.current.scrollTop < maxScroll) {
-        sampleTextContainerRef.current.scrollTop += lineHeight;
-      }
+      // if (sampleTextContainerRef.current.scrollTop < maxScroll) {
+      //   sampleTextContainerRef.current.scrollTop += lineHeight;
+      // }
     }
   }, [currentLine, wordElements, wordsPerLine, examMode]);
 
