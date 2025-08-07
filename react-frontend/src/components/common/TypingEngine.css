@@ -192,6 +192,19 @@ select:focus {
   text-decoration-color: #f44336;
 }
 
+/* Word completion feedback */
+.word-complete {
+  background-color: rgba(76, 175, 80, 0.1);
+  border-radius: 3px;
+  transition: background-color 0.3s ease;
+}
+
+.word-incomplete {
+  background-color: rgba(244, 67, 54, 0.1);
+  border-radius: 3px;
+  transition: background-color 0.3s ease;
+}
+
 /* Ensure proper spacing for punctuation */
 .sample-text span span.punctuation {
   margin: 0;

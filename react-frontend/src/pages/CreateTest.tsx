@@ -144,11 +144,7 @@ const CreateTest = () => {
   };
 
   const handleProceed = () => {
-    if (useAiText && !aiGeneratedText.trim()) {
-      alert('Please generate some text using AI first');
-      return;
-    }
-      setShowSetup(false);
+    setShowSetup(false);
   };
 
   const config = {
@@ -159,7 +155,7 @@ const CreateTest = () => {
       minWpm: 25,
       minAccuracy: 85
     },
-    customPassage: useAiText ? aiGeneratedText.trim() : customText.trim()
+    customPassage: useAiText ? (aiGeneratedText.trim() || '') : (customText.trim() || '')
   };
 
   if (!showSetup) {
@@ -203,8 +199,8 @@ const CreateTest = () => {
             justifyContent: 'space-between', 
             alignItems: 'center', 
             marginBottom: '0px',
-            paddingBottom: '20px',
-            borderBottom: '2px solid #f0f0f0',
+            paddingBottom: '0px',
+            borderBottom: 'none',
             marginTop: '0px',
             paddingTop: '0px'
           }}>
@@ -260,9 +256,10 @@ const CreateTest = () => {
           <div style={{ 
             background: '#fafafa', 
             borderRadius: '15px', 
-            padding: '30px',
+            padding: '10px 30px 30px 30px',
             border: '1px solid #e8e8e8',
-            marginBottom: '30px'
+            marginBottom: '30px',
+            marginTop: '0px'
           }}>
             {useAiText ? (
               <div className="custom-text-section" style={{ marginBottom: '0', padding: '0', background: 'transparent', border: 'none' }}>
@@ -342,7 +339,7 @@ const CreateTest = () => {
                       <button
                         className="proceed-button"
                         onClick={handleProceed}
-                      disabled={loading || (useAiText && !aiGeneratedText.trim())}
+                        disabled={loading}
                         style={{
                           background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
                           color: 'white',
@@ -351,16 +348,16 @@ const CreateTest = () => {
                           borderRadius: '6px',
                           fontSize: '0.9rem',
                           fontWeight: '600',
-                        cursor: (loading || (useAiText && !aiGeneratedText.trim())) ? 'not-allowed' : 'pointer',
+                          cursor: loading ? 'not-allowed' : 'pointer',
                           fontFamily: 'inherit',
                           transition: 'all 0.3s ease',
-                        opacity: (loading || (useAiText && !aiGeneratedText.trim())) ? 0.7 : 1,
+                          opacity: loading ? 0.7 : 1,
                           display: 'flex',
                           alignItems: 'center',
                           gap: '6px'
                         }}
                       >
-                        {loading ? '🔄 Loading...' : '▶️ Start Test'}
+                        {loading ? '🔄 Loading...' : 'Continue to Test'}
                       </button>
                     </div>
                   </div>
@@ -414,7 +411,7 @@ const CreateTest = () => {
                           gap: '6px'
                         }}
                       >
-                        {loading ? '🔄 Loading...' : '▶️ Start Test'}
+                        {loading ? '🔄 Loading...' : 'Continue to Test'}
               </button>
             </div>
           </div>

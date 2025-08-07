@@ -131,6 +131,21 @@ export const useTypingTest = (config: TestConfig) => {
     return /[.,!?;:'"()/]/.test(char);
   };
 
+  // Check if a word is fully typed (has space after it or is the last word)
+  const isWordFullyTyped = (text: string, wordIndex: number, words: string[]): boolean => {
+    // If it's the last word and text ends with space, it's complete
+    if (wordIndex === words.length - 1) {
+      return text.endsWith(' ');
+    }
+    
+    // If it's not the last word, check if there's a space after this word
+    const wordStart = text.indexOf(words[wordIndex]);
+    if (wordStart === -1) return false;
+    
+    const wordEnd = wordStart + words[wordIndex].length;
+    return text[wordEnd] === ' ';
+  };
+
   // Calculate typing stats
   const calculateTypingStats = useCallback((
     correctChars: number,
@@ -281,14 +296,19 @@ export const useTypingTest = (config: TestConfig) => {
       return;
     }
 
+    // Get current typing position
+    const typedText = typingAreaRef.current?.value || '';
+    const typedWordsCurrent = typedText.trim().split(/\s+/);
+    const currentTypingWordIndex = Math.max(0, typedWordsCurrent.length - 1);
+
     wordElements.forEach((word, index) => {
       word.classList.remove('current-word');
-      if (index === currentWordIndex) {
+      if (index === currentTypingWordIndex) {
         word.classList.add('current-word');
       }
     });
 
-    const lineNumber = Math.floor(currentWordIndex / wordsPerLine);
+    const lineNumber = Math.floor(currentTypingWordIndex / wordsPerLine);
     if (lineNumber > currentLine && sampleTextContainerRef.current) {
       setCurrentLine(lineNumber);
       const lineHeight = 28;
@@ -300,7 +320,7 @@ export const useTypingTest = (config: TestConfig) => {
         sampleTextContainerRef.current.scrollTop += lineHeight;
       }
     }
-  }, [currentWordIndex, currentLine, wordElements, wordsPerLine, examMode]);
+  }, [currentLine, wordElements, wordsPerLine, examMode]);
 
   const getCharacterHighlights = (expected: string, typed: string) => {
     const normalizedExpected = normalizeQuotes(expected);
@@ -352,6 +372,7 @@ export const useTypingTest = (config: TestConfig) => {
     const typedText = typingAreaRef.current.value;
     const typedWordsCurrent = typedText.trim().split(/\s+/);
 
+    // Clear all highlights first
     wordElements.forEach((word, wordIndex) => {
       const chars = word.querySelectorAll('span');
       chars.forEach(char => {
@@ -359,12 +380,13 @@ export const useTypingTest = (config: TestConfig) => {
       });
     });
 
-    for (let wordIndex = 0; wordIndex <= currentWordIndex; wordIndex++) {
+    // Highlight all typed words (not just up to currentWordIndex)
+    for (let wordIndex = 0; wordIndex < typedWordsCurrent.length && wordIndex < wordElements.length; wordIndex++) {
       const wordElement = wordElements[wordIndex];
       if (!wordElement) continue;
 
       const chars = wordElement.querySelectorAll('span');
-      const typedWord = wordIndex < typedWordsCurrent.length ? typedWordsCurrent[wordIndex] : '';
+      const typedWord = typedWordsCurrent[wordIndex];
       const expectedWord = passageWords[wordIndex] || '';
 
       const highlights = getCharacterHighlights(expectedWord, typedWord);
@@ -380,7 +402,7 @@ export const useTypingTest = (config: TestConfig) => {
         }
       });
     }
-  }, [currentWordIndex, passageWords, wordElements, examMode]);
+  }, [passageWords, wordElements, examMode]);
 
   // Test control functions
   const startTest = useCallback(() => {
@@ -542,6 +564,7 @@ export const useTypingTest = (config: TestConfig) => {
       incorrectWords: 0
     };
     
+    // Character-by-character comparison
     for (let i = 0; i < newText.length; i++) {
       const typedChar = newText[i];
       const expectedChar = passageText[i];
@@ -561,6 +584,7 @@ export const useTypingTest = (config: TestConfig) => {
       }
     }
     
+    // Smart word completion detection
     const typedWords = newText.trim().split(/\s+/);
     const passageWordsArray = passageText.trim().split(/\s+/);
     
@@ -569,12 +593,21 @@ export const useTypingTest = (config: TestConfig) => {
     } else {
       setTotalWords(typedWords.length);
       
+      // Check completed words (words that have been fully typed)
       for (let i = 0; i < typedWords.length; i++) {
         if (i < passageWordsArray.length) {
-          if (typedWords[i] === passageWordsArray[i]) {
-            counters.correctWords++;
-          } else {
-            counters.incorrectWords++;
+          const typedWord = typedWords[i];
+          const expectedWord = passageWordsArray[i];
+          
+          // Check if this word is complete (has space after it or is last word)
+          const isWordComplete = isWordFullyTyped(newText, i, typedWords);
+          
+          if (isWordComplete) {
+            if (typedWord === expectedWord) {
+              counters.correctWords++;
+            } else {
+              counters.incorrectWords++;
+            }
           }
         } else {
           counters.incorrectWords++;
@@ -603,7 +636,8 @@ export const useTypingTest = (config: TestConfig) => {
 
     setTypingStats(newStats);
     updateLetterHighlight();
-  }, [isRunning, passageWords, updateLetterHighlight, calculateTypingStats, startTime, backspaceCount]);
+    updateWordHighlight();
+  }, [isRunning, passageWords, updateLetterHighlight, updateWordHighlight, calculateTypingStats, startTime, backspaceCount]);
 
   const handleKeyDown = useCallback((e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (!isRunning) return;
@@ -619,39 +653,13 @@ export const useTypingTest = (config: TestConfig) => {
       return;
     }
 
+    // Natural spacebar behavior - no restrictions
     if (e.key === ' ') {
-      const typedText = e.currentTarget.value;
-      const lastChar = typedText[typedText.length - 1];
-      
-      if (lastChar === ' ') {
-        e.preventDefault();
-        return;
-      }
-
-      const currentWord = typedText.trim().split(/\s+/).pop() || '';
-      if (!currentWord) {
-        e.preventDefault();
-        return;
-      }
-
-      if (currentWordIndex < passageWords.length) {
-        const expectedWord = passageWords[currentWordIndex];
-        if (currentWord === expectedWord) {
-          setCorrectWordsCount(prev => prev + 1);
-        } else {
-          setIncorrectWordsCount(prev => prev + 1);
-        }
-        setCurrentWordIndex(prev => prev + 1);
-        updateWordHighlight();
-        updateLetterHighlight();
-        setTotalWords(prev => prev + 1);
-
-        if (currentWordIndex + 1 >= passageWords.length) {
-          submitTest();
-        }
-      }
+      // Allow spacebar to work naturally
+      // Word completion will be detected in handleTypingChange
+      return;
     }
-  }, [isRunning, currentWordIndex, passageWords, updateWordHighlight, updateLetterHighlight, submitTest]);
+  }, [isRunning]);
 
   const handlePaste = (e: React.ClipboardEvent) => {
     e.preventDefault();

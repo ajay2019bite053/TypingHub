@@ -4,11 +4,11 @@
 This guide explains how to set up the AI text generation feature using OpenRouter API securely.
 
 ## Security Features
-- ✅ API key is stored securely in backend config file
+- ✅ API key is stored securely in .env file (never in code)
 - ✅ API key is NEVER exposed to frontend users
 - ✅ All AI requests go through your backend server
 - ✅ No need to modify frontend code for production
-- ✅ No .env file required
+- ✅ .env file is in .gitignore (never committed to git)
 
 ## Setup Steps
 
@@ -31,11 +31,10 @@ Enter your OpenRouter API key when prompted.
 ### 3. Configure API Key (Manual)
 If you prefer to set it manually:
 
-1. Open `backend/config.js` file
-2. Find the line with `OPENROUTER_API_KEY`
-3. Replace the key value with your actual API key:
-```javascript
-OPENROUTER_API_KEY: 'sk-or-v1-your-api-key-here'
+1. Open `backend/.env` file
+2. Add or update the line with `OPENROUTER_API_KEY`:
+```
+OPENROUTER_API_KEY=sk-or-v1-your-api-key-here
 ```
 
 ### 4. Restart Server
@@ -116,7 +115,7 @@ The system tries multiple models for reliability:
 - Ensure internet connectivity
 
 ### Production Deployment
-- Update `OPENROUTER_API_KEY` in your config.js file
+- Update `OPENROUTER_API_KEY` in your .env file
 - No frontend changes needed
 - API key remains secure on server
 
@@ -124,5 +123,5 @@ The system tries multiple models for reliability:
 - ✅ API key never leaves the server
 - ✅ No client-side API calls to OpenRouter
 - ✅ All requests go through your backend
-- ✅ API key stored in config file
-- ✅ No .env file required 
+- ✅ API key stored in .env file (never in code)
+- ✅ .env file is in .gitignore (never committed to git) 

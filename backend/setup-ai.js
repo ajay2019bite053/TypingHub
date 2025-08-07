@@ -28,38 +28,35 @@ rl.question('Enter your OpenRouter API key (sk-or-v1-...): ', (apiKey) => {
     return;
   }
 
-  // Update config.js file
-  const configPath = path.join(__dirname, 'config.js');
+  // Update .env file
+  const envPath = path.join(__dirname, '.env');
   
-  if (!fs.existsSync(configPath)) {
-    console.log('❌ config.js file not found');
+  if (!fs.existsSync(envPath)) {
+    console.log('❌ .env file not found. Please create a .env file first.');
     rl.close();
     return;
   }
 
-  let configContent = fs.readFileSync(configPath, 'utf8');
+  let envContent = fs.readFileSync(envPath, 'utf8');
   
-  // Replace the API key in config file
-  const apiKeyRegex = /OPENROUTER_API_KEY:\s*['"`][^'"`]*['"`]/;
-  const newApiKeyLine = `OPENROUTER_API_KEY: '${apiKey}'`;
-  
-  if (configContent.includes('OPENROUTER_API_KEY:')) {
+  // Check if OPENROUTER_API_KEY already exists
+  if (envContent.includes('OPENROUTER_API_KEY=')) {
     // Update existing key
-    configContent = configContent.replace(apiKeyRegex, newApiKeyLine);
-  } else {
-    // Add new key before the closing brace
-    configContent = configContent.replace(
-      /(\s*};?\s*)$/,
-      `  // OpenRouter API Key - Replace with your actual key\n  ${newApiKeyLine}\n$1`
+    envContent = envContent.replace(
+      /OPENROUTER_API_KEY=.*/,
+      `OPENROUTER_API_KEY=${apiKey}`
     );
+  } else {
+    // Add new key at the end
+    envContent += `\n# OpenRouter API Key\nOPENROUTER_API_KEY=${apiKey}\n`;
   }
 
-  // Write updated config
-  fs.writeFileSync(configPath, configContent);
+  // Write updated .env file
+  fs.writeFileSync(envPath, envContent);
 
   console.log('✅ OpenRouter API key has been configured successfully!');
-  console.log('📁 The key has been saved to your config.js file');
-  console.log('🔒 The key is secure and will not be exposed to users');
+  console.log('📁 The key has been saved to your .env file');
+  console.log('🔒 The key is secure and will not be exposed to users or committed to git');
   console.log('\n🚀 You can now restart your server to use the AI features');
   console.log('\n💡 To restart:');
   console.log('   npm run dev (for development)');
