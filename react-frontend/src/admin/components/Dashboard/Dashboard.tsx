@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 import axios from 'axios';
 import { useAdmin } from '../../../contexts/AdminContext';
 import { useAuth } from '../../../contexts/AuthContext';
@@ -435,168 +436,178 @@ const Dashboard: React.FC = () => {
   };
 
   return (
-    <div className="admin-dashboard">
-      <aside className={`sidebar ${isSidebarOpen ? 'open' : ''}`}>
-        <button 
-          onClick={() => handleSectionChange('welcome')}
-          className={activeSection === 'welcome' ? 'active' : ''}
-        >
-          <FontAwesomeIcon icon={faHome} /> Dashboard
-        </button>
-        <button 
-          onClick={() => handleSectionChange('add-passage')}
-          className={activeSection === 'add-passage' ? 'active' : ''}
-        >
-          <FontAwesomeIcon icon={faPlus} /> Add Passage
-        </button>
-        <button 
-          onClick={() => handleSectionChange('view-passages')}
-          className={activeSection === 'view-passages' ? 'active' : ''}
-        >
-          <FontAwesomeIcon icon={faList} /> View Passages
-        </button>
-        <button 
-          onClick={() => handleSectionChange('assign-passage')}
-          className={activeSection === 'assign-passage' ? 'active' : ''}
-        >
-          <FontAwesomeIcon icon={faUserPlus} /> Assign Passage to Tests
-        </button>
-        <button 
-          onClick={() => handleSectionChange('assigned-passages')}
-          className={activeSection === 'assigned-passages' ? 'active' : ''}
-        >
-          <FontAwesomeIcon icon={faClipboardList} /> Assigned Passages
-        </button>
-        <button 
-          onClick={() => handleSectionChange('live-exams')}
-          className={activeSection === 'live-exams' ? 'active' : ''}
-        >
-          <FontAwesomeIcon icon={faUserPlus} /> Live Exams
-        </button>
-        <button 
-          onClick={() => handleSectionChange('manage-cards')}
-          className={activeSection === 'manage-cards' ? 'active' : ''}
-        >
-          <FontAwesomeIcon icon={faList} /> Manage Cards
-        </button>
-        <button 
-          onClick={() => handleSectionChange('manage-coupons')}
-          className={activeSection === 'manage-coupons' ? 'active' : ''}
-        >
-          <FontAwesomeIcon icon={faList} /> Manage Coupons
-        </button>
-        <button 
-          onClick={() => handleSectionChange('blog-manager')}
-          className={activeSection === 'blog-manager' ? 'active' : ''}
-        >
-          <FontAwesomeIcon icon={faList} /> Blog Manager
-        </button>
-        <button 
-          onClick={() => navigate('/admin/admin-requests')}
-          className="admin-requests-btn"
-        >
-          <FontAwesomeIcon icon={faUserPlus} /> Admin Requests
-        </button>
-        <button 
-          onClick={() => navigate('/admin/delete-requests')}
-          className="delete-requests-btn"
-        >
-          <FontAwesomeIcon icon={faTrash} /> Delete Requests
-        </button>
-        <button onClick={handleLogout}>
-          <FontAwesomeIcon icon={faSignOutAlt} /> Logout
-        </button>
-        <button onClick={forceLogout} style={{ backgroundColor: '#e63946', marginTop: '10px' }}>
-          <FontAwesomeIcon icon={faSignOutAlt} /> Force Logout (Clear Old Token)
-        </button>
-      </aside>
+    <>
+      <Helmet>
+        <title>Admin Dashboard - TypingHub</title>
+        <meta name="robots" content="noindex, nofollow, noarchive, nosnippet" />
+        <meta name="googlebot" content="noindex, nofollow" />
+        <meta name="description" content="Admin dashboard - restricted access" />
+        <meta property="og:robots" content="noindex, nofollow" />
+        <meta name="twitter:robots" content="noindex, nofollow" />
+      </Helmet>
+      <div className="admin-dashboard">
+        <aside className={`sidebar ${isSidebarOpen ? 'open' : ''}`}>
+          <button 
+            onClick={() => handleSectionChange('welcome')}
+            className={activeSection === 'welcome' ? 'active' : ''}
+          >
+            <FontAwesomeIcon icon={faHome} /> Dashboard
+          </button>
+          <button 
+            onClick={() => handleSectionChange('add-passage')}
+            className={activeSection === 'add-passage' ? 'active' : ''}
+          >
+            <FontAwesomeIcon icon={faPlus} /> Add Passage
+          </button>
+          <button 
+            onClick={() => handleSectionChange('view-passages')}
+            className={activeSection === 'view-passages' ? 'active' : ''}
+          >
+            <FontAwesomeIcon icon={faList} /> View Passages
+          </button>
+          <button 
+            onClick={() => handleSectionChange('assign-passage')}
+            className={activeSection === 'assign-passage' ? 'active' : ''}
+          >
+            <FontAwesomeIcon icon={faUserPlus} /> Assign Passage to Tests
+          </button>
+          <button 
+            onClick={() => handleSectionChange('assigned-passages')}
+            className={activeSection === 'assigned-passages' ? 'active' : ''}
+          >
+            <FontAwesomeIcon icon={faClipboardList} /> Assigned Passages
+          </button>
+          <button 
+            onClick={() => handleSectionChange('live-exams')}
+            className={activeSection === 'live-exams' ? 'active' : ''}
+          >
+            <FontAwesomeIcon icon={faUserPlus} /> Live Exams
+          </button>
+          <button 
+            onClick={() => handleSectionChange('manage-cards')}
+            className={activeSection === 'manage-cards' ? 'active' : ''}
+          >
+            <FontAwesomeIcon icon={faList} /> Manage Cards
+          </button>
+          <button 
+            onClick={() => handleSectionChange('manage-coupons')}
+            className={activeSection === 'manage-coupons' ? 'active' : ''}
+          >
+            <FontAwesomeIcon icon={faList} /> Manage Coupons
+          </button>
+          <button 
+            onClick={() => handleSectionChange('blog-manager')}
+            className={activeSection === 'blog-manager' ? 'active' : ''}
+          >
+            <FontAwesomeIcon icon={faList} /> Blog Manager
+          </button>
+          <button 
+            onClick={() => navigate('/admin/admin-requests')}
+            className="admin-requests-btn"
+          >
+            <FontAwesomeIcon icon={faUserPlus} /> Admin Requests
+          </button>
+          <button 
+            onClick={() => navigate('/admin/delete-requests')}
+            className="delete-requests-btn"
+          >
+            <FontAwesomeIcon icon={faTrash} /> Delete Requests
+          </button>
+          <button onClick={handleLogout}>
+            <FontAwesomeIcon icon={faSignOutAlt} /> Logout
+          </button>
+          <button onClick={forceLogout} style={{ backgroundColor: '#e63946', marginTop: '10px' }}>
+            <FontAwesomeIcon icon={faSignOutAlt} /> Force Logout (Clear Old Token)
+          </button>
+        </aside>
 
-      <main className="content">
-        {isLoading ? <LoadingSpinner /> : renderContent()}
-      </main>
+        <main className="content">
+          {isLoading ? <LoadingSpinner /> : renderContent()}
+        </main>
 
-      {/* Edit Passage Modal */}
-      {isEditModalOpen && currentEditPassage && (
-        <div className="edit-modal show">
-          <div className="edit-modal-content">
-            <button className="close" onClick={() => setIsEditModalOpen(false)}>
-              <FontAwesomeIcon icon={faTimes} />
-            </button>
-            <h2>Edit Passage</h2>
-            <form onSubmit={(e) => {
-              e.preventDefault();
-              handleSaveEdit(currentEditPassage);
-            }}>
-              <label htmlFor="edit-title">Passage Title:</label>
-              <input
-                type="text"
-                id="edit-title"
-                value={currentEditPassage.title}
-                onChange={(e) => setCurrentEditPassage({
-                  ...currentEditPassage,
-                  title: e.target.value
-                })}
-                required
-              />
-              <label htmlFor="edit-content">Passage Content:</label>
-              <textarea
-                id="edit-content"
-                value={currentEditPassage.content}
-                onChange={(e) => setCurrentEditPassage({
-                  ...currentEditPassage,
-                  content: e.target.value
-                })}
-                required
-              />
-              <div className="button-group">
-                <button type="submit" className="save">Save Changes</button>
-                <button type="button" className="cancel" onClick={() => setIsEditModalOpen(false)}>
-                  Cancel
+        {/* Edit Passage Modal */}
+        {isEditModalOpen && currentEditPassage && (
+          <div className="edit-modal show">
+            <div className="edit-modal-content">
+              <button className="close" onClick={() => setIsEditModalOpen(false)}>
+                <FontAwesomeIcon icon={faTimes} />
+              </button>
+              <h2>Edit Passage</h2>
+              <form onSubmit={(e) => {
+                e.preventDefault();
+                handleSaveEdit(currentEditPassage);
+              }}>
+                <label htmlFor="edit-title">Passage Title:</label>
+                <input
+                  type="text"
+                  id="edit-title"
+                  value={currentEditPassage.title}
+                  onChange={(e) => setCurrentEditPassage({
+                    ...currentEditPassage,
+                    title: e.target.value
+                  })}
+                  required
+                />
+                <label htmlFor="edit-content">Passage Content:</label>
+                <textarea
+                  id="edit-content"
+                  value={currentEditPassage.content}
+                  onChange={(e) => setCurrentEditPassage({
+                    ...currentEditPassage,
+                    content: e.target.value
+                  })}
+                  required
+                />
+                <div className="button-group">
+                  <button type="submit" className="save">Save Changes</button>
+                  <button type="button" className="cancel" onClick={() => setIsEditModalOpen(false)}>
+                    Cancel
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        )}
+
+        {/* Enhanced Confirmation Dialog */}
+        {confirmationDialog.show && (
+          <div className="modal-overlay">
+            <div className={`modal-content confirmation-dialog ${confirmationDialog.type}`}>
+              <div className="confirmation-header">
+                {getConfirmationIcon()}
+                <h3>{confirmationDialog.title}</h3>
+              </div>
+              <div className="confirmation-body">
+                <p>{confirmationDialog.message}</p>
+              </div>
+              <div className="confirmation-actions">
+                <button 
+                  onClick={hideConfirmationDialog} 
+                  className="cancel-btn"
+                >
+                  {confirmationDialog.cancelText}
+                </button>
+                <button 
+                  onClick={executeConfirmationAction} 
+                  className={`confirm-btn ${confirmationDialog.type}`}
+                >
+                  {confirmationDialog.confirmText}
                 </button>
               </div>
-            </form>
-          </div>
-        </div>
-      )}
-
-      {/* Enhanced Confirmation Dialog */}
-      {confirmationDialog.show && (
-        <div className="modal-overlay">
-          <div className={`modal-content confirmation-dialog ${confirmationDialog.type}`}>
-            <div className="confirmation-header">
-              {getConfirmationIcon()}
-              <h3>{confirmationDialog.title}</h3>
-            </div>
-            <div className="confirmation-body">
-              <p>{confirmationDialog.message}</p>
-            </div>
-            <div className="confirmation-actions">
-              <button 
-                onClick={hideConfirmationDialog} 
-                className="cancel-btn"
-              >
-                {confirmationDialog.cancelText}
-              </button>
-              <button 
-                onClick={executeConfirmationAction} 
-                className={`confirm-btn ${confirmationDialog.type}`}
-              >
-                {confirmationDialog.confirmText}
-              </button>
             </div>
           </div>
-        </div>
-      )}
+        )}
 
-      {/* Toast Notification */}
-      <Toast
-        type={toast.type}
-        message={toast.message}
-        show={toast.show}
-        onClose={hideToast}
-        duration={4000}
-      />
-    </div>
+        {/* Toast Notification */}
+        <Toast
+          type={toast.type}
+          message={toast.message}
+          show={toast.show}
+          onClose={hideToast}
+          duration={4000}
+        />
+      </div>
+    </>
   );
 };
 

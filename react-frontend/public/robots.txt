@@ -1,12 +1,48 @@
 # https://www.robotstxt.org/robotstxt.html
 User-agent: *
 Allow: /
-# Block all admin panel and secret login URLs from indexing
+
+# Block admin pages from indexing
 Disallow: /admin/
 Disallow: /admin/*
-Disallow: /admin-secret-9382xj
-# Block test/dev routes
-Disallow: /create-test/testing
+Disallow: /api/admin/
+Disallow: /api/admin/*
 
-# Sitemaps
+# Block user dashboard and private pages
+Disallow: /user/dashboard
+Disallow: /user/*
+
+# Allow important pages
+Allow: /
+Allow: /typing-test
+Allow: /live-typing-test
+Allow: /exam-wise-test
+Allow: /create-test
+Allow: /typing-course
+Allow: /ssc-cgl-test
+Allow: /ssc-chsl-test
+Allow: /rrb-ntpc-test
+Allow: /typing-certificate-test
+Allow: /junior-court-assistant-test
+Allow: /junior-assistant-test
+Allow: /superintendent-test
+Allow: /up-police-test
+Allow: /bihar-police-test
+Allow: /aiims-crc-test
+Allow: /allahabad-high-court-test
+Allow: /typing-level-practice
+Allow: /typing-engine-practice
+Allow: /typing-practice
+Allow: /certificate
+Allow: /certificate-verification
+Allow: /community
+Allow: /blog
+Allow: /about-us
+Allow: /contact-us
+Allow: /faqs
+Allow: /terms-of-service
+Allow: /privacy-policy
+Allow: /declaration
+
+# Sitemap location
 Sitemap: https://typinghub.in/sitemap.xml 

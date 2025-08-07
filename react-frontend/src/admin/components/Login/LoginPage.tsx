@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 import Login from './Login';
 import './LoginPage.css';
 // Add FontAwesome for icon
@@ -100,65 +101,75 @@ const LoginPage: React.FC = () => {
   };
 
   return (
-    <div className="admin-page">
-      <SlidingParticles />
-      <FloatingBlobs />
-      <div className="admin-container" style={{ marginTop: 0 }}>
-        {/* Branding Section */}
-        <div className="admin-branding">
-          <h2 className="brand-title">{greeting}, Admin! <span className="greeting-emoji" role="img" aria-label="smile">😊</span></h2>
-          <img src="/images/Main_LOGO.png" alt="TypingHub Logo" className="admin-logo" />
-          <span className="brand-title-sub">TypingHub Admin</span>
-        </div>
-        {/* Info Alert */}
-        <div className="admin-info-alert">
-          <span role="img" aria-label="info">⚠️</span> For Admin Use Only – Only authorized personnel allowed
-        </div>
-        {/* Illustration/Icon */}
-        <div className="admin-illustration">
-          <FontAwesomeIcon icon={faShieldAlt} size="4x" className="admin-shield-icon" />
-        </div>
-        <div className="admin-header">
-          <h1>Admin Panel</h1>
-          <p>Welcome to the administration area</p>
-        </div>
-        <div className="admin-options">
-          <div className="option-card">
-            <h3>Login</h3>
-            <p>Access your admin dashboard</p>
+    <>
+      <Helmet>
+        <title>Admin Login - TypingHub</title>
+        <meta name="robots" content="noindex, nofollow, noarchive, nosnippet" />
+        <meta name="googlebot" content="noindex, nofollow" />
+        <meta name="description" content="Admin access only" />
+        <meta property="og:robots" content="noindex, nofollow" />
+        <meta name="twitter:robots" content="noindex, nofollow" />
+      </Helmet>
+      <div className="admin-page">
+        <SlidingParticles />
+        <FloatingBlobs />
+        <div className="admin-container" style={{ marginTop: 0 }}>
+          {/* Branding Section */}
+          <div className="admin-branding">
+            <h2 className="brand-title">{greeting}, Admin! <span className="greeting-emoji" role="img" aria-label="smile">😊</span></h2>
+            <img src="/images/Main_LOGO.png" alt="TypingHub Logo" className="admin-logo" />
+            <span className="brand-title-sub">TypingHub Admin</span>
+          </div>
+          {/* Info Alert */}
+          <div className="admin-info-alert">
+            <span role="img" aria-label="info">⚠️</span> For Admin Use Only – Only authorized personnel allowed
+          </div>
+          {/* Illustration/Icon */}
+          <div className="admin-illustration">
+            <FontAwesomeIcon icon={faShieldAlt} size="4x" className="admin-shield-icon" />
+          </div>
+          <div className="admin-header">
+            <h1>Admin Panel</h1>
+            <p>Welcome to the administration area</p>
+          </div>
+          <div className="admin-options">
+            <div className="option-card">
+              <h3>Login</h3>
+              <p>Access your admin dashboard</p>
+              <button 
+                className="admin-btn login-btn"
+                onClick={() => handleOpenModal('login')}
+              >
+                Login
+              </button>
+            </div>
+            <div className="option-card">
+              <h3>Register</h3>
+              <p>Create a new admin account</p>
+              <button 
+                className="admin-btn register-btn"
+                onClick={() => handleOpenModal('register')}
+              >
+                Register
+              </button>
+            </div>
+          </div>
+          <div className="admin-footer">
             <button 
-              className="admin-btn login-btn"
-              onClick={() => handleOpenModal('login')}
+              className="back-btn"
+              onClick={() => navigate('/')}
             >
-              Login
+              ← Back to Home
             </button>
           </div>
-          <div className="option-card">
-            <h3>Register</h3>
-            <p>Create a new admin account</p>
-            <button 
-              className="admin-btn register-btn"
-              onClick={() => handleOpenModal('register')}
-            >
-              Register
-            </button>
-          </div>
         </div>
-        <div className="admin-footer">
-          <button 
-            className="back-btn"
-            onClick={() => navigate('/')}
-          >
-            ← Back to Home
-          </button>
-        </div>
+        <Login 
+          isOpen={isModalOpen} 
+          onClose={handleClose}
+          modalType={modalType}
+        />
       </div>
-      <Login 
-        isOpen={isModalOpen} 
-        onClose={handleClose}
-        modalType={modalType}
-      />
-    </div>
+    </>
   );
 };
 
