@@ -3,7 +3,7 @@
 # Format: domain, publisher_id, relationship, certification_authority_id
 
 # Google AdSense / Ad Manager
-google.com, pub-XXXXXXXXXXXXXXXX, DIRECT, f08c47fec0942fa0
+google.com, pub-9840881106215536, DIRECT, f08c47fec0942fa0
 
 # If you work with resellers, add their entries as provided by your ad partners.
 # Examples (remove the # and use real values only if applicable):
