@@ -102,5 +102,19 @@ try {
 declare const module: any;
 if (process.env.NODE_ENV === 'development' && module.hot) {
   module.hot.accept();
+}
+
+// Register Monetag service worker in production
+if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker
+      .register('/sw.js', { scope: '/' })
+      .then((registration) => {
+        console.log('Service worker registered with scope:', registration.scope);
+      })
+      .catch((error) => {
+        console.error('Service worker registration failed:', error);
+      });
+  });
 } 
  

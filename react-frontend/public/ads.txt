@@ -1,0 +1,16 @@
+# ads.txt — Authorized Digital Sellers
+# Replace the placeholder with your actual Google AdSense/Ad Manager publisher ID.
+# Format: domain, publisher_id, relationship, certification_authority_id
+
+# Google AdSense / Ad Manager
+google.com, pub-XXXXXXXXXXXXXXXX, DIRECT, f08c47fec0942fa0
+
+# If you work with resellers, add their entries as provided by your ad partners.
+# Examples (remove the # and use real values only if applicable):
+# google.com, pub-XXXXXXXXXXXXXXXX, RESELLER, f08c47fec0942fa0
+# appnexus.com, 12345, DIRECT, f5ab79cb980f11d1
+# rubiconproject.com, 67890, DIRECT, 0bfd66d529a55807
+
+# Notes:
+# - Keep this file at https://yourdomain.com/ads.txt
+# - Update whenever you add/remove ad partners
