@@ -63,7 +63,7 @@ const ContactUs: React.FC = () => {
       }
 
       // Check file type
-      const allowedTypes = ['.jpg', '.jpeg', '.png', '.pdf', '.doc', '.docx'];
+      const allowedTypes = ['.webp', '.webp', '.webp', '.pdf', '.doc', '.docx'];
       const fileExtension = '.' + file.name.split('.').pop()?.toLowerCase();
       if (!allowedTypes.includes(fileExtension || '')) {
         alert('Invalid file type. Please upload JPG, PNG, PDF, or DOC files.');

@@ -5,18 +5,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
   faKeyboard, 
   faFileAlt, 
-  faUserTie, 
   faGraduationCap,
   faCheckCircle,
-  faClock,
-  faChartLine,
   faBook,
   faCertificate,
   faChalkboardTeacher,
   faArrowRight,
   faStar,
-  faUsers,
-  faTrophy,
   faPenToSquare,
   faLaptopCode,
   faRocket,
@@ -30,8 +25,6 @@ import {
   faUserGraduate,
   faHandshake,
   faChartBar,
-  faSmile,
-  faHeart,
   faLaptop,
   faLightbulb
 } from '@fortawesome/free-solid-svg-icons';
@@ -172,7 +165,7 @@ const Home: React.FC = () => {
     description: 'Free typing practice platform for government exam aspirants. Improve your typing speed and accuracy with our comprehensive typing tests and resources.',
     keywords: 'typing test, government exam typing, hindi typing, english typing, typing practice, SSC typing test, RRB typing test, CHSL typing test',
     canonicalUrl: 'https://typinghub.in',
-    ogImage: '/images/typing-hub-og.jpg'
+    ogImage: '/images/typing-hub-og.webp'
   };
 
   // JSON-LD structured data
@@ -402,12 +395,12 @@ const Home: React.FC = () => {
             <div className="pattern-bg"></div>
             <div className="flag-ribbon"></div>
             <img
-              src="/images/ashoka-chakra.png"
+              src="/images/ashoka-chakra.webp"
               alt="Ashoka Chakra"
               className="ashoka-chakra"
               draggable={false}
             />
-            <img src="/images/Main_LOGO.png" alt="TypingHub Logo" className="main-logo" />
+            <img src="/images/Main_LOGO.webp" alt="TypingHub Logo" className="main-logo" />
             <h2>
               TYPING CERTIFICATE
               <span className="laurel-svg">
@@ -434,7 +427,7 @@ const Home: React.FC = () => {
             <div style={{ fontSize: 15, color: '#333', marginBottom: 6 }}><b>Verification Code:</b> VC-DEMO123</div>
             <div className="decorative-line"></div>
             <div className="gold-seal">
-              <img src="/images/gold-seal.png" alt="Gold Seal" />
+              <img src="/images/gold-seal.webp" alt="Gold Seal" />
             </div>
             <div className="footer">TypingHub.in</div>
           </div>

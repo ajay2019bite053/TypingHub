@@ -1,8 +1,6 @@
 import React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import typingCourse from '../assets/typingCourse.json';
-// You can import your TypingEngine or TypingPractice component here
-// import TypingEngine from '../components/common/TypingEngine';
 
 const TypingPracticePage: React.FC = () => {
   const { levelId, subLevelId } = useParams();

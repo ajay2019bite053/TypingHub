@@ -9,7 +9,6 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import UserAuthModal from '../components/Auth/UserAuthModal';
 import CourseDetailsModal from '../components/CourseDetailsModal';
-import ReactDOM from 'react-dom';
 import './TypingCourseLanding.css';
 import '../components/UserDashboard/Dashboard.css';
 import { sharedLandingCourses } from '../components/UserDashboard/Dashboard';
@@ -31,25 +30,25 @@ const testimonials = [
     name: 'Ankit Sharma',
     quote: 'TypingHub.in made learning fun! The 3D keyboard and AI feedback are next level.',
     rating: 5,
-    avatar: '/avatars/ankit.jpg'
+    avatar: '/avatars/ankit.webp'
   },
   {
     name: 'Priya Patel',
     quote: 'I improved my speed by 30% in just a month. The gamified challenges kept me motivated!',
     rating: 5,
-    avatar: '/avatars/priya.jpg'
+    avatar: '/avatars/priya.webp'
   },
   {
     name: 'Rahul Verma',
     quote: 'Multi-language support helped me ace both Hindi and English typing tests.',
     rating: 5,
-    avatar: '/avatars/rahul.jpg'
+    avatar: '/avatars/rahul.webp'
   },
   {
     name: 'Sneha Gupta',
     quote: 'The demo mode and real-time key animations are so cool! Highly recommended.',
     rating: 5,
-    avatar: '/avatars/sneha.jpg'
+    avatar: '/avatars/sneha.webp'
   },
 ];
 
@@ -290,13 +289,13 @@ const TypingCourseLanding: React.FC = () => {
         <meta property="og:description" content="Master typing for government exams with expert-led training. Real exam patterns, comprehensive practice, and certification." />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://typinghub.in/typing-course" />
-        <meta property="og:image" content="https://typinghub.in/images/typing-course-og.jpg" />
+        <meta property="og:image" content="https://typinghub.in/images/typing-course-og.webp" />
         
         {/* Twitter Card Meta Tags */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Government Exam Typing Course" />
         <meta name="twitter:description" content="Expert-led typing training for government exams. SSC, RRB patterns." />
-        <meta name="twitter:image" content="https://typinghub.in/images/typing-course-og.jpg" />
+        <meta name="twitter:image" content="https://typinghub.in/images/typing-course-og.webp" />
         
         {/* Additional Meta Tags */}
         <meta name="robots" content="index, follow" />

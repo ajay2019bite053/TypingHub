@@ -451,7 +451,7 @@ const Community: React.FC = () => {
             left: 0,
             width: '100%',
             height: '100%',
-            background: 'url("/images/Background-img.jpg")',
+            background: 'url("/images/Background-img.webp")',
             opacity: 0.08,
             zIndex: 0
           }} />

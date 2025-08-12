@@ -117,7 +117,7 @@ const LoginPage: React.FC = () => {
           {/* Branding Section */}
           <div className="admin-branding">
             <h2 className="brand-title">{greeting}, Admin! <span className="greeting-emoji" role="img" aria-label="smile">😊</span></h2>
-            <img src="/images/Main_LOGO.png" alt="TypingHub Logo" className="admin-logo" />
+            <img src="/images/Main_LOGO.webp" alt="TypingHub Logo" className="admin-logo" />
             <span className="brand-title-sub">TypingHub Admin</span>
           </div>
           {/* Info Alert */}

@@ -1,14 +1,14 @@
-declare module '*.jpg' {
+declare module '*.webp' {
     const content: string;
     export default content;
 }
 
-declare module '*.jpeg' {
+declare module '*.webp' {
     const content: string;
     export default content;
 }
 
-declare module '*.png' {
+declare module '*.webp' {
     const content: string;
     export default content;
 }

@@ -52,7 +52,6 @@ const TypingEngine: React.FC<TypingEngineProps> = ({ config, backButton, hideFee
     timeLeft,
     selectedDuration,
     showFeedback,
-    feedback,
     typingStats,
     typedText,
     examMode,

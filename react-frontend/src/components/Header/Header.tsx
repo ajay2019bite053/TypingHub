@@ -16,7 +16,7 @@ const Header: React.FC = () => {
               rel="noopener noreferrer" 
               className="logo-link"
             >
-              <img src="/images/Main_LOGO.png" alt="TypingHub Logo" />
+              <img src="/images/Main_LOGO.webp" alt="TypingHub Logo" />
             </a>
             <a 
               href="https://typinghub.in" 

@@ -7,7 +7,7 @@ const Footer: React.FC = () => {
     <footer>
       <div className="footer-container">
         <div className="footer-section logo-section">
-          <img src="/images/Main_LOGO.png" alt="TypingHub Logo" />
+          <img src="/images/Main_LOGO.webp" alt="TypingHub Logo" />
           <a 
             href="https://typinghub.in" 
             target="_blank" 

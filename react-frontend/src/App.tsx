@@ -1,5 +1,5 @@
-import React, { Suspense, lazy, useState } from 'react';
-import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import React, { Suspense, lazy } from 'react';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
@@ -8,7 +8,6 @@ import { AdminProvider } from './contexts/AdminContext';
 import { AuthProvider } from './contexts/AuthContext';
 import { DeleteRequestProvider } from './contexts/DeleteRequestContext';
 import { TypingProvider } from './contexts/TypingContext';
-import ReactDOM, { createPortal } from 'react-dom';
 import Community from './pages/Community';
 
 // Lazy load all pages
