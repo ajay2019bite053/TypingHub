@@ -26,6 +26,7 @@ const cardRoutes = require('./routes/cardRoutes');
 const certificateRoutes = require('./routes/certificates');
 const blogRoutes = require('./routes/blogs');
 const aiRoutes = require('./routes/ai');
+const contactRoutes = require('./routes/contact');
 
 // Import middleware and utils
 const authMiddleware = require('./middleware/authMiddleware');
@@ -139,6 +140,7 @@ app.use('/api/cards', cardRoutes);
 app.use('/api/certificates', certificateRoutes);
 app.use('/api/blogs', blogRoutes);
 app.use('/api/ai', aiRoutes);
+app.use('/api/contact', contactRoutes);
 
 // Health check endpoint
 app.get('/api/health', (req, res) => {

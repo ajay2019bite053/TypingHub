@@ -2220,3 +2220,468 @@ body, section, h1, h2, h3, nav, .main-content, .container {
     font-size: 16px !important; /* Reduced from 18px */
   }
 } 
+
+/* Mobile Responsive Styles */
+@media (max-width: 768px) {
+  .about-us-page .about-hero-section {
+    padding: 40px 0 !important;
+  }
+  
+  .about-us-page .about-hero-content h1 {
+    font-size: 28px !important;
+    margin-bottom: 15px !important;
+  }
+  
+  .about-us-page .about-hero-content p {
+    font-size: 16px !important;
+  }
+  
+  .about-us-page .about-content {
+    padding: 20px 15px !important;
+  }
+  
+  /* Mission Vision - Stack vertically on mobile */
+  .about-us-page .mission-vision {
+    grid-template-columns: 1fr !important;
+    gap: 15px !important;
+    margin-bottom: 15px !important;
+  }
+  
+  .about-us-page .mission, .about-us-page .vision {
+    padding: 20px 15px !important;
+  }
+  
+  .about-us-page .mission h2, .about-us-page .vision h2 {
+    font-size: 22px !important;
+    margin-bottom: 15px !important;
+  }
+  
+  /* Achievements - Stack in 2 columns on mobile */
+  .about-us-page .achievements {
+    margin-bottom: 15px !important;
+    padding: 15px 0 !important;
+  }
+  
+  .about-us-page .achievements h2 {
+    font-size: 24px !important;
+    margin-bottom: 20px !important;
+  }
+  
+  .about-us-page .achievements-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 15px !important;
+    padding: 0 10px !important;
+  }
+  
+  .about-us-page .achievement-card {
+    padding: 20px 15px !important;
+  }
+  
+  .about-us-page .achievement-number {
+    font-size: 32px !important;
+    margin-bottom: 10px !important;
+  }
+  
+  /* Language Support - Stack vertically on mobile */
+  .about-us-page .language-support {
+    margin-bottom: 15px !important;
+    padding: 15px 0 !important;
+  }
+  
+  .about-us-page .language-support h2 {
+    font-size: 24px !important;
+    margin-bottom: 20px !important;
+  }
+  
+  .about-us-page .language-grid {
+    grid-template-columns: 1fr !important;
+    gap: 15px !important;
+    padding: 0 10px !important;
+  }
+  
+  .about-us-page .language-card {
+    padding: 20px 15px !important;
+  }
+  
+  .about-us-page .language-card h3 {
+    font-size: 20px !important;
+    margin-bottom: 15px !important;
+  }
+  
+  .about-us-page .language-card svg {
+    font-size: 36px !important;
+    margin-bottom: 15px !important;
+  }
+  
+  /* Features - Stack in 2 columns on mobile */
+  .about-us-page .features {
+    margin-bottom: 15px !important;
+    padding: 15px 0 !important;
+  }
+  
+  .about-us-page .features h2 {
+    font-size: 24px !important;
+    margin-bottom: 20px !important;
+  }
+  
+  .about-us-page .features-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 15px !important;
+    padding: 0 10px !important;
+  }
+  
+  .about-us-page .feature-card {
+    padding: 20px 15px !important;
+  }
+  
+  .about-us-page .feature-card h3 {
+    font-size: 18px !important;
+    margin-bottom: 12px !important;
+  }
+  
+  .about-us-page .feature-card svg {
+    font-size: 32px !important;
+    margin-bottom: 15px !important;
+  }
+  
+  /* Exam Coverage - Stack in 2 columns on mobile */
+  .about-us-page .exam-coverage {
+    margin-bottom: 15px !important;
+    padding: 15px 0 !important;
+  }
+  
+  .about-us-page .exam-coverage h2 {
+    font-size: 24px !important;
+    margin-bottom: 20px !important;
+  }
+  
+  .about-us-page .exam-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 15px !important;
+    padding: 0 10px !important;
+  }
+  
+  .about-us-page .exam-card {
+    padding: 20px 15px !important;
+  }
+  
+  .about-us-page .exam-card h3 {
+    font-size: 18px !important;
+    margin-bottom: 12px !important;
+  }
+  
+  .about-us-page .exam-card svg {
+    font-size: 32px !important;
+    margin-bottom: 15px !important;
+  }
+  
+  /* Journey - Adjust timeline for mobile */
+  .about-us-page .journey {
+    margin-bottom: 15px !important;
+    padding: 15px 0 !important;
+  }
+  
+  .about-us-page .journey h2 {
+    font-size: 24px !important;
+    margin-bottom: 20px !important;
+  }
+  
+  .about-us-page .timeline {
+    padding: 0 15px !important;
+  }
+  
+  .about-us-page .timeline::before {
+    left: 20px !important;
+  }
+  
+  .about-us-page .timeline-item {
+    width: 100% !important;
+    padding-left: 50px !important;
+    padding-right: 0 !important;
+    margin-bottom: 20px !important;
+  }
+  
+  .about-us-page .timeline-item:nth-child(even) {
+    margin-left: 0 !important;
+    padding-left: 50px !important;
+  }
+  
+  .about-us-page .timeline-dot {
+    left: 11px !important;
+    right: auto !important;
+  }
+  
+  .about-us-page .timeline-item:nth-child(even) .timeline-dot {
+    left: 11px !important;
+  }
+  
+  .about-us-page .timeline-content {
+    padding: 15px !important;
+  }
+  
+  .about-us-page .timeline-content h3 {
+    font-size: 18px !important;
+    margin-bottom: 10px !important;
+  }
+  
+  /* Recognition - Stack in 2 columns on mobile */
+  .about-us-page .recognition {
+    margin-bottom: 15px !important;
+    padding: 15px 0 !important;
+  }
+  
+  .about-us-page .recognition h2 {
+    font-size: 24px !important;
+    margin-bottom: 20px !important;
+  }
+  
+  .about-us-page .recognition-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 15px !important;
+    padding: 0 10px !important;
+  }
+  
+  .about-us-page .recognition-card {
+    padding: 20px 15px !important;
+  }
+  
+  .about-us-page .recognition-card h3 {
+    font-size: 18px !important;
+    margin-bottom: 12px !important;
+  }
+  
+  .about-us-page .recognition-card svg {
+    font-size: 32px !important;
+    margin-bottom: 15px !important;
+  }
+  
+  /* CTA Section - Stack buttons vertically on mobile */
+  .about-us-page .cta-section {
+    padding: 25px 15px !important;
+    margin: 15px !important;
+  }
+  
+  .about-us-page .cta-section h2 {
+    font-size: 24px !important;
+    margin-bottom: 12px !important;
+  }
+  
+  .about-us-page .cta-section p {
+    font-size: 16px !important;
+    margin-bottom: 15px !important;
+  }
+  
+  .about-us-page .cta-buttons {
+    flex-direction: column !important;
+    gap: 12px !important;
+  }
+  
+  .about-us-page .cta-button {
+    width: 100% !important;
+    justify-content: center !important;
+    padding: 12px 20px !important;
+    font-size: 16px !important;
+  }
+  
+  /* Navigation adjustments for mobile */
+  .about-us-page .nav-links {
+    display: none !important;
+  }
+  
+  .about-us-page .hamburger {
+    display: block !important;
+  }
+  
+  .about-us-page nav {
+    padding: 10px 15px !important;
+  }
+  
+  .about-us-page .nav-brand a {
+    font-size: 18px !important;
+  }
+  
+  .about-us-page .nav-brand img {
+    width: 50px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .about-us-page .about-hero-section {
+    padding: 30px 0 !important;
+  }
+  
+  .about-us-page .about-hero-content h1 {
+    font-size: 24px !important;
+    margin-bottom: 12px !important;
+  }
+  
+  .about-us-page .about-hero-content p {
+    font-size: 14px !important;
+  }
+  
+  .about-us-page .about-content {
+    padding: 15px 10px !important;
+  }
+  
+  /* Single column layout for very small screens */
+  .about-us-page .achievements-grid {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+  
+  .about-us-page .features-grid {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+  
+  .about-us-page .exam-grid {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+  
+  .about-us-page .recognition-grid {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+  
+  /* Reduce card padding further */
+  .about-us-page .mission, .about-us-page .vision,
+  .about-us-page .achievement-card,
+  .about-us-page .feature-card,
+  .about-us-page .language-card,
+  .about-us-page .exam-card,
+  .about-us-page .recognition-card {
+    padding: 15px 12px !important;
+  }
+  
+  /* Reduce heading sizes */
+  .about-us-page .achievements h2,
+  .about-us-page .features h2,
+  .about-us-page .journey h2,
+  .about-us-page .language-support h2,
+  .about-us-page .exam-coverage h2,
+  .about-us-page .recognition h2,
+  .about-us-page .cta-section h2 {
+    font-size: 20px !important;
+    margin-bottom: 15px !important;
+  }
+  
+  .about-us-page .mission h2, .about-us-page .vision h2 {
+    font-size: 18px !important;
+    margin-bottom: 12px !important;
+  }
+  
+  .about-us-page .achievement-card h3,
+  .about-us-page .feature-card h3,
+  .about-us-page .language-card h3,
+  .about-us-page .exam-card h3,
+  .about-us-page .recognition-card h3,
+  .about-us-page .timeline-content h3 {
+    font-size: 16px !important;
+    margin-bottom: 10px !important;
+  }
+  
+  /* Reduce icon sizes */
+  .about-us-page .achievement-number {
+    font-size: 28px !important;
+  }
+  
+  .about-us-page .feature-card svg,
+  .about-us-page .language-card svg,
+  .about-us-page .exam-card svg,
+  .about-us-page .recognition-card svg {
+    font-size: 28px !important;
+    margin-bottom: 12px !important;
+  }
+  
+  /* Adjust CTA section */
+  .about-us-page .cta-section {
+    padding: 20px 12px !important;
+    margin: 10px !important;
+  }
+  
+  .about-us-page .cta-section h2 {
+    font-size: 20px !important;
+  }
+  
+  .about-us-page .cta-section p {
+    font-size: 14px !important;
+  }
+  
+  .about-us-page .cta-button {
+    padding: 10px 16px !important;
+    font-size: 14px !important;
+  }
+  
+  /* Adjust timeline for very small screens */
+  .about-us-page .timeline {
+    padding: 0 10px !important;
+  }
+  
+  .about-us-page .timeline-item {
+    padding-left: 40px !important;
+  }
+  
+  .about-us-page .timeline-dot {
+    left: 10px !important;
+    width: 16px !important;
+    height: 16px !important;
+  }
+  
+  .about-us-page .timeline-content {
+    padding: 12px !important;
+  }
+  
+  .about-us-page .timeline-content h3 {
+    font-size: 16px !important;
+  }
+  
+  .about-us-page .timeline-content p {
+    font-size: 14px !important;
+  }
+}
+
+@media (max-width: 360px) {
+  .about-us-page .about-hero-content h1 {
+    font-size: 22px !important;
+  }
+  
+  .about-us-page .about-hero-content p {
+    font-size: 13px !important;
+  }
+  
+  .about-us-page .about-content {
+    padding: 12px 8px !important;
+  }
+  
+  /* Further reduce padding for very small screens */
+  .about-us-page .mission, .about-us-page .vision,
+  .about-us-page .achievement-card,
+  .about-us-page .feature-card,
+  .about-us-page .language-card,
+  .about-us-page .exam-card,
+  .about-us-page .recognition-card {
+    padding: 12px 10px !important;
+  }
+  
+  /* Reduce grid gaps */
+  .about-us-page .achievements-grid,
+  .about-us-page .features-grid,
+  .about-us-page .language-grid,
+  .about-us-page .exam-grid,
+  .about-us-page .recognition-grid {
+    gap: 10px !important;
+    padding: 0 8px !important;
+  }
+  
+  /* Adjust CTA section */
+  .about-us-page .cta-section {
+    padding: 18px 10px !important;
+    margin: 8px !important;
+  }
+  
+  .about-us-page .cta-button {
+    padding: 8px 14px !important;
+    font-size: 13px !important;
+  }
+}

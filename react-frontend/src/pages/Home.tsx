@@ -370,14 +370,11 @@ const Home: React.FC = () => {
                 target.src = target.src.replace('.webp', '.png');
               }}
             />
-            <h2>
-              TYPING CERTIFICATE
-              <span className="laurel-svg">
-                <svg width="120" height="18" viewBox="0 0 120 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M10 9 Q20 18, 60 18 Q100 18, 110 9" stroke="#e0c36a" strokeWidth="2" fill="none"/>
-                </svg>
-              </span>
-            </h2>
+            <div className="certificate-title">
+              <div className="title-line"></div>
+              <h2 className="main-title">TYPING CERTIFICATE</h2>
+              <div className="title-line"></div>
+            </div>
             <p style={{ fontSize: 16, color: '#333', marginBottom: 12 }}>This is to certify that</p>
             <h3>Amit Kumar</h3>
             <p style={{ fontSize: 16, color: '#333', marginBottom: 14 }}>has successfully completed the typing test with</p>
@@ -407,9 +404,8 @@ const Home: React.FC = () => {
                 }}
               />
             </div>
-            <div className="footer">TypingHub.in</div>
           </div>
-          <div className="certificate-buttons" style={{ marginTop: 32, display: 'flex', gap: 18 }}>
+          <div className="certificate-buttons">
             <Link to="/certificate" className="btn primary-btn no-hover">
               <FontAwesomeIcon icon={faCertificate} />
               Get Certificate

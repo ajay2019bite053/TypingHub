@@ -204,7 +204,7 @@ const CreateTest = () => {
             marginTop: '0px',
             paddingTop: '0px'
           }}>
-            <div style={{ display: 'flex', gap: '15px' }}>
+            <div style={{ display: 'flex', gap: '15px', width: '100%' }}>
               <button
                 onClick={() => setUseAiText(true)}
                 style={{
@@ -222,7 +222,8 @@ const CreateTest = () => {
                   alignItems: 'center',
                   gap: '8px',
                   minWidth: '200px',
-                  justifyContent: 'center'
+                  justifyContent: 'center',
+                  flex: '1'
                 }}
               >
                 🤖 Use AI for generating passage
@@ -244,7 +245,8 @@ const CreateTest = () => {
                   alignItems: 'center',
                   gap: '8px',
                   minWidth: '200px',
-                  justifyContent: 'center'
+                  justifyContent: 'center',
+                  flex: '1'
                 }}
               >
                 ✏️ Use your own custom passage
@@ -267,62 +269,64 @@ const CreateTest = () => {
                   display: 'flex', 
                   alignItems: 'center', 
                   gap: '10px', 
-                  marginBottom: '25px',
-                  paddingBottom: '15px',
+                  marginBottom: '0px',
+                  paddingBottom: '0px',
                   borderBottom: '2px solid #e0e0e0',
-                  justifyContent: 'space-between'
+                  justifyContent: 'center'
                 }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                     <span style={{ fontSize: '1.5rem' }}>🤖</span>
                     <h3 style={{ margin: '0', color: '#2c3e50', fontSize: '1.4rem' }}>AI Text Generator</h3>
                   </div>
-                                    <div className="search-container">
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flex: '1' }}>
-                      <label className="search-label">
-                        Search Text:
-                      </label>
-                      <input
-                        type="text"
-                        className="search-input"
-                        value={searchText}
-                        onChange={(e) => setSearchText(e.target.value)}
-                        onKeyPress={(e) => {
-                          if (e.key === 'Enter' && searchText.trim()) {
-                            generateAiTextFromSearch();
-                          }
-                        }}
-                        placeholder="Type a topic (e.g., modi ji, pollution, education) and press Enter..."
-                      />
-                    </div>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                      <label className="search-label">
-                        Length:
-                      </label>
-                      <select 
-                        value={textLength} 
-                        onChange={(e) => setTextLength(e.target.value)}
-                        className="search-input"
-                        style={{ minWidth: '120px' }}
-                      >
-                        {lengthOptions.map(option => (
-                          <option key={option.value} value={option.value}>
-                            {option.label}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
-                    <div style={{ display: 'flex', alignItems: 'end' }}>
-                      <button
-                        className="search-button"
-                        onClick={generateAiTextFromSearch}
-                        disabled={isGenerating || !searchText.trim()}
-                      >
-                        {isGenerating ? '🔄 Generating...' : '🚀 Generate Passage'}
-                      </button>
-                    </div>
+                </div>
+                
+                <div className="search-container">
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flex: '1' }}>
+                    <label className="search-label">
+                      Search Text:
+                    </label>
+                    <input
+                      type="text"
+                      className="search-input"
+                      value={searchText}
+                      onChange={(e) => setSearchText(e.target.value)}
+                      onKeyPress={(e) => {
+                        if (e.key === 'Enter' && searchText.trim()) {
+                          generateAiTextFromSearch();
+                        }
+                      }}
+                      placeholder="Type a topic (e.g., modi ji, pollution, education)..."
+                    />
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <label className="search-label">
+                      Length:
+                    </label>
+                    <select 
+                      value={textLength} 
+                      onChange={(e) => setTextLength(e.target.value)}
+                      className="search-input"
+                      style={{ minWidth: '120px' }}
+                    >
+                      {lengthOptions.map(option => (
+                        <option key={option.value} value={option.value}>
+                          {option.label}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'end' }}>
+                    <button
+                      className="search-button"
+                      onClick={generateAiTextFromSearch}
+                      disabled={isGenerating || !searchText.trim()}
+                    >
+                      {isGenerating ? '🔄 Generating...' : '🚀 Generate Passage'}
+                    </button>
                   </div>
                 </div>
-            <div className="text-input-container">
+                
+                <div className="text-input-container">
                   <div className="textarea-container" style={{ flex: '1', marginLeft: '0' }}>
                     <textarea
                       className="custom-textarea"
@@ -376,24 +380,24 @@ const CreateTest = () => {
                   <span style={{ fontSize: '1.5rem' }}>✏️</span>
                   <h3 style={{ margin: '0', color: '#2c3e50', fontSize: '1.4rem' }}>Custom Text Input</h3>
                 </div>
-            <div className="text-input-container">
+                <div className="text-input-container">
                   <div className="textarea-container" style={{ flex: '1', marginLeft: '0' }}>
-          <textarea
-                  className="custom-textarea"
-                  value={customText}
-                  onChange={(e) => setCustomText(e.target.value)}
-                  placeholder="Write or paste your custom text here... (Minimum 10 words recommended, or leave blank to use default passage)"
+                    <textarea
+                      className="custom-textarea"
+                      value={customText}
+                      onChange={(e) => setCustomText(e.target.value)}
+                      placeholder="Write or paste your custom text here... (Minimum 10 words recommended, or leave blank to use default passage)"
                       rows={10}
-                />
-                <div className="text-info" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <div style={{ display: 'flex', gap: '15px' }}>
-                  <span>Words: {customText.trim().split(/\s+/).filter(word => word.length > 0).length}</span>
-                  <span>Characters: {customText.length}</span>
-                </div>
-              <button
-                    className="proceed-button"
-                    onClick={handleProceed}
-                    disabled={loading}
+                    />
+                    <div className="text-info" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                      <div style={{ display: 'flex', gap: '15px' }}>
+                        <span>Words: {customText.trim().split(/\s+/).filter(word => word.length > 0).length}</span>
+                        <span>Characters: {customText.length}</span>
+                      </div>
+                      <button
+                        className="proceed-button"
+                        onClick={handleProceed}
+                        disabled={loading}
                         style={{
                           background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
                           color: 'white',
@@ -412,15 +416,15 @@ const CreateTest = () => {
                         }}
                       >
                         {loading ? '🔄 Loading...' : 'Continue to Test'}
-              </button>
-            </div>
-          </div>
-            </div>
-          </div>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
             )}
-        </div>
           </div>
-    </div>
+        </div>
+      </div>
   );
 };
 

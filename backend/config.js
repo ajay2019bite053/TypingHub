@@ -30,7 +30,10 @@ const config = {
   FRONTEND_URL: process.env.FRONTEND_URL,
   CORS_ORIGIN: corsOrigin,
   // OpenRouter API Key - Load from environment variable
-  OPENROUTER_API_KEY: process.env.OPENROUTER_API_KEY
+  OPENROUTER_API_KEY: process.env.OPENROUTER_API_KEY,
+  // Email Configuration
+  EMAIL_USER: process.env.EMAIL_USER,
+  EMAIL_PASS: process.env.EMAIL_PASS
 };
 
 // Validate required fields

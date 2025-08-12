@@ -304,55 +304,305 @@
     margin-bottom: 24px;
   }
 }
+
 @media (max-width: 768px) {
   .declaration-hero-section {
-    padding: 60px 0;
+    padding: 40px 0 !important;
   }
+  
   .declaration-hero-content h1 {
-    font-size: 32px;
+    font-size: 28px !important;
+    margin-bottom: 15px !important;
   }
+  
   .declaration-hero-content p {
-    font-size: 18px;
+    font-size: 16px !important;
   }
+  
   .declaration-modern-content {
-    padding: 16px 2vw 24px 2vw;
-    gap: 18px;
+    padding: 20px 15px 30px 15px !important;
+    gap: 20px !important;
   }
+  
   .declaration-modern-sections {
-    gap: 18px;
+    gap: 20px !important;
   }
+  
   .declaration-modern-section.modern-panel-card {
-    padding: 22px 8px 14px 8px;
+    padding: 25px 15px 20px 15px !important;
   }
+  
   .modern-panel-icon-wrapper {
-    width: 48px;
-    height: 48px;
-    top: -20px;
-    left: 12px;
+    width: 50px !important;
+    height: 50px !important;
+    top: -25px !important;
+    left: 15px !important;
   }
+  
+  .modern-panel-icon {
+    font-size: 24px !important;
+  }
+  
   .modern-panel-title {
-    margin-top: 16px;
-    font-size: 18px;
+    margin-top: 20px !important;
+    font-size: 20px !important;
+    margin-bottom: 15px !important;
+  }
+  
+  .declaration-modern-section p,
+  .declaration-modern-section ul,
+  .declaration-modern-section li {
+    font-size: 15px !important;
+    line-height: 1.6 !important;
+  }
+  
+  .declaration-modern-section ul {
+    margin-left: 15px !important;
+    margin-bottom: 15px !important;
+  }
+  
+  .commitment-card {
+    padding: 15px !important;
+    margin: 15px 0 0 0 !important;
+  }
+  
+  .commitment-card h4 {
+    font-size: 16px !important;
+    margin-bottom: 8px !important;
+  }
+  
+  .commitment-card p {
+    font-size: 14px !important;
+  }
+  
+  /* Sidebar adjustments for mobile */
+  .declaration-modern-sidebar-card {
+    padding: 20px 15px !important;
+    border-radius: 15px !important;
+  }
+  
+  .declaration-modern-sidebar-card h2 {
+    font-size: 20px !important;
+    margin-bottom: 15px !important;
+  }
+  
+  .declaration-modern-sidebar-card a {
+    font-size: 14px !important;
+    padding: 10px 8px !important;
+  }
+  
+  /* Scroll to top button adjustments */
+  .scroll-to-top {
+    width: 45px !important;
+    height: 45px !important;
+    bottom: 20px !important;
+    right: 20px !important;
+    font-size: 18px !important;
+  }
+  
+  .last-updated {
+    font-size: 12px !important;
+    margin-top: 20px !important;
   }
 }
+
 @media (max-width: 480px) {
   .declaration-hero-section {
-    padding: 36px 0;
+    padding: 30px 0 !important;
   }
+  
   .declaration-hero-content h1 {
-    font-size: 24px;
+    font-size: 24px !important;
+    margin-bottom: 12px !important;
   }
+  
   .declaration-hero-content p {
-    font-size: 15px;
+    font-size: 14px !important;
   }
+  
   .declaration-modern-content {
-    padding: 6px 0 12px 0;
+    padding: 15px 10px 20px 10px !important;
+    gap: 15px !important;
   }
+  
+  .declaration-modern-sections {
+    gap: 15px !important;
+  }
+  
   .declaration-modern-section.modern-panel-card {
-    padding: 10px 2px 8px 2px;
+    padding: 20px 12px 15px 12px !important;
   }
+  
+  .modern-panel-icon-wrapper {
+    width: 45px !important;
+    height: 45px !important;
+    top: -22px !important;
+    left: 12px !important;
+  }
+  
+  .modern-panel-icon {
+    font-size: 20px !important;
+  }
+  
   .modern-panel-title {
-    font-size: 15px;
+    margin-top: 18px !important;
+    font-size: 18px !important;
+    margin-bottom: 12px !important;
+  }
+  
+  .declaration-modern-section p,
+  .declaration-modern-section ul,
+  .declaration-modern-section li {
+    font-size: 14px !important;
+    line-height: 1.5 !important;
+  }
+  
+  .declaration-modern-section ul {
+    margin-left: 12px !important;
+    margin-bottom: 12px !important;
+  }
+  
+  .commitment-card {
+    padding: 12px !important;
+    margin: 12px 0 0 0 !important;
+  }
+  
+  .commitment-card h4 {
+    font-size: 15px !important;
+    margin-bottom: 6px !important;
+  }
+  
+  .commitment-card p {
+    font-size: 13px !important;
+  }
+  
+  /* Sidebar adjustments for small screens */
+  .declaration-modern-sidebar-card {
+    padding: 15px 12px !important;
+  }
+  
+  .declaration-modern-sidebar-card h2 {
+    font-size: 18px !important;
+    margin-bottom: 12px !important;
+  }
+  
+  .declaration-modern-sidebar-card a {
+    font-size: 13px !important;
+    padding: 8px 6px !important;
+  }
+  
+  /* Scroll to top button */
+  .scroll-to-top {
+    width: 40px !important;
+    height: 40px !important;
+    bottom: 15px !important;
+    right: 15px !important;
+    font-size: 16px !important;
+  }
+  
+  .last-updated {
+    font-size: 11px !important;
+    margin-top: 15px !important;
+  }
+}
+
+@media (max-width: 360px) {
+  .declaration-hero-section {
+    padding: 25px 0 !important;
+  }
+  
+  .declaration-hero-content h1 {
+    font-size: 22px !important;
+    margin-bottom: 10px !important;
+  }
+  
+  .declaration-hero-content p {
+    font-size: 13px !important;
+  }
+  
+  .declaration-modern-content {
+    padding: 12px 8px 15px 8px !important;
+    gap: 12px !important;
+  }
+  
+  .declaration-modern-sections {
+    gap: 12px !important;
+  }
+  
+  .declaration-modern-section.modern-panel-card {
+    padding: 18px 10px 12px 10px !important;
+  }
+  
+  .modern-panel-icon-wrapper {
+    width: 40px !important;
+    height: 40px !important;
+    top: -20px !important;
+    left: 10px !important;
+  }
+  
+  .modern-panel-icon {
+    font-size: 18px !important;
+  }
+  
+  .modern-panel-title {
+    margin-top: 15px !important;
+    font-size: 16px !important;
+    margin-bottom: 10px !important;
+  }
+  
+  .declaration-modern-section p,
+  .declaration-modern-section ul,
+  .declaration-modern-section li {
+    font-size: 13px !important;
+    line-height: 1.4 !important;
+  }
+  
+  .declaration-modern-section ul {
+    margin-left: 10px !important;
+    margin-bottom: 10px !important;
+  }
+  
+  .commitment-card {
+    padding: 10px !important;
+    margin: 10px 0 0 0 !important;
+  }
+  
+  .commitment-card h4 {
+    font-size: 14px !important;
+    margin-bottom: 5px !important;
+  }
+  
+  .commitment-card p {
+    font-size: 12px !important;
+  }
+  
+  /* Sidebar adjustments for very small screens */
+  .declaration-modern-sidebar-card {
+    padding: 12px 10px !important;
+  }
+  
+  .declaration-modern-sidebar-card h2 {
+    font-size: 16px !important;
+    margin-bottom: 10px !important;
+  }
+  
+  .declaration-modern-sidebar-card a {
+    font-size: 12px !important;
+    padding: 6px 5px !important;
+  }
+  
+  /* Scroll to top button */
+  .scroll-to-top {
+    width: 35px !important;
+    height: 35px !important;
+    bottom: 12px !important;
+    right: 12px !important;
+    font-size: 14px !important;
+  }
+  
+  .last-updated {
+    font-size: 10px !important;
+    margin-top: 12px !important;
   }
 }
 
