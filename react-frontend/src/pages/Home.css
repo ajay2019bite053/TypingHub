@@ -1935,6 +1935,8 @@ section, .features-grid, .testimonials, .achievements, .resources-section, .typi
   background: #e3e3e3 !important;
   color: #1565c0 !important;
 }
+
+
 @media (max-width: 800px) {
   .demo-certificate-card {
     padding: 18px 6px 14px 6px;

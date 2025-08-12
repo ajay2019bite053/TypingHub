@@ -6,18 +6,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
   faKeyboard, 
   faFileAlt, 
-  faGraduationCap,
   faCheckCircle,
   faBook,
   faCertificate,
   faChalkboardTeacher,
-  faArrowRight,
   faStar,
   faPenToSquare,
-  faLaptopCode,
   faRocket,
   faSearch,
-  faUserPlus,
   faClipboardCheck,
   faHeadset,
   faShieldAlt,
@@ -26,8 +22,7 @@ import {
   faUserGraduate,
   faHandshake,
   faChartBar,
-  faLaptop,
-  faLightbulb
+  faLaptop
 } from '@fortawesome/free-solid-svg-icons';
 import './Home.css';
 
@@ -117,26 +112,7 @@ const FeatureCard = memo(({ icon, title, description }: {
   </div>
 ));
 
-// Testimonials: Add quote icon, rounded avatar, fade-in
-const TestimonialCard = memo(({ id, name, role, image, text }: {
-  id: number;
-  name: string;
-  role: string;
-  image: string;
-  text: string;
-}) => (
-  <div className="testimonial-card upgraded-testimonial-card">
-    <div className="testimonial-quote-icon"><FontAwesomeIcon icon={faStar} /></div>
-    <div className="testimonial-image upgraded-avatar">
-      <img src={image} alt={name} />
-    </div>
-    <div className="testimonial-content">
-      <h4>{name}</h4>
-      <p>{role}</p>
-      <p>{text}</p>
-    </div>
-  </div>
-));
+
 
 // Achievements: Animated counters, icon glow
 const AchievementCard = memo(({ icon, number, text }: {
@@ -286,30 +262,7 @@ const Home: React.FC = () => {
     }
   ];
 
-  // Testimonials Data
-  const testimonials = [
-    {
-      id: 1,
-      name: 'Ankit Kumar',
-      role: 'SSC CGL Qualifier',
-      image: 'https://ui-avatars.com/api/?name=Ankit+Kumar&background=random',
-      text: 'This platform helped me improve my typing speed from 25 WPM to 45 WPM in just two months!'
-    },
-    {
-      id: 2,
-      name: 'Priya Sharma',
-      role: 'RRB NTPC Selected',
-      image: 'https://ui-avatars.com/api/?name=Priya+Sharma&background=random',
-      text: 'The exam-specific typing tests were exactly what I needed. Cleared my typing test in the first attempt.'
-    },
-    {
-      id: 3,
-      name: 'Sneha Patel',
-      role: 'SSC CHSL Qualifier',
-      image: 'https://ui-avatars.com/api/?name=Sneha+Patel&background=random',
-      text: 'Regular practice on this platform helped me achieve accuracy above 95%. Thank you!'
-    }
-  ];
+
 
   // Achievements Data
   const achievements = [
@@ -461,7 +414,7 @@ const Home: React.FC = () => {
               <FontAwesomeIcon icon={faCertificate} />
               Get Certificate
             </Link>
-            <Link to="/certificate-verification" className="btn secondary-btn no-hover">
+            <Link to="/certificate-verification" className="btn primary-btn no-hover">
               <FontAwesomeIcon icon={faSearch} />
               Verify Certificate
             </Link>
