@@ -78,6 +78,8 @@ const TypingEngine: React.FC<TypingEngineProps> = ({ config, backButton, hideFee
     handleCopy,
     handleCut,
     handleContextMenu,
+    handleDragStart,
+    handleDrop,
   } = useTypingTest(config);
 
   const handleCertificateClick = () => {
@@ -194,6 +196,9 @@ const TypingEngine: React.FC<TypingEngineProps> = ({ config, backButton, hideFee
             className="sample-text-container"
             tabIndex={0}
             onClick={() => !isRunning && startTest()}
+            onContextMenu={handleContextMenu}
+            onDragStart={handleDragStart}
+            onDrop={handleDrop}
           >
             <p ref={sampleTextRef} className="sample-text" />
           </div>
@@ -207,6 +212,8 @@ const TypingEngine: React.FC<TypingEngineProps> = ({ config, backButton, hideFee
             onCopy={handleCopy}
             onCut={handleCut}
             onContextMenu={handleContextMenu}
+            onDragStart={handleDragStart}
+            onDrop={handleDrop}
             readOnly={!isRunning}
             className={`typing-area${showFeedback && !hideFeedbackModal ? ' blurred' : ''}`}
             placeholder={isRunning ? "Start typing here..." : "Click 'Start' to begin typing test"}

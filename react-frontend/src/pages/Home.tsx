@@ -2,6 +2,7 @@ import React, { memo, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 import { 
   faKeyboard, 
   faFileAlt, 
@@ -53,8 +54,8 @@ const HeroSection = memo(() => (
 // Panel Items: Add gradient backgrounds, scale/shadow on hover, and a 'New' badge for the first card.
 const cardAccents = [
   '#1976d2', // Typing Test
-  '#43a047', // Exam Wise Test
-  '#fbc02d', // Advance Mode
+  '#2e7d32', // Exam Wise Test - darker green for better contrast
+  '#f57c00', // Advance Mode - darker orange for better contrast
   '#8e24aa'  // Typing Course
 ];
 const PanelItem = memo(({ icon, title, description, link, linkText, isNew, accentColor }: {
@@ -75,7 +76,7 @@ const PanelItem = memo(({ icon, title, description, link, linkText, isNew, accen
       <div className="modern-panel-icon-wrapper" style={{ background: accentColor }}>
         <FontAwesomeIcon icon={icon} className="modern-panel-icon" />
       </div>
-      <h3 className="modern-panel-title">{title}</h3>
+      <h2 className="modern-panel-title">{title}</h2>
       <p className="modern-panel-desc">{description}</p>
       <Link to={link} className="modern-panel-btn" style={{ background: accentColor }}>
         <FontAwesomeIcon icon={btnIcon} />
@@ -398,9 +399,24 @@ const Home: React.FC = () => {
               src="/images/ashoka-chakra.webp"
               alt="Ashoka Chakra"
               className="ashoka-chakra"
-              draggable={false}
+              width={120}
+              height={120}
+              onError={(e) => {
+                const target = e.target as HTMLImageElement;
+                target.src = target.src.replace('.webp', '.png');
+              }}
             />
-            <img src="/images/Main_LOGO.webp" alt="TypingHub Logo" className="main-logo" />
+            <img 
+              src="/images/Main_LOGO.webp" 
+              alt="TypingHub Logo" 
+              className="main-logo"
+              width={90}
+              height={90}
+              onError={(e) => {
+                const target = e.target as HTMLImageElement;
+                target.src = target.src.replace('.webp', '.png');
+              }}
+            />
             <h2>
               TYPING CERTIFICATE
               <span className="laurel-svg">
@@ -427,7 +443,16 @@ const Home: React.FC = () => {
             <div style={{ fontSize: 15, color: '#333', marginBottom: 6 }}><b>Verification Code:</b> VC-DEMO123</div>
             <div className="decorative-line"></div>
             <div className="gold-seal">
-              <img src="/images/gold-seal.webp" alt="Gold Seal" />
+              <img 
+                src="/images/gold-seal.webp" 
+                alt="Gold Seal"
+                width={60}
+                height={60}
+                onError={(e) => {
+                  const target = e.target as HTMLImageElement;
+                  target.src = target.src.replace('.webp', '.png');
+                }}
+              />
             </div>
             <div className="footer">TypingHub.in</div>
           </div>

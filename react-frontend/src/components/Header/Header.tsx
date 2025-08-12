@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { icons } from '../../utils/fontAwesomeIcons';
+
 import './Header.css';
 
 const Header: React.FC = () => {
@@ -16,7 +19,16 @@ const Header: React.FC = () => {
               rel="noopener noreferrer" 
               className="logo-link"
             >
-              <img src="/images/Main_LOGO.webp" alt="TypingHub Logo" />
+              <img 
+                src="/images/Main_LOGO.webp" 
+                alt="TypingHub Logo" 
+                width={70}
+                height={70}
+                onError={(e) => {
+                  const target = e.target as HTMLImageElement;
+                  target.src = target.src.replace('.webp', '.png');
+                }}
+              />
             </a>
             <a 
               href="https://typinghub.in" 
@@ -33,7 +45,7 @@ const Header: React.FC = () => {
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             aria-label="Toggle menu"
           >
-            <i className={`fas ${isMenuOpen ? 'fa-times' : 'fa-bars'}`}></i>
+            <FontAwesomeIcon icon={isMenuOpen ? icons.faTimes : icons.faBars} />
           </button>
 
           <div className={`nav-links ${isMenuOpen ? 'active' : ''}`}> 

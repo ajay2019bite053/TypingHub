@@ -640,6 +640,28 @@ export const useTypingTest = (config: TestConfig) => {
     updateWordHighlight();
   }, [isRunning, passageWords, updateLetterHighlight, updateWordHighlight, calculateTypingStats, startTime, backspaceCount]);
 
+  const handlePaste = (e: React.ClipboardEvent) => {
+    e.preventDefault();
+    // Better user feedback with toast notification instead of alert
+    console.warn('Pasting is disabled during typing test');
+    // You can integrate with a toast notification system here
+  };
+
+  const handleCopy = (e: React.ClipboardEvent) => {
+    e.preventDefault();
+    console.warn('Copying is disabled during typing test');
+  };
+
+  const handleCut = (e: React.ClipboardEvent) => {
+    e.preventDefault();
+    console.warn('Cutting is disabled during typing test');
+  };
+
+  const handleContextMenu = (e: React.MouseEvent) => {
+    e.preventDefault();
+  };
+
+  // Enhanced keyboard shortcuts blocking
   const handleKeyDown = useCallback((e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (!isRunning) return;
 
@@ -662,22 +684,14 @@ export const useTypingTest = (config: TestConfig) => {
     }
   }, [isRunning]);
 
-  const handlePaste = (e: React.ClipboardEvent) => {
-    e.preventDefault();
-    alert('Pasting text is disabled.');
-  };
-
-  const handleCopy = (e: React.ClipboardEvent) => {
-    e.preventDefault();
-    alert('Copying text is disabled.');
-  };
-
-  const handleCut = (e: React.ClipboardEvent) => {
+  // Enhanced drag and drop prevention
+  const handleDragStart = (e: React.DragEvent) => {
     e.preventDefault();
   };
 
-  const handleContextMenu = (e: React.MouseEvent) => {
+  const handleDrop = (e: React.DragEvent) => {
     e.preventDefault();
+    console.warn('Drag and drop is disabled during typing test');
   };
 
   // Effects
@@ -801,6 +815,8 @@ export const useTypingTest = (config: TestConfig) => {
     handleCopy,
     handleCut,
     handleContextMenu,
+    handleDragStart,
+    handleDrop,
     
     // Config
     config

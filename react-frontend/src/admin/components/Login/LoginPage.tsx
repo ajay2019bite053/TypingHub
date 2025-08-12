@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import Login from './Login';
+
 import './LoginPage.css';
 // Add FontAwesome for icon
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -117,7 +118,17 @@ const LoginPage: React.FC = () => {
           {/* Branding Section */}
           <div className="admin-branding">
             <h2 className="brand-title">{greeting}, Admin! <span className="greeting-emoji" role="img" aria-label="smile">😊</span></h2>
-            <img src="/images/Main_LOGO.webp" alt="TypingHub Logo" className="admin-logo" />
+            <img 
+              src="/images/Main_LOGO.webp" 
+              alt="TypingHub Logo" 
+              className="admin-logo"
+              width={90}
+              height={90}
+              onError={(e) => {
+                const target = e.target as HTMLImageElement;
+                target.src = target.src.replace('.webp', '.png');
+              }}
+            />
             <span className="brand-title-sub">TypingHub Admin</span>
           </div>
           {/* Info Alert */}

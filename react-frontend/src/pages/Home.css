@@ -1933,7 +1933,7 @@ section, .features-grid, .testimonials, .achievements, .resources-section, .typi
 .btn.secondary-btn.no-hover,
 .btn.secondary-btn.no-hover:hover {
   background: #e3e3e3 !important;
-  color: #1976d2 !important;
+  color: #1565c0 !important;
 }
 @media (max-width: 800px) {
   .demo-certificate-card {

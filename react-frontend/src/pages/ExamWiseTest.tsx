@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
+
 import './ExamWiseTest.css';
 
 const ExamWiseTest: React.FC = () => {
@@ -194,19 +195,59 @@ const ExamWiseTest: React.FC = () => {
             <div className="header-section">
                 <div className="logo-container">
                   <div className="logo-item">
-                    <img src="/images/SSC.webp" className="logo-ssc" alt="SSC Logo" />
+                    <img 
+                      src="/images/SSC.webp" 
+                      className="logo-ssc" 
+                      alt="SSC Logo"
+                      width={70}
+                      height={70}
+                      onError={(e) => {
+                        const target = e.target as HTMLImageElement;
+                        target.src = target.src.replace('.webp', '.png');
+                      }}
+                    />
                     <span className="logo-label">SSC</span>
                   </div>
                   <div className="logo-item">
-                    <img src="/images/RAILWAY.webp" className="logo-railway" alt="Railway Logo" />
+                    <img 
+                      src="/images/RAILWAY.webp" 
+                      className="logo-railway" 
+                      alt="Railway Logo"
+                      width={70}
+                      height={70}
+                      onError={(e) => {
+                        const target = e.target as HTMLImageElement;
+                        target.src = target.src.replace('.webp', '.png');
+                      }}
+                    />
                     <span className="logo-label">RAILWAY</span>
                   </div>
                   <div className="logo-item">
-                    <img src="/images/Cbse.webp" className="logo-cbse" alt="CBSE Logo" />
+                    <img 
+                      src="/images/Cbse.webp" 
+                      className="logo-cbse" 
+                      alt="CBSE Logo"
+                      width={70}
+                      height={70}
+                      onError={(e) => {
+                        const target = e.target as HTMLImageElement;
+                        target.src = target.src.replace('.webp', '.png');
+                      }}
+                    />
                     <span className="logo-label">CBSE</span>
                   </div>
                   <div className="logo-item">
-                    <img src="/images/court.webp" className="logo-court" alt="Supreme Court Logo" />
+                    <img 
+                      src="/images/court.webp" 
+                      className="logo-court" 
+                      alt="Supreme Court Logo"
+                      width={70}
+                      height={70}
+                      onError={(e) => {
+                        const target = e.target as HTMLImageElement;
+                        target.src = target.src.replace('.webp', '.png');
+                      }}
+                    />
                     <span className="logo-label">SUPREME COURT</span>
                   </div>
                 </div>
