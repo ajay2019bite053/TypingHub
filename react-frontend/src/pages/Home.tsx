@@ -407,7 +407,7 @@ const Home: React.FC = () => {
           </div>
           <div className="certificate-buttons">
             <Link to="/certificate" className="btn primary-btn no-hover">
-              <FontAwesomeIcon icon={faCertificate} />
+              <FontAwesomeIcon icon={faAward} />
               Get Certificate
             </Link>
             <Link to="/certificate-verification" className="btn primary-btn no-hover">
