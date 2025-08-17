@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faWhatsapp, faTelegram, faInstagram, faTwitter, faYoutube } from '@fortawesome/free-brands-svg-icons';
-import { faUsers } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
+import TypingEngine from '../components/common/TypingEngine';
+import './LiveTypingTest.css';
 
 interface LiveExam {
   _id: string;
@@ -14,11 +15,14 @@ interface LiveExam {
   timeLimit: number;
   startTime?: string;
   endTime?: string;
+  passage?: string;
 }
 
 const LiveTypingTest: React.FC = () => {
   const [exams, setExams] = useState<LiveExam[]>([]);
   const [loading, setLoading] = useState(false);
+  const [selectedExam, setSelectedExam] = useState<LiveExam | null>(null);
+  const [showTypingTest, setShowTypingTest] = useState(false);
 
   useEffect(() => {
     const fetchExams = async () => {
@@ -32,6 +36,45 @@ const LiveTypingTest: React.FC = () => {
     };
     fetchExams();
   }, []);
+
+  const handleStartTest = (exam: LiveExam) => {
+    setSelectedExam(exam);
+    setShowTypingTest(true);
+  };
+
+  const handleTestComplete = (results: any) => {
+    console.log('Live typing test completed:', results);
+    // Here you can implement logic to submit results to backend
+    // or show completion message
+    setShowTypingTest(false);
+    setSelectedExam(null);
+  };
+
+  // If showing typing test, render TypingEngine
+  if (showTypingTest && selectedExam) {
+    const config = {
+      testName: selectedExam.name,
+      timeLimit: selectedExam.timeLimit * 60, // convert minutes to seconds
+      passageCategory: 'Live Typing Test',
+      qualificationCriteria: { 
+        minWpm: 25, 
+        minAccuracy: 85 
+      },
+      customPassage: selectedExam.passage || 'Welcome to the live typing test! This is a sample passage for practice. Please type accurately and maintain good speed.',
+      onTestComplete: handleTestComplete
+    };
+
+    return (
+      <div className="live-typing-test-page">
+        <TypingEngine 
+          config={config}
+          hideFeedbackModal={false}
+          hideDurationSelector={true}
+          onTestComplete={handleTestComplete}
+        />
+      </div>
+    );
+  }
 
   return (
     <>
@@ -56,9 +99,26 @@ const LiveTypingTest: React.FC = () => {
           Welcome to <b>Live Typing Test</b>! Participate in real-time typing competitions, climb the live leaderboard, and join scheduled mock tests with fellow users. Sharpen your skills and compete for the top spot!
         </span>
       </div>
-      <div className="live-typing-test-page" style={{ maxWidth: 900, margin: '0 auto', padding: 20, background: '#fff', borderRadius: '0 0 12px 12px', boxShadow: '0 2px 16px rgba(25,118,210,0.07)', fontSize: 15 }}>
-        <div className="live-exam-info-card" style={{ marginBottom: 28, background: '#f8fafc', border: '1.5px solid #90caf9', borderRadius: 14, padding: 20, textAlign: 'center', fontSize: 15 }}>
-          <div className="exam-info-title" style={{ fontSize: 18, fontWeight: 700, color: '#1976d2', marginBottom: 8 }}>Upcoming Exams</div>
+      
+      <div className="live-typing-test-page" style={{ 
+        maxWidth: 900, 
+        margin: '0 auto', 
+        padding: 20, 
+        background: '#fff', 
+        borderRadius: '0 0 12px 12px', 
+        boxShadow: '0 2px 16px rgba(25,118,210,0.07)', 
+        fontSize: 15 
+      }}>
+        <div className="live-exam-info-card" style={{ 
+          marginBottom: 28, 
+          background: '#f8fafc', 
+          border: '1.5px solid #90caf9', 
+          borderRadius: 14, 
+          padding: 20, 
+          textAlign: 'center', 
+          fontSize: 15 
+        }}>
+          <div className="exam-info-title" style={{ fontSize: 18, fontWeight: 700, color: '#1976d2', marginBottom: 8 }}>Live Typing Tests</div>
           {loading ? <div>Loading...</div> : (
           <div className="exam-list" style={{ display: 'flex', flexDirection: 'column', gap: 10, marginTop: 14 }}>
               {exams.length === 0 ? (
@@ -79,17 +139,55 @@ const LiveTypingTest: React.FC = () => {
                   liveTiming = 'N/A';
                 }
                 return (
-                  <div key={exam._id} className="exam-row" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: '#fff', borderRadius: 8, padding: '10px 14px', boxShadow: '0 1px 6px rgba(25,118,210,0.04)', fontSize: 14 }}>
-                    <div style={{ textAlign: 'left' }}>
+                  <div key={exam._id} className="exam-row" style={{ 
+                    display: 'flex', 
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    background: '#fff', 
+                    borderRadius: 8, 
+                    padding: '12px 14px', 
+                    boxShadow: '0 1px 6px rgba(25,118,210,0.04)', 
+                    fontSize: 14,
+                    gap: 10
+                  }}>
+                    {/* Left Side - Exam Name and Timing */}
+                    <div style={{ 
+                      display: 'flex', 
+                      flexDirection: 'column', 
+                      alignItems: 'flex-start',
+                      flex: 1
+                    }}>
                       <div style={{ fontWeight: 600, color: '#1976d2', fontSize: 14 }}>{exam.name}</div>
-                      <div style={{ fontSize: 13, color: '#1a2a44', marginTop: 2 }}>Official Exam Date: <b>{new Date(exam.date).toLocaleDateString()}</b></div>
+                      <div style={{ 
+                        fontSize: 13, 
+                        color: '#d6001c', 
+                        fontWeight: 600, 
+                        marginTop: 2 
+                      }}>
+                        Live Timing: <b>{liveTiming}</b>
+                      </div>
                     </div>
-                    <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', minWidth: 260, gap: 14, justifyContent: 'flex-end' }}>
-                      <span style={{ fontSize: 13, color: '#d6001c', fontWeight: 600, whiteSpace: 'nowrap' }}>Live Timing: <b>{liveTiming}</b></span>
-                      <div style={{ width: 20 }}></div> {/* Gap between Live Timing and Join button */}
+                    
+                    {/* Right Side - Exam Date and Button */}
+                    <div style={{ 
+                      display: 'flex', 
+                      flexDirection: 'column', 
+                      alignItems: 'flex-end',
+                      gap: 6
+                    }}>
+                      <div style={{ 
+                        fontSize: 13, 
+                        color: '#1a2a44', 
+                        fontWeight: 500,
+                        textAlign: 'right'
+                      }}>
+                        Official Exam Date: <b>{new Date(exam.date).toLocaleDateString()}</b>
+                      </div>
+                      
                       {showJoin ? (
-                        <a 
-                          href={`/live-exam/${exam._id}`}
+                        <button 
+                          onClick={() => handleStartTest(exam)}
                           className="join-live-btn" 
                           style={{ 
                             background: '#d6001c', 
@@ -97,18 +195,24 @@ const LiveTypingTest: React.FC = () => {
                             borderRadius: 6, 
                             padding: '7px 14px', 
                             fontWeight: 600, 
-                            textDecoration: 'none', 
                             fontSize: 13, 
                             boxShadow: '0 2px 8px #d6001c22', 
                             transition: 'background 0.2s', 
-                            marginTop: 0,
-                            display: 'inline-block'
+                            whiteSpace: 'nowrap',
+                            border: 'none',
+                            cursor: 'pointer'
                           }}
                         >
-                          Start Typing Test
-                        </a>
+                          Start Live Typing Test
+                        </button>
                       ) : (
-                        <span style={{ color: '#888', fontWeight: 600, fontSize: 13, marginTop: 0 }}>Test Closed</span>
+                        <span style={{ 
+                          color: '#888', 
+                          fontWeight: 600, 
+                          fontSize: 13
+                        }}>
+                          Test Closed
+                        </span>
                       )}
                     </div>
                   </div>
@@ -116,7 +220,55 @@ const LiveTypingTest: React.FC = () => {
               })}
           </div>
           )}
-          {/* Restore join for more updates text above the social icons */}
+          
+          {/* Practice Section */}
+          <div className="practice-section" style={{
+            marginTop: '30px',
+            padding: '20px',
+            background: '#fff',
+            borderRadius: '12px',
+            border: '1px solid #e0e0e0'
+          }}>
+            <h3 style={{ 
+              color: '#1976d2', 
+              fontSize: '18px', 
+              fontWeight: '600', 
+              marginBottom: '15px',
+              textAlign: 'center'
+            }}>
+              Practice Typing Test
+            </h3>
+            <p style={{ 
+              color: '#666', 
+              fontSize: '14px', 
+              textAlign: 'center',
+              marginBottom: '20px'
+            }}>
+              Want to practice before joining a live test? Try our free typing test with the same interface.
+            </p>
+            <Link 
+              to="/typing-test"
+              style={{
+                background: '#4caf50',
+                color: '#fff',
+                border: 'none',
+                borderRadius: '6px',
+                padding: '10px 20px',
+                fontWeight: '600',
+                fontSize: '14px',
+                cursor: 'pointer',
+                display: 'block',
+                margin: '0 auto',
+                transition: 'background 0.2s',
+                textDecoration: 'none',
+                textAlign: 'center'
+              }}
+            >
+              Start Practice Test
+            </Link>
+          </div>
+          
+          {/* Social Links */}
           <div className="exam-info-join" style={{ fontSize: 13, color: '#1a2a44', margin: '18px 0 6px 0', fontWeight: 500, textAlign: 'center' }}>Join for more updates:</div>
           <div className="exam-info-social-row" style={{ display: 'flex', flexDirection: 'row', gap: 18, justifyContent: 'center', margin: '0 0 6px 0' }}>
             <a href="https://whatsapp.com/channel/0029VbB5BgZIHphQNvybGU3V/?hl=en" target="_blank" rel="noopener noreferrer" title="WhatsApp" style={{ color: '#25D366', fontSize: 26 }}><FontAwesomeIcon icon={faWhatsapp} /></a>
@@ -124,7 +276,6 @@ const LiveTypingTest: React.FC = () => {
             <a href="https://www.instagram.com/typinghub.in/?hl=en" target="_blank" rel="noopener noreferrer" title="Instagram" style={{ color: '#E1306C', fontSize: 26 }}><FontAwesomeIcon icon={faInstagram} /></a>
             <a href="https://x.com/typinghub?t=iMSzEgwq3aHVyKXyYtZ6NA&s=09" target="_blank" rel="noopener noreferrer" title="Twitter" style={{ color: '#1DA1F2', fontSize: 26 }}><FontAwesomeIcon icon={faTwitter} /></a>
             <a href="https://www.youtube.com/@TypingHub-TypingPracticeforSSC" target="_blank" rel="noopener noreferrer" title="YouTube" style={{ color: '#FF0000', fontSize: 26 }}><FontAwesomeIcon icon={faYoutube} /></a>
-            <a href="/community" title="Community" style={{ color: '#1976d2', fontSize: 26, display: 'flex', alignItems: 'center' }} rel="noopener noreferrer"><FontAwesomeIcon icon={faUsers} /></a>
           </div>
         </div>
       </div>

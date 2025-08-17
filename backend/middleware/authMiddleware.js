@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 const Admin = require('../models/Admin');
 const config = require('../config');
 
-const authMiddleware = async (req, res, next) => {
+const verifyAdmin = async (req, res, next) => {
   try {
     console.log('Auth middleware called for:', req.path);
     const token = req.header('Authorization')?.replace('Bearer ', '');
@@ -32,4 +32,4 @@ const authMiddleware = async (req, res, next) => {
   }
 };
 
-module.exports = authMiddleware; 
+module.exports = { verifyAdmin }; 

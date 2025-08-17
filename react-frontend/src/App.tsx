@@ -8,8 +8,10 @@ import { AdminProvider } from './contexts/AdminContext';
 import { AuthProvider } from './contexts/AuthContext';
 import { DeleteRequestProvider } from './contexts/DeleteRequestContext';
 import { TypingProvider } from './contexts/TypingContext';
+import { CompetitionProvider } from './contexts/CompetitionContext';
 import ReactDOM, { createPortal } from 'react-dom';
-import Community from './pages/Community';
+import ScrollToTop from './components/ScrollToTop';
+import ScrollToTopButton from './components/ScrollToTopButton';
 
 // Lazy load all pages
 const Home = lazy(() => import('./pages/Home'));
@@ -42,6 +44,8 @@ const AIIMSCRCTest = lazy(() => import('./pages/AIIMSCRCTest'));
 const AllahabadHighCourtTest = lazy(() => import('./pages/AllahabadHighCourtTest'));
 const LiveExamTest = lazy(() => import('./pages/LiveExamTest'));
 const CertificateVerification = lazy(() => import('./pages/CertificateVerification'));
+const CompetitionTypingTest = lazy(() => import('./pages/CompetitionTypingTest'));
+const CompetitionResults = lazy(() => import('./pages/CompetitionResults'));
 
 // Admin Components
 const AdminLoginPage = lazy(() => import('./admin/components/Login/LoginPage'));
@@ -157,70 +161,75 @@ const App = () => {
             <AdminProvider>
               <DeleteRequestProvider>
                 <TypingProvider>
-                  <div className="app">
-                    <Header />
-                    <main>
-                      <Routes>
-                        <Route path="/" element={<Home />} />
-                        <Route path="/typing-test" element={<TypingTest />} />
-                        <Route path="/ssc-cgl-test" element={<SSCCGLTest />} />
-                        <Route path="/ssc-chsl-test" element={<SSCCHSLTest />} />
-                        <Route path="/rrb-ntpc-test" element={<RRBNTPCTest />} />
-                        <Route path="/typing-certificate-test" element={<TypingCertificateTest />} />
-                        <Route path="/junior-court-assistant-test" element={<JuniorCourtAssistantTest />} />
-                        <Route path="/junior-assistant-test" element={<JuniorAssistantTest />} />
-                        <Route path="/superintendent-test" element={<SuperintendentTest />} />
-                        <Route path="/exam-wise-test" element={<ExamWiseTest />} />
-                        <Route path="/create-test" element={<CreateTest />} />
-                        <Route path="/create-test/testing" element={<CreateTest />} />
-                        <Route path="/typing-course" element={<TypingCourseLanding />} />
-                        <Route path="/certificate" element={<Certificate />} />
-                        <Route path="/certificate-verification" element={<CertificateVerification />} />
-                        <Route path="/blog" element={<Blog />} />
-                        <Route path="/about-us" element={<AboutUs />} />
-                        <Route path="/declaration" element={<Declaration />} />
-                        <Route path="/terms-of-service" element={<TermsOfService />} />
-                        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-                        <Route path="/contact-us" element={<ContactUs />} />
-                        <Route path="/faqs" element={<FAQ />} />
-                        <Route path="/user/dashboard" element={<UserDashboard />} />
-                        <Route path="/typing-level-practice" element={<TypingLevelPractice />} />
-                        <Route path="/typing-engine-practice" element={<TypingEnginePractice />} />
-                        <Route path="/live-typing-test" element={<LiveTypingTest />} />
-                        <Route path="/up-police-test" element={<UPPoliceTest />} />
-                        <Route path="/bihar-police-test" element={<BiharPoliceTest />} />
-                        <Route path="/aiims-crc-test" element={<AIIMSCRCTest />} />
-                        <Route path="/allahabad-high-court-test" element={<AllahabadHighCourtTest />} />
-                        <Route path="/live-exam/:id" element={<LiveExamTest />} />
-                        <Route path="/community" element={<Community />} />
+                  <CompetitionProvider>
+                    <div className="app">
+                      <Header />
+                      <main>
+                        <ScrollToTop />
+                        <Routes>
+                          <Route path="/" element={<Home />} />
+                          <Route path="/typing-test" element={<TypingTest />} />
+                          <Route path="/ssc-cgl-test" element={<SSCCGLTest />} />
+                          <Route path="/ssc-chsl-test" element={<SSCCHSLTest />} />
+                          <Route path="/rrb-ntpc-test" element={<RRBNTPCTest />} />
+                          <Route path="/typing-certificate-test" element={<TypingCertificateTest />} />
+                          <Route path="/junior-court-assistant-test" element={<JuniorCourtAssistantTest />} />
+                          <Route path="/junior-assistant-test" element={<JuniorAssistantTest />} />
+                          <Route path="/superintendent-test" element={<SuperintendentTest />} />
+                          <Route path="/exam-wise-test" element={<ExamWiseTest />} />
+                          <Route path="/create-test" element={<CreateTest />} />
+                          <Route path="/create-test/testing" element={<CreateTest />} />
+                          <Route path="/typing-course" element={<TypingCourseLanding />} />
+                          <Route path="/certificate" element={<Certificate />} />
+                          <Route path="/certificate-verification" element={<CertificateVerification />} />
+                          <Route path="/blog" element={<Blog />} />
+                          <Route path="/about-us" element={<AboutUs />} />
+                          <Route path="/declaration" element={<Declaration />} />
+                          <Route path="/terms-of-service" element={<TermsOfService />} />
+                          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+                          <Route path="/contact-us" element={<ContactUs />} />
+                          <Route path="/faqs" element={<FAQ />} />
+                          <Route path="/user/dashboard" element={<UserDashboard />} />
+                          <Route path="/typing-level-practice" element={<TypingLevelPractice />} />
+                          <Route path="/typing-engine-practice" element={<TypingEnginePractice />} />
+                          <Route path="/live-typing-test" element={<LiveTypingTest />} />
+                          <Route path="/up-police-test" element={<UPPoliceTest />} />
+                          <Route path="/bihar-police-test" element={<BiharPoliceTest />} />
+                          <Route path="/aiims-crc-test" element={<AIIMSCRCTest />} />
+                          <Route path="/allahabad-high-court-test" element={<AllahabadHighCourtTest />} />
+                          <Route path="/live-exam/:id" element={<LiveExamTest />} />
+                          <Route path="/competition-test" element={<CompetitionTypingTest />} />
+                          <Route path="/competition-results" element={<CompetitionResults />} />
 
-                        {/* Admin Routes */}
-                        <Route path="/admin-secret-9382xj" element={
-                          <Suspense fallback={<LoadingFallback />}>
-                            <AdminLoginPage />
-                          </Suspense>
-                        } />
-                        <Route
-                          path="/admin/*"
-                          element={
+                          {/* Admin Routes */}
+                          <Route path="/admin-secret-9382xj" element={
                             <Suspense fallback={<LoadingFallback />}>
-                              <ProtectedRoute>
-                                <Routes>
-                                  <Route path="dashboard" element={<AdminDashboard />} />
-                                  <Route path="admin-requests" element={<AdminRequests />} />
-                                  <Route path="delete-requests" element={<DeleteRequests />} />
-                                  <Route path="assigned-passages" element={<AssignedPassagesPage />} />
-                                  <Route path="*" element={<Navigate to="dashboard" replace />} />
-                                </Routes>
-                              </ProtectedRoute>
+                              <AdminLoginPage />
                             </Suspense>
-                          }
-                        />
-                        <Route path="*" element={<Navigate to="/" replace />} />
-                      </Routes>
-                    </main>
-                    <Footer />
-                  </div>
+                          } />
+                          <Route
+                            path="/admin/*"
+                            element={
+                              <Suspense fallback={<LoadingFallback />}>
+                                <ProtectedRoute>
+                                  <Routes>
+                                    <Route path="dashboard" element={<AdminDashboard />} />
+                                    <Route path="admin-requests" element={<AdminRequests />} />
+                                    <Route path="delete-requests" element={<DeleteRequests />} />
+                                    <Route path="assigned-passages" element={<AssignedPassagesPage />} />
+                                    <Route path="*" element={<Navigate to="dashboard" replace />} />
+                                  </Routes>
+                                </ProtectedRoute>
+                              </Suspense>
+                            }
+                          />
+                          <Route path="*" element={<Navigate to="/" replace />} />
+                        </Routes>
+                      </main>
+                      <Footer />
+                      <ScrollToTopButton />
+                    </div>
+                  </CompetitionProvider>
                 </TypingProvider>
               </DeleteRequestProvider>
             </AdminProvider>

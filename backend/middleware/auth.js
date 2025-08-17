@@ -13,9 +13,15 @@ const userAuthMiddleware = async (req, res, next) => {
 
     // Verify token using ACCESS_TOKEN_SECRET
     const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
-    
+
+    // Support tokens signed with either { id } or { userId }
+    const decodedUserId = decoded.id || decoded.userId;
+    if (!decodedUserId) {
+      return res.status(401).json({ message: 'Invalid token payload' });
+    }
+
     // Check if user exists
-    const user = await User.findById(decoded.id).select('-password');
+    const user = await User.findById(decodedUserId).select('-password');
     if (!user) {
       return res.status(401).json({ message: 'User not found' });
     }

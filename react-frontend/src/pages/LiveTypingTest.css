@@ -1,0 +1,721 @@
+/* Main content area */
+.main-content {
+  flex: 1;
+  padding: 0;
+  background: #f5f7fa;
+  display: flex;
+  flex-direction: column;
+}
+
+.container {
+  max-width: 100%;
+  width: 100%;
+  margin: 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.panel {
+  background: #fff;
+  border-radius: 0;
+  box-shadow: none;
+  padding: 20px;
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+/* Header Section */
+.header-section {
+  margin-bottom: 5px;
+  padding: 5px 0;
+  border-bottom: 2px solid #e3f2fd;
+}
+
+/* Search Section */
+.search-section {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.search-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1200px;
+  gap: 30px;
+}
+
+.search-results {
+  font-size: 14px;
+  color: #666;
+  font-weight: 500;
+  position: absolute;
+  right: -120px;
+  top: 50%;
+  transform: translateY(-50%);
+  white-space: nowrap;
+}
+
+.search-title {
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.search-title h2 {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1a2a44;
+  margin-bottom: 5px;
+  font-family: 'Roboto Serif', serif;
+}
+
+.search-title p {
+  font-size: 14px;
+  color: #666;
+  margin: 0;
+}
+
+/* Exams Section */
+.exams-section {
+  flex: 1;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 30px;
+  padding: 20px 0;
+}
+
+.section-header h2 {
+  font-size: 28px;
+  font-weight: 700;
+  color: #1a2a44;
+  margin-bottom: 8px;
+  font-family: 'Roboto Serif', serif;
+}
+
+.section-header p {
+  font-size: 16px;
+  color: #666;
+  margin: 0;
+}
+
+/* Card styling */
+.card {
+  background: #fff;
+  border-radius: 10px;
+  padding: 25px;
+  margin-bottom: 20px;
+  box-shadow: 0 3px 15px rgba(0,0,0,0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid #e0e0e0;
+  width: 100%;
+  flex: 1;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+}
+
+/* Logo container */
+.logo-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #fff, #f8f9fa);
+  padding: 15px;
+  border-radius: 15px;
+  border: 2px solid #1976d2;
+  box-shadow: 0 8px 25px rgba(25, 118, 210, 0.15);
+  flex-wrap: wrap;
+  gap: 15px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.logo-container:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 30px rgba(25, 118, 210, 0.2);
+}
+
+.logo-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  transition: transform 0.3s ease;
+}
+
+.logo-item:hover {
+  transform: scale(1.05);
+}
+
+.logo-ssc, .logo-railway, .logo-cbse, .logo-court {
+  width: 70px;
+  height: 70px;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
+  transition: filter 0.3s ease;
+}
+
+.logo-item:hover img {
+  filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.2));
+}
+
+.logo-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: #1a2a44;
+  text-transform: uppercase;
+  text-align: center;
+  margin-top: 6px;
+  background: #e3f2fd;
+  padding: 3px 10px;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+
+.logo-item:hover .logo-label {
+  background: #1976d2;
+  color: #fff;
+}
+
+/* Search input */
+.search-item {
+  display: flex;
+  align-items: center;
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+}
+
+#searchInput {
+  width: 100%;
+  padding: 10px 35px 10px 15px;
+  font-size: 14px;
+  border: 2px solid #e0e0e0;
+  border-radius: 20px;
+  transition: all 0.3s ease;
+  background: #fff;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+#searchInput:focus {
+  border-color: #1976d2;
+  box-shadow: 0 4px 20px rgba(25, 118, 210, 0.15);
+  outline: none;
+}
+
+.search-item::after {
+  content: '\f002';
+  font-family: 'Font Awesome 6 Free';
+  font-weight: 900;
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #1976d2;
+  font-size: 16px;
+  pointer-events: none;
+  transition: color 0.3s ease;
+}
+
+.search-item:focus-within::after {
+  color: #1565c0;
+}
+
+/* Panel container and exam cards */
+.panel-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  padding: 15px 0;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.exam-card {
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 200px;
+  position: relative;
+  overflow: hidden;
+}
+
+.exam-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #1976d2, #42a5f5);
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.exam-card:hover::before {
+  transform: scaleX(1);
+}
+
+.exam-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+  border-color: #1976d2;
+}
+
+.exam-icon {
+  margin-bottom: 15px;
+}
+
+.exam-icon i {
+  font-size: 32px;
+  color: #1976d2;
+  transition: transform 0.3s ease;
+}
+
+.exam-card:hover .exam-icon i {
+  transform: scale(1.1);
+}
+
+.exam-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.exam-card h5 {
+  font-size: 16px;
+  font-family: 'Roboto Serif', serif;
+  color: #1a2a44;
+  margin: 0;
+  font-weight: 600;
+}
+
+.exam-card p {
+  font-size: 13px;
+  color: #666;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.exam-category {
+  font-size: 11px;
+  font-weight: 600;
+  color: #1976d2;
+  background: #e3f2fd;
+  padding: 3px 8px;
+  border-radius: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Button styling */
+.btn {
+  padding: 10px 20px;
+  font-size: 14px;
+  width: 100%;
+  max-width: 150px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  margin-top: 15px;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #1976d2, #1565c0);
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, #1565c0, #0d47a1);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+}
+
+/* Live Typing Test specific styles */
+.live-test-header {
+  background: linear-gradient(135deg, #1976d2 0%, #42a5f5 100%);
+  color: #fff;
+  padding: 20px;
+  text-align: center;
+  border-radius: 0 0 16px 16px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 20px rgba(25, 118, 210, 0.15);
+}
+
+.live-test-header h1 {
+  margin: 0 0 10px 0;
+  font-size: 24px;
+  font-weight: 700;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.live-test-header p {
+  margin: 0;
+  font-size: 16px;
+  opacity: 0.9;
+  font-weight: 500;
+}
+
+.live-test-header button {
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: #fff;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.live-test-header button:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateY(-1px);
+}
+
+/* Practice Section Styles */
+.practice-section {
+  margin-top: 30px;
+  padding: 20px;
+  background: #fff;
+  border-radius: 12px;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+}
+
+.practice-section:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+.practice-section h3 {
+  color: #1976d2;
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.practice-section p {
+  color: #666;
+  font-size: 14px;
+  text-align: center;
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+.practice-section button {
+  background: #4caf50;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 20px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  display: block;
+  margin: 0 auto;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(76, 175, 80, 0.2);
+}
+
+.practice-section button:hover {
+  background: #388e3c;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(76, 175, 80, 0.3);
+}
+
+/* Enhanced Button Styles */
+.join-live-btn {
+  background: #d6001c;
+  color: #fff;
+  border-radius: 6px;
+  padding: 7px 14px;
+  font-weight: 600;
+  font-size: 13px;
+  box-shadow: 0 2px 8px #d6001c22;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  border: none;
+  cursor: pointer;
+  display: inline-block;
+}
+
+.join-live-btn:hover {
+  background: #b71c1c;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px #d6001c33;
+}
+
+.join-live-btn:active {
+  transform: translateY(0);
+}
+
+/* No results styling */
+.no-results {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 60px 20px;
+  color: #666;
+}
+
+.no-results i {
+  font-size: 48px;
+  color: #ccc;
+  margin-bottom: 20px;
+}
+
+.no-results h3 {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.no-results p {
+  font-size: 16px;
+  color: #666;
+}
+
+/* Link to SSC CGL Test */
+.exam-card[data-exam="ssc-cgl"] {
+  border-color: #1976d2;
+  background: linear-gradient(135deg, #fff, #f8f9fa);
+}
+
+.exam-card[data-exam="ssc-cgl"]:hover {
+  border-color: #1565c0;
+  box-shadow: 0 8px 25px rgba(25, 118, 210, 0.2);
+}
+
+.exam-card[data-exam="ssc-cgl"] .btn-primary {
+  background: linear-gradient(135deg, #1976d2, #1565c0);
+}
+
+.exam-card[data-exam="ssc-cgl"] .btn-primary:hover {
+  background: linear-gradient(135deg, #1565c0, #0d47a1);
+}
+
+/* Responsive design */
+@media (max-width: 1200px) {
+  .panel-container {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+  }
+  
+  .search-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+  
+  .search-title {
+    text-align: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .logo-container {
+    padding: 15px;
+    gap: 15px;
+  }
+
+  .logo-ssc, .logo-railway, .logo-cbse, .logo-court {
+    width: 60px;
+    height: 60px;
+  }
+
+  .logo-label {
+    font-size: 11px;
+    padding: 3px 8px;
+  }
+
+  #searchInput {
+    padding: 12px 35px 12px 15px;
+    font-size: 14px;
+  }
+
+  .search-item::after {
+    right: 15px;
+    font-size: 14px;
+  }
+
+  .main-content {
+    padding: 0;
+  }
+
+  .panel {
+    padding: 15px;
+  }
+
+  .panel-container {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+  }
+
+  .search-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .search-title {
+    text-align: center;
+  }
+  
+  .search-title h2 {
+    font-size: 20px;
+  }
+  
+  .search-title p {
+    font-size: 12px;
+  }
+  
+  /* Live test header responsive */
+  .live-test-header {
+    padding: 15px;
+  }
+  
+  .live-test-header h1 {
+    font-size: 20px;
+  }
+  
+  .live-test-header p {
+    font-size: 14px;
+  }
+  
+  /* Practice section responsive */
+  .practice-section {
+    padding: 15px;
+    margin-top: 20px;
+  }
+  
+  .practice-section h3 {
+    font-size: 16px;
+  }
+  
+  .practice-section p {
+    font-size: 13px;
+  }
+  
+  .practice-section button {
+    padding: 8px 16px;
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 600px) {
+  .logo-container {
+    box-shadow: 0 0 8px rgba(255, 98, 0, 0.3);
+  }
+
+  .logo-label {
+    font-size: 10px;
+  }
+
+  .exam-card {
+    min-height: 180px;
+    padding: 15px;
+  }
+
+  .panel {
+    padding: 10px;
+  }
+  
+  .panel-container {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+  
+  .search-container {
+    gap: 10px;
+  }
+  
+  .search-title h2 {
+    font-size: 18px;
+  }
+  
+  .search-title p {
+    font-size: 11px;
+  }
+
+  .exam-card h5 {
+    font-size: 14px;
+  }
+
+  .exam-card p {
+    font-size: 12px;
+  }
+
+  .btn {
+    padding: 8px 16px;
+    font-size: 13px;
+  }
+  
+  /* Live test header mobile */
+  .live-test-header {
+    padding: 12px;
+    border-radius: 0 0 12px 12px;
+  }
+  
+  .live-test-header h1 {
+    font-size: 18px;
+  }
+  
+  .live-test-header p {
+    font-size: 13px;
+  }
+  
+  .live-test-header button {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+  
+  /* Practice section mobile */
+  .practice-section {
+    padding: 12px;
+    margin-top: 15px;
+  }
+  
+  .practice-section h3 {
+    font-size: 15px;
+  }
+  
+  .practice-section p {
+    font-size: 12px;
+  }
+  
+  .practice-section button {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+}

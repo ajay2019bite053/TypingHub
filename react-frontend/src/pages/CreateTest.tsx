@@ -190,100 +190,42 @@ const CreateTest = () => {
   }
 
   return (
-      <div className="create-test-setup">
-        <div className="setup-container" style={{ paddingTop: '0', marginTop: '0' }}>
-          {/* Header Section */}
-          <div style={{ 
-            display: 'flex', 
-            gap: '30px', 
-            justifyContent: 'space-between', 
-            alignItems: 'center', 
-            marginBottom: '0px',
-            paddingBottom: '0px',
-            borderBottom: 'none',
-            marginTop: '0px',
-            paddingTop: '0px'
-          }}>
-            <div style={{ display: 'flex', gap: '15px' }}>
+    <div className="create-test-container">
+      {/* Mode Selection */}
+      <div className="mode-selection">
               <button
+          className={`mode-btn ${useAiText ? 'active' : ''}`}
                 onClick={() => setUseAiText(true)}
-                style={{
-                  background: useAiText ? 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' : '#f8f9fa',
-                  color: useAiText ? 'white' : '#2c3e50',
-                  border: '2px solid #e0e0e0',
-                  padding: '14px 20px',
-                  borderRadius: '10px',
-                  fontSize: '0.95rem',
-                  fontWeight: '600',
-                  cursor: 'pointer',
-                  transition: 'all 0.3s ease',
-                  fontFamily: 'inherit',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '8px',
-                  minWidth: '200px',
-                  justifyContent: 'center'
-                }}
-              >
-                🤖 Use AI for generating passage
+        >
+          <span className="mode-icon">🤖</span>
+          <div className="mode-content">
+            <span className="mode-title">AI Text Generator</span>
+            <span className="mode-subtitle">Generate text with AI</span>
+          </div>
               </button>
               <button
+          className={`mode-btn ${!useAiText ? 'active' : ''}`}
                 onClick={() => setUseAiText(false)}
-                style={{
-                  background: !useAiText ? 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' : '#f8f9fa',
-                  color: !useAiText ? 'white' : '#2c3e50',
-                  border: '2px solid #e0e0e0',
-                  padding: '14px 20px',
-                  borderRadius: '10px',
-                  fontSize: '0.95rem',
-                  fontWeight: '600',
-                  cursor: 'pointer',
-                  transition: 'all 0.3s ease',
-                  fontFamily: 'inherit',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '8px',
-                  minWidth: '200px',
-                  justifyContent: 'center'
-                }}
-              >
-                ✏️ Use your own custom passage
+        >
+          <span className="mode-icon">✏️</span>
+          <div className="mode-content">
+            <span className="mode-title">Custom Text</span>
+            <span className="mode-subtitle">Write your own text</span>
+          </div>
               </button>
-            </div>
           </div>
 
-          {/* Main Content Section */}
-          <div style={{ 
-            background: '#fafafa', 
-            borderRadius: '15px', 
-            padding: '10px 30px 30px 30px',
-            border: '1px solid #e8e8e8',
-            marginBottom: '30px',
-            marginTop: '0px'
-          }}>
+      {/* Main Content */}
+      <div className="create-test-content">
             {useAiText ? (
-              <div className="custom-text-section" style={{ marginBottom: '0', padding: '0', background: 'transparent', border: 'none' }}>
-                <div style={{ 
-                  display: 'flex', 
-                  alignItems: 'center', 
-                  gap: '10px', 
-                  marginBottom: '25px',
-                  paddingBottom: '15px',
-                  borderBottom: '2px solid #e0e0e0',
-                  justifyContent: 'space-between'
-                }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                    <span style={{ fontSize: '1.5rem' }}>🤖</span>
-                    <h3 style={{ margin: '0', color: '#2c3e50', fontSize: '1.4rem' }}>AI Text Generator</h3>
-                  </div>
-                                    <div className="search-container">
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flex: '1' }}>
-                      <label className="search-label">
-                        Search Text:
-                      </label>
+          <div className="ai-section">
+            {/* Search Section */}
+            <div className="search-section">
+              <div className="search-row">
+                <div className="search-input-group">
+                  <label>Topic:</label>
                       <input
                         type="text"
-                        className="search-input"
                         value={searchText}
                         onChange={(e) => setSearchText(e.target.value)}
                         onKeyPress={(e) => {
@@ -291,18 +233,16 @@ const CreateTest = () => {
                             generateAiTextFromSearch();
                           }
                         }}
-                        placeholder="Type a topic (e.g., modi ji, pollution, education) and press Enter..."
+                    placeholder="Enter topic (e.g., modi ji, pollution, education)"
+                    className="search-input"
                       />
                     </div>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                      <label className="search-label">
-                        Length:
-                      </label>
+                <div className="search-input-group">
+                  <label>Length:</label>
                       <select 
                         value={textLength} 
                         onChange={(e) => setTextLength(e.target.value)}
-                        className="search-input"
-                        style={{ minWidth: '120px' }}
+                    className="length-select"
                       >
                         {lengthOptions.map(option => (
                           <option key={option.value} value={option.value}>
@@ -311,113 +251,117 @@ const CreateTest = () => {
                         ))}
                       </select>
                     </div>
-                    <div style={{ display: 'flex', alignItems: 'end' }}>
                       <button
-                        className="search-button"
+                  className="generate-btn"
                         onClick={generateAiTextFromSearch}
                         disabled={isGenerating || !searchText.trim()}
                       >
-                        {isGenerating ? '🔄 Generating...' : '🚀 Generate Passage'}
+                  {isGenerating ? '🔄 Generating...' : '🚀 Generate'}
                       </button>
                     </div>
                   </div>
+
+            {/* Generated Text Area */}
+            <div className="text-section">
+              <div className="text-header">
+                <h3>Generated Text</h3>
+                <div className="text-stats">
+                  <span>Words: {aiGeneratedText.trim().split(/\s+/).filter(word => word.length > 0).length}</span>
+                  <span>Characters: {aiGeneratedText.length}</span>
                 </div>
-            <div className="text-input-container">
-                  <div className="textarea-container" style={{ flex: '1', marginLeft: '0' }}>
+              </div>
                     <textarea
-                      className="custom-textarea"
+                className="text-area"
                       value={aiGeneratedText}
                       onChange={(e) => setAiGeneratedText(e.target.value)}
                       placeholder="Generated text will appear here..."
-                      rows={10}
-                    />
-                    <div className="text-info" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                      <div style={{ display: 'flex', gap: '15px' }}>
-                        <span>Words: {aiGeneratedText.trim().split(/\s+/).filter(word => word.length > 0).length}</span>
-                        <span>Characters: {aiGeneratedText.length}</span>
-                      </div>
-                      <button
-                        className="proceed-button"
-                        onClick={handleProceed}
-                        disabled={loading}
-                        style={{
-                          background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-                          color: 'white',
-                          border: 'none',
-                          padding: '8px 20px',
-                          borderRadius: '6px',
-                          fontSize: '0.9rem',
-                          fontWeight: '600',
-                          cursor: loading ? 'not-allowed' : 'pointer',
-                          fontFamily: 'inherit',
-                          transition: 'all 0.3s ease',
-                          opacity: loading ? 0.7 : 1,
-                          display: 'flex',
-                          alignItems: 'center',
-                          gap: '6px'
-                        }}
-                      >
-                        {loading ? '🔄 Loading...' : 'Continue to Test'}
-                      </button>
-                    </div>
-                  </div>
+                rows={8}
+              />
                 </div>
               </div>
             ) : (
-              <div className="custom-text-section" style={{ marginBottom: '0', padding: '0', background: 'transparent', border: 'none' }}>
-                <div style={{ 
-                  display: 'flex', 
-                  alignItems: 'center', 
-                  gap: '10px', 
-                  marginBottom: '25px',
-                  paddingBottom: '15px',
-                  borderBottom: '2px solid #e0e0e0'
-                }}>
-                  <span style={{ fontSize: '1.5rem' }}>✏️</span>
-                  <h3 style={{ margin: '0', color: '#2c3e50', fontSize: '1.4rem' }}>Custom Text Input</h3>
-                </div>
-            <div className="text-input-container">
-                  <div className="textarea-container" style={{ flex: '1', marginLeft: '0' }}>
-          <textarea
-                  className="custom-textarea"
-                  value={customText}
-                  onChange={(e) => setCustomText(e.target.value)}
-                  placeholder="Write or paste your custom text here... (Minimum 10 words recommended, or leave blank to use default passage)"
-                      rows={10}
-                />
-                <div className="text-info" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <div style={{ display: 'flex', gap: '15px' }}>
+          <div className="custom-section">
+            <div className="text-section">
+              <div className="text-header">
+                <h3>Custom Text Input</h3>
+                <div className="text-stats">
                   <span>Words: {customText.trim().split(/\s+/).filter(word => word.length > 0).length}</span>
                   <span>Characters: {customText.length}</span>
                 </div>
+              </div>
+              <textarea
+                className="text-area"
+                value={customText}
+                onChange={(e) => setCustomText(e.target.value)}
+                placeholder="Write or paste your custom text here... (Minimum 10 words recommended)"
+                rows={8}
+              />
+            </div>
+          </div>
+        )}
+
+        {/* Proceed Button */}
+        <div className="proceed-section">
               <button
-                    className="proceed-button"
+            className="proceed-btn"
                     onClick={handleProceed}
-                    disabled={loading}
-                        style={{
-                          background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-                          color: 'white',
-                          border: 'none',
-                          padding: '8px 20px',
-                          borderRadius: '6px',
-                          fontSize: '0.9rem',
-                          fontWeight: '600',
-                          cursor: loading ? 'not-allowed' : 'pointer',
-                          fontFamily: 'inherit',
-                          transition: 'all 0.3s ease',
-                          opacity: loading ? 0.7 : 1,
-                          display: 'flex',
-                          alignItems: 'center',
-                          gap: '6px'
-                        }}
                       >
                         {loading ? '🔄 Loading...' : 'Continue to Test'}
               </button>
             </div>
           </div>
+
+      {/* Help Section */}
+      <div className="help-section">
+        <h2>Complete Guide to Using This Typing Test Tool</h2>
+        
+        <div className="help-content">
+          <div className="help-grid">
+            <div className="help-card ai">
+              <h3>AI Text Generator</h3>
+              <p>
+                <strong>Our AI-powered text generator</strong> creates unique, engaging content for your typing practice. Simply enter any topic that interests you, such as "Modi ji speeches", "climate change effects", "Indian economy growth", or "technology trends 2024". The AI will generate relevant, well-structured text based on your chosen topic.
+              </p>
+              <p>
+                <strong>Choose your preferred text length</strong> from the dropdown menu, ranging from 100 to 450 words. For beginners, we recommend 150-200 words as it provides a good balance between challenge and manageability. Advanced users can opt for longer texts to test their endurance and speed.
+              </p>
+              <p>
+                <strong>After generation, you can edit the text</strong> to add your personal touch, correct any minor issues, or modify the content to better suit your practice needs. Once satisfied, click "Continue to Test" to begin your typing practice session with the generated content.
+              </p>
+            </div>
+            
+            <div className="help-card custom">
+              <h3>Custom Text Input</h3>
+              <p>
+                <strong>For complete control over your practice material</strong>, switch to the Custom Text mode. This allows you to use any text that interests you - whether it's an article you found online, a passage from your favorite book, a news report, or even your own written content.
+              </p>
+              <p>
+                <strong>Simply paste or type your chosen text</strong> into the text area. There's no limit on content length, but we recommend at least 10 words for a meaningful practice session. You can use content in any language, making this tool perfect for multilingual typing practice.
+              </p>
+              <p>
+                <strong>Custom text is ideal for targeted practice</strong> - you can focus on specific topics, vocabulary, or writing styles that match your learning goals. Whether you're preparing for exams, improving professional writing skills, or just enjoying your favorite content, this mode gives you complete flexibility.
+              </p>
             </div>
           </div>
-            )}
+
+          <div className="help-tips">
+            <h4>Expert Tips for Maximum Typing Improvement</h4>
+            <p>
+              <strong>For AI-generated content:</strong> Use specific, detailed topics like "Indian economic reforms", "global climate change solutions", "artificial intelligence in healthcare", or "sustainable development goals". The more specific your topic, the better quality content the AI will generate. Try different topics to expose yourself to various writing styles and vocabulary.
+            </p>
+            <p>
+              <strong>Optimal text length selection:</strong> Beginners should start with 150-200 words to build confidence and develop proper typing rhythm. Intermediate users can challenge themselves with 250-300 words, while advanced typists can practice with 350-450 words for endurance training. Remember, consistency in practice is more important than length.
+            </p>
+            <p>
+              <strong>Custom text recommendations:</strong> Use articles from reputable news sources, educational content, or professional documents that match your field of interest. This not only improves typing skills but also enhances your knowledge. Consider using content in different languages if you're multilingual.
+            </p>
+            <p>
+              <strong>Practice strategy:</strong> Focus on accuracy first - speed will naturally improve with consistent practice. Take regular breaks during longer sessions, and practice daily for 15-30 minutes rather than occasional long sessions. Track your progress over time to stay motivated and identify areas for improvement.
+            </p>
+            <p>
+              <strong>Advanced techniques:</strong> Once comfortable with basic typing, challenge yourself with complex sentences, technical terms, or content in different languages. Use the custom text mode to practice specific vocabulary or writing styles relevant to your profession or studies.
+            </p>
+          </div>
         </div>
           </div>
     </div>

@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useRef } from 'react';
+import React, { memo, useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -33,12 +33,21 @@ import {
   faSmile,
   faHeart,
   faLaptop,
-  faLightbulb
+  faLightbulb,
+  faPlay,
+  faUserPlus as faRegister
 } from '@fortawesome/free-solid-svg-icons';
+import { useCompetition } from '../contexts/CompetitionContext';
+import CompetitionRegistrationModal from '../components/Competition/CompetitionRegistrationModal';
+import CompetitionJoinModal from '../components/Competition/CompetitionJoinModal';
 import './Home.css';
 
 // Memoized components for better performance
-const HeroSection = memo(() => (
+const HeroSection = memo(({ onRegisterClick, onJoinClick, competitionStatus }: {
+  onRegisterClick: () => void;
+  onJoinClick: () => void;
+  competitionStatus: any;
+}) => (
       <section className="hero-section">
         <div className="hero-content">
       <h1>Free Typing Test Practice for Government Exams</h1>
@@ -53,6 +62,60 @@ const HeroSection = memo(() => (
               Explore Exam Wise Tests
             </Link>
           </div>
+          
+          
+          {/* Competition Links Slider - Infinite smooth sliding */}
+          {(competitionStatus?.isRegistrationActive || competitionStatus?.isCompetitionActive) && (
+            <div className="competition-links-slider">
+              <div className="competition-links-track">
+                {/* First set of links */}
+                {competitionStatus?.isRegistrationActive && (
+                  <span className="competition-link" onClick={onRegisterClick}>
+                    <span style={{color: '#d32f2f'}}>🏆 Ready to Win?</span> <span style={{color: '#1976d2'}}>Join Our Weekly Typing Competition for Just ₹{competitionStatus?.entryFee || 0}!</span> 
+                    {competitionStatus?.prizes?.first > 0 && <span style={{color: '#d32f2f'}}> 🎁 Amazing Prizes Up to ₹{competitionStatus?.prizes?.first} Await You!</span>}
+                    {competitionStatus?.minSlots > 0 && <span style={{color: '#1976d2'}}> ⚡ Only {competitionStatus?.minSlots} Users Needed to Start!</span>}
+                  </span>
+                )}
+                {competitionStatus?.isCompetitionActive && (
+                  <span className="competition-link" onClick={onJoinClick}>
+                    <span style={{color: '#d32f2f'}}>🚀 Don't Miss Out!</span> <span style={{color: '#1976d2'}}>Live Competition is Happening Right Now with {competitionStatus?.totalRegistrations || 0} Amazing Participants!</span> 
+                    {competitionStatus?.prizes?.first > 0 && <span style={{color: '#d32f2f'}}> 💰 Total Prize Pool: ₹{competitionStatus?.prizes?.first + (competitionStatus?.prizes?.second || 0) + (competitionStatus?.prizes?.third || 0)} Up for Grabs!</span>}
+                  </span>
+                )}
+                
+                {/* Results Link - Show when results are published */}
+                {competitionStatus?.resultsPublished && (
+                  <Link to="/competition-results" className="competition-link results-link">
+                    <span style={{color: '#ffd700'}}>🏆 Results Published!</span> <span style={{color: '#1976d2'}}>Check Your Rank and See Who Won the Competition!</span> 
+                    <span style={{color: '#d32f2f'}}> 🎉 {competitionStatus?.totalParticipants || 0} Participants Competed!</span>
+                  </Link>
+                )}
+                
+                {/* Duplicate set for seamless loop */}
+                {competitionStatus?.isRegistrationActive && (
+                  <span className="competition-link" onClick={onRegisterClick}>
+                    <span style={{color: '#d32f2f'}}>🏆 Ready to Win?</span> <span style={{color: '#1976d2'}}>Join Our Weekly Typing Competition for Just ₹{competitionStatus?.entryFee || 0}!</span> 
+                    {competitionStatus?.prizes?.first > 0 && <span style={{color: '#d32f2f'}}> 🎁 Amazing Prizes Up to ₹{competitionStatus?.prizes?.first} Await You!</span>}
+                    {competitionStatus?.minSlots > 0 && <span style={{color: '#1976d2'}}> ⚡ Only {competitionStatus?.minSlots} Users Needed to Start!</span>}
+                  </span>
+                )}
+                {competitionStatus?.isCompetitionActive && (
+                  <span className="competition-link" onClick={onJoinClick}>
+                    <span style={{color: '#d32f2f'}}>🚀 Don't Miss Out!</span> <span style={{color: '#1976d2'}}>Live Competition is Happening Right Now with {competitionStatus?.totalRegistrations || 0} Amazing Participants!</span> 
+                    {competitionStatus?.prizes?.first > 0 && <span style={{color: '#d32f2f'}}> 💰 Total Prize Pool: ₹{competitionStatus?.prizes?.first + (competitionStatus?.prizes?.second || 0) + (competitionStatus?.prizes?.third || 0)} Up for Grabs!</span>}
+                  </span>
+                )}
+                
+                {/* Duplicate Results Link for seamless loop */}
+                {competitionStatus?.resultsPublished && (
+                  <Link to="/competition-results" className="competition-link results-link">
+                    <span style={{color: '#ffd700'}}>🏆 Results Published!</span> <span style={{color: '#1976d2'}}>Check Your Rank and See Who Won the Competition!</span> 
+                    <span style={{color: '#d32f2f'}}> 🎉 {competitionStatus?.totalParticipants || 0} Participants Competed!</span>
+                  </Link>
+                )}
+              </div>
+            </div>
+          )}
         </div>
       </section>
 ));
@@ -166,6 +229,42 @@ const AchievementCard = memo(({ icon, number, text }: {
 });
 
 const Home: React.FC = () => {
+  const { competitionStatus, fetchCompetitionStatus } = useCompetition();
+  const [isRegistrationModalOpen, setIsRegistrationModalOpen] = useState(false);
+  const [isJoinModalOpen, setIsJoinModalOpen] = useState(false);
+  const [refreshKey, setRefreshKey] = useState(0);
+
+  // Debug logging to see when competitionStatus changes - REMOVED to prevent noise
+  // useEffect(() => {
+  //   console.log('Home: competitionStatus changed:', competitionStatus);
+  //   console.log('Home: resultsPublished value:', competitionStatus?.resultsPublished);
+  // }, [competitionStatus]);
+
+  // Refresh competition status when component mounts
+  useEffect(() => {
+    fetchCompetitionStatus();
+  }, [fetchCompetitionStatus]);
+
+  // Force refresh when competition status changes - REMOVED to prevent infinite loop
+  // useEffect(() => {
+  //   if (competitionStatus) {
+  //     setRefreshKey(prev => prev + 1);
+  //   }
+  // }, [competitionStatus?.resultsPublished]);
+
+  const handleRegisterClick = () => {
+    setIsRegistrationModalOpen(true);
+  };
+
+  const handleJoinClick = () => {
+    setIsJoinModalOpen(true);
+  };
+
+  const handleJoinSuccess = (data: any) => {
+    // Navigation is now handled in the modal
+    console.log('Joined competition:', data);
+  };
+
   // SEO data
   const seoData = {
     title: 'TypingHub - Master Typing for Government Exams',
@@ -361,7 +460,12 @@ const Home: React.FC = () => {
         </script>
       </Helmet>
 
-      <HeroSection />
+      <HeroSection 
+        key={refreshKey}
+        onRegisterClick={handleRegisterClick}
+        onJoinClick={handleJoinClick}
+        competitionStatus={competitionStatus}
+      />
 
       {/* Modern Dashboard-style Course Cards */}
       <div
@@ -550,8 +654,20 @@ const Home: React.FC = () => {
           </div>
         </div>
       </section>
+
+      {/* Competition Modals */}
+      <CompetitionRegistrationModal 
+        isOpen={isRegistrationModalOpen}
+        onClose={() => setIsRegistrationModalOpen(false)}
+      />
+      
+      <CompetitionJoinModal 
+        isOpen={isJoinModalOpen}
+        onClose={() => setIsJoinModalOpen(false)}
+        onJoinSuccess={handleJoinSuccess}
+      />
     </div>
   );
 };
 
-export default memo(Home); 
+export default Home; 

@@ -15,4 +15,7 @@ router.get('/verify/:verificationCode', certificateController.verifyCertificate)
 // Get user certificate
 router.get('/user/:userId', certificateController.getUserCertificate);
 
+// List all certificates (admin protected optional). For now public GET.
+router.get('/all', certificateController.getAllCertificates);
+
 module.exports = router; 

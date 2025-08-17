@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -9,11 +9,11 @@ import {
   faClock,
   faKeyboard,
   faFileAlt,
-  faChartLine,
   faExclamationTriangle,
   faTimes,
   faBackspace,
-  faCertificate
+  faCertificate,
+  faCheckCircle
 } from '@fortawesome/free-solid-svg-icons';
 import { useTypingTest } from '../../hooks/useTypingTest';
 import CertificateModal from '../Certificate/CertificateModal';
@@ -29,13 +29,15 @@ interface TypingEngineProps {
       minAccuracy: number;
     };
     customPassage?: string;
+    onTestComplete?: (results: any) => void;
   };
   backButton?: React.ReactNode;
   hideFeedbackModal?: boolean;
   hideDurationSelector?: boolean;
+  onTestComplete?: (results: any) => void;
 }
 
-const TypingEngine: React.FC<TypingEngineProps> = ({ config, backButton, hideFeedbackModal, hideDurationSelector }) => {
+const TypingEngine: React.FC<TypingEngineProps> = ({ config, backButton, hideFeedbackModal, hideDurationSelector, onTestComplete }) => {
   const [showCertificateModal, setShowCertificateModal] = useState(false);
   const [testResults, setTestResults] = useState<{
     wpm: number;
@@ -81,6 +83,39 @@ const TypingEngine: React.FC<TypingEngineProps> = ({ config, backButton, hideFee
     handleContextMenu,
   } = useTypingTest(config);
 
+  // Call onTestComplete when test is finished
+  useEffect(() => {
+    console.log('TypingEngine useEffect triggered:', {
+      showFeedback,
+      onTestComplete: !!onTestComplete,
+      typingStats: {
+        netSpeed: typingStats.netSpeed,
+        grossSpeed: typingStats.grossSpeed,
+        accuracy: typingStats.accuracy,
+        timeTaken: typingStats.timeTaken
+      }
+    });
+    
+    if (showFeedback && onTestComplete && typingStats.netSpeed > 0) {
+      const results = {
+        netSpeed: typingStats.netSpeed,
+        grossSpeed: typingStats.grossSpeed,
+        accuracy: typingStats.accuracy,
+        mistakes: typingStats.mistakes,
+        timeTaken: typingStats.timeTaken,
+        totalWords: typingStats.totalWords,
+        correctWords: typingStats.correctWords,
+        incorrectWords: typingStats.incorrectWords,
+        backspaces: typingStats.backspaces
+      };
+      
+      console.log('TypingEngine calling onTestComplete with results:', results);
+      
+      // Call the callback with test results
+      onTestComplete(results);
+    }
+  }, [showFeedback, onTestComplete, typingStats]);
+
   const handleCertificateClick = () => {
     // Get user info from localStorage or context
     const user = JSON.parse(localStorage.getItem('user') || '{}');
@@ -122,7 +157,7 @@ const TypingEngine: React.FC<TypingEngineProps> = ({ config, backButton, hideFee
   };
 
   return (
-    <div className="typing-test-container">
+    <>
       <Helmet>
         <title>{config.testName} - Practice for Government Exams</title>
         <meta name="description" content={`Free online ${config.testName} practice platform. Improve your typing speed and accuracy for government exams. Real-time feedback and detailed analysis.`} />
@@ -132,6 +167,7 @@ const TypingEngine: React.FC<TypingEngineProps> = ({ config, backButton, hideFee
         <meta property="og:description" content={`Practice typing for ${config.testName} with real-time feedback and detailed analysis.`} />
         <meta property="og:type" content="website" />
       </Helmet>
+      <div className="typing-test-container">
 
       <div className="test-container">
         <div className="test-main">
@@ -262,35 +298,43 @@ const TypingEngine: React.FC<TypingEngineProps> = ({ config, backButton, hideFee
         </div>
 
         <div className="result-section">
-          <div className="result-header">
-              <h3>
-                <FontAwesomeIcon icon={faChartLine} className="icon" /> RESULTS
-              </h3>
-          </div>
-          <div className="metric-block">
+          {/* Primary Statistics */}
+          <div className="metric-block primary-stat">
               <span>
                 <FontAwesomeIcon icon={faKeyboard} className="icon" /> Gross Speed:
               </span>
             <span>{typingStats.grossSpeed} wpm</span>
           </div>
-          <div className="metric-block">
+          <div className="metric-block primary-stat">
               <span>
                 <FontAwesomeIcon icon={faKeyboard} className="icon" /> Net Speed:
               </span>
             <span>{typingStats.netSpeed} wpm</span>
           </div>
-          <div className="metric-block">
+          
+          {/* Accuracy Statistics - Both Types */}
+          <div className="metric-block primary-stat" title="Character-based accuracy: Industry standard for typing tests. Based on correct characters typed vs total characters typed.">
               <span>
-                <FontAwesomeIcon icon={faCheck} className="icon" /> Accuracy:
+                <FontAwesomeIcon icon={faCheck} className="icon" /> Accuracy (Character):
               </span>
             <span>{typingStats.accuracy}%</span>
           </div>
+          <div className="metric-block secondary-stat" title="Word-based accuracy: User-friendly metric. Based on correct words typed vs total words typed.">
+              <span>
+                <FontAwesomeIcon icon={faCheck} className="icon" /> Accuracy (Word):
+              </span>
+            <span>{typingStats.totalWords > 0 ? Math.round((typingStats.correctWords / typingStats.totalWords) * 100) : 0}%</span>
+          </div>
+          
+          {/* Mistake Statistics */}
           <div className="metric-block">
               <span>
-                <FontAwesomeIcon icon={faExclamationTriangle} className="icon" /> Mistakes:
+                <FontAwesomeIcon icon={faExclamationTriangle} className="icon" /> Total Mistakes:
               </span>
             <span>{typingStats.mistakes}</span>
           </div>
+          
+          {/* Other Statistics */}
           <div className="metric-block">
               <span>
                 <FontAwesomeIcon icon={faBackspace} className="icon" /> Backspaces:
@@ -342,12 +386,16 @@ const TypingEngine: React.FC<TypingEngineProps> = ({ config, backButton, hideFee
                 <div className="stat-label">Net Speed</div>
                 <div className="stat-value">{typingStats.netSpeed} WPM</div>
               </div>
-              <div className="stat-item">
-                <div className="stat-label">Accuracy</div>
+              <div className="stat-item primary-stat">
+                <div className="stat-label">Accuracy (Character)</div>
                 <div className="stat-value">{typingStats.accuracy}%</div>
               </div>
+              <div className="stat-item secondary-stat">
+                <div className="stat-label">Accuracy (Word)</div>
+                <div className="stat-value">{typingStats.totalWords > 0 ? Math.round((typingStats.correctWords / typingStats.totalWords) * 100) : 0}%</div>
+              </div>
               <div className="stat-item">
-                <div className="stat-label">Mistakes</div>
+                <div className="stat-label">Total Mistakes</div>
                 <div className="stat-value">{typingStats.mistakes}</div>
               </div>
               <div className="stat-item">
@@ -385,12 +433,14 @@ const TypingEngine: React.FC<TypingEngineProps> = ({ config, backButton, hideFee
         </div>
       )}
 
+      </div>
+
       <CertificateModal
         isOpen={showCertificateModal}
         onClose={() => setShowCertificateModal(false)}
         testResults={testResults}
       />
-    </div>
+    </>
   );
 };
 

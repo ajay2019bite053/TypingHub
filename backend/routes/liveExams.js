@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const LiveExam = require('../models/LiveExam');
-const adminAuthMiddleware = require('../middleware/authMiddleware');
+const { verifyAdmin } = require('../middleware/authMiddleware');
 
 // Get all live exams (public)
 router.get('/', async (req, res) => {
@@ -26,7 +26,7 @@ router.get('/', async (req, res) => {
 });
 
 // Get all exams for admin (both live and stopped)
-router.get('/admin', adminAuthMiddleware, async (req, res) => {
+router.get('/admin', verifyAdmin, async (req, res) => {
   try {
     const exams = await LiveExam.find().sort({ date: -1, createdAt: -1 });
     res.json(exams);
@@ -47,7 +47,7 @@ router.get('/:id', async (req, res) => {
 });
 
 // Add a new live exam (admin only)
-router.post('/', adminAuthMiddleware, async (req, res) => {
+router.post('/', verifyAdmin, async (req, res) => {
   try {
     const { name, date, isLive, joinLink, passage, timeLimit, startTime, endTime } = req.body;
     if (!name || !date || !joinLink || !passage || !timeLimit) {
@@ -62,7 +62,7 @@ router.post('/', adminAuthMiddleware, async (req, res) => {
 });
 
 // Update a live exam (admin only)
-router.put('/:id', adminAuthMiddleware, async (req, res) => {
+router.put('/:id', verifyAdmin, async (req, res) => {
   try {
     const { name, date, isLive, joinLink, passage, timeLimit, startTime, endTime } = req.body;
     if (!name || !date || !joinLink || !passage || !timeLimit) {
@@ -81,7 +81,7 @@ router.put('/:id', adminAuthMiddleware, async (req, res) => {
 });
 
 // Delete a live exam (admin only)
-router.delete('/:id', adminAuthMiddleware, async (req, res) => {
+router.delete('/:id', verifyAdmin, async (req, res) => {
   try {
     const exam = await LiveExam.findByIdAndDelete(req.params.id);
     if (!exam) return res.status(404).json({ message: 'Exam not found' });

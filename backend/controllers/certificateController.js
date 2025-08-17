@@ -240,5 +240,15 @@ module.exports = {
   generateCertificate,
   downloadCertificate,
   verifyCertificate,
-  getUserCertificate
+  getUserCertificate,
+  // New: list all certificates
+  getAllCertificates: async (req, res) => {
+    try {
+      const certificates = await Certificate.find().sort({ createdAt: -1 }).lean();
+      res.json({ success: true, certificates });
+    } catch (error) {
+      console.error('Error fetching certificates:', error);
+      res.status(500).json({ success: false, message: 'Error fetching certificates' });
+    }
+  }
 }; 

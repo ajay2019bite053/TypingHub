@@ -18,11 +18,13 @@ interface TypingStats {
   mistakeRate: number;
   isQualified: boolean;
   idleTime: number;
-  normalMistakes?: number;
-  punctuationMistakes?: number;
-  extraChars?: number;
-  missingChars?: number;
-  effectiveSpeed?: number;
+  // Enhanced metrics for perfect analysis
+  normalMistakes: number;
+  punctuationMistakes: number;
+  extraChars: number;
+  missingChars: number;
+  effectiveSpeed: number;
+  wordAccuracy?: number; // Word-based accuracy for user display
 }
 
 interface TestConfig {
@@ -33,7 +35,7 @@ interface TestConfig {
     minWpm: number;
     minAccuracy: number;
   };
-  customPassage?: string; // Optional custom passage content
+  customPassage?: string;
 }
 
 const SSC_CONSTANTS = {
@@ -93,7 +95,13 @@ export const useTypingTest = (config: TestConfig) => {
     totalChars: 0,
     mistakeRate: 0,
     isQualified: false,
-    idleTime: 0
+    idleTime: 0,
+    // Enhanced metrics
+    normalMistakes: 0,
+    punctuationMistakes: 0,
+    extraChars: 0,
+    missingChars: 0,
+    effectiveSpeed: 0
   });
   const [typedText, setTypedText] = useState('');
   const [lastKeypressTime, setLastKeypressTime] = useState<number>(Date.now());
@@ -106,7 +114,36 @@ export const useTypingTest = (config: TestConfig) => {
   const sampleTextContainerRef = useRef<HTMLDivElement>(null);
   const sampleTextRef = useRef<HTMLParagraphElement>(null);
   const idleCheckIntervalRef = useRef<NodeJS.Timeout | undefined>(undefined);
+  const backgroundProcessRef = useRef<NodeJS.Timeout | undefined>(undefined);
   const IDLE_THRESHOLD = 10;
+
+  // Background processing for smooth typing
+  const startBackgroundProcessing = useCallback(() => {
+    if (backgroundProcessRef.current) {
+      clearInterval(backgroundProcessRef.current);
+    }
+
+    backgroundProcessRef.current = setInterval(() => {
+      // Background tasks for smooth performance
+      if (isRunning) {
+        // Update idle time
+        const currentTime = Date.now();
+        const timeSinceLastKeypress = (currentTime - lastKeypressTime) / 1000;
+        
+        if (timeSinceLastKeypress > IDLE_THRESHOLD) {
+          setIdleTime(prev => prev + 1);
+        }
+      }
+    }, 1000); // Run every second
+  }, [isRunning, lastKeypressTime]);
+
+  // Stop background processing
+  const stopBackgroundProcessing = useCallback(() => {
+    if (backgroundProcessRef.current) {
+      clearInterval(backgroundProcessRef.current);
+      backgroundProcessRef.current = undefined;
+    }
+  }, []);
 
   // Utility functions
   const sanitizeInput = (input: string) => {
@@ -146,31 +183,76 @@ export const useTypingTest = (config: TestConfig) => {
     return text[wordEnd] === ' ';
   };
 
-  // Calculate typing stats
+  // Calculate typing stats - PERFECT LOGIC IMPLEMENTATION
   const calculateTypingStats = useCallback((
     correctChars: number,
     totalChars: number,
-    normalMistakes: number,
+    mistakes: number,
     backspaceCount: number,
     totalWords: number,
     correctWords: number,
     incorrectWords: number,
     startTime: number | null,
-    punctuationMistakes: number = 0
+    punctuationMistakes: number
   ): TypingStats => {
     const currentTime = Date.now();
     const timeInMinutes = Math.max(0.0166667, (currentTime - (startTime || currentTime)) / 60000);
     const timeInSeconds = Math.round((currentTime - (startTime || currentTime)) / 1000);
     
-    const totalMistakes = normalMistakes + (punctuationMistakes * 0.5);
-    const grossSpeed = Math.max(0, Math.round((correctChars / SSC_CONSTANTS.CHARS_PER_WORD) / timeInMinutes));
-    const mistakePenalty = Math.min(correctChars, totalMistakes * SSC_CONSTANTS.MISTAKE_PENALTY);
-    const netSpeed = Math.max(0, Math.round(
-      ((correctChars - mistakePenalty) / SSC_CONSTANTS.CHARS_PER_WORD) / timeInMinutes
-    ));
-    const accuracy = totalChars === 0 ? 0 : Math.round((correctChars / totalChars) * 100);
-    const wordsPerMinute = Math.max(0, Math.round((correctChars / SSC_CONSTANTS.CHARS_PER_WORD) / (timeInSeconds / 60)));
+    // PERFECT ACCURACY CALCULATION (Industry Standard)
+    // Character-based accuracy (primary, industry standard)
+    const accuracy = totalChars === 0 ? 0 : 
+                    Math.round((correctChars / totalChars) * 100);
+    
+    // Word-based accuracy (secondary, user-friendly)
+    const wordAccuracy = totalWords === 0 ? 0 : 
+                         Math.round((correctWords / totalWords) * 100);
+    
+    // PERFECT SPEED CALCULATIONS (Industry Standard)
+    // Gross Speed: Raw typing speed (total characters / 5 / time)
+    const grossSpeed = Math.max(0, Math.round((totalChars / 5) / timeInMinutes));
+    
+    // Net Speed: Effective speed after accuracy penalty
+    const netSpeed = Math.max(0, Math.round(grossSpeed * (accuracy / 100)));
+    
+    // PERFECT MISTAKE COUNTING
+    const totalMistakes = mistakes + (punctuationMistakes * 0.5);
+    const characterMistakes = totalChars - correctChars;
+    
+    // PERFECT TIME CALCULATIONS
+    const wordsPerMinute = Math.max(0, Math.round((correctChars / 5) / (timeInSeconds / 60)));
     const timePerWord = totalWords > 0 ? (timeInSeconds / totalWords).toFixed(2) + 's' : '0s';
+    
+    // PERFECT MISTAKE RATE
+    const mistakeRate = totalChars === 0 ? 0 : Math.round((totalMistakes / totalChars) * 100);
+    
+    // PERFECT QUALIFICATION CHECK
+    const isQualified = timeInSeconds >= SSC_CONSTANTS.MIN_TEST_TIME && 
+                       grossSpeed >= config.qualificationCriteria.minWpm && 
+                       accuracy >= config.qualificationCriteria.minAccuracy;
+    
+    // Debug logging for troubleshooting
+    console.log('🔍 PERFECT LOGIC DEBUG:', {
+      // Input values
+      correctChars,
+      totalChars,
+      mistakes,
+      totalWords,
+      correctWords,
+      incorrectWords,
+      timeInMinutes,
+      timeInSeconds,
+      
+      // Calculated values
+      accuracy,
+      wordAccuracy,
+      grossSpeed,
+      netSpeed,
+      totalMistakes,
+      characterMistakes,
+      mistakeRate,
+      isQualified
+    });
     
     const stats: TypingStats = {
       grossSpeed,
@@ -186,15 +268,19 @@ export const useTypingTest = (config: TestConfig) => {
       wordsPerMinute,
       correctChars,
       totalChars,
-      mistakeRate: totalChars === 0 ? 0 : Math.round((totalMistakes / totalChars) * 100),
-      isQualified: timeInSeconds >= SSC_CONSTANTS.MIN_TEST_TIME && 
-                   grossSpeed >= config.qualificationCriteria.minWpm && 
-                   accuracy >= config.qualificationCriteria.minAccuracy,
-      idleTime: 0
+      mistakeRate,
+      isQualified,
+      idleTime: 0,
+      // Additional metrics for comprehensive analysis
+      normalMistakes: mistakes,
+      punctuationMistakes,
+      extraChars: Math.max(0, totalChars - passageWords.join(' ').length),
+      missingChars: Math.max(0, passageWords.join(' ').length - totalChars),
+      effectiveSpeed: netSpeed
     };
 
     return stats;
-  }, [config.qualificationCriteria]);
+  }, [config.qualificationCriteria, passageWords]);
 
   // Fetch passages from API
   const fetchPassages = useCallback(async () => {
@@ -218,7 +304,7 @@ export const useTypingTest = (config: TestConfig) => {
       const data = await response.json();
       if (data && data.length > 0) {
         setPassages(data);
-        console.log('Passages fetched successfuly:', data);
+        console.log('Passages fetched successfully:', data);
       } else {
         console.warn('Using default passages as no valid passages were returned from the API');
       }
@@ -311,49 +397,50 @@ export const useTypingTest = (config: TestConfig) => {
     const lineNumber = Math.floor(currentTypingWordIndex / wordsPerLine);
     if (lineNumber > currentLine && sampleTextContainerRef.current) {
       setCurrentLine(lineNumber);
-      // Autoscrolling disabled - user will scroll manually
-      // const lineHeight = 28;
-      // const containerHeight = sampleTextContainerRef.current.clientHeight;
-      // const contentHeight = sampleTextRef.current?.offsetHeight || 0;
-      // const maxScroll = contentHeight - containerHeight;
-
-      // if (sampleTextContainerRef.current.scrollTop < maxScroll) {
-      //   sampleTextContainerRef.current.scrollTop += lineHeight;
-      // }
     }
   }, [currentLine, wordElements, wordsPerLine, examMode]);
+
+  // Calculate word similarity for smart word alignment
+  const calculateWordSimilarity = (word1: string, word2: string): number => {
+    if (word1 === word2) return 1.0;
+    if (word1.length === 0 || word2.length === 0) return 0.0;
+    
+    // Simple similarity based on common characters
+    const set1 = new Set(word1.toLowerCase());
+    const set2 = new Set(word2.toLowerCase());
+    
+    const intersection = new Set(Array.from(set1).filter(x => set2.has(x)));
+    const union = new Set([...Array.from(set1), ...Array.from(set2)]);
+    
+    return intersection.size / union.size;
+  };
 
   const getCharacterHighlights = (expected: string, typed: string) => {
     const normalizedExpected = normalizeQuotes(expected);
     const normalizedTyped = normalizeQuotes(typed);
     const result: { char: string; status: 'correct' | 'wrong' }[] = [];
-    let typedIndex = 0;
-
-    for (let i = 0; i < normalizedExpected.length; i++) {
-      if (typedIndex < normalizedTyped.length) {
-        if (normalizedExpected[i] === normalizedTyped[typedIndex]) {
+    
+    // PERFECT CHARACTER ALIGNMENT LOGIC
+    // Handle case where typed word is longer/shorter than expected
+    const maxLength = Math.max(normalizedExpected.length, normalizedTyped.length);
+    
+    for (let i = 0; i < maxLength; i++) {
+      if (i < normalizedExpected.length && i < normalizedTyped.length) {
+        // Both characters exist - compare them
+        if (normalizedExpected[i] === normalizedTyped[i]) {
           result.push({ char: normalizedExpected[i], status: 'correct' });
-          typedIndex++;
         } else {
-          if (i + 1 < normalizedExpected.length && 
-              typedIndex < normalizedTyped.length && 
-              normalizedExpected[i + 1] === normalizedTyped[typedIndex]) {
-            result.push({ char: normalizedExpected[i], status: 'wrong' });
-          } else {
-            result.push({ char: normalizedExpected[i], status: 'wrong' });
-            typedIndex++;
-          }
+          result.push({ char: normalizedExpected[i], status: 'wrong' });
         }
-      } else {
+      } else if (i < normalizedExpected.length) {
+        // Expected character exists but typed doesn't - missing character
         result.push({ char: normalizedExpected[i], status: 'wrong' });
+      } else {
+        // Typed character exists but expected doesn't - extra character
+        // Don't add to result as we're highlighting the expected passage
       }
     }
-
-    while (typedIndex < normalizedTyped.length) {
-      result.push({ char: normalizedTyped[typedIndex], status: 'wrong' });
-      typedIndex++;
-    }
-
+    
     return result;
   };
 
@@ -381,55 +468,89 @@ export const useTypingTest = (config: TestConfig) => {
       });
     });
 
-    // Highlight all typed words (not just up to currentWordIndex)
-    for (let wordIndex = 0; wordIndex < typedWordsCurrent.length && wordIndex < wordElements.length; wordIndex++) {
-      const wordElement = wordElements[wordIndex];
-      if (!wordElement) continue;
-
-      const chars = wordElement.querySelectorAll('span');
-      const typedWord = typedWordsCurrent[wordIndex];
-      const expectedWord = passageWords[wordIndex] || '';
-
-      const highlights = getCharacterHighlights(expectedWord, typedWord);
-
-      chars.forEach((char, charIndex) => {
-        if (charIndex < highlights.length) {
-          const highlight = highlights[charIndex];
-          if (highlight.status === 'correct') {
-            char.classList.add('correct-char');
-          } else {
-            char.classList.add('incorrect-char');
-          }
+    // SMART WORD ALIGNMENT FOR BETTER HIGHLIGHTING
+    let passageIndex = 0;
+    
+    for (let i = 0; i < typedWordsCurrent.length && passageIndex < wordElements.length; i++) {
+      const typedWord = typedWordsCurrent[i];
+      
+      // SMART LOCAL SEARCH - Only check 2-3 words around current position
+      const searchWindow = 2; // Check 2 words before and after current position
+      let bestMatchIndex = -1;
+      let bestMatchScore = 0;
+      
+      // Look for the best match in a small window around current position
+      const startIndex = Math.max(0, passageIndex - searchWindow);
+      const endIndex = Math.min(wordElements.length, passageIndex + searchWindow + 1);
+      
+      for (let j = startIndex; j < endIndex; j++) {
+        const expectedWord = passageWords[j] || '';
+        const matchScore = calculateWordSimilarity(typedWord, expectedWord);
+        
+        if (matchScore > bestMatchScore) {
+          bestMatchScore = matchScore;
+          bestMatchIndex = j;
         }
-      });
+      }
+      
+      if (bestMatchIndex >= 0 && bestMatchScore > 0.5) {
+        // Found a good match - highlight it
+        const wordElement = wordElements[bestMatchIndex];
+        if (wordElement) {
+          const chars = wordElement.querySelectorAll('span');
+          const expectedWord = passageWords[bestMatchIndex] || '';
+          
+          const highlights = getCharacterHighlights(expectedWord, typedWord);
+          
+          chars.forEach((char, charIndex) => {
+            if (charIndex < highlights.length) {
+              const highlight = highlights[charIndex];
+              if (highlight.status === 'correct') {
+                char.classList.add('correct-char');
+              } else {
+                char.classList.add('incorrect-char');
+              }
+            }
+          });
+          
+          passageIndex = bestMatchIndex + 1; // Move to next passage word
+        }
+      }
+      // If no good match found in local window, skip highlighting (extra word)
     }
   }, [passageWords, wordElements, examMode]);
 
   // Test control functions
   const startTest = useCallback(() => {
-    if (isRunning || passages.length === 0) return;
+    if (isRunning) return;
     
     setIsRunning(true);
-    const now = Date.now();
-    setStartTime(now);
+    setStartTime(Date.now());
     setTimeLeft(selectedDuration);
-    
-    setCorrectChars(0);
-    setTotalChars(0);
-    setMistakes(0);
-    setBackspaceCount(0);
-    setTotalWords(0);
+    setTypedWords([]);
+    setTypedText('');
+    setCurrentWordIndex(0);
     setCorrectWordsCount(0);
     setIncorrectWordsCount(0);
+    setBackspaceCount(0);
+    setTotalChars(0);
+    setCorrectChars(0);
+    setMistakes(0);
+    setPunctuationMistakes(0);
+    setExtraChars(0);
+    setMissingChars(0);
+    setTotalWords(0);
+    setIdleTime(0);
+    setLastKeypressTime(Date.now());
     
     if (typingAreaRef.current) {
+      typingAreaRef.current.value = '';
       typingAreaRef.current.readOnly = false;
       typingAreaRef.current.focus();
     }
     
-    const initialStats = calculateTypingStats(0, 0, 0, 0, 0, 0, 0, now);
-    setTypingStats(initialStats);
-  }, [isRunning, passages.length, calculateTypingStats, selectedDuration]);
+    startBackgroundProcessing();
+  }, [isRunning, selectedDuration, startBackgroundProcessing]);
 
   const pauseTest = useCallback(() => {
     if (isRunning) {
@@ -437,15 +558,17 @@ export const useTypingTest = (config: TestConfig) => {
       if (typingAreaRef.current) {
         typingAreaRef.current.disabled = true;
       }
+      stopBackgroundProcessing();
     } else {
       startTest();
     }
-  }, [isRunning, startTest]);
+  }, [isRunning, startTest, stopBackgroundProcessing]);
 
   const restartTest = useCallback(() => {
     if (timerIntervalRef.current) {
       clearInterval(timerIntervalRef.current);
     }
+    stopBackgroundProcessing();
     setIsRunning(false);
     setTypedWords([]);
     setTypedText('');
@@ -462,6 +585,7 @@ export const useTypingTest = (config: TestConfig) => {
     setStartTime(null);
     setTotalWords(0);
     setTimeLeft(selectedDuration);
+    
     if (typingAreaRef.current) {
       typingAreaRef.current.value = '';
       typingAreaRef.current.readOnly = true;
@@ -472,15 +596,31 @@ export const useTypingTest = (config: TestConfig) => {
     updateLetterHighlight();
     setIdleTime(0);
     setLastKeypressTime(Date.now());
-  }, [displayPassage, updateWordHighlight, updateLetterHighlight, selectedDuration]);
+  }, [displayPassage, updateWordHighlight, updateLetterHighlight, selectedDuration, stopBackgroundProcessing]);
 
   const submitTest = useCallback(() => {
     if (!isRunning) return;
     
     setIsRunning(false);
+    stopBackgroundProcessing();
+    
     if (typingAreaRef.current) {
       typingAreaRef.current.readOnly = true;
     }
+    
+    const newStats = calculateTypingStats(
+      correctChars,
+      totalChars,
+      mistakes,
+      backspaceCount,
+      totalWords,
+      correctWordsCount,
+      incorrectWordsCount,
+      startTime,
+      punctuationMistakes
+    );
+
+    setTypingStats(newStats);
     
     setShowFeedback(true);
     document.body.classList.add('feedback-open');
@@ -488,7 +628,7 @@ export const useTypingTest = (config: TestConfig) => {
     if (container) {
       container.classList.add('feedback-open');
     }
-  }, [isRunning]);
+  }, [isRunning, calculateTypingStats, correctChars, totalChars, mistakes, backspaceCount, totalWords, correctWordsCount, incorrectWordsCount, startTime, punctuationMistakes]);
 
   const handleCloseFeedback = useCallback(() => {
     setShowFeedback(false);
@@ -556,79 +696,143 @@ export const useTypingTest = (config: TestConfig) => {
     
     const passageText = passageWords.join(' ');
     
+    // PERFECT CHARACTER AND WORD COUNTING
     const counters = {
       correctChars: 0,
-      totalChars: newText.length,
+      totalChars: 0, // Will be calculated properly
       normalMistakes: 0,
       punctuationMistakes: 0,
       correctWords: 0,
       incorrectWords: 0
     };
     
-    // Character-by-character comparison
-    for (let i = 0; i < newText.length; i++) {
-      const typedChar = newText[i];
-      const expectedChar = passageText[i];
-      
-      if (expectedChar) {
-        if (typedChar === expectedChar) {
-          counters.correctChars++;
-        } else {
-          if (isPunctuation(expectedChar)) {
-            counters.punctuationMistakes++;
-          } else {
-            counters.normalMistakes++;
-          }
-        }
-      } else {
-        counters.normalMistakes++;
-      }
-    }
-    
-    // Smart word completion detection
-    const typedWords = newText.trim().split(/\s+/);
+    // PERFECT WORD PROCESSING
+    const typedWords = newText.trim().split(/\s+/).filter(word => word.length > 0);
     const passageWordsArray = passageText.trim().split(/\s+/);
     
-    if (typedWords.length === 1 && typedWords[0] === '') {
-      setTotalWords(0);
-    } else {
-      setTotalWords(typedWords.length);
+    let totalCorrectChars = 0;
+    let totalMistakes = 0;
+    let totalExpectedChars = 0;
+    
+    // PERFECT WORD-BY-WORD ANALYSIS WITH SMART ALIGNMENT
+    let passageIndex = 0;
+    
+    for (let i = 0; i < typedWords.length; i++) {
+      const typedWord = typedWords[i];
       
-      // Check completed words (words that have been fully typed)
-      for (let i = 0; i < typedWords.length; i++) {
-        if (i < passageWordsArray.length) {
-          const typedWord = typedWords[i];
-          const expectedWord = passageWordsArray[i];
-          
-          // Check if this word is complete (has space after it or is last word)
-          const isWordComplete = isWordFullyTyped(newText, i, typedWords);
-          
-          if (isWordComplete) {
-            if (typedWord === expectedWord) {
-              counters.correctWords++;
-            } else {
-              counters.incorrectWords++;
-            }
+      // SMART LOCAL SEARCH - Only check 2-3 words around current position
+      const searchWindow = 2; // Check 2 words before and after current position
+      let bestMatchIndex = -1;
+      let bestMatchScore = 0;
+      
+      // Look for the best match in a small window around current position
+      const startIndex = Math.max(0, passageIndex - searchWindow);
+      const endIndex = Math.min(passageWordsArray.length, passageIndex + searchWindow + 1);
+      
+      for (let j = startIndex; j < endIndex; j++) {
+        const expectedWord = passageWordsArray[j];
+        const matchScore = calculateWordSimilarity(typedWord, expectedWord);
+        
+        if (matchScore > bestMatchScore) {
+          bestMatchScore = matchScore;
+          bestMatchIndex = j;
+        }
+      }
+      
+      if (bestMatchIndex >= 0 && bestMatchScore > 0.5) {
+        // Found a good match - process it
+        const expectedWord = passageWordsArray[bestMatchIndex];
+        passageIndex = bestMatchIndex + 1; // Move to next passage word
+        
+        // PERFECT CHARACTER COMPARISON
+        const minLength = Math.min(typedWord.length, expectedWord.length);
+        let wordCorrectChars = 0;
+        let wordMistakes = 0;
+        
+        // Compare each character
+        for (let j = 0; j < minLength; j++) {
+          if (typedWord[j] === expectedWord[j]) {
+            wordCorrectChars++;
+          } else {
+            wordMistakes++;
           }
+        }
+        
+        // Count extra characters as mistakes
+        if (typedWord.length > expectedWord.length) {
+          wordMistakes += (typedWord.length - expectedWord.length);
+        }
+        
+        // Count missing characters as mistakes
+        if (typedWord.length < expectedWord.length) {
+          wordMistakes += (expectedWord.length - typedWord.length);
+        }
+        
+        totalCorrectChars += wordCorrectChars;
+        totalMistakes += wordMistakes;
+        totalExpectedChars += expectedWord.length;
+        
+        // PERFECT WORD ACCURACY
+        if (typedWord === expectedWord) {
+          counters.correctWords++;
         } else {
           counters.incorrectWords++;
         }
+        
+        // PERFECT MISTAKE CATEGORIZATION
+        if (wordMistakes > 0) {
+          // Check if mistakes are punctuation-related
+          const punctuationMistakesInWord = Array.from(typedWord).filter(char => 
+            isPunctuation(char) && !expectedWord.includes(char)
+          ).length;
+          
+          counters.punctuationMistakes += punctuationMistakesInWord;
+          counters.normalMistakes += (wordMistakes - punctuationMistakesInWord);
+        }
+      } else {
+        // No good match found in local window - count as extra word
+        counters.normalMistakes += typedWord.length;
+        counters.incorrectWords++;
+        totalMistakes += typedWord.length;
+        // Don't advance passageIndex - stay at current position
       }
     }
-
+    
+    // PERFECT FINAL COUNTS - Calculate totalChars properly
+    counters.correctChars = totalCorrectChars;
+    counters.totalChars = totalExpectedChars; // Use expected passage length, not typed text length
+    
+    // Debug logging for character counting fix
+    console.log('🔍 CHARACTER COUNTING DEBUG:', {
+      typedText: newText,
+      typedTextLength: newText.length,
+      typedWords: typedWords,
+      passageWords: passageWordsArray,
+      totalExpectedChars,
+      totalCorrectChars,
+      totalMistakes,
+      finalTotalWords: typedWords.length
+    });
+    
+    // Set total words (only non-empty words)
+    const finalTotalWords = typedWords.length;
+    
+    // Update all state variables
     setCorrectChars(counters.correctChars);
     setTotalChars(counters.totalChars);
     setMistakes(counters.normalMistakes);
     setPunctuationMistakes(counters.punctuationMistakes);
     setCorrectWordsCount(counters.correctWords);
     setIncorrectWordsCount(counters.incorrectWords);
+    setTotalWords(finalTotalWords);
     
+    // PERFECT STATS CALCULATION
     const newStats = calculateTypingStats(
       counters.correctChars,
       counters.totalChars,
       counters.normalMistakes,
       backspaceCount,
-      typedWords.length || 0,
+      finalTotalWords,
       counters.correctWords,
       counters.incorrectWords,
       startTime,
@@ -688,6 +892,9 @@ export const useTypingTest = (config: TestConfig) => {
     return () => {
       if (timerIntervalRef.current) {
         clearInterval(timerIntervalRef.current);
+      }
+      if (backgroundProcessRef.current) {
+        clearInterval(backgroundProcessRef.current);
       }
       if (sampleTextRef.current) {
         sampleTextRef.current.innerHTML = '';

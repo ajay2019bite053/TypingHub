@@ -35,14 +35,14 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "set NODE_OPTIONS=--max-old-space-size=4096 && react-scripts start",
     "build": "react-scripts build",
     "build:prod": "GENERATE_SOURCEMAP=false react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "clean": "rimraf node_modules package-lock.json build",
     "reinstall": "npm run clean && npm install",
-    "dev": "react-scripts start",
+    "dev": "set NODE_OPTIONS=--max-old-space-size=4096 && react-scripts start",
     "lint": "eslint src/**/*.{ts,tsx}",
     "lint:fix": "eslint src/**/*.{ts,tsx} --fix"
   },

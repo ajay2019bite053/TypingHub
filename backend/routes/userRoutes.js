@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
-const authMiddleware = require('../middleware/authMiddleware');
+const userAuthMiddleware = require('../middleware/auth');
 const userController = require('../controllers/userController');
 
 // Register new user
@@ -108,7 +108,7 @@ router.post('/login', async (req, res) => {
 });
 
 // Get user dashboard data
-router.get('/dashboard', authMiddleware, async (req, res) => {
+router.get('/dashboard', userAuthMiddleware, async (req, res) => {
   try {
     const user = await User.findById(req.user.userId)
       .select('-password')
@@ -135,7 +135,7 @@ router.get('/dashboard', authMiddleware, async (req, res) => {
 });
 
 // Update user profile
-router.put('/profile', authMiddleware, async (req, res) => {
+router.put('/profile', userAuthMiddleware, async (req, res) => {
   try {
     const { name, mobile } = req.body;
     const user = await User.findById(req.user.userId);
@@ -165,7 +165,7 @@ router.put('/profile', authMiddleware, async (req, res) => {
 });
 
 // Update user stats
-router.put('/stats', authMiddleware, async (req, res) => {
+router.put('/stats', userAuthMiddleware, async (req, res) => {
   try {
     const { typingAccuracy, mockTestsTaken } = req.body;
     const user = await User.findById(req.user.userId);

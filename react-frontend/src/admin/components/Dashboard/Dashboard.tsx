@@ -16,7 +16,8 @@ import {
   faTrash,
   faExclamationTriangle,
   faQuestionCircle,
-  faCheckCircle
+  faCheckCircle,
+  faTrophy
 } from '@fortawesome/free-solid-svg-icons';
 import LoadingSpinner from '../../../components/LoadingSpinner/LoadingSpinner';
 import Toast, { ToastType } from '../../../components/Toast/Toast';
@@ -30,6 +31,7 @@ import LiveExams from './LiveExams';
 import AdminCardManager from './AdminCardManager';
 import AdminCouponManager from './AdminCouponManager';
 import BlogManager from '../BlogManager/BlogManager';
+import CompetitionManager from './CompetitionManager';
 import './Dashboard.css';
 import { API_CONFIG } from '../../../config/api';
 
@@ -117,7 +119,7 @@ const Dashboard: React.FC = () => {
       action: async () => {
         try {
           await logout();
-          navigate('/admin/login');
+          navigate('/admin-secret-9382xj');
         } catch (error) {
           console.error('Error during logout:', error);
         }
@@ -137,7 +139,7 @@ const Dashboard: React.FC = () => {
         localStorage.removeItem('accessToken');
         localStorage.removeItem('user');
         sessionStorage.clear();
-        navigate('/admin/login');
+        navigate('/admin-secret-9382xj');
       }
     });
   };
@@ -409,6 +411,8 @@ const Dashboard: React.FC = () => {
         return <AdminCouponManager />;
       case 'blog-manager':
         return <BlogManager />;
+      case 'competition-manager':
+        return <CompetitionManager />;
       default:
         return <Welcome />;
     }
@@ -500,6 +504,12 @@ const Dashboard: React.FC = () => {
             className={activeSection === 'blog-manager' ? 'active' : ''}
           >
             <FontAwesomeIcon icon={faList} /> Blog Manager
+          </button>
+          <button 
+            onClick={() => handleSectionChange('competition-manager')}
+            className={activeSection === 'competition-manager' ? 'active' : ''}
+          >
+            <FontAwesomeIcon icon={faTrophy} /> Competition Manager
           </button>
           <button 
             onClick={() => navigate('/admin/admin-requests')}

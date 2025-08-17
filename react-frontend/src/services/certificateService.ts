@@ -9,8 +9,10 @@ export interface Certificate {
 }
 
 export interface GenerateCertificateRequest {
-  name: string;
-  [key: string]: any;
+  userId: string;
+  userName: string;
+  typingSpeed: number;
+  accuracy: number;
 }
 
 const API_BASE = '/api/certificates';
@@ -35,16 +37,16 @@ const certificateService = {
     return res.blob();
   },
 
-  async verifyCertificate(certificateId: string) {
-    const res = await fetch(`${API_BASE}/verify/${certificateId}`, {
+  async verifyCertificate(verificationCode: string) {
+    const res = await fetch(`${API_BASE}/verify/${verificationCode}`, {
       method: 'GET',
       credentials: 'include',
     });
     return res.json();
   },
 
-  async getUserCertificates() {
-    const res = await fetch(`${API_BASE}/user`, {
+  async getUserCertificates(userId: string) {
+    const res = await fetch(`${API_BASE}/user/${userId}`, {
       method: 'GET',
       credentials: 'include',
     });

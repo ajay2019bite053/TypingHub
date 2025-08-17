@@ -26,6 +26,8 @@ const cardRoutes = require('./routes/cardRoutes');
 const certificateRoutes = require('./routes/certificates');
 const blogRoutes = require('./routes/blogs');
 const aiRoutes = require('./routes/ai');
+const competitionRoutes = require('./routes/competition');
+const paymentRoutes = require('./routes/payment');
 
 // Import middleware and utils
 const authMiddleware = require('./middleware/authMiddleware');
@@ -40,14 +42,32 @@ const securityConfig = {
     contentSecurityPolicy: {
       directives: {
         defaultSrc: ["'self'"],
-        scriptSrc: ["'self'", "'unsafe-inline'"],
+        scriptSrc: [
+          "'self'",
+          "'unsafe-inline'",
+          'https://checkout.razorpay.com'
+        ],
         styleSrc: ["'self'", "'unsafe-inline'"],
-        imgSrc: ["'self'", "data:", "blob:"],
-        connectSrc: ["'self'", ...config.CORS_ORIGIN],
+        imgSrc: [
+          "'self'",
+          'data:',
+          'blob:',
+          'https://*.razorpay.com'
+        ],
+        connectSrc: [
+          "'self'",
+          ...config.CORS_ORIGIN,
+          'https://api.razorpay.com',
+          'https://checkout.razorpay.com'
+        ],
         fontSrc: ["'self'"],
         objectSrc: ["'none'"],
         mediaSrc: ["'self'"],
-        frameSrc: ["'none'"],
+        frameSrc: [
+          "'self'",
+          'https://*.razorpay.com',
+          'https://checkout.razorpay.com'
+        ],
       },
     },
     crossOriginEmbedderPolicy: false,
@@ -139,6 +159,8 @@ app.use('/api/cards', cardRoutes);
 app.use('/api/certificates', certificateRoutes);
 app.use('/api/blogs', blogRoutes);
 app.use('/api/ai', aiRoutes);
+app.use('/api/competition', competitionRoutes);
+app.use('/api/payment', paymentRoutes);
 
 // Health check endpoint
 app.get('/api/health', (req, res) => {
@@ -174,73 +196,29 @@ const connectDB = async (retries = 5, delay = 5000) => {
 const startServer = async () => {
   try {
     await connectDB();
-    const PORT = config.PORT;
-    const server = app.listen(PORT, () => {
-      console.log(`Server running on port ${PORT} in ${config.NODE_ENV} mode`);
-      if (config.NODE_ENV === 'development') {
-        console.log('Configuration loaded:', {
-          PORT: config.PORT,
-          DB_URL: config.DB_URL ? 'Set' : 'Not Set',
-          ACCESS_TOKEN_SECRET: config.ACCESS_TOKEN_SECRET ? 'Set' : 'Not Set',
-          REFRESH_TOKEN_SECRET: config.REFRESH_TOKEN_SECRET ? 'Set' : 'Not Set',
-          CORS_ORIGIN: config.CORS_ORIGIN
-        });
-      }
+    
+    const PORT = config.PORT || 5000;
+    app.listen(PORT, () => {
+      console.log(`Server running on port ${PORT}`);
+      console.log(`Environment: ${config.NODE_ENV}`);
     });
-
-    // Handle server errors
-    server.on('error', (error) => {
-      console.error('Server error:', error);
-      if (error.code === 'EADDRINUSE') {
-        console.error(`Port ${PORT} is already in use`);
-        process.exit(1);
-      }
-    });
-
-    // Handle process errors
-    process.on('uncaughtException', (error) => {
-      console.error('Uncaught Exception:', error);
-      // Give the server a chance to finish handling existing connections
-      server.close(() => {
-        process.exit(1);
-      });
-    });
-
-    process.on('unhandledRejection', (error) => {
-      console.error('Unhandled Rejection:', error);
-      // Give the server a chance to finish handling existing connections
-      server.close(() => {
-        process.exit(1);
-      });
-    });
-
-    // Graceful shutdown
-    process.on('SIGTERM', () => {
-      console.log('SIGTERM received. Shutting down gracefully...');
-      server.close(() => {
-        console.log('Server closed');
-        mongoose.connection.close(false, () => {
-          console.log('MongoDB connection closed');
-          process.exit(0);
-        });
-      });
-    });
-
-    process.on('SIGINT', () => {
-      console.log('SIGINT received. Shutting down gracefully...');
-      server.close(() => {
-        console.log('Server closed');
-        mongoose.connection.close(false, () => {
-          console.log('MongoDB connection closed');
-          process.exit(0);
-        });
-      });
-    });
-
   } catch (error) {
     console.error('Failed to start server:', error);
     process.exit(1);
   }
 };
 
+// Handle unhandled promise rejections
+process.on('unhandledRejection', (err) => {
+  console.error('Unhandled Promise Rejection:', err);
+  process.exit(1);
+});
+
+// Handle uncaught exceptions
+process.on('uncaughtException', (err) => {
+  console.error('Uncaught Exception:', err);
+  process.exit(1);
+});
+
+// Start the server
 startServer();

@@ -46,8 +46,8 @@ interface CertificateContextType {
   state: CertificateState;
   generateCertificate: (data: GenerateCertificateRequest) => Promise<Certificate>;
   downloadCertificate: (certificateId: string) => Promise<void>;
-  verifyCertificate: (certificateId: string) => Promise<Certificate>;
-  getUserCertificates: () => Promise<void>;
+  verifyCertificate: (verificationCode: string) => Promise<Certificate>;
+  getUserCertificates: (userId: string) => Promise<void>;
   getAllCertificates: () => Promise<void>;
   clearError: () => void;
 }
@@ -117,12 +117,12 @@ export const CertificateProvider: React.FC<CertificateProviderProps> = ({ childr
     }
   };
 
-  const verifyCertificate = async (certificateId: string): Promise<Certificate> => {
+  const verifyCertificate = async (verificationCode: string): Promise<Certificate> => {
     try {
       dispatch({ type: 'SET_LOADING', payload: true });
       dispatch({ type: 'CLEAR_ERROR' });
       
-      const response = await certificateService.verifyCertificate(certificateId);
+      const response = await certificateService.verifyCertificate(verificationCode);
       
       if (response.success && response.certificate) {
         return response.certificate;
@@ -138,12 +138,12 @@ export const CertificateProvider: React.FC<CertificateProviderProps> = ({ childr
     }
   };
 
-  const getUserCertificates = async (): Promise<void> => {
+  const getUserCertificates = async (userId: string): Promise<void> => {
     try {
       dispatch({ type: 'SET_LOADING', payload: true });
       dispatch({ type: 'CLEAR_ERROR' });
       
-      const response = await certificateService.getUserCertificates();
+      const response = await certificateService.getUserCertificates(userId);
       
       if (response.success && response.certificates) {
         dispatch({ type: 'SET_CERTIFICATES', payload: response.certificates });

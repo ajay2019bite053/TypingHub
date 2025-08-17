@@ -1,0 +1,262 @@
+.competition-test-container {
+  min-height: 100vh;
+  background: linear-gradient(to bottom, #ffffff, #f8f9fa);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.competition-test-header {
+  background: white;
+  border-radius: 15px;
+  padding: 20px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #333;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e0e0e0;
+}
+
+.header-left h1 {
+  margin: 0 0 8px 0;
+  font-size: 1.8rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.header-left p {
+  margin: 0;
+  font-size: 1rem;
+  opacity: 0.9;
+}
+
+.exit-btn {
+  background: #d32f2f;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+}
+
+.exit-btn:hover {
+  background: #b71c1c;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 15px rgba(211, 47, 47, 0.3);
+}
+
+.competition-warning {
+  background: white;
+  border-radius: 15px;
+  padding: 30px;
+  margin-bottom: 20px;
+  text-align: center;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e0e0e0;
+}
+
+.warning-content {
+  margin-bottom: 20px;
+}
+
+.warning-content ul {
+  margin-bottom: 20px;
+}
+
+.warning-content h3 {
+  margin: 0 0 20px 0;
+  color: #333;
+  font-size: 1.5rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  justify-content: center;
+}
+
+.warning-content ul {
+  text-align: left;
+  max-width: 500px;
+  margin: 0 auto 25px auto;
+  padding-left: 20px;
+}
+
+.warning-content li {
+  margin-bottom: 10px;
+  color: #555;
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
+.start-test-btn {
+  background: linear-gradient(135deg, #1976d2 0%, #1565c0 100%);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  transition: all 0.3s ease;
+}
+
+.start-test-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(25, 118, 210, 0.4);
+}
+
+.competition-test-content {
+  background: white;
+  border-radius: 15px;
+  padding: 20px;
+  flex: 1;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e0e0e0;
+}
+
+.competition-test-loading {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+
+.loading-spinner {
+  width: 50px;
+  height: 50px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-top: 3px solid white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 20px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.submission-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 50vh;
+  background: white;
+  border-radius: 15px;
+  padding: 40px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e0e0e0;
+}
+
+.submission-loading .loading-spinner {
+  width: 50px;
+  height: 50px;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #1976d2;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 20px;
+}
+
+.submission-loading h3 {
+  margin: 0 0 10px 0;
+  color: #333;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.submission-loading p {
+  margin: 0;
+  color: #666;
+  text-align: center;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .competition-test-container {
+    padding: 15px;
+  }
+  
+  .competition-test-header {
+    flex-direction: column;
+    gap: 15px;
+    text-align: center;
+  }
+  
+  .header-left h1 {
+    font-size: 1.5rem;
+  }
+  
+  .competition-warning {
+    padding: 20px;
+  }
+  
+  .warning-content h3 {
+    font-size: 1.3rem;
+  }
+  
+  .warning-content ul {
+    padding-left: 15px;
+  }
+  
+  .competition-test-content {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .competition-test-header {
+    padding: 15px;
+  }
+  
+  .header-left h1 {
+    font-size: 1.3rem;
+  }
+  
+  .competition-warning {
+    padding: 15px;
+  }
+  
+  .warning-content h3 {
+    font-size: 1.2rem;
+  }
+  
+  .warning-content li {
+    font-size: 0.9rem;
+  }
+  
+  .start-test-btn {
+    padding: 12px 24px;
+    font-size: 1rem;
+  }
+  
+  .competition-test-content {
+    padding: 15px;
+  }
+}
+
+
+
+
+
+
+

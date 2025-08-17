@@ -16,7 +16,7 @@ const {
   githubAuth,
   githubCallback
 } = require('../controllers/authController');
-const authMiddleware = require('../middleware/authMiddleware');
+const { verifyAdmin } = require('../middleware/authMiddleware');
 
 // Configure multer for file uploads
 const storage = multer.diskStorage({
@@ -54,10 +54,10 @@ router.post('/forgot-password', forgotPassword);
 router.post('/reset-password/:token', resetPassword);
 
 // Protected routes
-router.post('/logout', authMiddleware, logout);
+router.post('/logout', verifyAdmin, logout);
 
 // Routes
-router.get('/check-auth', authMiddleware, checkAuth);
+router.get('/check-auth', verifyAdmin, checkAuth);
 router.post('/verify-reset-token/:token', verifyResetToken);
 
 // Social auth routes

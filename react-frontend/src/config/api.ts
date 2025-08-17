@@ -31,8 +31,8 @@ export const API_CONFIG = {
     },
     ADMIN: {
       REQUESTS: '/admin/requests',
-      APPROVE: (id: string) => `/admin/approve/${id}`,
-      REJECT: (id: string) => `/admin/reject/${id}`
+      APPROVE: (id: string) => `/admin/requests/approve/${id}`,
+      REJECT: (id: string) => `/admin/requests/reject/${id}`
     },
     PASSAGES: {
       BASE: '/passages',

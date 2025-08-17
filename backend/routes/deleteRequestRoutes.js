@@ -1,18 +1,18 @@
 const express = require('express');
 const router = express.Router();
 const deleteRequestController = require('../controllers/deleteRequestController');
-const adminAuthMiddleware = require('../middleware/authMiddleware');
+const { verifyAdmin } = require('../middleware/authMiddleware');
 
-// Create a new delete request
-router.post('/', adminAuthMiddleware, deleteRequestController.createDeleteRequest);
+// Create delete request
+router.post('/', verifyAdmin, deleteRequestController.createDeleteRequest);
 
 // Get all delete requests
-router.get('/', adminAuthMiddleware, deleteRequestController.getDeleteRequests);
+router.get('/', verifyAdmin, deleteRequestController.getDeleteRequests);
 
-// Approve a delete request
-router.put('/:requestId/approve', adminAuthMiddleware, deleteRequestController.approveDeleteRequest);
+// Approve delete request
+router.put('/:requestId/approve', verifyAdmin, deleteRequestController.approveDeleteRequest);
 
-// Reject a delete request
-router.put('/:requestId/reject', adminAuthMiddleware, deleteRequestController.rejectDeleteRequest);
+// Reject delete request
+router.put('/:requestId/reject', verifyAdmin, deleteRequestController.rejectDeleteRequest);
 
 module.exports = router; 

@@ -15,6 +15,8 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
   console.log('ProtectedRoute: isAdmin:', isAdmin);
   console.log('ProtectedRoute: user:', user);
   console.log('ProtectedRoute: isLoading:', isLoading);
+  console.log('ProtectedRoute: localStorage accessToken:', localStorage.getItem('accessToken'));
+  console.log('ProtectedRoute: localStorage user:', localStorage.getItem('user'));
 
   // If we haven't loaded the user yet, show loading
   if (isLoading) {
@@ -29,12 +31,13 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
 
   if (!isAuthenticated) {
     console.log('ProtectedRoute: Not authenticated, redirecting to login');
-    // Redirect to login with return path
-    return <Navigate to="/admin/login" state={{ from: location }} replace />;
+    // Redirect to admin login with return path
+    return <Navigate to="/admin-secret-9382xj" state={{ from: location }} replace />;
   }
 
   if (!isAdmin) {
     console.log('ProtectedRoute: Not admin, redirecting to home');
+    console.log('ProtectedRoute: User role:', user?.role);
     return <Navigate to="/" replace />;
   }
 

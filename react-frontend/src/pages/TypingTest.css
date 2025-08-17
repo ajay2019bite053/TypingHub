@@ -1274,3 +1274,500 @@ body.feedback-open {
     padding: 2px 7px;
   }
 } 
+
+/* --- SEO Content Section Styles --- */
+.typing-test-info-section {
+  background: linear-gradient(135deg, #f8fafc 0%, #e3f2fd 100%);
+  padding: 60px 0;
+  margin-top: 0;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Typing Info Grid */
+.typing-info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  margin-bottom: 60px;
+}
+
+.typing-info-card {
+  background: white;
+  border-radius: 16px;
+  padding: 32px;
+  box-shadow: 0 4px 20px rgba(25, 118, 210, 0.08);
+  border: 1px solid rgba(25, 118, 210, 0.1);
+}
+
+.typing-info-card h2 {
+  color: #1976d2;
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  line-height: 1.3;
+}
+
+.typing-info-card h3 {
+  color: #1a2a44;
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.typing-info-card p {
+  color: #4a5568;
+  font-size: 16px;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.typing-features ul {
+  list-style: none;
+  padding: 0;
+}
+
+.typing-features li {
+  color: #4a5568;
+  font-size: 15px;
+  line-height: 1.5;
+  margin-bottom: 8px;
+  padding-left: 24px;
+  position: relative;
+}
+
+.typing-features li:before {
+  content: "✓";
+  color: #4caf50;
+  font-weight: bold;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+/* Exam Requirements */
+.exam-requirements {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.requirement-item {
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 16px;
+  border-left: 4px solid #1976d2;
+}
+
+.requirement-item h4 {
+  color: #1976d2;
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.requirement-item p {
+  color: #4a5568;
+  font-size: 14px;
+  margin: 0;
+}
+
+/* Typing Tips Section */
+.typing-tips-section {
+  margin-bottom: 60px;
+}
+
+.typing-tips-section h2 {
+  color: #1976d2;
+  font-size: 32px;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.tips-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+}
+
+.tip-card {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 2px 12px rgba(25, 118, 210, 0.06);
+  border: 1px solid rgba(25, 118, 210, 0.08);
+}
+
+.tip-card h3 {
+  color: #1976d2;
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.tip-card ul {
+  list-style: none;
+  padding: 0;
+}
+
+.tip-card li {
+  color: #4a5568;
+  font-size: 14px;
+  line-height: 1.5;
+  margin-bottom: 8px;
+  padding-left: 20px;
+  position: relative;
+}
+
+.tip-card li:before {
+  content: "•";
+  color: #1976d2;
+  font-weight: bold;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+/* FAQ Section */
+.faq-section {
+  margin-bottom: 60px;
+}
+
+.faq-section h2 {
+  color: #1976d2;
+  font-size: 32px;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.faq-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 24px;
+}
+
+.faq-item {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 2px 12px rgba(25, 118, 210, 0.06);
+  border: 1px solid rgba(25, 118, 210, 0.08);
+}
+
+.faq-item h3 {
+  color: #1976d2;
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  line-height: 1.4;
+}
+
+.faq-item p {
+  color: #4a5568;
+  font-size: 15px;
+  line-height: 1.5;
+  margin: 0;
+}
+
+
+
+/* Exam Info Section */
+.exam-info-section {
+  margin-bottom: 60px;
+}
+
+.exam-info-section h2 {
+  color: #1976d2;
+  font-size: 32px;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.exam-info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 24px;
+}
+
+.exam-detail-card {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 2px 12px rgba(25, 118, 210, 0.06);
+  border: 1px solid rgba(25, 118, 210, 0.08);
+  transition: transform 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.exam-detail-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 20px rgba(25, 118, 210, 0.12);
+}
+
+.exam-detail-card h3 {
+  color: #1976d2;
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.exam-detail-card p {
+  color: #4a5568;
+  font-size: 14px;
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+
+.exam-button-container {
+  margin-top: auto;
+  padding-top: 16px;
+}
+
+.exam-link {
+  color: #1976d2;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 10px 20px;
+  border: 2px solid #1976d2;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  background: #f8f9fa;
+  display: inline-block;
+  text-align: center;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Exam Links */
+.exam-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.exam-link:hover {
+  background: #1976d2;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(25, 118, 210, 0.2);
+}
+
+/* Help & Support Section */
+.help-support-section {
+  margin-bottom: 60px;
+  text-align: center;
+  background: linear-gradient(135deg, #f8fafc 0%, #e3f2fd 100%);
+  border-radius: 16px;
+  padding: 48px 32px;
+}
+
+.help-support-section h2 {
+  color: #1976d2;
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+
+.help-support-section p {
+  color: #4a5568;
+  font-size: 18px;
+  line-height: 1.6;
+  margin-bottom: 32px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.help-actions {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.help-btn {
+  padding: 14px 32px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  display: inline-block;
+}
+
+.help-btn.primary {
+  background: #4caf50;
+  color: white;
+}
+
+.help-btn.primary:hover {
+  background: #388e3c;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+}
+
+.help-btn.secondary {
+  background: rgba(25, 118, 210, 0.1);
+  color: #1976d2;
+  border: 2px solid #1976d2;
+}
+
+.help-btn.secondary:hover {
+  background: #1976d2;
+  color: white;
+  transform: translateY(-2px);
+}
+
+/* Responsive Design for Additional Sections */
+@media (max-width: 992px) {
+  .exam-info-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .exam-info-section h2,
+  .help-support-section h2 {
+    font-size: 28px;
+  }
+  
+  .exam-info-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .help-support-section {
+    padding: 32px 20px;
+  }
+  
+  .help-actions {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .stat-card,
+  .exam-detail-card {
+    padding: 20px;
+  }
+  
+  .stat-card h3 {
+    font-size: 28px;
+  }
+  
+  .help-support-section {
+    padding: 24px 16px;
+  }
+  
+  .help-btn {
+    padding: 12px 24px;
+    font-size: 14px;
+  }
+  
+  .exam-link {
+    width: 100%;
+    text-align: center;
+  }
+} 
+
+/* Responsive Design for All Sections */
+@media (max-width: 1200px) {
+  .exam-info-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 992px) {
+  .typing-info-grid {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+  
+  .tips-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .faq-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .exam-info-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .typing-test-info-section {
+    padding: 40px 0;
+  }
+  
+  .typing-info-card {
+    padding: 24px;
+  }
+  
+  .typing-info-card h2 {
+    font-size: 24px;
+  }
+  
+  .typing-tips-section h2,
+  .faq-section h2,
+  .exam-info-section h2,
+  .help-support-section h2 {
+    font-size: 28px;
+  }
+  
+
+  
+  .exam-info-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .help-support-section {
+    padding: 32px 20px;
+  }
+  
+  .help-actions {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0 15px;
+  }
+  
+  .typing-info-card,
+  .tip-card,
+  .faq-item,
+  .exam-detail-card {
+    padding: 20px;
+  }
+  
+  .help-support-section {
+    padding: 24px 16px;
+  }
+  
+  .help-btn {
+    padding: 12px 24px;
+    font-size: 14px;
+  }
+  
+  .exam-link {
+    width: 100%;
+    text-align: center;
+  }
+} 
