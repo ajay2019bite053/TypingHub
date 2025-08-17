@@ -1,9 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Serif:ital,wght@0,100..900;1,100..900&display=swap');
 
 /* Global font optimization */
-* {
-  font-display: swap;
-}
 
 :root {
   --primary-color: #1976d2;
