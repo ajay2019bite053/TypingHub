@@ -31,7 +31,7 @@ const config = {
   CORS_ORIGIN: corsOrigin,
   // OpenRouter API Key - Load from environment variable
   OPENROUTER_API_KEY: process.env.OPENROUTER_API_KEY,
-  // Email creds for nodemailer
+  // Email Configuration
   EMAIL_USER: process.env.EMAIL_USER,
   EMAIL_PASS: process.env.EMAIL_PASS
 };

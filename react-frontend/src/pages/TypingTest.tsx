@@ -62,7 +62,7 @@ const TypingTest = () => {
         <meta property="og:description" content="Practice typing test with real exam patterns. Get instant speed and accuracy analysis." />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://typinghub.in/typing-test" />
-        <meta property="og:image" content="https://typinghub.in/images/typing-test-og.jpg" />
+        <meta property="og:image" content="https://typinghub.in/images/typing-test-og.webp" />
         <meta property="og:site_name" content="TypingHub" />
         <meta property="og:locale" content="en_US" />
         
@@ -70,7 +70,7 @@ const TypingTest = () => {
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Free Typing Test for Government Exams" />
         <meta name="twitter:description" content="Practice typing test with real exam patterns. Get instant analysis." />
-        <meta name="twitter:image" content="https://typinghub.in/images/typing-test-og.jpg" />
+        <meta name="twitter:image" content="https://typinghub.in/images/typing-test-og.webp" />
         <meta name="twitter:site" content="@typinghub" />
         
         {/* Additional Meta Tags */}

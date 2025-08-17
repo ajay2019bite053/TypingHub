@@ -1835,7 +1835,7 @@ h3 {
   left: 0;
   right: 0;
   bottom: 0;
-  background: url('../assets/images/Background-img.jpg') center/cover;
+  background: url('../assets/images/Background-img.webp') center/cover;
   opacity: 0.1;
   z-index: 0;
 }
@@ -2601,7 +2601,7 @@ h3 {
   left: 0;
   right: 0;
   bottom: 0;
-  background: url('../assets/images/Background-img.jpg') center/cover;
+  background: url('../assets/images/Background-img.webp') center/cover;
   opacity: 0.1;
   z-index: 0;
 }

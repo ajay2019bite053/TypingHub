@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
+
 import './ExamWiseTest.css';
-// import Breadcrumb from '../components/common/Breadcrumb';
 
 const ExamWiseTest: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -164,13 +164,13 @@ const ExamWiseTest: React.FC = () => {
         <meta property="og:description" content="Free typing practice tests for SSC-CGL, SSC-CHSL, RRB-NTPC and other government exams. Practice in both Hindi and English with real exam patterns." />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://typinghub.in/exam-wise-test" />
-        <meta property="og:image" content="https://typinghub.in/images/exam-wise-test-og.jpg" />
+        <meta property="og:image" content="https://typinghub.in/images/exam-wise-test-og.webp" />
         
         {/* Twitter Card Meta Tags */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Government Exam Typing Tests - SSC, RRB, NTPC" />
         <meta name="twitter:description" content="Free typing practice tests for SSC-CGL, SSC-CHSL, RRB-NTPC and other government exams." />
-        <meta name="twitter:image" content="https://typinghub.in/images/exam-wise-test-og.jpg" />
+        <meta name="twitter:image" content="https://typinghub.in/images/exam-wise-test-og.webp" />
         
         {/* Additional Meta Tags */}
         <meta name="robots" content="index, follow" />
@@ -195,19 +195,59 @@ const ExamWiseTest: React.FC = () => {
             <div className="header-section">
                 <div className="logo-container">
                   <div className="logo-item">
-                    <img src="/images/SSC.png" className="logo-ssc" alt="SSC Logo" />
+                    <img 
+                      src="/images/SSC.webp" 
+                      className="logo-ssc" 
+                      alt="SSC Logo"
+                      width={70}
+                      height={70}
+                      onError={(e) => {
+                        const target = e.target as HTMLImageElement;
+                        target.src = target.src.replace('.webp', '.png');
+                      }}
+                    />
                     <span className="logo-label">SSC</span>
                   </div>
                   <div className="logo-item">
-                    <img src="/images/RAILWAY.png" className="logo-railway" alt="Railway Logo" />
+                    <img 
+                      src="/images/RAILWAY.webp" 
+                      className="logo-railway" 
+                      alt="Railway Logo"
+                      width={70}
+                      height={70}
+                      onError={(e) => {
+                        const target = e.target as HTMLImageElement;
+                        target.src = target.src.replace('.webp', '.png');
+                      }}
+                    />
                     <span className="logo-label">RAILWAY</span>
                   </div>
                   <div className="logo-item">
-                    <img src="/images/Cbse.png" className="logo-cbse" alt="CBSE Logo" />
+                    <img 
+                      src="/images/Cbse.webp" 
+                      className="logo-cbse" 
+                      alt="CBSE Logo"
+                      width={70}
+                      height={70}
+                      onError={(e) => {
+                        const target = e.target as HTMLImageElement;
+                        target.src = target.src.replace('.webp', '.png');
+                      }}
+                    />
                     <span className="logo-label">CBSE</span>
                   </div>
                   <div className="logo-item">
-                    <img src="/images/court.png" className="logo-court" alt="Supreme Court Logo" />
+                    <img 
+                      src="/images/court.webp" 
+                      className="logo-court" 
+                      alt="Supreme Court Logo"
+                      width={70}
+                      height={70}
+                      onError={(e) => {
+                        const target = e.target as HTMLImageElement;
+                        target.src = target.src.replace('.webp', '.png');
+                      }}
+                    />
                     <span className="logo-label">SUPREME COURT</span>
                   </div>
                 </div>

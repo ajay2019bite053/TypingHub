@@ -28,6 +28,7 @@ const blogRoutes = require('./routes/blogs');
 const aiRoutes = require('./routes/ai');
 const competitionRoutes = require('./routes/competition');
 const paymentRoutes = require('./routes/payment');
+const contactRoutes = require('./routes/contact');
 
 // Import middleware and utils
 const authMiddleware = require('./middleware/authMiddleware');
@@ -161,6 +162,7 @@ app.use('/api/blogs', blogRoutes);
 app.use('/api/ai', aiRoutes);
 app.use('/api/competition', competitionRoutes);
 app.use('/api/payment', paymentRoutes);
+app.use('/api/contact', contactRoutes);
 
 // Health check endpoint
 app.get('/api/health', (req, res) => {

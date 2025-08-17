@@ -63,7 +63,7 @@ const ContactUs: React.FC = () => {
       }
 
       // Check file type
-      const allowedTypes = ['.jpg', '.jpeg', '.png', '.pdf', '.doc', '.docx'];
+      const allowedTypes = ['.webp', '.webp', '.webp', '.pdf', '.doc', '.docx'];
       const fileExtension = '.' + file.name.split('.').pop()?.toLowerCase();
       if (!allowedTypes.includes(fileExtension || '')) {
         alert('Invalid file type. Please upload JPG, PNG, PDF, or DOC files.');
@@ -80,7 +80,7 @@ const ContactUs: React.FC = () => {
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
     // Basic validation
@@ -96,19 +96,45 @@ const ContactUs: React.FC = () => {
       return;
     }
 
-    // Show success message
-      alert('Thank you for your message! We will get back to you soon.');
-    
-    // Reset form
-      setFormData({
-        name: '',
-        email: '',
-        subject: '',
-        message: '',
-        attachment: null
+    try {
+      // Create FormData for file upload
+      const formDataToSend = new FormData();
+      formDataToSend.append('name', formData.name);
+      formDataToSend.append('email', formData.email);
+      formDataToSend.append('subject', formData.subject);
+      formDataToSend.append('message', formData.message);
+      
+      if (formData.attachment) {
+        formDataToSend.append('attachment', formData.attachment);
+      }
+
+      // Send the form data to backend
+      const response = await fetch('/api/contact/submit', {
+        method: 'POST',
+        body: formDataToSend
       });
-      if (fileInputRef.current) {
-        fileInputRef.current.value = '';
+
+      const result = await response.json();
+
+      if (result.success) {
+        alert(result.message);
+        // Reset form
+        setFormData({
+          name: '',
+          email: '',
+          subject: '',
+          message: '',
+          attachment: null
+        });
+        if (fileInputRef.current) {
+          fileInputRef.current.value = '';
+        }
+      } else {
+        alert(result.message || 'Sorry, there was an error sending your message. Please try again.');
+      }
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      alert('Sorry, there was an error sending your message. Please try again later.');
     }
   };
 

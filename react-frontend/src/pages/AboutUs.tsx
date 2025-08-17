@@ -11,12 +11,6 @@ import {
   faUsers,
   faCertificate,
   faClock,
-  faTrophy,
-  faUserGraduate,
-  faHistory,
-  faRocket,
-  faQuoteLeft,
-  faQuoteRight,
   faArrowRight,
   faCheckCircle,
   faGlobe,
@@ -26,12 +20,6 @@ import {
   faLanguage,
   faUserTie
 } from '@fortawesome/free-solid-svg-icons';
-import {
-  faLinkedin,
-  faTwitter,
-  faGithub,
-  faYoutube
-} from '@fortawesome/free-brands-svg-icons';
 import './AboutUs.css';
 
 const AboutUs: React.FC = () => {

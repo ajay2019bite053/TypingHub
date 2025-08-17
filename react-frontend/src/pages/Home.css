@@ -596,7 +596,8 @@ body {
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  margin-top: 20px;
+  margin-top: 15px;
+  flex-direction: row;
 }
 
 .certificate-buttons .btn {
@@ -848,18 +849,97 @@ body {
   }
 
   .certificate-buttons {
-    flex-direction: column;
-    gap: 10px;
+    flex-direction: row !important;
+    gap: 10px !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-wrap: nowrap !important;
   }
 
   .certificate-buttons .btn {
-    min-width: 100%;
-    max-width: 250px;
-    font-size: 13px;
-    padding: 10px 16px;
+    min-width: 110px !important;
+    max-width: 140px !important;
+    flex: 0 1 auto !important;
+    font-size: 11px !important;
+    padding: 8px 10px !important;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+  }
+  
+  .demo-certificate-card {
+    padding: 15px 10px 15px 10px;
+    max-width: 92vw;
+    min-height: 260px;
+    max-height: 380px;
+    aspect-ratio: auto;
+    overflow: visible;
+  }
+  
+  .demo-certificate-card .main-logo {
+    width: 60px;
+    margin-bottom: 6px;
+  }
+  
+  .demo-certificate-card .ashoka-chakra {
+    width: 80px;
+    height: 80px;
+  }
+  
+  .demo-certificate-card .gold-seal {
+    width: 35px;
+    height: 35px;
+    right: 10px;
+    bottom: 10px;
+  }
+  
+  .certificate-title {
+    gap: 8px;
+    margin-bottom: 15px;
+    margin-top: 6px;
+  }
+
+  .title-line {
+    width: 30px;
+    height: 1px;
+  }
+
+  .main-title {
+    font-size: 1.3rem;
+    letter-spacing: 1.5px;
+  }
+
+  .main-title::before,
+  .main-title::after {
+    width: 25px;
+    height: 1.5px;
+    top: -4px;
+  }
+
+  .main-title::after {
+    bottom: -4px;
+  }
+  
+  .demo-certificate-card h3 {
+    font-size: 1.6rem;
+    margin-bottom: 6px;
+  }
+  
+  .demo-certificate-card p {
+    font-size: 13px !important;
+    margin-bottom: 6px !important;
+  }
+  
+  .demo-certificate-card div {
+    font-size: 12px !important;
+    margin-bottom: 5px !important;
+    line-height: 1.3 !important;
+  }
+  
+
+  
+  .demo-certificate-card .flag-ribbon {
+    width: 16px;
   }
 }
 
@@ -1002,12 +1082,12 @@ body {
 
 #home-page .feature-card {
   background: white;
-  padding: 30px;
+  padding: 25px;
   border-radius: 15px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
   transition: all 0.3s ease;
   border: 1px solid rgba(25, 118, 210, 0.1);
-  min-height: 200px;
+  min-height: 160px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -1019,22 +1099,22 @@ body {
 }
 
 #home-page .feature-icon {
-  font-size: 48px;
+  font-size: 42px;
   color: #1976d2;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
 }
 
 #home-page .feature-title {
-  font-size: 20px;
+  font-size: 18px;
   color: #333;
-  margin-bottom: 15px;
+  margin-bottom: 12px;
   font-weight: 600;
 }
 
 #home-page .feature-description {
-  font-size: 15px;
+  font-size: 14px;
   color: #666;
-  line-height: 1.6;
+  line-height: 1.5;
 }
 
 /* Testimonials Section */
@@ -2029,7 +2109,7 @@ section, .features-grid, .testimonials, .achievements, .resources-section, .typi
   min-height: 320px;
   max-height: 520px;
   aspect-ratio: 11/8.5;
-  overflow: hidden;
+  overflow: visible;
 }
 .demo-certificate-card .pattern-bg {
   position: absolute;
@@ -2056,15 +2136,58 @@ section, .features-grid, .testimonials, .achievements, .resources-section, .typi
   margin-bottom: 12px;
   z-index: 1;
 }
-.demo-certificate-card h2 {
-  font-family: 'Merriweather', 'Georgia', serif;
+.certificate-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 25px;
+  margin-top: 10px;
+}
+
+.title-line {
+  height: 2px;
+  width: 60px;
+  background: linear-gradient(90deg, transparent, #1976d2, transparent);
+  border-radius: 1px;
+}
+
+.main-title {
+  font-family: 'Times New Roman', 'Georgia', serif;
   font-weight: 700;
   color: #1976d2;
-  margin-bottom: 2px;
-  letter-spacing: 1px;
-  z-index: 1;
-  font-size: 2rem;
+  text-align: center;
+  text-shadow: 0 2px 4px rgba(25, 118, 210, 0.1);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin: 0;
   position: relative;
+  font-size: 2rem;
+  z-index: 1;
+}
+
+.main-title::before {
+  content: '';
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 3px;
+  background: linear-gradient(90deg, #e0c36a, #f57c00, #e0c36a);
+  border-radius: 2px;
+}
+
+.main-title::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 3px;
+  background: linear-gradient(90deg, #e0c36a, #f57c00, #e0c36a);
+  border-radius: 2px;
 }
 .demo-certificate-card .laurel-svg {
   margin: 0 auto 10px auto;
@@ -2093,16 +2216,7 @@ section, .features-grid, .testimonials, .achievements, .resources-section, .typi
   width: 100%;
   height: 100%;
 }
-.demo-certificate-card .footer {
-  position: absolute;
-  bottom: 18px;
-  left: 32px;
-  color: #1976d2;
-  font-weight: 600;
-  font-size: 15px;
-  opacity: 0.7;
-  z-index: 1;
-}
+
 .demo-certificate-card .flag-ribbon {
   position: absolute;
   top: 0;
@@ -2133,28 +2247,97 @@ section, .features-grid, .testimonials, .achievements, .resources-section, .typi
 }
 @media (max-width: 800px) {
   .demo-certificate-card {
-    padding: 8px 1vw 8px 1vw;
-    max-width: 99vw;
-    min-height: 140px;
-    max-height: 200px;
+    padding: 20px 15px 20px 15px;
+    max-width: 95vw;
+    min-height: 300px;
+    max-height: 450px;
+    aspect-ratio: auto;
+    overflow: visible;
   }
+  
   .demo-certificate-card .main-logo {
-    width: 60px;
+    width: 70px;
+    margin-bottom: 8px;
   }
+  
+  .certificate-title {
+    gap: 10px;
+    margin-bottom: 20px;
+    margin-top: 8px;
+  }
+
+  .title-line {
+    width: 40px;
+    height: 1.5px;
+  }
+
+  .main-title {
+    font-size: 1.5rem;
+    letter-spacing: 2px;
+  }
+
+  .main-title::before,
+  .main-title::after {
+    width: 30px;
+    height: 2px;
+    top: -6px;
+  }
+
+  .main-title::after {
+    bottom: -6px;
+  }
+  
+  .demo-certificate-card h3 {
+    font-size: 1.8rem;
+    margin-bottom: 8px;
+  }
+  
+  .demo-certificate-card p {
+    font-size: 14px !important;
+    margin-bottom: 8px !important;
+  }
+  
+  .demo-certificate-card div {
+    font-size: 13px !important;
+    margin-bottom: 6px !important;
+    line-height: 1.4 !important;
+  }
+  
   .demo-certificate-card .gold-seal {
-    width: 36px;
-    height: 36px;
-    right: 10px;
-    bottom: 10px;
+    width: 40px;
+    height: 40px;
+    right: 15px;
+    bottom: 15px;
   }
-  .demo-certificate-card .footer {
-    left: 10px;
-    bottom: 10px;
-  }
+  
+
+  
   .demo-certificate-card .flag-ribbon {
-    width: 16px;
-    border-top-right-radius: 12px;
-    border-bottom-right-radius: 12px;
+    width: 20px;
+    border-top-right-radius: 14px;
+    border-bottom-right-radius: 14px;
+  }
+  
+  .demo-certificate-card .ashoka-chakra {
+    width: 100px;
+    height: 100px;
+  }
+  
+  .certificate-buttons {
+    flex-direction: row !important;
+    gap: 12px !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-wrap: nowrap !important;
+    margin-top: 20px !important;
+  }
+  
+  .certificate-buttons .btn {
+    min-width: 130px !important;
+    max-width: 160px !important;
+    flex: 0 1 auto !important;
+    font-size: 13px !important;
+    padding: 10px 12px !important;
   }
 }
 .btn.no-hover,
@@ -2176,8 +2359,10 @@ section, .features-grid, .testimonials, .achievements, .resources-section, .typi
 .btn.secondary-btn.no-hover,
 .btn.secondary-btn.no-hover:hover {
   background: #e3e3e3 !important;
-  color: #1976d2 !important;
+  color: #1565c0 !important;
 }
+
+
 @media (max-width: 800px) {
   .demo-certificate-card {
     padding: 18px 6px 14px 6px;

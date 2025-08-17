@@ -190,126 +190,144 @@ const CreateTest = () => {
   }
 
   return (
-    <div className="create-test-container">
-      {/* Mode Selection */}
-      <div className="mode-selection">
-              <button
-          className={`mode-btn ${useAiText ? 'active' : ''}`}
-                onClick={() => setUseAiText(true)}
-        >
-          <span className="mode-icon">🤖</span>
-          <div className="mode-content">
-            <span className="mode-title">AI Text Generator</span>
-            <span className="mode-subtitle">Generate text with AI</span>
+    <div className="create-test-setup">
+      <div className="setup-container" style={{ paddingTop: '0', marginTop: '0' }}>
+        {/* Header Section */}
+        <div style={{ 
+          display: 'flex', 
+          gap: '30px', 
+          justifyContent: 'space-between', 
+          alignItems: 'center', 
+          marginBottom: '0px',
+          paddingBottom: '0px',
+          borderBottom: 'none',
+          marginTop: '0px',
+          paddingTop: '0px'
+        }}>
+          <div style={{ display: 'flex', gap: '15px', width: '100%' }}>
+            <button
+              className={`mode-btn ${useAiText ? 'active' : ''}`}
+              onClick={() => setUseAiText(true)}
+              style={{
+                background: useAiText ? 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' : '#f8f9fa',
+                color: useAiText ? 'white' : '#2c3e50',
+                border: '2px solid #e0e0e0',
+                padding: '14px 20px',
+                borderRadius: '10px',
+                fontSize: '0.95rem',
+                fontWeight: '600',
+                cursor: 'pointer',
+                transition: 'all 0.3s ease',
+                fontFamily: 'inherit',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+                minWidth: '200px',
+                justifyContent: 'center',
+                flex: '1'
+              }}
+            >
+              🤖 Use AI for generating passage
+            </button>
+            <button
+              className={`mode-btn ${!useAiText ? 'active' : ''}`}
+              onClick={() => setUseAiText(false)}
+              style={{
+                background: !useAiText ? 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' : '#f8f9fa',
+                color: !useAiText ? 'white' : '#2c3e50',
+                border: '2px solid #e0e0e0',
+                padding: '14px 20px',
+                borderRadius: '10px',
+                fontSize: '0.95rem',
+                fontWeight: '600',
+                cursor: 'pointer',
+                transition: 'all 0.3s ease',
+                fontFamily: 'inherit',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+                minWidth: '200px',
+                justifyContent: 'center',
+                flex: '1'
+              }}
+            >
+              ✏️ Use your own custom passage
+            </button>
           </div>
-              </button>
-              <button
-          className={`mode-btn ${!useAiText ? 'active' : ''}`}
-                onClick={() => setUseAiText(false)}
-        >
-          <span className="mode-icon">✏️</span>
-          <div className="mode-content">
-            <span className="mode-title">Custom Text</span>
-            <span className="mode-subtitle">Write your own text</span>
-          </div>
-              </button>
-          </div>
+        </div>
 
-      {/* Main Content */}
-      <div className="create-test-content">
-            {useAiText ? (
-          <div className="ai-section">
-            {/* Search Section */}
-            <div className="search-section">
-              <div className="search-row">
-                <div className="search-input-group">
-                  <label>Topic:</label>
-                      <input
-                        type="text"
-                        value={searchText}
-                        onChange={(e) => setSearchText(e.target.value)}
-                        onKeyPress={(e) => {
-                          if (e.key === 'Enter' && searchText.trim()) {
-                            generateAiTextFromSearch();
-                          }
-                        }}
-                    placeholder="Enter topic (e.g., modi ji, pollution, education)"
+        {/* Main Content */}
+        <div className="create-test-content">
+          {useAiText ? (
+            <div className="ai-section">
+              {/* Search Section */}
+              <div className="search-section">
+                <div className="search-row">
+                  <input
+                    type="text"
+                    placeholder="Enter topic (e.g., 'Modi ji speeches', 'climate change', 'Indian economy')"
+                    value={searchText}
+                    onChange={(e) => setSearchText(e.target.value)}
                     className="search-input"
-                      />
-                    </div>
-                <div className="search-input-group">
-                  <label>Length:</label>
-                      <select 
-                        value={textLength} 
-                        onChange={(e) => setTextLength(e.target.value)}
-                    className="length-select"
-                      >
-                        {lengthOptions.map(option => (
-                          <option key={option.value} value={option.value}>
-                            {option.label}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
-                      <button
-                  className="generate-btn"
-                        onClick={generateAiTextFromSearch}
-                        disabled={isGenerating || !searchText.trim()}
-                      >
-                  {isGenerating ? '🔄 Generating...' : '🚀 Generate'}
-                      </button>
-                    </div>
-                  </div>
+                  />
+                  <button
+                    onClick={generateAiTextFromSearch}
+                    disabled={isGenerating}
+                    className="search-btn"
+                  >
+                    {isGenerating ? '🔄 Generating...' : '🚀 Generate Passage'}
+                  </button>
+                </div>
+              </div>
 
-            {/* Generated Text Area */}
-            <div className="text-section">
-              <div className="text-header">
-                <h3>Generated Text</h3>
-                <div className="text-stats">
-                  <span>Words: {aiGeneratedText.trim().split(/\s+/).filter(word => word.length > 0).length}</span>
-                  <span>Characters: {aiGeneratedText.length}</span>
+              {/* Generated Text Area */}
+              <div className="text-input-container">
+                <div className="textarea-container" style={{ flex: '1', marginLeft: '0' }}>
+                  <textarea
+                    className="text-area"
+                    value={aiGeneratedText}
+                    onChange={(e) => setAiGeneratedText(e.target.value)}
+                    placeholder="Generated text will appear here..."
+                    rows={8}
+                  />
                 </div>
               </div>
-                    <textarea
-                className="text-area"
-                      value={aiGeneratedText}
-                      onChange={(e) => setAiGeneratedText(e.target.value)}
-                      placeholder="Generated text will appear here..."
-                rows={8}
-              />
-                </div>
-              </div>
-            ) : (
-          <div className="custom-section">
-            <div className="text-section">
-              <div className="text-header">
-                <h3>Custom Text Input</h3>
-                <div className="text-stats">
-                  <span>Words: {customText.trim().split(/\s+/).filter(word => word.length > 0).length}</span>
-                  <span>Characters: {customText.length}</span>
-                </div>
-              </div>
-              <textarea
-                className="text-area"
-                value={customText}
-                onChange={(e) => setCustomText(e.target.value)}
-                placeholder="Write or paste your custom text here... (Minimum 10 words recommended)"
-                rows={8}
-              />
             </div>
-          </div>
-        )}
+          ) : (
+            <div className="custom-section">
+              <div className="text-section">
+                <div className="text-header">
+                  <h3>Custom Text Input</h3>
+                  <div className="text-stats">
+                    <span>Words: {customText.trim().split(/\s+/).filter((word: string) => word.length > 0).length}</span>
+                    <span>Characters: {customText.length}</span>
+                  </div>
+                </div>
+                <textarea
+                  className="text-area"
+                  value={customText}
+                  onChange={(e) => setCustomText(e.target.value)}
+                  placeholder="Write or paste your custom text here... (Minimum 10 words recommended)"
+                  rows={8}
+                />
+              </div>
+            </div>
+          )}
+        </div>
 
         {/* Proceed Button */}
         <div className="proceed-section">
-              <button
-            className="proceed-btn"
-                    onClick={handleProceed}
-                      >
-                        {loading ? '🔄 Loading...' : 'Continue to Test'}
-              </button>
-            </div>
+          <div className="proceed-container">
+            <button
+              className="proceed-btn"
+              onClick={handleProceed}
+              disabled={loading}
+            >
+              {loading ? '🔄 Loading...' : 'Continue to Test'}
+            </button>
           </div>
+        </div>
+      </div>
 
       {/* Help Section */}
       <div className="help-section">
@@ -363,7 +381,7 @@ const CreateTest = () => {
             </p>
           </div>
         </div>
-          </div>
+      </div>
     </div>
   );
 };

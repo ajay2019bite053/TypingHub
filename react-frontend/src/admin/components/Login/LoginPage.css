@@ -207,7 +207,7 @@
 .blob3 {
   width: 160px; height: 160px;
   left: 50vw; top: 70vh;
-  background: radial-gradient(circle at 50% 50%, #43a047 60%, #fff0 100%);
+  background: radial-gradient(circle at 50% 50%, #2e7d32 60%, #fff0 100%);
   animation-delay: 8s;
 }
 @keyframes blobFloat {
@@ -317,7 +317,7 @@
   animation: slideParticle 6s linear infinite;
 }
 .particle-1 { background: #ffb300; width: 8px; height: 8px; animation-duration: 5s; }
-.particle-2 { background: #43a047; width: 12px; height: 12px; animation-duration: 7s; }
+.particle-2 { background: #2e7d32; width: 12px; height: 12px; animation-duration: 7s; }
 .particle-3 { background: #00bcd4; width: 7px; height: 7px; animation-duration: 5.5s; }
 .particle-4 { background: #7c4dff; width: 9px; height: 9px; animation-duration: 6.5s; }
 .particle-5 { background: #ff4081; width: 11px; height: 11px; animation-duration: 7.5s; }

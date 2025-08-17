@@ -1,5 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Serif:ital,wght@0,100..900;1,100..900&display=swap');
 
+/* Global font optimization */
+* {
+  font-display: swap;
+}
+
 :root {
   --primary-color: #1976d2;
   --primary-dark: #1565c0;
@@ -26,6 +31,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-display: swap;
 }
 
 html {
@@ -46,6 +52,7 @@ body {
   display: flex;
   flex-direction: column;
   overflow-x: hidden;
+  font-display: swap;
 }
 
 code {

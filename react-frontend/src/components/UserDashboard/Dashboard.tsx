@@ -4,7 +4,7 @@ import { Helmet } from 'react-helmet';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faBell, faUser, faCog, faSignOutAlt, 
-  faKeyboard, faTrophy, faFileAlt, faGraduationCap,
+  faKeyboard, faFileAlt, faGraduationCap,
   faLock, faStar, faBook, faCode, faLaptopCode, 
   faChartLine, faArrowRight, faCheckCircle, faClock,
   faDesktop, faFileLines, faCertificate, faHistory,
@@ -16,15 +16,13 @@ import {
   faGavel,
   faQuoteLeft,
   IconDefinition,
-  faTrain
+  faTrain,
+  faTrophy
 } from '@fortawesome/free-solid-svg-icons';
 import './Dashboard.css';
-import MainLogo from '../../assets/images/Background-img.jpg'; // Use your main logo or landing page image
 import { useAuth } from '../../contexts/AuthContext';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import typingCourse from '../../assets/typingCourse.json';
-import TypingEngine from '../common/TypingEngine';
-import TypingTest from '../../pages/TypingTest';
 import axios from 'axios';
 
 interface Notification {

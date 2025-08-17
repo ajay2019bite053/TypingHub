@@ -1,5 +1,5 @@
-import React, { Suspense, lazy, useState } from 'react';
-import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import React, { Suspense, lazy } from 'react';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
@@ -9,7 +9,6 @@ import { AuthProvider } from './contexts/AuthContext';
 import { DeleteRequestProvider } from './contexts/DeleteRequestContext';
 import { TypingProvider } from './contexts/TypingContext';
 import { CompetitionProvider } from './contexts/CompetitionContext';
-import ReactDOM, { createPortal } from 'react-dom';
 import ScrollToTop from './components/ScrollToTop';
 import ScrollToTopButton from './components/ScrollToTopButton';
 
@@ -46,6 +45,7 @@ const LiveExamTest = lazy(() => import('./pages/LiveExamTest'));
 const CertificateVerification = lazy(() => import('./pages/CertificateVerification'));
 const CompetitionTypingTest = lazy(() => import('./pages/CompetitionTypingTest'));
 const CompetitionResults = lazy(() => import('./pages/CompetitionResults'));
+
 
 // Admin Components
 const AdminLoginPage = lazy(() => import('./admin/components/Login/LoginPage'));

@@ -2,26 +2,18 @@ import React, { memo, useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 import { 
   faKeyboard, 
   faFileAlt, 
-  faUserTie, 
-  faGraduationCap,
   faCheckCircle,
-  faClock,
-  faChartLine,
   faBook,
   faCertificate,
   faChalkboardTeacher,
-  faArrowRight,
   faStar,
-  faUsers,
-  faTrophy,
   faPenToSquare,
-  faLaptopCode,
   faRocket,
   faSearch,
-  faUserPlus,
   faClipboardCheck,
   faHeadset,
   faShieldAlt,
@@ -123,8 +115,8 @@ const HeroSection = memo(({ onRegisterClick, onJoinClick, competitionStatus }: {
 // Panel Items: Add gradient backgrounds, scale/shadow on hover, and a 'New' badge for the first card.
 const cardAccents = [
   '#1976d2', // Typing Test
-  '#43a047', // Exam Wise Test
-  '#fbc02d', // Advance Mode
+  '#2e7d32', // Exam Wise Test - darker green for better contrast
+  '#f57c00', // Advance Mode - darker orange for better contrast
   '#8e24aa'  // Typing Course
 ];
 const PanelItem = memo(({ icon, title, description, link, linkText, isNew, accentColor }: {
@@ -145,7 +137,7 @@ const PanelItem = memo(({ icon, title, description, link, linkText, isNew, accen
       <div className="modern-panel-icon-wrapper" style={{ background: accentColor }}>
         <FontAwesomeIcon icon={icon} className="modern-panel-icon" />
       </div>
-      <h3 className="modern-panel-title">{title}</h3>
+      <h2 className="modern-panel-title">{title}</h2>
       <p className="modern-panel-desc">{description}</p>
       <Link to={link} className="modern-panel-btn" style={{ background: accentColor }}>
         <FontAwesomeIcon icon={btnIcon} />
@@ -186,26 +178,7 @@ const FeatureCard = memo(({ icon, title, description }: {
   </div>
 ));
 
-// Testimonials: Add quote icon, rounded avatar, fade-in
-const TestimonialCard = memo(({ id, name, role, image, text }: {
-  id: number;
-  name: string;
-  role: string;
-  image: string;
-  text: string;
-}) => (
-  <div className="testimonial-card upgraded-testimonial-card">
-    <div className="testimonial-quote-icon"><FontAwesomeIcon icon={faStar} /></div>
-    <div className="testimonial-image upgraded-avatar">
-      <img src={image} alt={name} />
-    </div>
-    <div className="testimonial-content">
-      <h4>{name}</h4>
-      <p>{role}</p>
-      <p>{text}</p>
-    </div>
-  </div>
-));
+
 
 // Achievements: Animated counters, icon glow
 const AchievementCard = memo(({ icon, number, text }: {
@@ -271,7 +244,7 @@ const Home: React.FC = () => {
     description: 'Free typing practice platform for government exam aspirants. Improve your typing speed and accuracy with our comprehensive typing tests and resources.',
     keywords: 'typing test, government exam typing, hindi typing, english typing, typing practice, SSC typing test, RRB typing test, CHSL typing test',
     canonicalUrl: 'https://typinghub.in',
-    ogImage: '/images/typing-hub-og.jpg'
+    ogImage: '/images/typing-hub-og.webp'
   };
 
   // JSON-LD structured data
@@ -391,30 +364,7 @@ const Home: React.FC = () => {
     }
   ];
 
-  // Testimonials Data
-  const testimonials = [
-    {
-      id: 1,
-      name: 'Ankit Kumar',
-      role: 'SSC CGL Qualifier',
-      image: 'https://ui-avatars.com/api/?name=Ankit+Kumar&background=random',
-      text: 'This platform helped me improve my typing speed from 25 WPM to 45 WPM in just two months!'
-    },
-    {
-      id: 2,
-      name: 'Priya Sharma',
-      role: 'RRB NTPC Selected',
-      image: 'https://ui-avatars.com/api/?name=Priya+Sharma&background=random',
-      text: 'The exam-specific typing tests were exactly what I needed. Cleared my typing test in the first attempt.'
-    },
-    {
-      id: 3,
-      name: 'Sneha Patel',
-      role: 'SSC CHSL Qualifier',
-      image: 'https://ui-avatars.com/api/?name=Sneha+Patel&background=random',
-      text: 'Regular practice on this platform helped me achieve accuracy above 95%. Thank you!'
-    }
-  ];
+
 
   // Achievements Data
   const achievements = [
@@ -506,20 +456,32 @@ const Home: React.FC = () => {
             <div className="pattern-bg"></div>
             <div className="flag-ribbon"></div>
             <img
-              src="/images/ashoka-chakra.png"
+              src="/images/ashoka-chakra.webp"
               alt="Ashoka Chakra"
               className="ashoka-chakra"
-              draggable={false}
+              width={120}
+              height={120}
+              onError={(e) => {
+                const target = e.target as HTMLImageElement;
+                target.src = target.src.replace('.webp', '.png');
+              }}
             />
-            <img src="/images/Main_LOGO.png" alt="TypingHub Logo" className="main-logo" />
-            <h2>
-              TYPING CERTIFICATE
-              <span className="laurel-svg">
-                <svg width="120" height="18" viewBox="0 0 120 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M10 9 Q20 18, 60 18 Q100 18, 110 9" stroke="#e0c36a" strokeWidth="2" fill="none"/>
-                </svg>
-              </span>
-            </h2>
+            <img 
+              src="/images/Main_LOGO.webp" 
+              alt="TypingHub Logo" 
+              className="main-logo"
+              width={90}
+              height={90}
+              onError={(e) => {
+                const target = e.target as HTMLImageElement;
+                target.src = target.src.replace('.webp', '.png');
+              }}
+            />
+            <div className="certificate-title">
+              <div className="title-line"></div>
+              <h2 className="main-title">TYPING CERTIFICATE</h2>
+              <div className="title-line"></div>
+            </div>
             <p style={{ fontSize: 16, color: '#333', marginBottom: 12 }}>This is to certify that</p>
             <h3>Amit Kumar</h3>
             <p style={{ fontSize: 16, color: '#333', marginBottom: 14 }}>has successfully completed the typing test with</p>
@@ -538,16 +500,24 @@ const Home: React.FC = () => {
             <div style={{ fontSize: 15, color: '#333', marginBottom: 6 }}><b>Verification Code:</b> VC-DEMO123</div>
             <div className="decorative-line"></div>
             <div className="gold-seal">
-              <img src="/images/gold-seal.png" alt="Gold Seal" />
+              <img 
+                src="/images/gold-seal.webp" 
+                alt="Gold Seal"
+                width={60}
+                height={60}
+                onError={(e) => {
+                  const target = e.target as HTMLImageElement;
+                  target.src = target.src.replace('.webp', '.png');
+                }}
+              />
             </div>
-            <div className="footer">TypingHub.in</div>
           </div>
-          <div className="certificate-buttons" style={{ marginTop: 32, display: 'flex', gap: 18 }}>
+          <div className="certificate-buttons">
             <Link to="/certificate" className="btn primary-btn no-hover">
-              <FontAwesomeIcon icon={faCertificate} />
+              <FontAwesomeIcon icon={faAward} />
               Get Certificate
             </Link>
-            <Link to="/certificate-verification" className="btn secondary-btn no-hover">
+            <Link to="/certificate-verification" className="btn primary-btn no-hover">
               <FontAwesomeIcon icon={faSearch} />
               Verify Certificate
             </Link>

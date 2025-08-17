@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+
 import './Footer.css';
 
 const Footer: React.FC = () => {
@@ -7,7 +8,16 @@ const Footer: React.FC = () => {
     <footer>
       <div className="footer-container">
         <div className="footer-section logo-section">
-          <img src="/images/Main_LOGO.png" alt="TypingHub Logo" />
+          <img 
+          src="/images/Main_LOGO.webp" 
+          alt="TypingHub Logo"
+          width={70}
+          height={70}
+          onError={(e) => {
+            const target = e.target as HTMLImageElement;
+            target.src = target.src.replace('.webp', '.png');
+          }}
+        />
           <a 
             href="https://typinghub.in" 
             target="_blank" 

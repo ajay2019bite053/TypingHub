@@ -2,15 +2,27 @@
 User-agent: *
 Allow: /
 
+# Allow Google AdSense bots to crawl for better ad optimization
+User-agent: Mediapartners-Google
+Allow: /
+
+# Allow Google Ads bot for advertising optimization
+User-agent: AdsBot-Google
+Allow: /
+
+# Allow Google AdSense crawler
+User-agent: Googlebot-Image
+Allow: /
+
 # Block admin pages from indexing
 Disallow: /admin/
 Disallow: /admin/*
-Disallow: /api/admin/
-Disallow: /api/admin/*
 
-# Block user dashboard and private pages
-Disallow: /user/dashboard
-Disallow: /user/*
+# Block all API endpoints from indexing
+Disallow: /api/
+
+# Block author pages (privacy concern)
+Disallow: /author/
 
 # Allow important pages
 Allow: /
