@@ -2,59 +2,55 @@
 User-agent: *
 Allow: /
 
-# Allow Google AdSense bots to crawl for better ad optimization
-User-agent: Mediapartners-Google
+# Allow all major search engines
+User-agent: Googlebot
 Allow: /
 
-# Allow Google Ads bot for advertising optimization
-User-agent: AdsBot-Google
+User-agent: Bingbot
 Allow: /
 
-# Allow Google AdSense crawler
-User-agent: Googlebot-Image
+User-agent: Slurp
 Allow: /
 
-# Block admin pages from indexing
+User-agent: DuckDuckBot
+Allow: /
+
+User-agent: Baiduspider
+Allow: /
+
+User-agent: YandexBot
+Allow: /
+
+# Disallow admin and private areas
 Disallow: /admin/
-Disallow: /admin/*
-
-# Block all API endpoints from indexing
 Disallow: /api/
+Disallow: /backend/
+Disallow: /private/
+Disallow: /temp/
+Disallow: /uploads/
+Disallow: /node_modules/
 
-# Block author pages (privacy concern)
-Disallow: /author/
+# Disallow user-specific content
+Disallow: /user/
+Disallow: /dashboard/
+Disallow: /profile/
+Disallow: /settings/
 
 # Allow important pages
-Allow: /
 Allow: /typing-test
-Allow: /live-typing-test
 Allow: /exam-wise-test
 Allow: /create-test
 Allow: /typing-course
-Allow: /ssc-cgl-test
-Allow: /ssc-chsl-test
-Allow: /rrb-ntpc-test
-Allow: /typing-certificate-test
-Allow: /junior-court-assistant-test
-Allow: /junior-assistant-test
-Allow: /superintendent-test
-Allow: /up-police-test
-Allow: /bihar-police-test
-Allow: /aiims-crc-test
-Allow: /allahabad-high-court-test
-Allow: /typing-level-practice
-Allow: /typing-engine-practice
-Allow: /typing-practice
 Allow: /certificate
-Allow: /certificate-verification
-
-Allow: /blog
 Allow: /about-us
 Allow: /contact-us
-Allow: /faqs
-Allow: /terms-of-service
+Allow: /faq
+Allow: /blog
 Allow: /privacy-policy
-Allow: /declaration
+Allow: /terms-of-service
 
 # Sitemap location
-Sitemap: https://typinghub.in/sitemap.xml 
+Sitemap: https://typinghub.in/sitemap.xml
+
+# Crawl delay (optional)
+Crawl-delay: 1 

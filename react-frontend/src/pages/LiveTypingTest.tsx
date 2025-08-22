@@ -1,290 +1,41 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import axios from 'axios';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faWhatsapp, faTelegram, faInstagram, faTwitter, faYoutube } from '@fortawesome/free-brands-svg-icons';
+import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { 
+  faClock, 
+  faKeyboard, 
+  faFileAlt, 
+  faPenToSquare, 
+  faUsers,
+  faTrophy,
+  faCheckCircle,
+  faExclamationTriangle
+} from '@fortawesome/free-solid-svg-icons';
+import { 
+  faWhatsapp, 
+  faTelegram, 
+  faInstagram, 
+  faTwitter, 
+  faYoutube 
+} from '@fortawesome/free-brands-svg-icons';
 import TypingEngine from '../components/common/TypingEngine';
 import './LiveTypingTest.css';
 
 interface LiveExam {
   _id: string;
   name: string;
-  date: string;
+  date: string; // ISO
   isLive: boolean;
   joinLink: string;
-  timeLimit: number;
-  startTime?: string;
-  endTime?: string;
+  timeLimit: number; // minutes
+  startTime?: string; // HH:mm
+  endTime?: string; // HH:mm
   passage?: string;
 }
 
-const LiveTypingTest: React.FC = () => {
-  const [exams, setExams] = useState<LiveExam[]>([]);
-  const [loading, setLoading] = useState(false);
-  const [selectedExam, setSelectedExam] = useState<LiveExam | null>(null);
-  const [showTypingTest, setShowTypingTest] = useState(false);
-
-  useEffect(() => {
-    const fetchExams = async () => {
-      setLoading(true);
-      try {
-        const res = await axios.get('/api/live-exams');
-        setExams(res.data.filter((exam: LiveExam) => exam.isLive));
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchExams();
-  }, []);
-
-  const handleStartTest = (exam: LiveExam) => {
-    setSelectedExam(exam);
-    setShowTypingTest(true);
-  };
-
-  const handleTestComplete = (results: any) => {
-    console.log('Live typing test completed:', results);
-    // Here you can implement logic to submit results to backend
-    // or show completion message
-    setShowTypingTest(false);
-    setSelectedExam(null);
-  };
-
-  // If showing typing test, render TypingEngine
-  if (showTypingTest && selectedExam) {
-    const config = {
-      testName: selectedExam.name,
-      timeLimit: selectedExam.timeLimit * 60, // convert minutes to seconds
-      passageCategory: 'Live Typing Test',
-      qualificationCriteria: { 
-        minWpm: 25, 
-        minAccuracy: 85 
-      },
-      customPassage: selectedExam.passage || 'Welcome to the live typing test! This is a sample passage for practice. Please type accurately and maintain good speed.',
-      onTestComplete: handleTestComplete
-    };
-
-    return (
-      <div className="live-typing-test-page">
-        <TypingEngine 
-          config={config}
-          hideFeedbackModal={false}
-          hideDurationSelector={true}
-          onTestComplete={handleTestComplete}
-        />
-      </div>
-    );
-  }
-
-  return (
-    <>
-      <div className="live-typing-test-notification" style={{
-        background: 'linear-gradient(90deg, #1976d2 0%, #42a5f5 100%)',
-        color: '#fff',
-        padding: '18px 0',
-        textAlign: 'center',
-        fontSize: 16,
-        fontWeight: 600,
-        letterSpacing: 0.2,
-        boxShadow: '0 2px 12px rgba(25,118,210,0.10)',
-        borderRadius: '0 0 16px 16px',
-        marginBottom: 0,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        gap: 10
-      }}>
-        <span style={{ fontSize: 20, verticalAlign: 'middle' }}>💻</span>
-        <span>
-          Welcome to <b>Live Typing Test</b>! Participate in real-time typing competitions, climb the live leaderboard, and join scheduled mock tests with fellow users. Sharpen your skills and compete for the top spot!
-        </span>
-      </div>
-      
-      <div className="live-typing-test-page" style={{ 
-        maxWidth: 900, 
-        margin: '0 auto', 
-        padding: 20, 
-        background: '#fff', 
-        borderRadius: '0 0 12px 12px', 
-        boxShadow: '0 2px 16px rgba(25,118,210,0.07)', 
-        fontSize: 15 
-      }}>
-        <div className="live-exam-info-card" style={{ 
-          marginBottom: 28, 
-          background: '#f8fafc', 
-          border: '1.5px solid #90caf9', 
-          borderRadius: 14, 
-          padding: 20, 
-          textAlign: 'center', 
-          fontSize: 15 
-        }}>
-          <div className="exam-info-title" style={{ fontSize: 18, fontWeight: 700, color: '#1976d2', marginBottom: 8 }}>Live Typing Tests</div>
-          {loading ? <div>Loading...</div> : (
-          <div className="exam-list" style={{ display: 'flex', flexDirection: 'column', gap: 10, marginTop: 14 }}>
-              {exams.length === 0 ? (
-                <div style={{ color: '#888', fontSize: 15 }}>No live exams at the moment.</div>
-              ) : exams.map((exam) => {
-                const now = new Date();
-                const currentMinutes = now.getHours() * 60 + now.getMinutes();
-                let showJoin = true;
-                let liveTiming = '';
-                if (exam.startTime && exam.endTime) {
-                  liveTiming = `${formatTime(exam.startTime)} - ${formatTime(exam.endTime)}`;
-                  const [startH, startM] = exam.startTime.split(':').map(Number);
-                  const [endH, endM] = exam.endTime.split(':').map(Number);
-                  const startMinutes = startH * 60 + startM;
-                  const endMinutes = endH * 60 + endM;
-                  showJoin = currentMinutes >= startMinutes && currentMinutes <= endMinutes;
-                } else {
-                  liveTiming = 'N/A';
-                }
-                return (
-                  <div key={exam._id} className="exam-row" style={{ 
-                    display: 'flex', 
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    background: '#fff', 
-                    borderRadius: 8, 
-                    padding: '12px 14px', 
-                    boxShadow: '0 1px 6px rgba(25,118,210,0.04)', 
-                    fontSize: 14,
-                    gap: 10
-                  }}>
-                    {/* Left Side - Exam Name and Timing */}
-                    <div style={{ 
-                      display: 'flex', 
-                      flexDirection: 'column', 
-                      alignItems: 'flex-start',
-                      flex: 1
-                    }}>
-                      <div style={{ fontWeight: 600, color: '#1976d2', fontSize: 14 }}>{exam.name}</div>
-                      <div style={{ 
-                        fontSize: 13, 
-                        color: '#d6001c', 
-                        fontWeight: 600, 
-                        marginTop: 2 
-                      }}>
-                        Live Timing: <b>{liveTiming}</b>
-                      </div>
-                    </div>
-                    
-                    {/* Right Side - Exam Date and Button */}
-                    <div style={{ 
-                      display: 'flex', 
-                      flexDirection: 'column', 
-                      alignItems: 'flex-end',
-                      gap: 6
-                    }}>
-                      <div style={{ 
-                        fontSize: 13, 
-                        color: '#1a2a44', 
-                        fontWeight: 500,
-                        textAlign: 'right'
-                      }}>
-                        Official Exam Date: <b>{new Date(exam.date).toLocaleDateString()}</b>
-                      </div>
-                      
-                      {showJoin ? (
-                        <button 
-                          onClick={() => handleStartTest(exam)}
-                          className="join-live-btn" 
-                          style={{ 
-                            background: '#d6001c', 
-                            color: '#fff', 
-                            borderRadius: 6, 
-                            padding: '7px 14px', 
-                            fontWeight: 600, 
-                            fontSize: 13, 
-                            boxShadow: '0 2px 8px #d6001c22', 
-                            transition: 'background 0.2s', 
-                            whiteSpace: 'nowrap',
-                            border: 'none',
-                            cursor: 'pointer'
-                          }}
-                        >
-                          Start Live Typing Test
-                        </button>
-                      ) : (
-                        <span style={{ 
-                          color: '#888', 
-                          fontWeight: 600, 
-                          fontSize: 13
-                        }}>
-                          Test Closed
-                        </span>
-                      )}
-                    </div>
-                  </div>
-                );
-              })}
-          </div>
-          )}
-          
-          {/* Practice Section */}
-          <div className="practice-section" style={{
-            marginTop: '30px',
-            padding: '20px',
-            background: '#fff',
-            borderRadius: '12px',
-            border: '1px solid #e0e0e0'
-          }}>
-            <h3 style={{ 
-              color: '#1976d2', 
-              fontSize: '18px', 
-              fontWeight: '600', 
-              marginBottom: '15px',
-              textAlign: 'center'
-            }}>
-              Practice Typing Test
-            </h3>
-            <p style={{ 
-              color: '#666', 
-              fontSize: '14px', 
-              textAlign: 'center',
-              marginBottom: '20px'
-            }}>
-              Want to practice before joining a live test? Try our free typing test with the same interface.
-            </p>
-            <Link 
-              to="/typing-test"
-              style={{
-                background: '#4caf50',
-                color: '#fff',
-                border: 'none',
-                borderRadius: '6px',
-                padding: '10px 20px',
-                fontWeight: '600',
-                fontSize: '14px',
-                cursor: 'pointer',
-                display: 'block',
-                margin: '0 auto',
-                transition: 'background 0.2s',
-                textDecoration: 'none',
-                textAlign: 'center'
-              }}
-            >
-              Start Practice Test
-            </Link>
-          </div>
-          
-          {/* Social Links */}
-          <div className="exam-info-join" style={{ fontSize: 13, color: '#1a2a44', margin: '18px 0 6px 0', fontWeight: 500, textAlign: 'center' }}>Join for more updates:</div>
-          <div className="exam-info-social-row" style={{ display: 'flex', flexDirection: 'row', gap: 18, justifyContent: 'center', margin: '0 0 6px 0' }}>
-            <a href="https://whatsapp.com/channel/0029VbB5BgZIHphQNvybGU3V/?hl=en" target="_blank" rel="noopener noreferrer" title="WhatsApp" style={{ color: '#25D366', fontSize: 26 }}><FontAwesomeIcon icon={faWhatsapp} /></a>
-            <a href="https://t.me/TypingHubOfficial" target="_blank" rel="noopener noreferrer" title="Telegram" style={{ color: '#229ED9', fontSize: 26 }}><FontAwesomeIcon icon={faTelegram} /></a>
-            <a href="https://www.instagram.com/typinghub.in/?hl=en" target="_blank" rel="noopener noreferrer" title="Instagram" style={{ color: '#E1306C', fontSize: 26 }}><FontAwesomeIcon icon={faInstagram} /></a>
-            <a href="https://x.com/typinghub?t=iMSzEgwq3aHVyKXyYtZ6NA&s=09" target="_blank" rel="noopener noreferrer" title="Twitter" style={{ color: '#1DA1F2', fontSize: 26 }}><FontAwesomeIcon icon={faTwitter} /></a>
-            <a href="https://www.youtube.com/@TypingHub-TypingPracticeforSSC" target="_blank" rel="noopener noreferrer" title="YouTube" style={{ color: '#FF0000', fontSize: 26 }}><FontAwesomeIcon icon={faYoutube} /></a>
-          </div>
-        </div>
-      </div>
-    </>
-  );
-};
-
-// Helper to format 'HH:mm' to 'h:mm AM/PM'
-function formatTime(time: string) {
+const formatTime = (time?: string) => {
   if (!time) return '';
   const [h, m] = time.split(':');
   const hour = parseInt(h, 10);
@@ -292,6 +43,407 @@ function formatTime(time: string) {
   const ampm = hour >= 12 ? 'PM' : 'AM';
   const hour12 = hour % 12 === 0 ? 12 : hour % 12;
   return `${hour12}:${minute.toString().padStart(2, '0')} ${ampm}`;
-}
+};
 
-export default LiveTypingTest; 
+const LiveTypingTest: React.FC = () => {
+  const [exams, setExams] = useState<LiveExam[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [selectedExam, setSelectedExam] = useState<LiveExam | null>(null);
+  const [showTypingTest, setShowTypingTest] = useState<boolean>(false);
+
+  useEffect(() => {
+    let isMounted = true;
+    const fetchExams = async () => {
+      setLoading(true);
+      try {
+        const res = await axios.get('/api/live-exams');
+        if (!isMounted) return;
+        const live = (res.data as LiveExam[]).filter((e) => e.isLive);
+        setExams(live);
+      } catch (error) {
+        console.error('Error fetching live exams:', error);
+      } finally {
+        if (isMounted) setLoading(false);
+      }
+    };
+    fetchExams();
+    return () => { isMounted = false; };
+  }, []);
+
+  const buildTestConfig = useMemo(() => {
+    if (!selectedExam) return null;
+    return {
+      testName: selectedExam.name,
+      timeLimit: selectedExam.timeLimit * 60,
+      passageCategory: 'Live Typing Test',
+      qualificationCriteria: { minWpm: 25, minAccuracy: 85 },
+      customPassage: selectedExam.passage || 'Welcome to the live typing test! Type accurately and maintain good speed.',
+      onTestComplete: (results: any) => {
+        setShowTypingTest(false);
+        setSelectedExam(null);
+        console.log('Live typing test completed:', results);
+      },
+    };
+  }, [selectedExam]);
+
+  if (showTypingTest && selectedExam && buildTestConfig) {
+    return (
+      <div className="lt-fullscreen">
+        <TypingEngine
+          config={buildTestConfig}
+          hideFeedbackModal={false}
+          hideDurationSelector={true}
+          onTestComplete={buildTestConfig.onTestComplete}
+        />
+      </div>
+    );
+  }
+
+  return (
+    <>
+      <Helmet>
+        <title>Live Typing Test | TypingHub</title>
+        <meta name="description" content="Join real-time typing competitions with a professional, distraction-free interface. Practice, compete, and improve with TypingHub." />
+        <meta name="keywords" content="live typing test, typing competition, real-time typing, typing practice, typinghub" />
+      </Helmet>
+
+      <div className="live-typing-test-page">
+        <div className="lt-container">
+          {/* Sliding Banner */}
+          <section className="lt-sliding-banner">
+            <div className="lt-banner-container">
+              <div className="lt-banner-slide">
+                <div className="lt-banner-content">
+                  <div className="lt-quote">
+                    <span className="lt-quote-text">"Practice makes perfect. Every keystroke brings you closer to your goal."</span>
+                    <span className="lt-quote-author">-TypingHub</span>
+                  </div>
+                </div>
+              </div>
+              <div className="lt-banner-slide">
+                <div className="lt-banner-content">
+                  <div className="lt-social-links">
+                    <span className="lt-social-text">Join our community for updates:</span>
+                    <a href="https://t.me/TypingHubOfficial" target="_blank" rel="noopener noreferrer" className="lt-social-link telegram">
+                      <FontAwesomeIcon icon={faTelegram} />
+                      <span>Telegram Group</span>
+                    </a>
+                    <a href="https://whatsapp.com/channel/0029VbB5BgZIHphQNvybGU3V/?hl=en" target="_blank" rel="noopener noreferrer" className="lt-social-link whatsapp">
+                      <FontAwesomeIcon icon={faWhatsapp} />
+                      <span>WhatsApp Group</span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div className="lt-banner-slide">
+                <div className="lt-banner-content">
+                  <div className="lt-quote">
+                    <span className="lt-quote-text">"Speed comes with practice, accuracy comes with focus."</span>
+                    <span className="lt-quote-author">-TypingHub</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* Upcoming Live Exams */}
+          <section className="lt-section" aria-labelledby="upcoming-exams">
+            <h2 id="upcoming-exams" className="lt-section-title">Upcoming Exams</h2>
+
+            {loading ? (
+              <div className="lt-skeleton-list" aria-busy="true" aria-live="polite">
+                <div className="lt-skeleton-row" />
+                <div className="lt-skeleton-row" />
+                <div className="lt-skeleton-row" />
+              </div>
+            ) : (
+              <div className="lt-exams">
+                {exams.length === 0 ? (
+                  <div className="lt-empty">
+                    <FontAwesomeIcon icon={faExclamationTriangle} style={{ fontSize: '24px', marginBottom: '10px', color: '#f39c12' }} />
+                    <div>No live exams at the moment.</div>
+                    <div style={{ fontSize: '14px', marginTop: '8px', color: '#999' }}>
+                      Check back later for upcoming competitions!
+                    </div>
+                  </div>
+                ) : (
+                  exams.map((exam) => {
+                    const now = new Date();
+                    const currentMinutes = now.getHours() * 60 + now.getMinutes();
+                    let showJoin = true;
+                    let liveTiming = 'N/A';
+                    let statusColor = '#666';
+                    
+                    if (exam.startTime && exam.endTime) {
+                      liveTiming = `${formatTime(exam.startTime)} - ${formatTime(exam.endTime)}`;
+                      const [sh, sm] = exam.startTime.split(':').map(Number);
+                      const [eh, em] = exam.endTime.split(':').map(Number);
+                      const startMinutes = sh * 60 + sm;
+                      const endMinutes = eh * 60 + em;
+                      showJoin = currentMinutes >= startMinutes && currentMinutes <= endMinutes;
+                      
+                      if (currentMinutes < startMinutes) {
+                        statusColor = '#f39c12'; // Orange for upcoming
+                      } else if (currentMinutes > endMinutes) {
+                        statusColor = '#e74c3c'; // Red for ended
+                      } else {
+                        statusColor = '#27ae60'; // Green for live
+                      }
+                    }
+
+                    return (
+                      <div key={exam._id} className="lt-exam-card">
+                        <div className="lt-exam-left">
+                          <div className="lt-exam-title">
+                            {exam.name}
+                            <span className="lt-exam-status">
+                              {showJoin ? (
+                                <span className="lt-status-live">LIVE</span>
+                              ) : (
+                                <span className="lt-status-closed">CLOSED</span>
+                              )}
+                            </span>
+                          </div>
+                          <div className="lt-exam-date">
+                            Official Exam Date: {new Date(exam.date).toLocaleDateString()}
+                          </div>
+                        </div>
+                        <div className="lt-exam-right">
+                          <div className="lt-exam-timing">
+                            Live Timing: {liveTiming}
+                          </div>
+                          {showJoin ? (
+                            <button
+                              className="lt-start-btn"
+                              onClick={() => { setSelectedExam(exam); setShowTypingTest(true); }}
+                              aria-label={`Start ${exam.name} live typing test`}
+                            >
+                              Start Typing Test
+                            </button>
+                          ) : (
+                            <span className="lt-start-btn-disabled" aria-disabled="true">
+                              Test Closed
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                    );
+                  })
+                )}
+              </div>
+            )}
+
+            {/* Join for more updates section */}
+            <div className="lt-join-updates">
+              <div className="lt-join-text">Join for more updates:</div>
+              <div className="lt-social-icons">
+                <a 
+                  href="https://whatsapp.com/channel/0029VbB5BgZIHphQNvybGU3V/?hl=en" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  title="WhatsApp" 
+                  aria-label="Join on WhatsApp"
+                  className="lt-social-icon whatsapp"
+                >
+                  <FontAwesomeIcon icon={faWhatsapp} />
+                </a>
+                <a 
+                  href="https://t.me/TypingHubOfficial" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  title="Telegram" 
+                  aria-label="Join on Telegram"
+                  className="lt-social-icon telegram"
+                >
+                  <FontAwesomeIcon icon={faTelegram} />
+                </a>
+                <a 
+                  href="https://www.instagram.com/typinghub.in/?hl=en" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  title="Instagram" 
+                  aria-label="Follow on Instagram"
+                  className="lt-social-icon instagram"
+                >
+                  <FontAwesomeIcon icon={faInstagram} />
+                </a>
+                <a 
+                  href="https://x.com/typinghub?t=iMSzEgwq3aHVyKXyYtZ6NA&s=09" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  title="Twitter" 
+                  aria-label="Follow on Twitter"
+                  className="lt-social-icon twitter"
+                >
+                  <FontAwesomeIcon icon={faTwitter} />
+                </a>
+                <a 
+                  href="https://www.youtube.com/@TypingHub-TypingPracticeforSSC" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  title="YouTube" 
+                  aria-label="Subscribe on YouTube"
+                  className="lt-social-icon youtube"
+                >
+                  <FontAwesomeIcon icon={faYoutube} />
+                </a>
+              </div>
+            </div>
+          </section>
+
+          {/* Features */}
+          <section className="lt-section" aria-labelledby="features">
+            <h2 id="features" className="lt-section-title">Why Practice Live?</h2>
+            <div className="lt-grid features">
+              <div className="lt-card">
+                <div className="icon trophy-icon"><FontAwesomeIcon icon={faTrophy} /></div>
+                <div className="title">Real-Time Competition</div>
+                <div className="desc">Compete with users worldwide with live leaderboards and instant results.</div>
+              </div>
+              <div className="lt-card">
+                <div className="icon check-circle-icon"><FontAwesomeIcon icon={faCheckCircle} /></div>
+                <div className="title">Private Results</div>
+                <div className="desc">See your WPM, accuracy, and performance privately with detailed analytics.</div>
+              </div>
+              <div className="lt-card">
+                <div className="icon users-icon"><FontAwesomeIcon icon={faUsers} /></div>
+                <div className="title">Community</div>
+                <div className="desc">Join Telegram and WhatsApp groups for updates, tips, and community support.</div>
+              </div>
+            </div>
+          </section>
+
+          {/* How it works */}
+          <section className="lt-section" aria-labelledby="how-it-works">
+            <h2 id="how-it-works" className="lt-section-title">How It Works</h2>
+            <div className="lt-grid steps">
+              <div className="lt-card">
+                <div className="icon clock-icon"><FontAwesomeIcon icon={faClock} /></div>
+                <div className="title">1. Join Exam</div>
+                <div className="desc">Select any live exam during the active window and get ready to compete.</div>
+              </div>
+              <div className="lt-card">
+                <div className="icon keyboard-icon"><FontAwesomeIcon icon={faKeyboard} /></div>
+                <div className="title">2. Type & Compete</div>
+                <div className="desc">Type the passage within the time limit with real-time performance tracking.</div>
+              </div>
+              <div className="lt-card">
+                <div className="icon trophy-icon"><FontAwesomeIcon icon={faTrophy} /></div>
+                <div className="title">3. Get Results</div>
+                <div className="desc">View speed, accuracy, and key metrics instantly with detailed feedback.</div>
+              </div>
+            </div>
+          </section>
+
+          {/* Video Tutorial */}
+          <section className="lt-section" aria-labelledby="video-tutorial">
+            <h2 id="video-tutorial" className="lt-section-title">Live Exam Guide</h2>
+            <p className="lt-section-subtitle">Learn how to join live exams, get notifications, and participate in real-time competitions.</p>
+            <div className="lt-video-container">
+              <div className="lt-video-wrapper">
+                <iframe
+                  src="https://www.youtube.com/embed/YOUR_VIDEO_ID_HERE"
+                  title="Live Exam Tutorial"
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                  className="lt-video"
+                ></iframe>
+              </div>
+              <div className="lt-video-info">
+                <h3 className="lt-video-title">How to Join Live Typing Exams</h3>
+                <p className="lt-video-desc">
+                  Complete guide on how to get live exam notifications, join competitions on time, and participate in real-time typing tests with other users.
+                </p>
+              </div>
+            </div>
+          </section>
+
+          {/* Related Links */}
+          <section className="lt-section" aria-labelledby="related-links">
+            <h2 id="related-links" className="lt-section-title">Explore More</h2>
+            <div className="lt-grid features">
+              <Link to="/typing-test" className="lt-card" aria-label="Free Typing Test">
+                <div className="icon keyboard-icon"><FontAwesomeIcon icon={faKeyboard} /></div>
+                <div className="title">Free Typing Test</div>
+                <div className="desc">Practice anytime, any device with unlimited attempts.</div>
+              </Link>
+              <Link to="/exam-wise-test" className="lt-card" aria-label="Exam Wise Tests">
+                <div className="icon file-icon"><FontAwesomeIcon icon={faFileAlt} /></div>
+                <div className="title">Exam Wise Tests</div>
+                <div className="desc">Mock tests specifically designed for popular government exams.</div>
+              </Link>
+              <Link to="/create-test" className="lt-card" aria-label="Create Custom Test">
+                <div className="icon pen-icon"><FontAwesomeIcon icon={faPenToSquare} /></div>
+                <div className="title">Create Custom Test</div>
+                <div className="desc">Build personalized tests tailored to your specific needs.</div>
+              </Link>
+            </div>
+          </section>
+
+          {/* Social */}
+          <section className="lt-section" aria-labelledby="social-links">
+            <h2 id="social-links" className="lt-section-title">Join the Community</h2>
+            <p className="lt-section-subtitle" style={{ textAlign: 'center' }}>
+              Connect with fellow typists, get updates on competitions, and share your progress!
+            </p>
+            <div className="lt-social-icons">
+              <a 
+                href="https://whatsapp.com/channel/0029VbB5BgZIHphQNvybGU3V/?hl=en" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                title="WhatsApp" 
+                aria-label="Join on WhatsApp"
+                className="lt-social-icon whatsapp"
+              >
+                <FontAwesomeIcon icon={faWhatsapp} />
+              </a>
+              <a 
+                href="https://t.me/TypingHubOfficial" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                title="Telegram" 
+                aria-label="Join on Telegram"
+                className="lt-social-icon telegram"
+              >
+                <FontAwesomeIcon icon={faTelegram} />
+              </a>
+              <a 
+                href="https://www.instagram.com/typinghub.in/?hl=en" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                title="Instagram" 
+                aria-label="Follow on Instagram"
+                className="lt-social-icon instagram"
+              >
+                <FontAwesomeIcon icon={faInstagram} />
+              </a>
+              <a 
+                href="https://x.com/typinghub?t=iMSzEgwq3aHVyKXyYtZ6NA&s=09" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                title="Twitter" 
+                aria-label="Follow on Twitter"
+                className="lt-social-icon twitter"
+              >
+                <FontAwesomeIcon icon={faTwitter} />
+              </a>
+              <a 
+                href="https://www.youtube.com/@TypingHub-TypingPracticeforSSC" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                title="YouTube" 
+                aria-label="Subscribe on YouTube"
+                className="lt-social-icon youtube"
+              >
+                <FontAwesomeIcon icon={faYoutube} />
+              </a>
+            </div>
+          </section>
+        </div>
+      </div>
+    </>
+  );
+};
+
+export default LiveTypingTest;

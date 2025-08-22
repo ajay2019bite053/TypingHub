@@ -373,7 +373,7 @@ export const useTypingTest = (config: TestConfig) => {
     }
   }, []);
 
-  // Word and character highlighting
+  // IMPROVED Word and character highlighting
   const updateWordHighlight = useCallback(() => {
     if (examMode === 'Paper Typing') {
       wordElements.forEach((word) => {
@@ -382,11 +382,40 @@ export const useTypingTest = (config: TestConfig) => {
       return;
     }
 
-    // Get current typing position
+    // IMPROVED current typing position detection
     const typedText = typingAreaRef.current?.value || '';
     const typedWordsCurrent = typedText.trim().split(/\s+/);
-    const currentTypingWordIndex = Math.max(0, typedWordsCurrent.length - 1);
+    
+         // Calculate current word position based on improved logic
+     let currentTypingWordIndex = 0;
+     let passageIndex = 0;
+     
+     for (let i = 0; i < typedWordsCurrent.length && passageIndex < wordElements.length; i++) {
+       const typedWord = typedWordsCurrent[i];
+       
+       // ONLY CHECK CURRENT WORD
+       const currentExpectedWord = passageWords[passageIndex] || '';
+       
+       if (currentExpectedWord) {
+         const matchScore = calculateWordSimilarity(typedWord, currentExpectedWord);
+         
+         if (matchScore > 0.6) {
+           // Found a good match with current word
+           passageIndex = passageIndex + 1;
+           currentTypingWordIndex = passageIndex;
+         } else {
+           // No match - stay at current position
+           currentTypingWordIndex = passageIndex;
+           break;
+         }
+       } else {
+         // No more words in passage
+         currentTypingWordIndex = passageIndex;
+         break;
+       }
+     }
 
+    // Update current word highlighting
     wordElements.forEach((word, index) => {
       word.classList.remove('current-word');
       if (index === currentTypingWordIndex) {
@@ -394,11 +423,12 @@ export const useTypingTest = (config: TestConfig) => {
       }
     });
 
+    // Update line scrolling
     const lineNumber = Math.floor(currentTypingWordIndex / wordsPerLine);
     if (lineNumber > currentLine && sampleTextContainerRef.current) {
       setCurrentLine(lineNumber);
     }
-  }, [currentLine, wordElements, wordsPerLine, examMode]);
+  }, [currentLine, wordElements, wordsPerLine, examMode, passageWords]);
 
   // Calculate word similarity for smart word alignment
   const calculateWordSimilarity = (word1: string, word2: string): number => {
@@ -415,110 +445,165 @@ export const useTypingTest = (config: TestConfig) => {
     return intersection.size / union.size;
   };
 
-  const getCharacterHighlights = (expected: string, typed: string) => {
-    const normalizedExpected = normalizeQuotes(expected);
-    const normalizedTyped = normalizeQuotes(typed);
-    const result: { char: string; status: 'correct' | 'wrong' }[] = [];
-    
-    // PERFECT CHARACTER ALIGNMENT LOGIC
-    // Handle case where typed word is longer/shorter than expected
-    const maxLength = Math.max(normalizedExpected.length, normalizedTyped.length);
-    
-    for (let i = 0; i < maxLength; i++) {
-      if (i < normalizedExpected.length && i < normalizedTyped.length) {
-        // Both characters exist - compare them
-        if (normalizedExpected[i] === normalizedTyped[i]) {
-          result.push({ char: normalizedExpected[i], status: 'correct' });
-        } else {
-          result.push({ char: normalizedExpected[i], status: 'wrong' });
-        }
-      } else if (i < normalizedExpected.length) {
-        // Expected character exists but typed doesn't - missing character
-        result.push({ char: normalizedExpected[i], status: 'wrong' });
-      } else {
-        // Typed character exists but expected doesn't - extra character
-        // Don't add to result as we're highlighting the expected passage
-      }
-    }
-    
-    return result;
-  };
-
-  const updateLetterHighlight = useCallback(() => {
-    if (!typingAreaRef.current) return;
-
-    if (examMode === 'Paper Typing') {
-      wordElements.forEach((word) => {
-        const chars = word.querySelectorAll('span');
-        chars.forEach(char => {
-          char.classList.remove('correct-char', 'incorrect-char');
-        });
-      });
-      return;
-    }
-
-    const typedText = typingAreaRef.current.value;
-    const typedWordsCurrent = typedText.trim().split(/\s+/);
+  // REAL-TIME CHARACTER HIGHLIGHTING FUNCTION
+  const updateRealTimeCharacterHighlight = useCallback((typedText: string) => {
+    if (examMode === 'Paper Typing') return;
 
     // Clear all highlights first
-    wordElements.forEach((word, wordIndex) => {
+    wordElements.forEach((word) => {
       const chars = word.querySelectorAll('span');
       chars.forEach(char => {
         char.classList.remove('correct-char', 'incorrect-char');
       });
     });
 
-    // SMART WORD ALIGNMENT FOR BETTER HIGHLIGHTING
+    const typedWords = typedText.trim().split(/\s+/);
     let passageIndex = 0;
-    
-    for (let i = 0; i < typedWordsCurrent.length && passageIndex < wordElements.length; i++) {
-      const typedWord = typedWordsCurrent[i];
+
+    // Process completed words
+    for (let i = 0; i < typedWords.length - 1; i++) {
+      const typedWord = typedWords[i];
+      const currentExpectedWord = passageWords[passageIndex] || '';
       
-      // SMART LOCAL SEARCH - Only check 2-3 words around current position
-      const searchWindow = 2; // Check 2 words before and after current position
-      let bestMatchIndex = -1;
-      let bestMatchScore = 0;
-      
-      // Look for the best match in a small window around current position
-      const startIndex = Math.max(0, passageIndex - searchWindow);
-      const endIndex = Math.min(wordElements.length, passageIndex + searchWindow + 1);
-      
-      for (let j = startIndex; j < endIndex; j++) {
-        const expectedWord = passageWords[j] || '';
-        const matchScore = calculateWordSimilarity(typedWord, expectedWord);
+      if (currentExpectedWord) {
+        const matchScore = calculateWordSimilarity(typedWord, currentExpectedWord);
         
-        if (matchScore > bestMatchScore) {
-          bestMatchScore = matchScore;
-          bestMatchIndex = j;
-        }
-      }
-      
-      if (bestMatchIndex >= 0 && bestMatchScore > 0.5) {
-        // Found a good match - highlight it
-        const wordElement = wordElements[bestMatchIndex];
-        if (wordElement) {
-          const chars = wordElement.querySelectorAll('span');
-          const expectedWord = passageWords[bestMatchIndex] || '';
-          
-          const highlights = getCharacterHighlights(expectedWord, typedWord);
-          
-          chars.forEach((char, charIndex) => {
-            if (charIndex < highlights.length) {
-              const highlight = highlights[charIndex];
-              if (highlight.status === 'correct') {
-                char.classList.add('correct-char');
+        if (matchScore > 0.6) {
+          // Highlight completed word
+          const wordElement = wordElements[passageIndex];
+          if (wordElement) {
+            const chars = wordElement.querySelectorAll('span');
+            
+            // PERFECT character highlighting for completed words with smart alignment
+            let typedIndex = 0;
+            let expectedIndex = 0;
+            
+            // Clear all highlights first
+            chars.forEach(char => {
+              char.classList.remove('correct-char', 'incorrect-char');
+            });
+            
+            while (typedIndex < typedWord.length && expectedIndex < currentExpectedWord.length) {
+              if (expectedIndex < chars.length) {
+                if (typedWord[typedIndex] === currentExpectedWord[expectedIndex]) {
+                  // Characters match - highlight green
+                  chars[expectedIndex].classList.add('correct-char');
+                  typedIndex++;
+                  expectedIndex++;
+                } else {
+                  // Characters don't match - check for extra character
+                  let extraCharFound = false;
+                  let missingCharFound = false;
+                  
+                  // Check if next typed character matches current expected
+                  if (typedIndex + 1 < typedWord.length && 
+                      typedWord[typedIndex + 1] === currentExpectedWord[expectedIndex]) {
+                    // Extra character detected - skip current typed character
+                    extraCharFound = true;
+                    typedIndex++;
+                  }
+                  // Check if current typed character matches next expected
+                  else if (expectedIndex + 1 < currentExpectedWord.length && 
+                           typedWord[typedIndex] === currentExpectedWord[expectedIndex + 1]) {
+                    // Missing character detected
+                    missingCharFound = true;
+                    chars[expectedIndex].classList.add('incorrect-char');
+                    expectedIndex++;
+                  }
+                  
+                  if (!extraCharFound && !missingCharFound) {
+                    // Simple mismatch
+                    chars[expectedIndex].classList.add('incorrect-char');
+                    typedIndex++;
+                    expectedIndex++;
+                  }
+                }
               } else {
-                char.classList.add('incorrect-char');
+                break;
               }
             }
-          });
-          
-          passageIndex = bestMatchIndex + 1; // Move to next passage word
+            
+            // Highlight remaining expected characters as wrong
+            while (expectedIndex < currentExpectedWord.length && expectedIndex < chars.length) {
+              chars[expectedIndex].classList.add('incorrect-char');
+              expectedIndex++;
+            }
+          }
+          passageIndex++;
         }
       }
-      // If no good match found in local window, skip highlighting (extra word)
     }
-  }, [passageWords, wordElements, examMode]);
+
+    // REAL-TIME HIGHLIGHTING FOR CURRENT WORD
+    const currentTypedWord = typedWords[typedWords.length - 1] || '';
+    const currentExpectedWord = passageWords[passageIndex] || '';
+    
+    if (currentTypedWord && currentExpectedWord) {
+      const wordElement = wordElements[passageIndex];
+      if (wordElement) {
+        const chars = wordElement.querySelectorAll('span');
+        
+        // Clear highlights
+        chars.forEach(char => {
+          char.classList.remove('correct-char', 'incorrect-char');
+        });
+        
+        // Real-time character highlighting
+        let typedIndex = 0;
+        let expectedIndex = 0;
+        
+        while (typedIndex < currentTypedWord.length && expectedIndex < currentExpectedWord.length) {
+          if (expectedIndex < chars.length) {
+            if (currentTypedWord[typedIndex] === currentExpectedWord[expectedIndex]) {
+              // Characters match - highlight green
+              chars[expectedIndex].classList.add('correct-char');
+              typedIndex++;
+              expectedIndex++;
+            } else {
+              // Characters don't match - check for extra character
+              let extraCharFound = false;
+              let missingCharFound = false;
+              
+              // Check if next typed character matches current expected
+              if (typedIndex + 1 < currentTypedWord.length && 
+                  currentTypedWord[typedIndex + 1] === currentExpectedWord[expectedIndex]) {
+                // Extra character detected - skip current typed character
+                extraCharFound = true;
+                typedIndex++;
+              }
+              // Check if current typed character matches next expected
+              else if (expectedIndex + 1 < currentExpectedWord.length && 
+                       currentTypedWord[typedIndex] === currentExpectedWord[expectedIndex + 1]) {
+                // Missing character detected
+                missingCharFound = true;
+                chars[expectedIndex].classList.add('incorrect-char');
+                expectedIndex++;
+              }
+              
+              if (!extraCharFound && !missingCharFound) {
+                // Simple mismatch
+                chars[expectedIndex].classList.add('incorrect-char');
+                typedIndex++;
+                expectedIndex++;
+              }
+            }
+          } else {
+            break;
+          }
+        }
+        
+        // Highlight remaining expected characters as wrong
+        while (expectedIndex < currentExpectedWord.length && expectedIndex < chars.length) {
+          chars[expectedIndex].classList.add('incorrect-char');
+          expectedIndex++;
+        }
+      }
+    }
+  }, [wordElements, passageWords, examMode]);
+
+
+
+
 
   // Test control functions
   const startTest = useCallback(() => {
@@ -593,10 +678,9 @@ export const useTypingTest = (config: TestConfig) => {
     }
     displayPassage();
     updateWordHighlight();
-    updateLetterHighlight();
     setIdleTime(0);
     setLastKeypressTime(Date.now());
-  }, [displayPassage, updateWordHighlight, updateLetterHighlight, selectedDuration, stopBackgroundProcessing]);
+  }, [displayPassage, updateWordHighlight, selectedDuration, stopBackgroundProcessing]);
 
   const submitTest = useCallback(() => {
     if (!isRunning) return;
@@ -680,7 +764,6 @@ export const useTypingTest = (config: TestConfig) => {
       
       displayPassage();
       updateWordHighlight();
-      updateLetterHighlight();
     }
   };
 
@@ -696,17 +779,16 @@ export const useTypingTest = (config: TestConfig) => {
     
     const passageText = passageWords.join(' ');
     
-    // PERFECT CHARACTER AND WORD COUNTING
+    // Character and word counting
     const counters = {
       correctChars: 0,
-      totalChars: 0, // Will be calculated properly
+      totalChars: 0,
       normalMistakes: 0,
       punctuationMistakes: 0,
       correctWords: 0,
       incorrectWords: 0
     };
     
-    // PERFECT WORD PROCESSING
     const typedWords = newText.trim().split(/\s+/).filter(word => word.length > 0);
     const passageWordsArray = passageText.trim().split(/\s+/);
     
@@ -714,72 +796,95 @@ export const useTypingTest = (config: TestConfig) => {
     let totalMistakes = 0;
     let totalExpectedChars = 0;
     
-    // PERFECT WORD-BY-WORD ANALYSIS WITH SMART ALIGNMENT
     let passageIndex = 0;
     
     for (let i = 0; i < typedWords.length; i++) {
       const typedWord = typedWords[i];
       
-      // SMART LOCAL SEARCH - Only check 2-3 words around current position
-      const searchWindow = 2; // Check 2 words before and after current position
+      const currentExpectedWord = passageWordsArray[passageIndex];
       let bestMatchIndex = -1;
       let bestMatchScore = 0;
       
-      // Look for the best match in a small window around current position
-      const startIndex = Math.max(0, passageIndex - searchWindow);
-      const endIndex = Math.min(passageWordsArray.length, passageIndex + searchWindow + 1);
-      
-      for (let j = startIndex; j < endIndex; j++) {
-        const expectedWord = passageWordsArray[j];
-        const matchScore = calculateWordSimilarity(typedWord, expectedWord);
+      if (currentExpectedWord) {
+        const matchScore = calculateWordSimilarity(typedWord, currentExpectedWord);
         
-        if (matchScore > bestMatchScore) {
+        if (matchScore > 0.6) {
+          bestMatchIndex = passageIndex;
           bestMatchScore = matchScore;
-          bestMatchIndex = j;
         }
       }
       
-      if (bestMatchIndex >= 0 && bestMatchScore > 0.5) {
-        // Found a good match - process it
+      if (bestMatchIndex >= 0 && bestMatchScore > 0.6) {
         const expectedWord = passageWordsArray[bestMatchIndex];
-        passageIndex = bestMatchIndex + 1; // Move to next passage word
+        passageIndex = bestMatchIndex + 1;
         
-        // PERFECT CHARACTER COMPARISON
-        const minLength = Math.min(typedWord.length, expectedWord.length);
+        // Smart character comparison
+        let typedIndex = 0;
+        let expectedIndex = 0;
         let wordCorrectChars = 0;
         let wordMistakes = 0;
         
-        // Compare each character
-        for (let j = 0; j < minLength; j++) {
-          if (typedWord[j] === expectedWord[j]) {
+        while (typedIndex < typedWord.length && expectedIndex < expectedWord.length) {
+          if (typedWord[typedIndex] === expectedWord[expectedIndex]) {
+            // Characters match
             wordCorrectChars++;
+            typedIndex++;
+            expectedIndex++;
           } else {
-            wordMistakes++;
+            // Characters don't match - check for extra character
+            let extraCharFound = false;
+            let missingCharFound = false;
+            
+            // Check if next typed character matches current expected
+            if (typedIndex + 1 < typedWord.length && 
+                typedWord[typedIndex + 1] === expectedWord[expectedIndex]) {
+              // Extra character detected - skip current typed character
+              extraCharFound = true;
+              wordMistakes++; // Count extra character as mistake
+              typedIndex++;
+            }
+            // Check if current typed character matches next expected
+            else if (expectedIndex + 1 < expectedWord.length && 
+                     typedWord[typedIndex] === expectedWord[expectedIndex + 1]) {
+              // Missing character detected
+              missingCharFound = true;
+              wordMistakes++; // Count missing character as mistake
+              expectedIndex++;
+            }
+            
+            if (!extraCharFound && !missingCharFound) {
+              // Simple mismatch
+              wordMistakes++;
+              typedIndex++;
+              expectedIndex++;
+            }
           }
         }
         
-        // Count extra characters as mistakes
-        if (typedWord.length > expectedWord.length) {
-          wordMistakes += (typedWord.length - expectedWord.length);
+        // Count remaining extra characters as mistakes
+        while (typedIndex < typedWord.length) {
+          wordMistakes++;
+          typedIndex++;
         }
         
-        // Count missing characters as mistakes
-        if (typedWord.length < expectedWord.length) {
-          wordMistakes += (expectedWord.length - typedWord.length);
+        // Count remaining missing characters as mistakes
+        while (expectedIndex < expectedWord.length) {
+          wordMistakes++;
+          expectedIndex++;
         }
         
         totalCorrectChars += wordCorrectChars;
         totalMistakes += wordMistakes;
         totalExpectedChars += expectedWord.length;
         
-        // PERFECT WORD ACCURACY
+        // IMPROVED WORD ACCURACY
         if (typedWord === expectedWord) {
           counters.correctWords++;
         } else {
           counters.incorrectWords++;
         }
         
-        // PERFECT MISTAKE CATEGORIZATION
+        // IMPROVED MISTAKE CATEGORIZATION
         if (wordMistakes > 0) {
           // Check if mistakes are punctuation-related
           const punctuationMistakesInWord = Array.from(typedWord).filter(char => 
@@ -790,7 +895,7 @@ export const useTypingTest = (config: TestConfig) => {
           counters.normalMistakes += (wordMistakes - punctuationMistakesInWord);
         }
       } else {
-        // No good match found in local window - count as extra word
+        // No good match found - count as extra word
         counters.normalMistakes += typedWord.length;
         counters.incorrectWords++;
         totalMistakes += typedWord.length;
@@ -798,26 +903,12 @@ export const useTypingTest = (config: TestConfig) => {
       }
     }
     
-    // PERFECT FINAL COUNTS - Calculate totalChars properly
-    counters.correctChars = totalCorrectChars;
-    counters.totalChars = totalExpectedChars; // Use expected passage length, not typed text length
-    
-    // Debug logging for character counting fix
-    console.log('🔍 CHARACTER COUNTING DEBUG:', {
-      typedText: newText,
-      typedTextLength: newText.length,
-      typedWords: typedWords,
-      passageWords: passageWordsArray,
-      totalExpectedChars,
-      totalCorrectChars,
-      totalMistakes,
-      finalTotalWords: typedWords.length
-    });
-    
-    // Set total words (only non-empty words)
-    const finalTotalWords = typedWords.length;
-    
-    // Update all state variables
+            counters.correctChars = totalCorrectChars;
+        counters.totalChars = totalExpectedChars;
+        
+        const finalTotalWords = typedWords.length;
+        
+        // Update state variables
     setCorrectChars(counters.correctChars);
     setTotalChars(counters.totalChars);
     setMistakes(counters.normalMistakes);
@@ -826,23 +917,28 @@ export const useTypingTest = (config: TestConfig) => {
     setIncorrectWordsCount(counters.incorrectWords);
     setTotalWords(finalTotalWords);
     
-    // PERFECT STATS CALCULATION
-    const newStats = calculateTypingStats(
-      counters.correctChars,
-      counters.totalChars,
-      counters.normalMistakes,
-      backspaceCount,
-      finalTotalWords,
-      counters.correctWords,
-      counters.incorrectWords,
-      startTime,
-      counters.punctuationMistakes
-    );
+            const newStats = calculateTypingStats(
+          counters.correctChars,
+          counters.totalChars,
+          counters.normalMistakes,
+          backspaceCount,
+          finalTotalWords,
+          counters.correctWords,
+          counters.incorrectWords,
+          startTime,
+          counters.punctuationMistakes
+        );
 
-    setTypingStats(newStats);
-    updateLetterHighlight();
-    updateWordHighlight();
-  }, [isRunning, passageWords, updateLetterHighlight, updateWordHighlight, calculateTypingStats, startTime, backspaceCount]);
+        setTypingStats(newStats);
+        
+        // Real-time highlighting
+        requestAnimationFrame(() => {
+          updateRealTimeCharacterHighlight(newText);
+          updateWordHighlight();
+        });
+  }, [isRunning, passageWords, updateWordHighlight, calculateTypingStats, startTime, backspaceCount, updateRealTimeCharacterHighlight]);
+
+
 
   const handlePaste = (e: React.ClipboardEvent) => {
     e.preventDefault();
@@ -942,8 +1038,7 @@ export const useTypingTest = (config: TestConfig) => {
 
   useEffect(() => {
     updateWordHighlight();
-    updateLetterHighlight();
-  }, [examMode, updateWordHighlight, updateLetterHighlight]);
+  }, [examMode, updateWordHighlight]);
 
   useEffect(() => {
     if (isRunning && timeLeft > 0) {

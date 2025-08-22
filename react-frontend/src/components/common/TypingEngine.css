@@ -323,102 +323,118 @@ select:focus {
 
 /* Results section with improved styling - NO SCROLLING */
 .result-section {
-  flex: 1;
-  min-width: 280px;
-  max-width: 400px;
-  display: flex;
-  flex-direction: column;
-  padding: 12px;
-  background: transparent;
-  box-shadow: none;
-  border-radius: 8px;
-  height: auto;
-  min-height: calc(206.5px + 206.5px + 15px + 1px + 50px);
-  position: static;
-  top: unset;
-  margin-top: -10px;
-  margin-left: 0;
-  overflow: visible;
-  border: none;
-  justify-content: flex-start;
+  flex: 1 !important;
+  min-width: 280px !important;
+  max-width: 400px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  padding: 16px !important;
+  background: #f8fafc !important;
+  box-shadow: inset 0 0 0 1px #e3f2fd !important;
+  border-radius: 12px !important;
+  height: auto !important;
+  min-height: calc(100vh - 200px) !important;
+  position: relative !important;
+  top: 0 !important;
+  margin-top: 0 !important;
+  margin-left: 0 !important;
+  overflow: visible !important;
+  border: 1px solid #e3f2fd !important;
+  justify-content: flex-start !important;
+  gap: 8px !important;
 }
 
-/* Remove the result header completely */
+/* Result section header */
 .result-header {
-  display: none;
+  display: block !important;
+  margin-bottom: 12px !important;
+  padding-bottom: 8px !important;
+  border-bottom: 2px solid #e3f2fd !important;
+}
+
+.result-header h3 {
+  font-size: 16px !important;
+  font-weight: 700 !important;
+  color: #1976d2 !important;
+  margin: 0 !important;
+  text-align: center !important;
+  font-family: 'Roboto Serif', serif !important;
 }
 
 /* Enhanced metric blocks with compact spacing */
 .metric-block {
-  padding: 6px 10px;
-  border-radius: 6px;
-  margin: 0;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 11px;
-  background: rgba(255, 255, 255, 0.9);
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-  transition: all 0.3s ease;
-  font-family: 'Roboto Serif', serif;
-  flex-shrink: 0;
-  min-height: 32px;
-  border: 1px solid rgba(0,0,0,0.05);
+  padding: 10px 12px !important;
+  border-radius: 8px !important;
+  margin: 0 !important;
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  font-size: 12px !important;
+  background: #ffffff !important;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.08) !important;
+  transition: all 0.3s ease !important;
+  font-family: 'Roboto Serif', serif !important;
+  flex-shrink: 0 !important;
+  min-height: 40px !important;
+  border: 1px solid #e3f2fd !important;
+  margin-bottom: 6px !important;
 }
 
 .metric-block:hover {
-  transform: translateY(-1px);
-  background: #fafafa;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  transform: translateY(-1px) !important;
+  background: #fafafa !important;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1) !important;
 }
 
 .metric-block.primary-stat {
-  background: linear-gradient(135deg, #e8f5e8 0%, #f1f8e9 100%);
-  border: 1px solid #4caf50;
-  box-shadow: 0 2px 6px rgba(76, 175, 80, 0.15);
+  background: linear-gradient(135deg, #e8f5e8 0%, #f1f8e9 100%) !important;
+  border: 2px solid #4caf50 !important;
+  box-shadow: 0 3px 8px rgba(76, 175, 80, 0.2) !important;
+  transform: scale(1.02) !important;
 }
 
 .metric-block.secondary-stat {
-  background: linear-gradient(135deg, #fff3e0 0%, #fbe9e7 100%);
-  border: 1px solid #ff9800;
-  box-shadow: 0 2px 6px rgba(255, 152, 0, 0.15);
+  background: linear-gradient(135deg, #fff3e0 0%, #fbe9e7 100%) !important;
+  border: 2px solid #ff9800 !important;
+  box-shadow: 0 3px 8px rgba(255, 152, 0, 0.2) !important;
+  transform: scale(1.01) !important;
 }
 
 .metric-block .icon {
-  margin-right: 5px;
-  color: #1976d2;
-  flex-shrink: 0;
-  width: 12px;
-  height: 12px;
+  margin-right: 5px !important;
+  color: #1976d2 !important;
+  flex-shrink: 0 !important;
+  width: 12px !important;
+  height: 12px !important;
 }
 
 .metric-block span:first-child {
-  font-weight: 600;
-  color: #1a2a44;
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  flex: 1;
-  min-width: 0;
-  font-size: 11px;
+  font-weight: 600 !important;
+  color: #1a2a44 !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  flex: 1 !important;
+  min-width: 0 !important;
+  font-size: 12px !important;
 }
 
 .metric-block span:last-child {
-  font-weight: 600;
-  color: #1a2a44;
-  flex-shrink: 0;
-  margin-left: 6px;
-  text-align: right;
-  min-width: 45px;
-  font-size: 12px;
+  font-weight: 700 !important;
+  color: #1a2a44 !important;
+  flex-shrink: 0 !important;
+  margin-left: 8px !important;
+  text-align: right !important;
+  min-width: 50px !important;
+  font-size: 13px !important;
 }
 
 .metric-block.primary-stat span:last-child {
-  color: #2e7d32;
+  color: #2e7d32 !important;
 }
 
 .metric-block.secondary-stat span:last-child {
-  color: #f57c00;
+  color: #f57c00 !important;
 }
 
 /* Feedback Modal Styles */
@@ -603,30 +619,30 @@ body.feedback-open {
 
 @media (max-width: 992px) {
   .test-container {
-    flex-direction: column;
-    width: 100vw;
+    flex-direction: column !important;
+    width: 100vw !important;
   }
   
   .test-main {
-    padding-right: 0;
+    padding-right: 0 !important;
   }
   
   .result-section {
-    max-width: 100%;
-    min-width: 100%;
-    position: static;
-    margin-top: 20px;
-    margin-left: 0;
-    height: auto;
+    max-width: 100% !important;
+    min-width: 100% !important;
+    position: static !important;
+    margin-top: 20px !important;
+    margin-left: 0 !important;
+    height: auto !important;
   }
   
   .test-header {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, 1fr) !important;
   }
   
   .sample-text-container,
   .typing-area {
-    height: 200px;
+    height: 200px !important;
   }
 }
 
@@ -688,18 +704,18 @@ body.feedback-open {
   }
   
   .result-section {
-    margin: 10px;
-    padding: 15px;
+    margin: 10px !important;
+    padding: 15px !important;
   }
   
   .metric-block {
-    padding: 12px 10px;
-    font-size: 12px;
+    padding: 12px 10px !important;
+    font-size: 12px !important;
   }
   
   .metric-block span:last-child {
-    min-width: 50px;
-    font-size: 14px;
+    min-width: 50px !important;
+    font-size: 14px !important;
   }
 }
 

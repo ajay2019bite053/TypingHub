@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import TypingEngine from '../components/common/TypingEngine';
 import './CreateTest.css';
 
@@ -15,15 +14,12 @@ const getBackendUrl = () => {
 const API_BASE_URL = getBackendUrl();
 
 const CreateTest = () => {
-  const navigate = useNavigate();
   const [showSetup, setShowSetup] = useState(true);
   const [customText, setCustomText] = useState('');
   const [aiGeneratedText, setAiGeneratedText] = useState('');
-  const [passagePrompt, setPassagePrompt] = useState('');
   const [textLength, setTextLength] = useState('150-200');
   const [isGenerating, setIsGenerating] = useState(false);
   const [useAiText, setUseAiText] = useState(true);
-  const [loading, setLoading] = useState(false);
   const [searchText, setSearchText] = useState('');
 
   const lengthOptions = [
@@ -35,35 +31,6 @@ const CreateTest = () => {
     { value: '350-400', label: '350-400 words' },
     { value: '400-450', label: '400-450 words' }
   ];
-
-  // Helper to get min and max word count from textLength
-  const getWordRange = (length: string) => {
-    switch (length) {
-      case '100-150': return { min: 100, max: 150 };
-      case '150-200': return { min: 150, max: 200 };
-      case '200-250': return { min: 200, max: 250 };
-      case '250-300': return { min: 250, max: 300 };
-      case '300-350': return { min: 300, max: 350 };
-      case '350-400': return { min: 350, max: 400 };
-      case '400-450': return { min: 400, max: 450 };
-      default: return { min: 150, max: 200 };
-    }
-  };
-
-  // Helper to trim passage to max words
-  const trimToMaxWords = (text: string, max: number) => {
-    const words = text.trim().split(/\s+/);
-    if (words.length > max) {
-      return words.slice(0, max).join(' ') + '.';
-    }
-    return text.trim();
-  };
-
-  // Helper to clean up extra blank lines and ensure single line breaks between paragraphs
-  const cleanParagraphs = (text: string) => {
-    // Remove all line breaks for a single paragraph
-    return text.replace(/\r?\n|\r/g, ' ').replace(/\s+/g, ' ').trim();
-  };
 
   const generateAiTextFromSearch = async () => {
     if (!searchText.trim()) {
@@ -91,8 +58,6 @@ const CreateTest = () => {
       }
 
       const data = await response.json();
-      console.log('AI Response:', data);
-      
       setAiGeneratedText(data.text);
       setSearchText('');
       setIsGenerating(false);
@@ -100,45 +65,6 @@ const CreateTest = () => {
     } catch (error: any) {
       console.error('AI generation error:', error);
       alert(error.message || 'Failed to generate text. Please try again or use a different topic.');
-      setIsGenerating(false);
-    }
-  };
-
-  const generateAiText = async () => {
-    if (!passagePrompt.trim()) {
-      alert('Please enter a topic or prompt to generate text.');
-      return;
-    }
-
-    setIsGenerating(true);
-    
-    try {
-      const response = await fetch(`${API_BASE_URL}/api/ai/generate-text`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          prompt: passagePrompt.trim(),
-          textLength: textLength
-        })
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || 'Failed to generate text');
-      }
-
-      const data = await response.json();
-      console.log('AI Response:', data);
-      
-      setAiGeneratedText(data.text);
-      setUseAiText(true);
-      setIsGenerating(false);
-      
-    } catch (error: any) {
-      console.error('AI generation error:', error);
-      alert(error.message || 'Failed to generate text. Please try again.');
       setIsGenerating(false);
     }
   };
@@ -166,20 +92,7 @@ const CreateTest = () => {
           backButton={
             <button
               onClick={() => setShowSetup(true)}
-              style={{
-                background: 'linear-gradient(135deg, #6c757d 0%, #495057 100%)',
-                color: 'white',
-                border: 'none',
-                padding: '8px 16px',
-                borderRadius: '6px',
-                fontSize: '13px',
-                fontWeight: '600',
-                cursor: 'pointer',
-                fontFamily: 'inherit',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '6px'
-              }}
+              className="create-test-back-btn"
             >
               ⬅️ Back to Settings
             </button>
@@ -190,152 +103,122 @@ const CreateTest = () => {
   }
 
   return (
-    <div className="create-test-setup">
-      <div className="setup-container" style={{ paddingTop: '0', marginTop: '0' }}>
-        {/* Header Section */}
-        <div style={{ 
-          display: 'flex', 
-          gap: '30px', 
-          justifyContent: 'space-between', 
-          alignItems: 'center', 
-          marginBottom: '0px',
-          paddingBottom: '0px',
-          borderBottom: 'none',
-          marginTop: '0px',
-          paddingTop: '0px'
-        }}>
-          <div style={{ display: 'flex', gap: '15px', width: '100%' }}>
-            <button
-              className={`mode-btn ${useAiText ? 'active' : ''}`}
-              onClick={() => setUseAiText(true)}
-              style={{
-                background: useAiText ? 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' : '#f8f9fa',
-                color: useAiText ? 'white' : '#2c3e50',
-                border: '2px solid #e0e0e0',
-                padding: '14px 20px',
-                borderRadius: '10px',
-                fontSize: '0.95rem',
-                fontWeight: '600',
-                cursor: 'pointer',
-                transition: 'all 0.3s ease',
-                fontFamily: 'inherit',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '8px',
-                minWidth: '200px',
-                justifyContent: 'center',
-                flex: '1'
-              }}
-            >
-              🤖 Use AI for generating passage
-            </button>
-            <button
-              className={`mode-btn ${!useAiText ? 'active' : ''}`}
-              onClick={() => setUseAiText(false)}
-              style={{
-                background: !useAiText ? 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' : '#f8f9fa',
-                color: !useAiText ? 'white' : '#2c3e50',
-                border: '2px solid #e0e0e0',
-                padding: '14px 20px',
-                borderRadius: '10px',
-                fontSize: '0.95rem',
-                fontWeight: '600',
-                cursor: 'pointer',
-                transition: 'all 0.3s ease',
-                fontFamily: 'inherit',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '8px',
-                minWidth: '200px',
-                justifyContent: 'center',
-                flex: '1'
-              }}
-            >
-              ✏️ Use your own custom passage
-            </button>
-          </div>
-        </div>
+    <div className="create-test-container">
+      {/* Mode Selection */}
+      <div className="create-test-mode-selection">
+        <button
+          className={`create-test-mode-btn ${useAiText ? 'create-test-active' : ''}`}
+          onClick={() => setUseAiText(true)}
+        >
+          🤖 Use AI for generating passage
+        </button>
+        <button
+          className={`create-test-mode-btn ${!useAiText ? 'create-test-active' : ''}`}
+          onClick={() => setUseAiText(false)}
+        >
+          ✏️ Use your own custom passage
+        </button>
+      </div>
 
-        {/* Main Content */}
-        <div className="create-test-content">
-          {useAiText ? (
-            <div className="ai-section">
-              {/* Search Section */}
-              <div className="search-section">
-                <div className="search-row">
+      {/* Main Content */}
+      <div className="create-test-main-content">
+        {useAiText ? (
+          <div className="create-test-ai-section">
+            {/* Search Section */}
+            <div className="create-test-search-section">
+              <div className="create-test-search-row">
+                <div className="create-test-input-group">
+                  <label>Topic for Passage</label>
                   <input
                     type="text"
                     placeholder="Enter topic (e.g., 'Modi ji speeches', 'climate change', 'Indian economy')"
                     value={searchText}
                     onChange={(e) => setSearchText(e.target.value)}
-                    className="search-input"
+                    className="create-test-search-input"
                   />
-                  <button
-                    onClick={generateAiTextFromSearch}
-                    disabled={isGenerating}
-                    className="search-btn"
+                </div>
+                <div className="create-test-input-group">
+                  <label>Passage Length</label>
+                  <select
+                    value={textLength}
+                    onChange={(e) => setTextLength(e.target.value)}
+                    className="create-test-length-select"
                   >
-                    {isGenerating ? '🔄 Generating...' : '🚀 Generate Passage'}
-                  </button>
+                    {lengthOptions.map(option => (
+                      <option key={option.value} value={option.value}>
+                        {option.label}
+                      </option>
+                    ))}
+                  </select>
                 </div>
-              </div>
-
-              {/* Generated Text Area */}
-              <div className="text-input-container">
-                <div className="textarea-container" style={{ flex: '1', marginLeft: '0' }}>
-                  <textarea
-                    className="text-area"
-                    value={aiGeneratedText}
-                    onChange={(e) => setAiGeneratedText(e.target.value)}
-                    placeholder="Generated text will appear here..."
-                    rows={8}
-                  />
-                </div>
+                <button
+                  onClick={generateAiTextFromSearch}
+                  disabled={isGenerating || !searchText.trim()}
+                  className="create-test-generate-btn"
+                >
+                  {isGenerating ? '🔄 Generating...' : '🚀 Generate'}
+                </button>
               </div>
             </div>
-          ) : (
-            <div className="custom-section">
-              <div className="text-section">
-                <div className="text-header">
-                  <h3>Custom Text Input</h3>
-                  <div className="text-stats">
-                    <span>Words: {customText.trim().split(/\s+/).filter((word: string) => word.length > 0).length}</span>
-                    <span>Characters: {customText.length}</span>
-                  </div>
-                </div>
-                <textarea
-                  className="text-area"
-                  value={customText}
-                  onChange={(e) => setCustomText(e.target.value)}
-                  placeholder="Write or paste your custom text here... (Minimum 10 words recommended)"
-                  rows={8}
-                />
-              </div>
-            </div>
-          )}
-        </div>
 
-        {/* Proceed Button */}
-        <div className="proceed-section">
-          <div className="proceed-container">
-            <button
-              className="proceed-btn"
-              onClick={handleProceed}
-              disabled={loading}
-            >
-              {loading ? '🔄 Loading...' : 'Continue to Test'}
-            </button>
+            {/* Generated Text Area */}
+            <div className="create-test-text-section">
+              <div className="create-test-text-header">
+                <h3>Generated Text</h3>
+                <div className="create-test-text-stats">
+                  <span>Words: {aiGeneratedText.trim().split(/\s+/).filter((word: string) => word.length > 0).length}</span>
+                  <span>Characters: {aiGeneratedText.length}</span>
+                </div>
+              </div>
+              <textarea
+                className="create-test-text-area"
+                value={aiGeneratedText}
+                onChange={(e) => setAiGeneratedText(e.target.value)}
+                placeholder="Generated text will appear here..."
+                rows={8}
+              />
+            </div>
           </div>
-        </div>
+        ) : (
+          <div className="create-test-custom-section">
+            <div className="create-test-text-section">
+              <div className="create-test-text-header">
+                <h3>Custom Text Input</h3>
+                <div className="create-test-text-stats">
+                  <span>Words: {customText.trim().split(/\s+/).filter((word: string) => word.length > 0).length}</span>
+                  <span>Characters: {customText.length}</span>
+                </div>
+              </div>
+              <textarea
+                className="create-test-text-area"
+                value={customText}
+                onChange={(e) => setCustomText(e.target.value)}
+                placeholder="Write or paste your custom text here... (Minimum 10 words recommended)"
+                rows={8}
+              />
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* Proceed Button */}
+      <div className="create-test-proceed-section">
+        <button
+          className="create-test-proceed-btn"
+          onClick={handleProceed}
+          disabled={isGenerating}
+        >
+          Continue to Test
+        </button>
       </div>
 
       {/* Help Section */}
-      <div className="help-section">
+      <div className="create-test-help-section">
         <h2>Complete Guide to Using This Typing Test Tool</h2>
         
-        <div className="help-content">
-          <div className="help-grid">
-            <div className="help-card ai">
+        <div className="create-test-help-content">
+          <div className="create-test-help-grid">
+            <div className="create-test-help-card">
               <h3>AI Text Generator</h3>
               <p>
                 <strong>Our AI-powered text generator</strong> creates unique, engaging content for your typing practice. Simply enter any topic that interests you, such as "Modi ji speeches", "climate change effects", "Indian economy growth", or "technology trends 2024". The AI will generate relevant, well-structured text based on your chosen topic.
@@ -348,7 +231,7 @@ const CreateTest = () => {
               </p>
             </div>
             
-            <div className="help-card custom">
+            <div className="create-test-help-card">
               <h3>Custom Text Input</h3>
               <p>
                 <strong>For complete control over your practice material</strong>, switch to the Custom Text mode. This allows you to use any text that interests you - whether it's an article you found online, a passage from your favorite book, a news report, or even your own written content.
@@ -362,7 +245,7 @@ const CreateTest = () => {
             </div>
           </div>
 
-          <div className="help-tips">
+          <div className="create-test-help-tips">
             <h4>Expert Tips for Maximum Typing Improvement</h4>
             <p>
               <strong>For AI-generated content:</strong> Use specific, detailed topics like "Indian economic reforms", "global climate change solutions", "artificial intelligence in healthcare", or "sustainable development goals". The more specific your topic, the better quality content the AI will generate. Try different topics to expose yourself to various writing styles and vocabulary.

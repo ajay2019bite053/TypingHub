@@ -275,28 +275,7 @@ const TypingTest = () => {
             </div>
           </div>
 
-          {/* Typing Statistics & Success Stories */}
-          <div className="stats-section">
-            <h2>Typing Test Statistics & Success Stories</h2>
-            <div className="stats-grid">
-              <div className="stat-card">
-                <h3>50,000+</h3>
-                <p>Students have improved their typing speed</p>
-              </div>
-              <div className="stat-card">
-                <h3>95%</h3>
-                <p>Success rate in government typing tests</p>
-              </div>
-              <div className="stat-card">
-                <h3>40+ WPM</h3>
-                <p>Average improvement in typing speed</p>
-              </div>
-              <div className="stat-card">
-                <h3>1000+</h3>
-                <p>Practice passages available</p>
-              </div>
-            </div>
-          </div>
+
 
           {/* More Exam Information */}
           <div className="exam-info-section">
