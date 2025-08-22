@@ -1,5 +1,44 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { 
+  faKeyboard, 
+  faFileAlt, 
+  faCheckCircle,
+  faBook,
+  faCertificate,
+  faChalkboardTeacher,
+  faStar,
+  faPenToSquare,
+  faRocket,
+  faSearch,
+  faClipboardCheck,
+  faHeadset,
+  faShieldAlt,
+  faGlobe,
+  faAward,
+  faUserGraduate,
+  faHandshake,
+  faChartBar,
+  faSmile,
+  faHeart,
+  faLaptop,
+  faLightbulb,
+  faPlay,
+  faQuestionCircle,
+  faUserPlus as faRegister,
+  faTrophy,
+  faClock,
+  faBullseye,
+  faGraduationCap,
+  faMedal,
+  faUsers,
+  faThumbsUp,
+  faCog,
+  faMobileAlt,
+  faDesktop,
+  faTabletAlt
+} from '@fortawesome/free-solid-svg-icons';
 import TypingEngine from '../components/common/TypingEngine';
 import './TypingTest.css';
 
@@ -168,207 +207,238 @@ const TypingTest = () => {
       {/* Removed container div for full-width layout */}
       <TypingEngine config={config} />
       
-      {/* SEO-Rich Content Section */}
+      {/* Enhanced SEO-Rich Content Section */}
       <div className="typing-test-info-section">
         <div className="container">
-          {/* Main Typing Test Information */}
-          <div className="typing-info-grid">
-            <div className="typing-info-card">
-              <h2>Free Typing Test for Government Exams</h2>
-              <p>Master the art of typing with our comprehensive free typing test designed specifically for government exam aspirants. Whether you're preparing for SSC, RRB, UPSC, or any other competitive exam, our typing test provides real-time feedback and detailed analysis.</p>
-              
-              <div className="typing-features">
-                <h3>Key Features:</h3>
-                <ul>
-                  <li>Real-time WPM (Words Per Minute) calculation</li>
-                  <li>Instant accuracy tracking and error analysis</li>
-                  <li>Multiple time durations (2, 5, 10, 15 minutes)</li>
-                  <li>Exam-specific passage categories</li>
-                  <li>Detailed performance statistics</li>
-                  <li>Certificate generation for qualified scores</li>
-                </ul>
+          {/* Hero Information Section */}
+          <div className="hero-info-section">
+            <h2 className="section-title">
+              <FontAwesomeIcon icon={faKeyboard} />
+              Master Government Exam Typing Tests
+            </h2>
+            <p className="hero-description">
+              Prepare for SSC, RRB, Police, and other government exams with our comprehensive typing test platform. 
+              Practice with real exam patterns and get instant feedback on your speed and accuracy.
+            </p>
+          </div>
+
+          {/* Key Features Grid */}
+          <div className="features-grid">
+            <div className="feature-card">
+              <div className="feature-icon">
+                <FontAwesomeIcon icon={faRocket} />
               </div>
+              <h3>Real-time Analysis</h3>
+              <p>Get instant WPM calculation and accuracy tracking as you type</p>
+            </div>
+            
+            <div className="feature-card">
+              <div className="feature-icon">
+                <FontAwesomeIcon icon={faBullseye} />
+              </div>
+              <h3>Exam Pattern Based</h3>
+              <p>Practice with content that matches actual government exam patterns</p>
+            </div>
+            
+            <div className="feature-card">
+              <div className="feature-icon">
+                <FontAwesomeIcon icon={faCertificate} />
+              </div>
+              <h3>Free Certificate</h3>
+              <p>Earn typing certificates for qualified scores to boost your resume</p>
+            </div>
+            
+            <div className="feature-card">
+              <div className="feature-icon">
+                <FontAwesomeIcon icon={faMobileAlt} />
+              </div>
+              <h3>Mobile Friendly</h3>
+              <p>Practice typing on any device - desktop, tablet, or mobile</p>
+            </div>
+            
+            <div className="feature-card">
+              <div className="feature-icon">
+                <FontAwesomeIcon icon={faGlobe} />
+              </div>
+              <h3>Multi-language Support</h3>
+              <p>Practice in both English and Hindi typing as per exam requirements</p>
             </div>
 
-            <div className="typing-info-card">
-              <h3>Government Exam Typing Requirements</h3>
-              <div className="exam-requirements">
-                <div className="requirement-item">
-                  <h4>SSC Typing Test</h4>
-                  <p>Minimum 35 WPM with 90% accuracy for English typing</p>
-                </div>
-                <div className="requirement-item">
-                  <h4>RRB Typing Test</h4>
-                  <p>Minimum 30 WPM with 85% accuracy for English typing</p>
-                </div>
-                <div className="requirement-item">
-                  <h4>UP Police Typing Test</h4>
-                  <p>Minimum 25 WPM with 80% accuracy for English typing</p>
-                </div>
-                <div className="requirement-item">
-                  <h4>Bihar Police Typing Test</h4>
-                  <p>Minimum 25 WPM with 80% accuracy for English typing</p>
-                </div>
+            <div className="feature-card">
+              <div className="feature-icon">
+                <FontAwesomeIcon icon={faChartBar} />
+              </div>
+              <h3>Detailed Analytics</h3>
+              <p>Track your progress with comprehensive performance reports</p>
+            </div>
+          </div>
+
+          {/* Success Statistics */}
+          <div className="success-stats-section">
+            <h2 className="section-title">
+              <FontAwesomeIcon icon={faUsers} />
+              Success Stories & Statistics
+            </h2>
+            <div className="stats-grid">
+              <div className="stat-card">
+                <FontAwesomeIcon icon={faUserGraduate} className="stat-icon" />
+                <div className="stat-number">50,000+</div>
+                <div className="stat-label">Students Enrolled</div>
+              </div>
+              
+              <div className="stat-card">
+                <FontAwesomeIcon icon={faAward} className="stat-icon" />
+                <div className="stat-number">95%</div>
+                <div className="stat-label">Success Rate</div>
+              </div>
+              
+              <div className="stat-card">
+                <FontAwesomeIcon icon={faMedal} className="stat-icon" />
+                <div className="stat-number">5,000+</div>
+                <div className="stat-label">Certificates Issued</div>
+              </div>
+              
+              <div className="stat-card">
+                <FontAwesomeIcon icon={faThumbsUp} className="stat-icon" />
+                <div className="stat-number">4.8★</div>
+                <div className="stat-label">User Rating</div>
               </div>
             </div>
           </div>
 
-          {/* Typing Tips Section */}
-          <div className="typing-tips-section">
-            <h2>Typing Test Tips & Best Practices</h2>
+          {/* Expert Tips Section */}
+          <div className="tips-section">
+            <h2 className="section-title">
+              <FontAwesomeIcon icon={faLightbulb} />
+              Expert Typing Tips for Government Exams
+            </h2>
             <div className="tips-grid">
               <div className="tip-card">
-                <h3>Speed Improvement</h3>
-                <ul>
-                  <li>Practice touch typing regularly</li>
-                  <li>Use all fingers, not just index fingers</li>
-                  <li>Learn keyboard shortcuts</li>
-                  <li>Focus on accuracy first, then speed</li>
-                </ul>
+                <div className="tip-number">01</div>
+                <h3>Master Touch Typing</h3>
+                <p>Learn to type without looking at the keyboard. Use all fingers and practice proper finger positioning for maximum speed and accuracy.</p>
               </div>
               
               <div className="tip-card">
-                <h3>Accuracy Enhancement</h3>
-                <ul>
-                  <li>Read ahead while typing</li>
-                  <li>Don't look at the keyboard</li>
-                  <li>Practice with different text types</li>
-                  <li>Use proper finger positioning</li>
-                </ul>
+                <div className="tip-number">02</div>
+                <h3>Focus on Accuracy First</h3>
+                <p>Start slow and prioritize accuracy over speed. Speed will naturally improve as you develop muscle memory and confidence.</p>
               </div>
               
               <div className="tip-card">
-                <h3>Exam Preparation</h3>
-                <ul>
-                  <li>Practice with official exam patterns</li>
-                  <li>Time your practice sessions</li>
-                  <li>Simulate exam conditions</li>
-                  <li>Review your mistakes regularly</li>
-                </ul>
+                <div className="tip-number">03</div>
+                <h3>Practice Exam Patterns</h3>
+                <p>Use our exam-specific tests to familiarize yourself with the type of content you'll encounter in actual government exams.</p>
+              </div>
+              
+              <div className="tip-card">
+                <div className="tip-number">04</div>
+                <h3>Regular Practice Schedule</h3>
+                <p>Practice for 30-45 minutes daily. Consistency is key to improving both speed and accuracy over time.</p>
+              </div>
+              
+              <div className="tip-card">
+                <div className="tip-number">05</div>
+                <h3>Simulate Exam Conditions</h3>
+                <p>Practice with time limits and disable backspace to simulate real exam conditions and build confidence.</p>
+              </div>
+              
+              <div className="tip-card">
+                <div className="tip-number">06</div>
+                <h3>Learn Keyboard Shortcuts</h3>
+                <p>Master common keyboard shortcuts to improve efficiency and reduce time spent on corrections during exams.</p>
               </div>
             </div>
           </div>
 
           {/* FAQ Section */}
           <div className="faq-section">
-            <h2>Frequently Asked Questions</h2>
+            <h2 className="section-title">
+              <FontAwesomeIcon icon={faQuestionCircle} />
+              Frequently Asked Questions
+            </h2>
             <div className="faq-grid">
               <div className="faq-item">
                 <h3>What is a good typing speed for government exams?</h3>
-                <p>A good typing speed for government exams is typically 30-35 WPM with 85-90% accuracy. However, requirements vary by exam and position.</p>
+                <p>A good typing speed for government exams is typically 30-35 WPM with 85-90% accuracy. However, requirements vary by exam and position. We recommend aiming for 40+ WPM to ensure you pass comfortably.</p>
               </div>
               
               <div className="faq-item">
                 <h3>How is typing speed calculated?</h3>
-                <p>Typing speed is calculated as Words Per Minute (WPM) = (Total Characters ÷ 5) ÷ Time in Minutes. The standard word length is considered 5 characters.</p>
+                <p>Typing speed is calculated as Words Per Minute (WPM) = (Total Characters ÷ 5) ÷ Time in Minutes. The standard word length is considered 5 characters, which is the industry standard.</p>
               </div>
               
               <div className="faq-item">
                 <h3>Can I practice typing in Hindi?</h3>
-                <p>Yes! We offer typing practice in both English and Hindi. Many government exams require proficiency in both languages.</p>
+                <p>Yes! We offer comprehensive Hindi typing practice with proper fonts (Krutidev, Mangal) that are commonly used in government exams. Our platform supports both Hindi and English typing practice.</p>
               </div>
               
               <div className="faq-item">
                 <h3>How often should I practice typing?</h3>
-                <p>For best results, practice typing for at least 30 minutes daily. Consistency is key to improving both speed and accuracy.</p>
+                <p>For best results, practice typing for at least 30 minutes daily. Consistency is key to improving both speed and accuracy. Start with 15-minute sessions and gradually increase.</p>
+              </div>
+              
+              <div className="faq-item">
+                <h3>Is the typing certificate from TypingHub valid for government jobs?</h3>
+                <p>Our certificates demonstrate your typing proficiency and can be included in your resume. However, government exams have their own typing tests that you must pass to qualify for the position.</p>
+              </div>
+              
+              <div className="faq-item">
+                <h3>Which typing software is used in government exams?</h3>
+                <p>SSC uses NIC software, while RRB uses TCS platform. Our typing tests simulate these real exam environments, so you'll be familiar with the interface when you take the actual exam.</p>
               </div>
             </div>
           </div>
 
-
-
-          {/* More Exam Information */}
-          <div className="exam-info-section">
-            <h2>Government Exam Typing Test Details</h2>
-            <div className="exam-info-grid">
-              <div className="exam-detail-card">
-                <h3>SSC CGL Typing Test</h3>
-                <p>The Staff Selection Commission (SSC) CGL typing test requires candidates to achieve a minimum of 35 WPM in English typing with 90% accuracy. The test duration is typically 10 minutes.</p>
-                <div className="exam-button-container">
-                  <a href="/ssc-cgl-typing-test" className="exam-link">SSC CGL Test</a>
+          {/* Enhanced Call to Action Section */}
+          <div className="cta-section">
+            <div className="cta-content">
+              <div className="cta-icon-wrapper">
+                <FontAwesomeIcon icon={faRocket} className="cta-main-icon" />
+              </div>
+              <h2 className="cta-title">
+                Ready to Master Government Exam Typing?
+              </h2>
+              <p className="cta-description">
+                Join thousands of successful students who have cleared government typing tests using our platform. 
+                Start practicing today and improve your typing skills for better career opportunities.
+              </p>
+              <div className="cta-highlights">
+                <div className="cta-highlight">
+                  <FontAwesomeIcon icon={faCheckCircle} />
+                  <span>Free Practice Tests</span>
+                </div>
+                <div className="cta-highlight">
+                  <FontAwesomeIcon icon={faCheckCircle} />
+                  <span>Real-time Analysis</span>
+                </div>
+                <div className="cta-highlight">
+                  <FontAwesomeIcon icon={faCheckCircle} />
+                  <span>Certificate Generation</span>
+                </div>
+                <div className="cta-highlight">
+                  <FontAwesomeIcon icon={faCheckCircle} />
+                  <span>24/7 Support</span>
                 </div>
               </div>
-              
-              <div className="exam-detail-card">
-                <h3>SSC CHSL Typing Test</h3>
-                <p>SSC CHSL typing test requires 35 WPM in English typing with 90% accuracy. Focus on clerical and data entry related content.</p>
-                <div className="exam-button-container">
-                  <a href="/ssc-chsl-typing-test" className="exam-link">SSC CHSL Test</a>
-                </div>
+              <div className="cta-buttons">
+                <a href="/exam-wise-test" className="cta-btn primary">
+                  <FontAwesomeIcon icon={faSearch} />
+                  Start Exam Practice Tests
+                </a>
+                <a href="/create-test" className="cta-btn secondary">
+                  <FontAwesomeIcon icon={faPenToSquare} />
+                  Build Your Own Test
+                </a>
+                <a href="/typing-course" className="cta-btn secondary">
+                  <FontAwesomeIcon icon={faChalkboardTeacher} />
+                  Master Typing Skills
+                </a>
+                <a href="/contact-us" className="cta-btn contact">
+                  <FontAwesomeIcon icon={faHeadset} />
+                  Get Expert Help
+                </a>
               </div>
-              
-              <div className="exam-detail-card">
-                <h3>RRB NTPC Typing Test</h3>
-                <p>Railway Recruitment Board (RRB) NTPC typing test requires 30 WPM in English typing with 85% accuracy. The test focuses on railway-related content and terminology.</p>
-                <div className="exam-button-container">
-                  <a href="/rrb-ntpc-typing-test" className="exam-link">RRB NTPC Test</a>
-                </div>
-              </div>
-              
-              <div className="exam-detail-card">
-                <h3>UP Police Typing Test</h3>
-                <p>UP Police typing test requires 25-30 WPM with 80-85% accuracy. Content includes legal documents, reports, and official communications.</p>
-                <div className="exam-button-container">
-                  <a href="/up-police-typing-test" className="exam-link">UP Police Test</a>
-                </div>
-              </div>
-              
-              <div className="exam-detail-card">
-                <h3>Bihar Police Typing Test</h3>
-                <p>Bihar Police typing test requires 25-30 WPM with 80-85% accuracy. Practice with police-related documents and reports.</p>
-                <div className="exam-button-container">
-                  <a href="/bihar-police-typing-test" className="exam-link">Bihar Police Test</a>
-                </div>
-              </div>
-              
-              <div className="exam-detail-card">
-                <h3>Allahabad High Court Typing Test</h3>
-                <p>Allahabad High Court typing test requires high accuracy (90%+) with moderate speed (25-30 WPM). Content includes legal documents and court proceedings.</p>
-                <div className="exam-button-container">
-                  <a href="/allahabad-high-court-typing-test" className="exam-link">Allahabad High Court Test</a>
-                </div>
-              </div>
-              
-              <div className="exam-detail-card">
-                <h3>Junior Court Assistant Typing Test</h3>
-                <p>Junior Court Assistant typing test requires 90%+ accuracy with 25-30 WPM speed. Practice with legal documents and judgments.</p>
-                <div className="exam-button-container">
-                  <a href="/junior-court-assistant-typing-test" className="exam-link">Junior Court Assistant Test</a>
-                </div>
-              </div>
-              
-              <div className="exam-detail-card">
-                <h3>Junior Assistant Typing Test</h3>
-                <p>Junior Assistant typing test for government departments requires 25 WPM with 80% accuracy. Practice with administrative content.</p>
-                <div className="exam-button-container">
-                  <a href="/junior-assistant-typing-test" className="exam-link">Junior Assistant Test</a>
-                </div>
-              </div>
-              
-              <div className="exam-detail-card">
-                <h3>Superintendent Typing Test</h3>
-                <p>Superintendent typing test requires higher accuracy (85%+) with 25-30 WPM speed. Advanced level typing practice.</p>
-                <div className="exam-button-container">
-                  <a href="/superintendent-typing-test" className="exam-link">Superintendent Test</a>
-                </div>
-              </div>
-              
-              <div className="exam-detail-card">
-                <h3>AIIMS CRC Typing Test</h3>
-                <p>AIIMS CRC typing test for medical institutions requires 25 WPM with 85% accuracy. Practice with medical and administrative content.</p>
-                <div className="exam-button-container">
-                  <a href="/aiims-crc-typing-test" className="exam-link">AIIMS CRC Test</a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Help & Support Section */}
-          <div className="help-support-section">
-            <h2>Need Help or Have Questions?</h2>
-            <p>If you encounter any issues while taking the typing test or have questions about government exam requirements, our support team is here to help.</p>
-            <div className="help-actions">
-              <a href="/contact-us" className="help-btn primary">Contact Support</a>
             </div>
           </div>
         </div>
