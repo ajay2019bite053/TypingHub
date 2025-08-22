@@ -21,6 +21,13 @@
   </url>
 
   <url>
+    <loc>https://typinghub.in/live-typing-test</loc>
+    <lastmod>2024-12-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
     <loc>https://typinghub.in/exam-wise-test</loc>
     <lastmod>2024-12-01</lastmod>
     <changefreq>weekly</changefreq>
@@ -137,12 +144,5 @@
     <priority>0.3</priority>
   </url>
 
-  <!-- User Dashboard -->
-  <url>
-    <loc>https://typinghub.in/dashboard</loc>
-    <lastmod>2024-12-01</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.5</priority>
-  </url>
 
 </urlset> 
