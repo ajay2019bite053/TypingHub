@@ -8,12 +8,13 @@ header {
   background: linear-gradient(to right, #ffffff, #f8f9fa);
 }
 
-nav {
+/* BULLETPROOF HEADER LAYOUT */
+header nav {
   background: transparent;
   padding: 12px 24px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
   box-shadow: 0 2px 15px rgba(0,0,0,0.05);
   position: sticky;
   top: 0;
@@ -23,28 +24,31 @@ nav {
   -webkit-backdrop-filter: blur(8px);
   border-bottom: 1px solid rgba(25, 118, 210, 0.1);
   position: relative;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
 }
 
-.nav-brand {
-  display: flex;
-  align-items: center;
+header .nav-brand {
+  display: flex !important;
+  align-items: center !important;
   gap: 15px;
-  flex: 0 0 auto;
+  flex: 0 0 auto !important;
   position: relative;
+  order: 1 !important;
 }
 
-.logo-link {
+header .logo-link {
   display: block;
   transition: transform 0.3s ease;
 }
 
-.logo-link img {
+header .logo-link img {
   width: 70px;
   height: auto;
   filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
 }
 
-.domain-link {
+header .domain-link {
   font-family: 'Roboto Serif', serif;
   font-size: 26px;
   font-weight: 700;
@@ -61,12 +65,12 @@ nav {
   letter-spacing: -0.5px;
 }
 
-.domain-link:hover {
+header .domain-link:hover {
   transform: translateY(-2px);
   text-shadow: 3px 3px 6px rgba(0,0,0,0.15);
 }
 
-.domain-link::after {
+header .domain-link::after {
   content: '';
   position: absolute;
   bottom: 0;
@@ -78,37 +82,61 @@ nav {
   transition: transform 0.3s ease;
 }
 
-.domain-link:hover::after {
+header .domain-link:hover::after {
   transform: scaleX(1);
 }
 
-.mobile-menu-btn {
-  display: none;
-  background: none;
-  border: none;
+/* BULLETPROOF HAMBURGER BUTTON */
+header .mobile-menu-btn {
+  display: none !important; /* Hidden by default on desktop */
+  background: none !important;
+  border: none !important;
   font-size: 24px;
   color: #333;
   cursor: pointer;
-  padding: 5px;
+  padding: 8px;
   transition: all 0.3s ease;
-  position: absolute;
-  right: 15px;
-  top: 50%;
-  transform: translateY(-50%);
+  border-radius: 4px;
+  z-index: 1001;
+  min-width: 40px;
+  height: 40px;
+  align-items: center !important;
+  justify-content: center !important;
+  order: 2 !important;
+  flex: 0 0 auto !important;
+  margin-left: auto !important;
+  position: relative !important;
+  right: 0 !important;
+  top: auto !important;
+  transform: none !important;
 }
 
-.mobile-menu-btn:hover {
+header .mobile-menu-btn:hover {
   color: #40c4ff;
+  background: rgba(64, 196, 255, 0.1);
+  transform: scale(1.05);
+}
+
+header .mobile-menu-btn:focus {
+  outline: 2px solid #40c4ff;
+  outline-offset: 2px;
+}
+
+header .hamburger-icon {
+  transition: transform 0.3s ease;
+}
+
+header .mobile-menu-btn:hover .hamburger-icon {
   transform: scale(1.1);
 }
 
-.nav-links {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end; /* Align all nav buttons to the right */
+header .nav-links {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-end !important;
   gap: 0;
   padding-left: 38px;
-  /* Remove any manual right margin from last child */
+  order: 3 !important;
 }
 
 .nav-links a {
@@ -250,7 +278,7 @@ nav {
   gap: 6px;
   padding: 0 18px;
   height: 44px;
-  font-size: 13px; /* Even smaller text */
+  font-size: 13px;
   font-weight: 500;
   color: #1976d2;
   background: none;
@@ -268,7 +296,7 @@ nav {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: #d6001c; /* Darker, more vibrant red */
+  background: #d6001c;
   margin-right: 7px;
   box-shadow: 0 0 10px 3px #d6001c99, 0 0 0 0 #d6001c;
   animation: modernBlinkRedDot 1.1s cubic-bezier(0.4,0,0.2,1) infinite;
@@ -281,7 +309,7 @@ nav {
 }
 
 .live-typing-test-btn i {
-  display: none; /* Hide the icon */
+  display: none;
 }
 
 .live-typing-test-btn:hover, .live-typing-test-btn:focus {
@@ -325,17 +353,62 @@ nav {
   }
 }
 
+@media (max-width: 900px) {
+  header nav {
+    justify-content: space-between !important;
+    flex-wrap: nowrap !important;
+    flex-direction: row !important;
+  }
+  
+  header .nav-brand {
+    flex: 0 0 auto !important;
+    order: 1 !important;
+  }
+  
+  header .mobile-menu-btn {
+    display: flex !important; /* Force show hamburger on mobile */
+    flex: 0 0 auto !important;
+    order: 2 !important;
+    margin-left: auto !important;
+    position: relative !important;
+    right: 0 !important;
+    top: auto !important;
+    transform: none !important;
+  }
+  
+  header .nav-links {
+    display: none !important; /* Force hide nav links on mobile */
+    order: 3 !important;
+  }
+}
+
 @media (max-width: 768px) {
-  nav {
+  header nav {
     padding: 10px 15px;
+    justify-content: space-between !important;
+    align-items: center !important;
+    flex-wrap: nowrap !important;
+    flex-direction: row !important;
   }
 
-  .mobile-menu-btn {
-    display: block;
+  header .nav-brand {
+    flex: 0 0 auto !important;
+    order: 1 !important;
   }
 
-  .nav-links {
-    display: none;
+  header .mobile-menu-btn {
+    display: flex !important; /* Force show hamburger */
+    flex: 0 0 auto !important;
+    order: 2 !important;
+    margin-left: auto !important;
+    position: relative !important;
+    right: 0 !important;
+    top: auto !important;
+    transform: none !important;
+  }
+
+  header .nav-links {
+    display: none !important; /* Force hide nav links */
     position: absolute;
     top: 100%;
     left: 0;
@@ -348,21 +421,44 @@ nav {
     box-shadow: 0 4px 20px rgba(0,0,0,0.1);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
+    z-index: 1000;
+    border-radius: 0 0 8px 8px;
+    border-top: 1px solid rgba(25, 118, 210, 0.1);
+    order: 3 !important;
   }
 
-  .nav-links.active {
-    display: flex;
+  header .nav-links.active {
+    display: flex !important; /* Only show when active class is present */
+    animation: slideDown 0.3s ease-out;
   }
 
-  .nav-links a {
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  header .nav-links a {
     width: 100%;
-    padding: 10px 12px;
+    padding: 12px 16px;
     justify-content: flex-start;
     font-size: 14px;
     min-width: auto;
+    border-radius: 6px;
+    margin: 2px 0;
   }
 
-  .dropdown-content {
+  header .nav-links a:hover {
+    background: rgba(25, 118, 210, 0.05);
+    transform: none;
+  }
+
+  header .dropdown-content {
     position: static;
     width: 100%;
     box-shadow: none;
@@ -372,55 +468,76 @@ nav {
     background: rgba(248, 249, 250, 0.5);
   }
 
-  .dropdown-content a {
+  header .dropdown-content a {
     padding: 12px 20px;
   }
 
-  .nav-brand img {
+  header .nav-brand img {
     width: 50px;
   }
 
-  .domain-link {
+  header .domain-link {
     font-size: 22px;
   }
 
-  .live-typing-test-btn {
+  header .live-typing-test-btn {
     width: 100%;
     justify-content: flex-start;
-    padding: 0 12px;
+    padding: 0 16px;
     height: 42px;
     font-size: 12px;
+    margin: 2px 0;
   }
 
-  .nav-links a,
-  .live-typing-test-btn {
+  header .nav-links a,
+  header .live-typing-test-btn {
     font-size: 11px !important;
   }
 
-  .nav-links > *:last-child {
+  header .nav-links > *:last-child {
     margin-right: 0;
   }
 }
 
 @media (max-width: 480px) {
-  nav {
+  header nav {
     padding: 8px 12px;
+    justify-content: space-between !important;
+    align-items: center !important;
+    flex-wrap: nowrap !important;
+    flex-direction: row !important;
   }
 
-  .nav-brand {
+  header .nav-brand {
     gap: 10px;
+    flex: 0 0 auto !important;
+    order: 1 !important;
   }
 
-  .nav-brand img {
+  header .nav-brand img {
     width: 40px;
   }
 
-  .domain-link {
+  header .domain-link {
     font-size: 20px;
   }
 
-  .nav-links a {
+  header .nav-links a {
     font-size: 14px;
     padding: 10px 12px;
+  }
+
+  header .mobile-menu-btn {
+    font-size: 20px;
+    min-width: 36px;
+    height: 36px;
+    flex: 0 0 auto !important;
+    display: flex !important; /* Force show on small screens */
+    order: 2 !important;
+    margin-left: auto !important;
+    position: relative !important;
+    right: 0 !important;
+    top: auto !important;
+    transform: none !important;
   }
 } 

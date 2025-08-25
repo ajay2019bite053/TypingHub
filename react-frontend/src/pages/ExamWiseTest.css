@@ -403,7 +403,390 @@
   background: linear-gradient(135deg, #1565c0, #0d47a1);
 }
 
-/* Responsive design */
+
+
+/* Preparation Tips Section Styles */
+.preparation-tips-section {
+  padding: 60px 0;
+  background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+  margin-bottom: 0;
+}
+
+.tips-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  text-align: center;
+}
+
+.tips-container h2 {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 40px;
+  color: #000;
+}
+
+.tips-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 30px;
+}
+
+.tip-card {
+  background: white;
+  padding: 30px 25px;
+  border-radius: 12px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  text-align: left;
+  position: relative;
+}
+
+.tip-number {
+  position: absolute;
+  top: -15px;
+  left: 25px;
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, #1976d2, #1565c0);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.tip-card h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin: 15px 0 15px 0;
+  color: #000;
+}
+
+.tip-card p {
+  color: #666;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Success Stories Section Styles */
+.success-stories-section {
+  padding: 60px 0;
+  background: white;
+  margin-bottom: 0;
+}
+
+.stories-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  text-align: center;
+}
+
+.stories-container h2 {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 40px;
+  color: #000;
+}
+
+.stories-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 30px;
+}
+
+.story-card {
+  background: #f8f9fa;
+  padding: 30px 25px;
+  border-radius: 12px;
+  text-align: left;
+  border-left: 4px solid #4caf50;
+}
+
+.story-avatar {
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, #4caf50, #45a049);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.story-avatar i {
+  font-size: 1.5rem;
+  color: white;
+}
+
+.story-content h4 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #000;
+}
+
+.story-exam {
+  color: #1976d2;
+  font-weight: 500;
+  margin-bottom: 15px;
+  font-size: 0.95rem;
+}
+
+.story-content p {
+  color: #666;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.story-stats {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.story-stats .stat {
+  background: white;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  color: #1976d2;
+  font-weight: 500;
+  border: 1px solid #e0e0e0;
+}
+
+/* FAQ Section Styles */
+.faq-section {
+  padding: 60px 0;
+  background: #f8f9fa;
+  margin-bottom: 0;
+}
+
+.faq-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  text-align: center;
+}
+
+.faq-container h2 {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 40px;
+  color: #000;
+}
+
+.faq-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 30px;
+}
+
+.faq-item {
+  background: white;
+  padding: 30px 25px;
+  border-radius: 12px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  text-align: left;
+}
+
+.faq-item h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 15px;
+  color: #000;
+  line-height: 1.4;
+}
+
+.faq-item p {
+  color: #666;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Study Groups Section Styles */
+.study-groups-section {
+  padding: 60px 0;
+  background: #f8f9fa;
+  margin-bottom: 0;
+}
+
+.groups-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  text-align: center;
+}
+
+.groups-container h2 {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: #000;
+}
+
+.groups-container > p {
+  font-size: 1.1rem;
+  color: #666;
+  margin-bottom: 40px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.6;
+}
+
+.groups-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 25px;
+  margin-bottom: 40px;
+}
+
+.group-card {
+  background: white;
+  padding: 25px;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e0e0e0;
+  transition: box-shadow 0.3s ease;
+}
+
+.group-card:hover {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+}
+
+.group-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+  font-size: 1.5rem;
+  color: white;
+}
+
+.whatsapp-group .group-icon {
+  background: #25d366;
+}
+
+.telegram-group .group-icon {
+  background: #0088cc;
+}
+
+.group-content h3 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: #000;
+}
+
+.group-content p {
+  color: #666;
+  line-height: 1.5;
+  margin-bottom: 20px;
+  font-size: 0.95rem;
+}
+
+.group-features {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 25px 0;
+  text-align: left;
+}
+
+.group-features li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+  color: #555;
+  font-size: 0.9rem;
+}
+
+.group-features li i {
+  color: #4caf50;
+  font-size: 0.8rem;
+  min-width: 12px;
+}
+
+.join-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+  border: none;
+  cursor: pointer;
+  min-width: 140px;
+  justify-content: center;
+}
+
+.whatsapp-btn {
+  background: #25d366;
+  color: white;
+}
+
+.whatsapp-btn:hover {
+  background: #128c7e;
+  transform: translateY(-1px);
+}
+
+.telegram-btn {
+  background: #0088cc;
+  color: white;
+}
+
+.telegram-btn:hover {
+  background: #005580;
+  transform: translateY(-1px);
+}
+
+.groups-info {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  margin-top: 30px;
+}
+
+.info-card {
+  background: white;
+  padding: 20px 15px;
+  border-radius: 8px;
+  text-align: center;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.05);
+}
+
+.info-card i {
+  font-size: 2rem;
+  color: #1976d2;
+  margin-bottom: 12px;
+}
+
+.info-card h4 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #000;
+}
+
+.info-card p {
+  color: #666;
+  line-height: 1.4;
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+/* Responsive Design */
 @media (max-width: 1200px) {
   .panel-container {
     grid-template-columns: repeat(3, 1fr);
@@ -525,5 +908,132 @@
   .btn {
     padding: 8px 16px;
     font-size: 13px;
+  }
+} 
+
+@media (max-width: 768px) {
+  .hero-section {
+    padding: 60px 0;
+    margin-bottom: 40px;
+  }
+  
+  .hero-content h1 {
+    font-size: 2.2rem;
+  }
+  
+  .hero-content p {
+    font-size: 1.1rem;
+    margin-bottom: 30px;
+  }
+  
+  .hero-stats {
+    gap: 40px;
+  }
+  
+  .stat-number {
+    font-size: 2rem;
+  }
+  
+  .features-section,
+  .exam-overview-section,
+  .preparation-tips-section,
+  .success-stories-section,
+  .faq-section {
+    padding: 60px 0;
+    margin-bottom: 40px;
+  }
+  
+  .features-container h2,
+  .overview-container h2,
+  .tips-container h2,
+  .stories-container h2,
+  .faq-container h2 {
+    font-size: 2rem;
+    margin-bottom: 40px;
+  }
+  
+  .features-grid,
+  .overview-grid,
+  .tips-grid,
+  .stories-grid,
+  .faq-grid {
+    grid-template-columns: 1fr;
+    gap: 25px;
+  }
+  
+  .feature-card,
+  .overview-card,
+  .tip-card,
+  .story-card,
+  .faq-item {
+    padding: 25px 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-section {
+    padding: 40px 0;
+    margin-bottom: 30px;
+  }
+  
+  .hero-content h1 {
+    font-size: 1.8rem;
+  }
+  
+  .hero-content p {
+    font-size: 1rem;
+    margin-bottom: 25px;
+  }
+  
+  .hero-stats {
+    gap: 30px;
+    flex-direction: column;
+  }
+  
+  .stat-number {
+    font-size: 1.8rem;
+  }
+  
+  .features-section,
+  .exam-overview-section,
+  .preparation-tips-section,
+  .success-stories-section,
+  .faq-section {
+    padding: 40px 0;
+    margin-bottom: 30px;
+  }
+  
+  .features-container h2,
+  .overview-container h2,
+  .tips-container h2,
+  .stories-container h2,
+  .faq-container h2 {
+    font-size: 1.6rem;
+    margin-bottom: 30px;
+  }
+  
+  .feature-card,
+  .overview-card,
+  .tip-card,
+  .story-card,
+  .faq-item {
+    padding: 20px 15px;
+  }
+  
+  .tip-number {
+    width: 35px;
+    height: 35px;
+    font-size: 1rem;
+    top: -12px;
+    left: 20px;
+  }
+  
+  .story-avatar {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .story-avatar i {
+    font-size: 1.2rem;
   }
 } 

@@ -146,10 +146,164 @@ const ExamWiseTest: React.FC = () => {
 
   const filteredExams = examCards.filter(filterExams);
 
-  // const breadcrumbItems = [ // Remove visual breadcrumb
-  //   { label: 'Home', path: '/' },
-  //   { label: 'Exam Wise Tests', path: '/exam-wise-test', isLast: true }
-  // ];
+
+
+  // Preparation Tips Section Component
+  const PreparationTipsSection = () => (
+    <section className="preparation-tips-section">
+      <div className="tips-container">
+        <h2>Expert Preparation Tips</h2>
+        <div className="tips-grid">
+          <div className="tip-card">
+            <div className="tip-number">01</div>
+            <h3>Start with Accuracy</h3>
+            <p>Focus on typing accurately first. Speed will naturally improve as you develop muscle memory and confidence.</p>
+          </div>
+          <div className="tip-card">
+            <div className="tip-number">02</div>
+            <h3>Practice Daily</h3>
+            <p>Consistent daily practice of 30-45 minutes is more effective than long, infrequent sessions.</p>
+          </div>
+          <div className="tip-card">
+            <div className="tip-number">03</div>
+            <h3>Use Proper Posture</h3>
+            <p>Maintain correct sitting position with feet flat, back straight, and wrists elevated for better performance.</p>
+          </div>
+          <div className="tip-card">
+            <div className="tip-number">04</div>
+            <h3>Learn Keyboard Layout</h3>
+            <p>Practice without looking at the keyboard. Learn the position of all keys for faster typing.</p>
+          </div>
+          <div className="tip-card">
+            <div className="tip-number">05</div>
+            <h3>Take Mock Tests</h3>
+            <p>Regularly take full-length mock tests to simulate real exam conditions and build stamina.</p>
+          </div>
+          <div className="tip-card">
+            <div className="tip-number">06</div>
+            <h3>Review Your Mistakes</h3>
+            <p>Analyze your errors and focus on improving weak areas. Track your progress over time.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+
+
+
+  // FAQ Section Component
+  const FAQSection = () => (
+    <section className="faq-section">
+      <div className="faq-container">
+        <h2>Frequently Asked Questions</h2>
+        <div className="faq-grid">
+          <div className="faq-item">
+            <h3>How many typing tests should I practice daily?</h3>
+            <p>We recommend 2-3 typing tests daily, each lasting 10-15 minutes. Focus on quality practice rather than quantity.</p>
+          </div>
+          <div className="faq-item">
+            <h3>Which language should I practice more - Hindi or English?</h3>
+            <p>Practice both languages equally. Most government exams require proficiency in both. Focus on your weaker language initially.</p>
+          </div>
+          <div className="faq-item">
+            <h3>How long does it take to improve typing speed?</h3>
+            <p>With consistent practice, you can see improvement in 2-3 weeks. Significant improvement (10+ WPM) typically takes 2-3 months.</p>
+          </div>
+          <div className="faq-item">
+            <h3>Are these mock tests similar to real exams?</h3>
+            <p>Yes, our tests are designed to match real exam patterns, difficulty levels, and time constraints used in government typing tests.</p>
+          </div>
+          <div className="faq-item">
+            <h3>What if I make mistakes during practice?</h3>
+            <p>Mistakes are part of learning. Focus on accuracy first, then speed. Use our detailed reports to identify and improve weak areas.</p>
+          </div>
+          <div className="faq-item">
+            <h3>Can I practice on mobile devices?</h3>
+            <p>While possible, we recommend using a computer or laptop for practice as government exams are conducted on computers.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+
+  // Study Groups Section Component
+  const StudyGroupsSection = () => (
+    <section className="study-groups-section">
+      <div className="groups-container">
+        <h2>Join Our Study Groups</h2>
+        <p>Connect with fellow aspirants, get exam updates, and share study tips in our active community groups</p>
+        <div className="groups-grid">
+          <div className="group-card whatsapp-group">
+            <div className="group-icon">
+              <i className="fab fa-whatsapp"></i>
+            </div>
+            <div className="group-content">
+              <h3>WhatsApp Study Group</h3>
+              <p>Join our active WhatsApp group for instant updates, daily practice reminders, and quick doubt solving</p>
+              <ul className="group-features">
+                <li><i className="fas fa-check"></i> Daily exam updates</li>
+                <li><i className="fas fa-check"></i> Practice material sharing</li>
+                <li><i className="fas fa-check"></i> Expert guidance</li>
+                <li><i className="fas fa-check"></i> Success stories</li>
+              </ul>
+              <a 
+                href="https://wa.me/919999999999?text=Hi! I want to join the TypingHub study group for government exam preparation" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="join-btn whatsapp-btn"
+              >
+                <i className="fab fa-whatsapp"></i>
+                Join WhatsApp Group
+              </a>
+            </div>
+          </div>
+          
+          <div className="group-card telegram-group">
+            <div className="group-icon">
+              <i className="fab fa-telegram-plane"></i>
+            </div>
+            <div className="group-content">
+              <h3>Telegram Study Channel</h3>
+              <p>Follow our Telegram channel for comprehensive study materials, exam notifications, and detailed guides</p>
+              <ul className="group-features">
+                <li><i className="fas fa-check"></i> Study material updates</li>
+                <li><i className="fas fa-check"></i> Exam notifications</li>
+                <li><i className="fas fa-check"></i> Practice tests</li>
+                <li><i className="fas fa-check"></i> Career guidance</li>
+              </ul>
+              <a 
+                href="https://t.me/typinghub_study" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="join-btn telegram-btn"
+              >
+                <i className="fab fa-telegram-plane"></i>
+                Join Telegram Channel
+              </a>
+            </div>
+          </div>
+        </div>
+        
+        <div className="groups-info">
+          <div className="info-card">
+            <i className="fas fa-users"></i>
+            <h4>5000+ Active Members</h4>
+            <p>Join thousands of aspirants preparing for government exams</p>
+          </div>
+          <div className="info-card">
+            <i className="fas fa-clock"></i>
+            <h4>24/7 Support</h4>
+            <p>Get help anytime from our community and experts</p>
+          </div>
+          <div className="info-card">
+            <i className="fas fa-bell"></i>
+            <h4>Instant Updates</h4>
+            <p>Never miss important exam notifications and deadlines</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
 
   return (
     <div className="exam-wise-test-page">
@@ -183,6 +337,8 @@ const ExamWiseTest: React.FC = () => {
           {JSON.stringify(structuredData)}
         </script>
       </Helmet>
+
+
 
       <div className="main-content">
         <div className="container">
@@ -320,6 +476,17 @@ const ExamWiseTest: React.FC = () => {
           </div>
         </div>
       </div>
+
+      {/* Preparation Tips Section */}
+      <PreparationTipsSection />
+
+
+
+      {/* FAQ Section */}
+      <FAQSection />
+
+      {/* Study Groups Section */}
+      <StudyGroupsSection />
     </div>
   );
 };

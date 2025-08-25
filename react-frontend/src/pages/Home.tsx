@@ -202,6 +202,36 @@ const AchievementCard = memo(({ icon, number, text }: {
   );
 });
 
+// YouTube Section: Add intro video showcase
+const YouTubeSection = memo(() => (
+  <section className="youtube-section">
+    <div className="youtube-container">
+      <h2 className="section-title">
+        <FontAwesomeIcon icon={faPlay} style={{ color: '#ff0000', marginRight: '10px' }} />
+        Watch Our Introduction
+      </h2>
+      <p className="section-description">
+        Learn more about TypingHub and how we help students prepare for government typing exams
+      </p>
+      <div className="video-container">
+        <div className="video-wrapper">
+          <iframe
+            src="https://www.youtube.com/embed/YOUR_VIDEO_ID_HERE"
+            title="TypingHub Introduction Video"
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            className="youtube-video"
+          ></iframe>
+        </div>
+        <div className="video-description">
+          <p>Watch our comprehensive introduction to understand how TypingHub can help you excel in government typing exams.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+));
+
 const Home: React.FC = () => {
   const { competitionStatus, fetchCompetitionStatus } = useCompetition();
   const [isRegistrationModalOpen, setIsRegistrationModalOpen] = useState(false);
@@ -521,6 +551,9 @@ const Home: React.FC = () => {
           <FeatureCard key={index} {...feature} />
         ))}
       </section>
+
+      {/* YouTube Section: Add intro video showcase */}
+      <YouTubeSection />
 
       {listSections.map((section, index) => (
         <ListSection key={index} {...section} />
