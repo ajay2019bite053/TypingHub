@@ -80,6 +80,15 @@
 	background: rgba(40, 116, 240, 0.15);
 }
 
+.meesho-logo {
+	background: rgba(255, 64, 129, 0.1);
+	border-color: rgba(255, 64, 129, 0.3);
+}
+
+.meesho-logo:hover {
+	background: rgba(255, 64, 129, 0.15);
+}
+
 .vendor-logo img {
 	width: 35px;
 	height: 35px;

@@ -155,7 +155,7 @@ select:focus {
 /* Sample text container with improved styling */
 .sample-text-container {
   font-size: 14px;
-  line-height: 1.6;
+  line-height: 1.2;
   font-family: 'Times New Roman', Times, serif;
   height: 206.5px;
   min-height: 206.5px;
@@ -172,10 +172,10 @@ select:focus {
 
 .sample-text {
   font-size: 14px;
-  line-height: 1.6;
+  line-height: 1.2;
   white-space: pre-wrap;
   user-select: none;
-  word-spacing: normal;
+  word-spacing: 0.1em;
   color: #333;
   font-family: 'Times New Roman', Times, serif;
 }
@@ -205,7 +205,7 @@ select:focus {
 /* Typing area with improved styling */
 .typing-area {
   font-size: 17px !important;
-  line-height: 1.6;
+  line-height: 1.2;
   font-family: 'Times New Roman', Times, serif;
   height: 206.5px;
   min-height: 206.5px;

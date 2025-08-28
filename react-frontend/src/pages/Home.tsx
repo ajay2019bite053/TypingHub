@@ -605,11 +605,11 @@ const Home: React.FC = () => {
             <p>has successfully completed the typing test with</p>
             <div className="stats-container">
               <div>
-                <div className="stat-number" style={{ color: '#1976d2' }}>42</div>
+                <div className="stat-number">42</div>
                 <div className="stat-label">WPM</div>
               </div>
               <div>
-                <div className="stat-number" style={{ color: '#4caf50' }}>97%</div>
+                <div className="stat-number">97%</div>
                 <div className="stat-label">Accuracy</div>
               </div>
             </div>

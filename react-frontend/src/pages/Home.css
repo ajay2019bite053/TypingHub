@@ -577,11 +577,11 @@
 
 #home-page .certificate-buttons {
   display: flex;
-  gap: 20px;
+  gap: 25px;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  margin-top: 40px;
+  margin-top: 30px;
   flex-direction: row;
   max-width: 600px;
   margin-left: auto;
@@ -594,6 +594,9 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  transition: all 0.3s ease;
+  border-radius: 10px;
+  font-weight: 600;
 }
 
 #home-page .certificate-buttons .secondary-btn {
@@ -2087,8 +2090,8 @@
 } 
 
 #home-page .demo-certificate-section {
-  background: #fff;
-  padding: 40px 0 35px 0;
+  background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+  padding: 25px 0 20px 0;
   position: relative;
   z-index: 1;
   display: block !important;
@@ -2108,11 +2111,11 @@
 }
 
 #home-page .demo-certificate-section .section-title {
-  font-size: 2rem;
-  color: #333;
-  margin-bottom: 20px;
+  font-size: 1.8rem;
+  color: #000080;
+  margin-bottom: 15px;
   text-align: center;
-  font-weight: 600;
+  font-weight: 700;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -2123,30 +2126,38 @@
 #home-page .demo-certificate-card {
   position: relative;
   width: 100%;
-  max-width: 1000px;
-  min-height: 320px;
+  max-width: 900px;
+  min-height: 240px;
   background: #ffffff;
-  border-radius: 15px;
-  padding: 35px 50px 30px 50px;
-  margin: 15px auto;
-  /* Professional certificate border design */
-  border: 3px solid #d4af37;
+  border-radius: 18px;
+  padding: 25px 40px 20px 40px;
+  margin: 12px auto;
+  /* Indian National Flag inspired border design */
+  border: 3px solid #FF9933;
   box-shadow: 
     0 0 0 6px #ffffff,
-    0 0 0 9px #d4af37,
-    0 8px 25px rgba(0, 0, 0, 0.12),
+    0 0 0 9px #FF9933,
+    0 0 0 12px #ffffff,
+    0 0 0 15px #138808,
+    0 12px 35px rgba(255, 153, 51, 0.2),
+    0 4px 15px rgba(19, 136, 8, 0.1),
     inset 0 0 0 3px #f8f9fa;
-  /* Clean background */
+  /* Indian flag colors background with Ashoka Chakra */
   background: 
+    url('../../public/images/ashoka-chakra.png') no-repeat left 30%,
+    url('../../public/images/ashoka-chakra.png') no-repeat right 30%,
     linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%),
-    radial-gradient(circle at 20% 20%, rgba(255, 153, 51, 0.015) 0%, transparent 30%),
-    radial-gradient(circle at 80% 80%, rgba(19, 136, 8, 0.015) 0%, transparent 30%);
+    radial-gradient(circle at 20% 20%, rgba(255, 153, 51, 0.05) 0%, transparent 40%),
+    radial-gradient(circle at 80% 80%, rgba(19, 136, 8, 0.05) 0%, transparent 40%);
+  background-size: 150px 150px, 150px 150px, auto, auto, auto;
+  background-position: left 40px 30%, right 40px 30%, center, center, center;
   /* Clean overflow */
   overflow: hidden;
   z-index: 1;
   display: block !important;
   visibility: visible !important;
   text-align: center;
+  transition: all 0.3s ease;
 }
 
 /* Certificate subtle pattern overlay */
@@ -2171,39 +2182,56 @@
   z-index: 2;
 }
 
+
+
+
+
+#home-page .demo-certificate-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 
+    0 0 0 6px #ffffff,
+    0 0 0 9px #FF9933,
+    0 0 0 12px #ffffff,
+    0 0 0 15px #138808,
+    0 20px 45px rgba(255, 153, 51, 0.25),
+    0 8px 25px rgba(19, 136, 8, 0.15),
+    inset 0 0 0 3px #f8f9fa;
+}
+
 /* Pattern background removed */
 
 
 
 #home-page .demo-certificate-card .main-logo {
-  width: 90px;
-  height: 90px;
-  margin: 0 auto 15px auto;
+  width: 65px;
+  height: 65px;
+  margin: 0 auto 10px auto;
   display: block;
-  filter: drop-shadow(0 3px 8px rgba(0, 0, 0, 0.12));
+  filter: drop-shadow(0 4px 12px rgba(255, 153, 51, 0.2));
+  transition: all 0.3s ease;
 }
 
 #home-page .certificate-title {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 15px;
-  margin: 15px 0 15px 0;
+  gap: 12px;
+  margin: 12px 0 12px 0;
 }
 
 #home-page .title-line {
   width: 50px;
   height: 2px;
-  background: linear-gradient(90deg, #d4af37, #f4d03f);
+  background: linear-gradient(90deg, #FF9933, #138808);
   border-radius: 2px;
 }
 
 #home-page .main-title {
   font-family: 'Roboto Serif', serif;
-  font-size: 1.6rem;
+  font-size: 1.4rem;
   font-weight: 600;
   color: #1976d2;
-  letter-spacing: 2px;
+  letter-spacing: 1.5px;
   text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
   position: relative;
   margin: 0;
@@ -2232,7 +2260,7 @@
   font-family: 'Roboto Serif', serif;
   font-size: 1.8rem;
   font-weight: 700;
-  color: #1976d2;
+  color: #8B0000 !important;
   margin: 15px 0 10px 0;
   text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
   border-bottom: 2px solid #d4af37;
@@ -2256,11 +2284,13 @@
 #home-page .demo-certificate-card .stats-container {
   display: flex;
   justify-content: center;
-  gap: 50px;
-  margin: 12px 0;
-  padding: 12px 0;
-  border-top: 1px solid #e0e0e0;
-  border-bottom: 1px solid #e0e0e0;
+  gap: 60px;
+  margin: 15px 0;
+  padding: 15px 0;
+  border-top: 2px solid rgba(255, 153, 51, 0.4);
+  border-bottom: 2px solid rgba(19, 136, 8, 0.4);
+  background: linear-gradient(135deg, rgba(255, 153, 51, 0.05), rgba(19, 136, 8, 0.05));
+  border-radius: 8px;
 }
 
 #home-page .demo-certificate-card .stats-container > div {
@@ -2268,27 +2298,37 @@
 }
 
 #home-page .demo-certificate-card .stats-container .stat-number {
-  font-size: 2rem;
-  font-weight: 700;
+  font-size: 1.4rem;
+  font-weight: 500;
   margin-bottom: 5px;
+  text-shadow: none;
+  color: #1a1a1a !important;
 }
 
 #home-page .demo-certificate-card .stats-container .stat-label {
-  font-size: 14px;
-  color: #666;
+  font-size: 13px;
+  color: #1a1a1a !important;
   font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 1px;
+  text-transform: none;
+  letter-spacing: normal;
 }
 
 /* Certificate info styling */
 #home-page .demo-certificate-card .cert-info {
-  margin-top: 15px;
-  padding-top: 12px;
-  border-top: 1px solid #e0e0e0;
+  margin-top: 18px;
+  padding: 15px;
+  border-top: 2px solid rgba(255, 153, 51, 0.3);
   font-size: 13px;
-  color: #666;
+  color: #1a1a1a !important;
   line-height: 1.6;
+  background: linear-gradient(135deg, rgba(255, 153, 51, 0.03), rgba(19, 136, 8, 0.03));
+  border-radius: 8px;
+  border-left: 3px solid #FF9933;
+}
+
+#home-page .demo-certificate-card .cert-info div {
+  color: #1a1a1a !important;
+  font-weight: 500;
 }
 
 /* Duplicate certificate styles removed - already defined above */
@@ -2297,69 +2337,113 @@
 
 /* FAQ Section Styles */
 #home-page .faq-section {
-  padding: 60px 0;
+  padding: 50px 0;
   background: linear-gradient(135deg, #f8fafc, #e3f2fd);
   margin-bottom: 0;
   width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+#home-page .faq-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="%231976d2" opacity="0.03"/><circle cx="75" cy="75" r="1" fill="%231976d2" opacity="0.03"/><circle cx="50" cy="10" r="0.5" fill="%231976d2" opacity="0.03"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+  opacity: 0.5;
+  pointer-events: none;
 }
 
 #home-page .faq-container {
-  max-width: 1400px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 0 20px;
   width: 100%;
+  position: relative;
+  z-index: 2;
 }
 
 #home-page .faq-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 25px;
-  margin-top: 40px;
+  grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+  gap: 30px;
+  margin-top: 35px;
   width: 100%;
 }
 
 #home-page .faq-item {
-  background: white;
-  padding: 30px;
-  border-radius: 15px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-  border: 1px solid rgba(25, 118, 210, 0.1);
-  transition: all 0.3s ease;
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+  padding: 35px;
+  border-radius: 18px;
+  box-shadow: 0 6px 25px rgba(25, 118, 210, 0.1);
+  border: 2px solid rgba(25, 118, 210, 0.08);
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+#home-page .faq-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: linear-gradient(135deg, #1976d2, #40c4ff);
+  border-radius: 2px;
 }
 
 #home-page .faq-item:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+  transform: translateY(-5px);
+  box-shadow: 0 12px 35px rgba(25, 118, 210, 0.15);
   border-color: rgba(25, 118, 210, 0.2);
+  background: linear-gradient(135deg, #ffffff 0%, #f0f8ff 100%);
+}
+
+#home-page .faq-item:hover::before {
+  background: linear-gradient(135deg, #1565c0, #1976d2);
+  width: 6px;
 }
 
 #home-page .faq-question {
-  color: #333;
-  font-size: 18px;
-  margin-bottom: 15px;
-  font-weight: 600;
+  color: #1a1a1a;
+  font-size: 19px;
+  margin-bottom: 18px;
+  font-weight: 700;
   font-family: 'Roboto Serif', serif;
   line-height: 1.4;
+  position: relative;
+  z-index: 2;
+  padding-left: 15px;
 }
 
 #home-page .faq-answer {
-  color: #555;
-  font-size: 14px;
-  line-height: 1.6;
+  color: #444;
+  font-size: 15px;
+  line-height: 1.7;
   margin: 0;
   font-family: 'Roboto Serif', serif;
+  position: relative;
+  z-index: 2;
+  padding-left: 15px;
+  font-weight: 400;
 }
 
 #home-page .faq-section .section-title {
-  font-size: 2rem;
-  color: #333;
-  margin-bottom: 20px;
+  font-size: 2.2rem;
+  color: #1a1a1a;
+  margin-bottom: 25px;
   text-align: center;
-  font-weight: 600;
+  font-weight: 700;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 15px;
+  position: relative;
+  z-index: 2;
 }
 
 /* FAQ Responsive Design */
@@ -2571,9 +2655,9 @@
   }
   
   #home-page .demo-certificate-card {
-    padding: 25px 20px 20px 20px;
+    padding: 20px 20px 15px 20px;
     max-width: 95vw;
-    min-height: 280px;
+    min-height: 220px;
     border-width: 2px;
   }
   
@@ -2685,9 +2769,9 @@
   }
   
   #home-page .demo-certificate-card {
-    padding: 20px 15px 15px 15px;
+    padding: 18px 18px 12px 18px;
     max-width: 98vw;
-    min-height: 260px;
+    min-height: 200px;
     border-width: 1.5px;
   }
   
@@ -2804,9 +2888,9 @@
 
 /* YouTube Section Styles */
 #home-page .youtube-section {
-  padding: 40px 0;
+  padding: 25px 0;
   background: #ffffff; /* Changed to white background */
-  margin: 30px 0;
+  margin: 20px 0;
 }
 
 #home-page .youtube-container {
@@ -2830,7 +2914,7 @@
 #home-page .youtube-section .section-description {
   font-size: 1.1rem;
   color: #666;
-  margin-bottom: 50px;
+  margin-bottom: 30px;
   max-width: 600px;
   margin-left: auto;
   margin-right: auto;
@@ -2841,19 +2925,19 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  max-width: 800px;
+  max-width: 1000px;
   margin: 0 auto;
 }
 
 #home-page .video-wrapper {
   position: relative;
   width: 100%;
-  max-width: 700px;
+  max-width: 800px;
   background: #000;
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-  margin-bottom: 20px;
+  margin-bottom: 15px;
 }
 
 #home-page .youtube-video {
@@ -2865,7 +2949,7 @@
 
 #home-page .video-description {
   text-align: center;
-  padding: 20px;
+  padding: 15px;
   max-width: 600px;
   margin: 0 auto;
 }
@@ -2893,8 +2977,8 @@
 /* Responsive Design for YouTube Section */
 @media (max-width: 768px) {
   #home-page .youtube-section {
-    padding: 30px 0;
-    margin: 25px 0;
+    padding: 20px 0;
+    margin: 20px 0;
   }
   
   #home-page .youtube-section .section-title {
@@ -2905,7 +2989,7 @@
   
   #home-page .youtube-section .section-description {
     font-size: 1rem;
-    margin-bottom: 40px;
+    margin-bottom: 25px;
   }
   
   #home-page .video-container {
@@ -2913,11 +2997,11 @@
   }
   
   #home-page .youtube-video {
-    height: 300px;
+    height: 320px;
   }
   
   #home-page .video-description {
-    padding: 20px 15px;
+    padding: 15px 10px;
   }
   
   #home-page .video-description p {
@@ -2927,8 +3011,8 @@
 
 @media (max-width: 480px) {
   #home-page .youtube-section {
-    padding: 25px 0;
-    margin: 20px 0;
+    padding: 20px 0;
+    margin: 15px 0;
   }
   
   #home-page .youtube-section .section-title {
@@ -2937,15 +3021,15 @@
   
   #home-page .youtube-section .section-description {
     font-size: 0.95rem;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
   }
   
   #home-page .youtube-video {
-    height: 250px;
+    height: 240px;
   }
   
   #home-page .video-description {
-    padding: 15px 10px;
+    padding: 10px 8px;
   }
   
   #home-page .video-description p {

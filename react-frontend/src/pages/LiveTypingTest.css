@@ -39,18 +39,18 @@ body {
 /* Section Styles */
 .lt-section {
   background: white;
-  padding: 30px;
+  padding: 25px;
   border-radius: 15px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-  margin-bottom: 30px;
+  margin-bottom: 25px;
   border: 1px solid rgba(25, 118, 210, 0.1);
   transition: all 0.3s ease;
 }
 
 /* Upcoming Exams Section - Reduced Width */
 .lt-section[aria-labelledby="upcoming-exams"] {
-  max-width: 800px;
-  margin: 0 auto 30px auto;
+  max-width: 900px;
+  margin: 0 auto 25px auto;
 }
 
 .lt-section:hover {
@@ -59,11 +59,11 @@ body {
 }
 
 .lt-section-title {
-  font-size: 24px;
+  font-size: 26px;
   font-weight: 700;
   color: #000;
   font-family: 'Roboto Serif', serif;
-  margin-bottom: 20px;
+  margin-bottom: 18px;
   text-align: center;
   position: relative;
   padding-bottom: 15px;
@@ -102,12 +102,13 @@ body {
   align-items: center;
   justify-content: space-between;
   gap: 20px;
-  padding: 10px 15px;
+  padding: 15px 20px;
   border: 1px solid #e0e0e0;
-  border-radius: 8px;
-  background: #f8f9fa;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #f8f9fa, #ffffff);
   transition: all 0.3s ease;
   margin-bottom: 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
 .lt-exam-card:hover {
@@ -124,7 +125,7 @@ body {
 }
 
 .lt-exam-title {
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 700;
   color: #1976d2;
   font-family: 'Roboto Serif', serif;
@@ -161,7 +162,7 @@ body {
 }
 
 .lt-exam-date {
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 500;
   color: #666;
   font-family: 'Roboto Serif', serif;
@@ -176,7 +177,7 @@ body {
 }
 
 .lt-exam-timing {
-  font-size: 11px;
+  font-size: 12px;
   color: #d32f2f;
   font-weight: 600;
   font-family: 'Roboto Serif', serif;
@@ -188,15 +189,15 @@ body {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background: #d32f2f;
+  background: linear-gradient(135deg, #d32f2f, #b71c1c);
   color: white;
-  padding: 6px 12px;
-  border-radius: 6px;
+  padding: 8px 16px;
+  border-radius: 8px;
   text-decoration: none;
   font-weight: 600;
-  font-size: 11px;
+  font-size: 12px;
   transition: all 0.3s ease;
-  box-shadow: 0 2px 8px rgba(211, 47, 47, 0.3);
+  box-shadow: 0 3px 12px rgba(211, 47, 47, 0.4);
   border: none;
   cursor: pointer;
   font-family: 'Roboto Serif', serif;
@@ -691,12 +692,12 @@ body {
 /* Sliding Banner */
 .lt-sliding-banner {
   width: 100%;
-  height: 60px;
+  height: 70px;
   background: linear-gradient(135deg, #1976d2, #40c4ff);
-  margin-bottom: 20px;
-  border-radius: 12px;
+  margin-bottom: 25px;
+  border-radius: 15px;
   overflow: hidden;
-  box-shadow: 0 4px 15px rgba(25, 118, 210, 0.2);
+  box-shadow: 0 6px 20px rgba(25, 118, 210, 0.25);
 }
 
 .lt-banner-container {
@@ -729,7 +730,7 @@ body {
 }
 
 .lt-quote-text {
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 600;
   font-style: italic;
   line-height: 1.4;

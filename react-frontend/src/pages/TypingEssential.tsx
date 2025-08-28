@@ -217,6 +217,9 @@ const TypingEssential: React.FC = () => {
 						<div className="vendor-logo flipkart-logo">
 							<img src="/images/flipkart-logo.png" alt="Flipkart" />
 						</div>
+						<div className="vendor-logo meesho-logo">
+							<img src="/images/Meesho-logo.png" alt="Meesho" />
+						</div>
 					</div>
 				<h1>Boost Your Typing Speed with Premium Tools</h1>
 				</div>

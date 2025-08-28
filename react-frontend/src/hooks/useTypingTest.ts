@@ -344,7 +344,10 @@ export const useTypingTest = (config: TestConfig) => {
             wordSpan.classList.add('current-word');
           }
           sampleTextRef.current?.appendChild(wordSpan);
-          sampleTextRef.current?.appendChild(document.createTextNode(' '));
+          // Add minimal space between words to reduce line gaps
+          if (index < words.length - 1) {
+            sampleTextRef.current?.appendChild(document.createTextNode(' '));
+          }
           elements.push(wordSpan);
         });
         setWordElements(elements);
