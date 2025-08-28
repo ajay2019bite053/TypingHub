@@ -37,8 +37,6 @@ const generateText = async (req, res) => {
 
     for (const model of models) {
       try {
-        console.log(`Trying model: ${model}`);
-        
         const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
           method: 'POST',
           headers: {
@@ -59,14 +57,12 @@ const generateText = async (req, res) => {
         });
 
         if (!response.ok) {
-          console.log(`Model ${model} failed with status: ${response.status}`);
           continue;
         }
 
         const data = await response.json();
         
         if (!data.choices?.[0]?.message?.content) {
-          console.log(`Model ${model} returned no content`);
           continue;
         }
 
@@ -75,14 +71,11 @@ const generateText = async (req, res) => {
         const wordCount = cleaned.split(/\s+/).filter(w => w.length > 0).length;
         
         if (wordCount < min) {
-          console.log(`Model ${model} returned text with ${wordCount} words, which is less than ${min} words.`);
           continue;
         }
         
         // Trim to max words if needed
         const trimmed = trimToMaxWords(cleaned, max);
-        
-        console.log(`Successfully generated text using model: ${model}`);
         return res.status(200).json({ 
           text: trimmed,
           wordCount: trimmed.split(/\s+/).filter(w => w.length > 0).length,

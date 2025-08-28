@@ -2952,3 +2952,53 @@
     font-size: 0.95rem;
   }
 }
+
+/* Motivational Messages Slider */
+#home-page .motivational-slider {
+  position: relative;
+  height: 50px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(25, 118, 210, 0.2);
+  margin: 20px 0 15px 0;
+}
+
+#home-page .motivational-track {
+  position: relative;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#home-page .motivational-message {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: 600;
+  color: #1976d2;
+  opacity: 0;
+  transform: translateX(100px);
+  transition: all 0.8s ease;
+  padding: 0 20px;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#home-page .motivational-message.active {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+#home-page .motivational-message:hover {
+  color: #1565c0;
+  transform: translateX(0) scale(1.02);
+}

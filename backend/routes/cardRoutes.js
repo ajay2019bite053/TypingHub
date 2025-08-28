@@ -1,17 +1,32 @@
 const express = require('express');
 const router = express.Router();
-const cardController = require('../controllers/cardController');
+const productController = require('../controllers/cardController');
+const authMiddleware = require('../middleware/authMiddleware');
 
-// GET all cards
-router.get('/', cardController.getAllCards);
+// Public routes
+// GET all products with search, filter, and sort
+router.get('/', productController.getAllProducts);
 
-// POST create card
-router.post('/', cardController.createCard);
+// GET product by slug
+router.get('/slug/:slug', productController.getProductBySlug);
 
-// PUT update card
-router.put('/:id', cardController.updateCard);
+// GET products by category
+router.get('/category/:category', productController.getProductsByCategory);
 
-// DELETE card
-router.delete('/:id', cardController.deleteCard);
+// GET categories with product counts
+router.get('/categories', productController.getCategories);
+
+// Admin routes (protected)
+// POST create product
+router.post('/', authMiddleware.requireAuth, authMiddleware.requireAdmin, productController.createProduct);
+
+// PUT update product
+router.put('/:id', authMiddleware.requireAuth, authMiddleware.requireAdmin, productController.updateProduct);
+
+// DELETE product
+router.delete('/:id', authMiddleware.requireAuth, authMiddleware.requireAdmin, productController.deleteProduct);
+
+// POST bulk create products
+router.post('/bulk', authMiddleware.requireAuth, authMiddleware.requireAdmin, productController.bulkCreateProducts);
 
 module.exports = router; 

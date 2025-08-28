@@ -11,18 +11,9 @@ yarn-error.log*
 .env.test.local
 .env.production.local
 
-# Build outputs
-build/
-dist/
-.next/
-.nuxt/
-.vuepress/dist/
-
 # Secure uploads (never commit sensitive documents)
-uploads/
 secure-uploads/
-backend/secure-uploads/
-backend/uploads/
+uploads/
 *.png
 *.jpg
 *.jpeg
@@ -138,21 +129,3 @@ ecosystem.config.js
 uploads/
 secure-uploads/
 public/uploads/
-
-# React build
-react-frontend/build/
-react-frontend/dist/
-
-# TypeScript
-*.tsbuildinfo
-
-# Testing
-coverage/
-.nyc_output/
-
-# Misc
-.DS_Store
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local

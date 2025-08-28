@@ -112,6 +112,11 @@ const Header: React.FC = () => {
               <i className="fas fa-graduation-cap"></i>
               <span>Typing Course</span>
             </Link>
+
+            <Link to="/products" title="Typing Essentials" onClick={() => setIsMenuOpen(false)}>
+              <i className="fas fa-shopping-bag"></i>
+              <span>Typing Essential</span>
+            </Link>
           </div>
         </nav>
       </header>

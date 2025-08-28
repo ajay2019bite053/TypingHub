@@ -4,8 +4,6 @@ const bcrypt = require('bcryptjs');
 // Get all admin requests and approved admins
 const getAdminRequests = async (req, res) => {
   try {
-    console.log('Fetching admin requests and approved admins...');
-    
     // Fetch pending admins (excluding default/super admins)
     const pendingAdmins = await Admin.find({ 
         isApproved: false,
@@ -21,8 +19,6 @@ const getAdminRequests = async (req, res) => {
       })
       .select('-password -refreshToken')
       .sort({ registrationDate: -1 });
-
-    console.log(`Found ${pendingAdmins.length} pending admins and ${approvedAdmins.length} approved admins`);
 
     // Format the dates and prepare the response
     const formatAdminData = (admin) => ({
@@ -55,10 +51,8 @@ const getAdminRequests = async (req, res) => {
 
 // Approve admin request
 const approveAdmin = async (req, res) => {
-  console.log('Approve admin called', { id: req.params.id });
   try {
     const { id } = req.params;
-    console.log(`Approving admin with ID: ${id}`);
 
     const admin = await Admin.findById(id);
     if (!admin) {
@@ -82,7 +76,6 @@ const approveAdmin = async (req, res) => {
 const rejectAdmin = async (req, res) => {
   try {
     const { id } = req.params;
-    console.log(`Rejecting admin with ID: ${id}`);
 
     const admin = await Admin.findById(id);
     if (!admin) {
@@ -102,10 +95,8 @@ const rejectAdmin = async (req, res) => {
 
 // Remove an approved admin (soft delete or set inactive)
 const removeAdmin = async (req, res) => {
-  console.log('Remove admin called', { id: req.params.id });
   try {
     const { id } = req.params;
-    console.log(`Attempting to remove admin with ID: ${id}`);
 
     const admin = await Admin.findById(id);
 

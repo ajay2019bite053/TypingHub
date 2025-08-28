@@ -27,6 +27,8 @@ const CreateTest = lazy(() => import('./pages/CreateTest'));
 const TypingCourseLanding = lazy(() => import('./pages/TypingCourseLanding'));
 const Certificate = lazy(() => import('./pages/Certificate'));
 const Blog = lazy(() => import('./pages/Blog'));
+const TypingEssential = lazy(() => import('./pages/TypingEssential'));
+const ProductDetail = lazy(() => import('./pages/ProductDetail'));
 const IndividualBlog = lazy(() => import('./pages/IndividualBlog'));
 const AboutUs = lazy(() => import('./pages/AboutUs'));
 const Declaration = lazy(() => import('./pages/Declaration'));
@@ -184,6 +186,9 @@ const App = () => {
                           <Route path="/certificate" element={<Certificate />} />
                           <Route path="/certificate-verification" element={<CertificateVerification />} />
                           <Route path="/blog" element={<Blog />} />
+                          <Route path="/typing-essential" element={<TypingEssential />} />
+                          <Route path="/products" element={<TypingEssential />} />
+                          <Route path="/products/:slug" element={<ProductDetail />} />
                           <Route path="/blog/:id" element={<IndividualBlog />} />
                           <Route path="/about-us" element={<AboutUs />} />
                           <Route path="/declaration" element={<Declaration />} />

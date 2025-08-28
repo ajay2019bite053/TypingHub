@@ -17,7 +17,8 @@ import {
   faExclamationTriangle,
   faQuestionCircle,
   faCheckCircle,
-  faTrophy
+  faTrophy,
+  faBox
 } from '@fortawesome/free-solid-svg-icons';
 import LoadingSpinner from '../../../components/LoadingSpinner/LoadingSpinner';
 import Toast, { ToastType } from '../../../components/Toast/Toast';
@@ -32,6 +33,7 @@ import AdminCardManager from './AdminCardManager';
 import AdminCouponManager from './AdminCouponManager';
 import BlogManager from '../BlogManager/BlogManager';
 import CompetitionManager from './CompetitionManager';
+import ProductManager from '../ProductManager/ProductManager';
 import './Dashboard.css';
 import { API_CONFIG } from '../../../config/api';
 
@@ -413,6 +415,8 @@ const Dashboard: React.FC = () => {
         return <BlogManager />;
       case 'competition-manager':
         return <CompetitionManager />;
+      case 'product-manager':
+        return <ProductManager />;
       default:
         return <Welcome />;
     }
@@ -510,6 +514,12 @@ const Dashboard: React.FC = () => {
             className={activeSection === 'competition-manager' ? 'active' : ''}
           >
             <FontAwesomeIcon icon={faTrophy} /> Competition Manager
+          </button>
+          <button 
+            onClick={() => handleSectionChange('product-manager')}
+            className={activeSection === 'product-manager' ? 'active' : ''}
+          >
+            <FontAwesomeIcon icon={faBox} /> Product Manager
           </button>
           <button 
             onClick={() => navigate('/admin/admin-requests')}

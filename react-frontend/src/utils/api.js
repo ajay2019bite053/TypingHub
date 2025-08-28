@@ -26,9 +26,9 @@ const getBackendUrl = () => {
 
 // Debug logging (only in development)
 if (process.env.NODE_ENV === 'development') {
-  console.log('API_BASE_URL:', getBackendUrl());
-  console.log('Current hostname:', window.location.hostname);
-  console.log('Environment:', process.env.NODE_ENV);
+  // console.log('API_BASE_URL:', getBackendUrl());
+  // console.log('Current hostname:', window.location.hostname);
+  // console.log('Environment:', process.env.NODE_ENV);
 }
 
 const API_BASE_URL = getBackendUrl();

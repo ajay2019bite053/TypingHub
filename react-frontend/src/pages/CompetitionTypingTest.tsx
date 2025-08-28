@@ -37,8 +37,6 @@ const CompetitionTypingTest: React.FC = () => {
     message: ''
   });
   
-  const [showLeaderboard, setShowLeaderboard] = useState(false);
-  const [leaderboard, setLeaderboard] = useState<any[]>([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
@@ -196,23 +194,6 @@ const CompetitionTypingTest: React.FC = () => {
               <p>Welcome, {competitionData.name} (ID: {competitionData.secretId})</p>
             </div>
             <div className="header-right">
-              <button 
-                className="leaderboard-btn" 
-                onClick={() => setShowLeaderboard(!showLeaderboard)}
-                style={{
-                  background: '#1976d2',
-                  border: 'none',
-                  color: 'white',
-                  padding: '10px 20px',
-                  borderRadius: '8px',
-                  cursor: 'pointer',
-                  marginRight: '10px',
-                  fontSize: '0.9rem',
-                  transition: 'all 0.3s ease'
-                }}
-              >
-                🏆 Leaderboard
-              </button>
               <button className="exit-btn" onClick={handleExit}>
                 <FontAwesomeIcon icon={faTimes} />
                 Exit
@@ -240,24 +221,7 @@ const CompetitionTypingTest: React.FC = () => {
             </div>
           </div>
           
-          {/* Leaderboard Section */}
-          {showLeaderboard && (
-            <div className="leaderboard-section" style={{
-              background: 'white',
-              borderRadius: '15px',
-              padding: '20px',
-              marginBottom: '20px',
-              boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
-              border: '1px solid #e0e0e0'
-            }}>
-              <h3 style={{ margin: '0 0 20px 0', color: '#333', textAlign: 'center' }}>
-                🏆 Current Leaderboard
-              </h3>
-              <div style={{ fontSize: '0.9rem', color: '#666', textAlign: 'center', marginBottom: '20px' }}>
-                Complete the test to see your rank!
-              </div>
-            </div>
-          )}
+
         </div>
       ) : (
         isSubmitting ? (

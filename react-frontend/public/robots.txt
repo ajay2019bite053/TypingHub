@@ -51,6 +51,7 @@ Allow: /terms-of-service
 
 # Sitemap location
 Sitemap: https://typinghub.in/sitemap.xml
+Sitemap: https://www.typinghub.in/sitemap.xml
 
 # Crawl delay (optional)
 Crawl-delay: 1 

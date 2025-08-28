@@ -36,6 +36,8 @@ const Footer: React.FC = () => {
             <Link to="/terms-of-service">Terms of Service</Link>
             <Link to="/privacy-policy">Privacy Policy</Link>
             <Link to="/contact-us">Contact Us</Link>
+            <Link to="/blog">Blog</Link>
+            <Link to="/faqs">FAQs</Link>
           </div>
         </div>
 
@@ -43,11 +45,11 @@ const Footer: React.FC = () => {
           <h3>Quick Links</h3>
           <div className="link-container">
             <Link to="/typing-test">Typing Test</Link>
+            <Link to="/live-typing-test">Live Typing Test</Link>
             <Link to="/exam-wise-test">Exam Wise Test</Link>
             <Link to="/create-test">Create Own Test</Link>
             <Link to="/typing-course">Typing Course</Link>
-            <Link to="/blog">Blog</Link>
-            <Link to="/faqs">FAQs</Link>
+            <Link to="/typing-essential">Typing Essential</Link>
           </div>
         </div>
 

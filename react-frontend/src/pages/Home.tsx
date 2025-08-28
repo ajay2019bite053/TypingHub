@@ -34,6 +34,7 @@ import { useCompetition } from '../contexts/CompetitionContext';
 import CompetitionRegistrationModal from '../components/Competition/CompetitionRegistrationModal';
 import CompetitionJoinModal from '../components/Competition/CompetitionJoinModal';
 import './Home.css';
+ 
 
 // Memoized components for better performance
 const HeroSection = memo(({ onRegisterClick, onJoinClick, competitionStatus }: {
@@ -454,6 +455,8 @@ const Home: React.FC = () => {
     }
   ];
 
+  
+
 
 
   // Achievements Data
@@ -558,6 +561,8 @@ const Home: React.FC = () => {
       {listSections.map((section, index) => (
         <ListSection key={index} {...section} />
       ))}
+
+      
 
       <section className="achievements">
         <h2 style={{ textAlign: 'center', marginBottom: '30px' }}>

@@ -28,7 +28,7 @@ const blogRoutes = require('./routes/blogs');
 const aiRoutes = require('./routes/ai');
 const competitionRoutes = require('./routes/competition');
 const paymentRoutes = require('./routes/payment');
-const contactRoutes = require('./routes/contact');
+// const contactRoutes = require('./routes/contact');
 
 // Import middleware and utils
 const authMiddleware = require('./middleware/authMiddleware');
@@ -156,13 +156,13 @@ app.use('/api/admin/requests', adminRequestsRoutes);
 app.use('/api/delete-requests', deleteRequestRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/live-exams', liveExamsRoutes);
-app.use('/api/cards', cardRoutes);
+app.use('/api/products', cardRoutes);
 app.use('/api/certificates', certificateRoutes);
 app.use('/api/blogs', blogRoutes);
 app.use('/api/ai', aiRoutes);
 app.use('/api/competition', competitionRoutes);
 app.use('/api/payment', paymentRoutes);
-app.use('/api/contact', contactRoutes);
+// app.use('/api/contact', contactRoutes);
 
 // Health check endpoint
 app.get('/api/health', (req, res) => {

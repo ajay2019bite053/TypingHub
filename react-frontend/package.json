@@ -25,7 +25,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-helmet": "^6.1.0",
-    "react-helmet-async": "^2.0.4",
+    "react-helmet-async": "^2.0.5",
     "react-icons": "^4.12.0",
     "react-router-dom": "^6.22.0",
     "react-scripts": "5.0.1",
@@ -36,7 +36,7 @@
   },
   "scripts": {
     "start": "set NODE_OPTIONS=--max-old-space-size=4096 && react-scripts start",
-    "build": "react-scripts build",
+    "build": "set NODE_OPTIONS=--max-old-space-size=4096 && react-scripts build",
     "build:prod": "GENERATE_SOURCEMAP=false react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",

@@ -29,7 +29,6 @@ const transporter = nodemailer.createTransport({
 
 // Register a new admin
 const register = async (req, res) => {
-  console.log('Admin register called', { email: req.body.email, name: req.body.name });
   try {
     const { name, email, phone, address, aadharNumber, password } = req.body;
     const aadharImage = req.file;
@@ -118,12 +117,10 @@ const register = async (req, res) => {
 
 // Login admin
 const login = async (req, res) => {
-  console.log('Admin login called', { email: req.body.email });
   try {
     const { email, password } = req.body;
 
     if (!email || !password) {
-      console.log('Admin login failed: Missing email or password');
       return res.status(400).json(formatErrorResponse('All fields are required'));
     }
 
@@ -132,31 +129,23 @@ const login = async (req, res) => {
       console.log('Admin not found for email:', email);
       return res.status(401).json(formatErrorResponse('Invalid credentials', 401));
     }
-    console.log('Admin found:', { id: admin._id, email: admin.email });
-
     if (!admin.isApproved) {
-      console.log('Admin login failed: Account not approved for', email);
       return res.status(403).json(formatErrorResponse('Your account is pending approval', 403));
     }
 
     const isMatch = await comparePassword(password, admin.password);
-    console.log('Password match for admin:', isMatch);
     if (!isMatch) {
-      console.log('Admin login failed: Invalid password for', email);
       return res.status(401).json(formatErrorResponse('Invalid credentials', 401));
     }
 
     // Determine role based on isDefaultAdmin field
     const role = admin.isDefaultAdmin ? 'super_admin' : 'sub_admin';
-    console.log('Admin role determined:', role);
 
     // Generate tokens
     const { accessToken, refreshToken } = generateTokens(admin._id, role, admin.tokenVersion);
 
     // Set refresh token cookie
     setCookies(res, refreshToken);
-
-    console.log('Admin login successful for:', admin._id, 'Role:', role);
     // Send response
     res.status(200).json(formatAuthResponse(admin, accessToken, role));
   } catch (error) {
@@ -220,13 +209,10 @@ const checkAuth = async (req, res) => {
       return res.status(401).json({ message: 'User not authenticated' });
     }
     
-    console.log('Checking authentication for user:', id);
-    
     // Check if it's an admin route
     if (req.admin) {
       const admin = await Admin.findById(id).select('-password');
       if (!admin) {
-        console.log('Admin not found during auth check');
         return res.status(404).json({ message: 'Admin not found' });
       }
       res.status(200).json({ 
@@ -238,7 +224,6 @@ const checkAuth = async (req, res) => {
       // It's a user route
       const user = await User.findById(id).select('-password');
       if (!user) {
-        console.log('User not found during auth check');
         return res.status(404).json({ message: 'User not found' });
       }
       res.status(200).json({ 
