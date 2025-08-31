@@ -90,11 +90,6 @@ const securityConfig = {
       
       const allowedOrigins = config.CORS_ORIGIN || ['http://localhost:3000', 'https://typinghub.in'];
       
-      // Always allow www.typinghub.in for proper redirect handling
-      if (origin === 'https://www.typinghub.in') {
-        return callback(null, true);
-      }
-      
       if (allowedOrigins.indexOf(origin) !== -1) {
         callback(null, true);
       } else {
