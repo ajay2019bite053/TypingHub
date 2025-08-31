@@ -7,16 +7,22 @@ require('dotenv').config();
 const isProduction = process.env.NODE_ENV === 'production';
 let port;
 let corsOrigin;
-if (isProduction) {
+
+// Always check for CORS_ORIGIN environment variable first
+if (process.env.CORS_ORIGIN) {
+  corsOrigin = process.env.CORS_ORIGIN.split(',').map(origin => origin.trim());
+} else if (isProduction) {
   port = process.env.PORT || 80;
-  corsOrigin = process.env.CORS_ORIGIN ? process.env.CORS_ORIGIN.split(',') : [
+  corsOrigin = [
     'https://typinghub.in',
     'https://www.typinghub.in'
   ];
 } else {
-  port = process.env.PORT || 9501;
-  corsOrigin = process.env.CORS_ORIGIN ? process.env.CORS_ORIGIN.split(',') : ['http://localhost:3000'];
+  corsOrigin = ['http://localhost:3000'];
 }
+
+// Set port based on environment
+port = process.env.PORT || (isProduction ? 80 : 9501);
 
 const config = {
   PORT: port,
