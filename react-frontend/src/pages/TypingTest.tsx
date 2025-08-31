@@ -37,7 +37,9 @@ import {
   faCog,
   faMobileAlt,
   faDesktop,
-  faTabletAlt
+  faTabletAlt,
+  faComments,
+  faUsers as faGroup
 } from '@fortawesome/free-solid-svg-icons';
 import TypingEngine from '../components/common/TypingEngine';
 import './TypingTest.css';
@@ -403,41 +405,150 @@ const TypingTest = () => {
                 Join thousands of successful students who have cleared government typing tests using our platform. 
                 Start practicing today and improve your typing skills for better career opportunities.
               </p>
-              <div className="cta-highlights">
-                <div className="cta-highlight">
-                  <FontAwesomeIcon icon={faCheckCircle} />
-                  <span>Free Practice Tests</span>
-                </div>
-                <div className="cta-highlight">
-                  <FontAwesomeIcon icon={faCheckCircle} />
-                  <span>Real-time Analysis</span>
-                </div>
-                <div className="cta-highlight">
-                  <FontAwesomeIcon icon={faCheckCircle} />
-                  <span>Certificate Generation</span>
-                </div>
-                <div className="cta-highlight">
-                  <FontAwesomeIcon icon={faCheckCircle} />
-                  <span>24/7 Support</span>
+              
+              {/* Social Groups Section */}
+              <div className="social-groups-section">
+                <h3 className="social-groups-title">
+                  <FontAwesomeIcon icon={faGroup} />
+                  Join Our Study Groups
+                </h3>
+                <p className="social-groups-description">
+                  Connect with fellow aspirants, get study tips, practice together, and stay updated with latest exam notifications
+                </p>
+                
+                <div className="social-groups-grid">
+                  <div className="social-group-card">
+                    <div className="social-group-header">
+                      <div className="social-group-icon whatsapp">
+                        <FontAwesomeIcon icon={faComments} />
+                      </div>
+                      <div className="social-group-info">
+                        <h4>WhatsApp Group</h4>
+                        <p>Daily practice & tips</p>
+                      </div>
+                    </div>
+                    
+                    <div className="social-group-stats">
+                      <div className="social-group-stat">
+                        <div className="number">2,500+</div>
+                        <div className="label">Members</div>
+                      </div>
+                      <div className="social-group-stat">
+                        <div className="number">24/7</div>
+                        <div className="label">Active</div>
+                      </div>
+                      <div className="social-group-stat">
+                        <div className="number">Daily</div>
+                        <div className="label">Updates</div>
+                      </div>
+                    </div>
+                    
+                    <button className="social-group-join">
+                      <FontAwesomeIcon icon={faComments} />
+                      Join WhatsApp Group
+                    </button>
+                  </div>
+                  
+                  <div className="social-group-card">
+                    <div className="social-group-header">
+                      <div className="social-group-icon telegram">
+                        <FontAwesomeIcon icon={faComments} />
+                      </div>
+                      <div className="social-group-info">
+                        <h4>Telegram Channel</h4>
+                        <p>Study materials & news</p>
+                      </div>
+                    </div>
+                    
+                    <div className="social-group-stats">
+                      <div className="social-group-stat">
+                        <div className="number">5,000+</div>
+                        <div className="label">Subscribers</div>
+                      </div>
+                      <div className="social-group-stat">
+                        <div className="number">Instant</div>
+                        <div className="label">Notifications</div>
+                      </div>
+                      <div className="social-group-stat">
+                        <div className="number">Free</div>
+                        <div className="label">Resources</div>
+                      </div>
+                    </div>
+                    
+                    <button className="social-group-join">
+                      <FontAwesomeIcon icon={faComments} />
+                      Join Telegram Channel
+                    </button>
+                  </div>
                 </div>
               </div>
+              
+              {/* Enhanced Features Highlights */}
+              <div className="cta-highlights">
+                <h3 className="cta-highlights-title">
+                  <FontAwesomeIcon icon={faStar} />
+                  Why Choose TypingHub?
+                </h3>
+                <div className="cta-highlights-grid">
+                  <div className="cta-highlight">
+                    <div className="cta-highlight-icon">
+                      <FontAwesomeIcon icon={faSearch} />
+                    </div>
+                    <span>Free Practice Tests</span>
+                  </div>
+                  <div className="cta-highlight">
+                    <div className="cta-highlight-icon">
+                      <FontAwesomeIcon icon={faChartBar} />
+                    </div>
+                    <span>Real-time Analysis</span>
+                  </div>
+                  <div className="cta-highlight">
+                    <div className="cta-highlight-icon">
+                      <FontAwesomeIcon icon={faCertificate} />
+                    </div>
+                    <span>Certificate Generation</span>
+                  </div>
+                  <div className="cta-highlight">
+                    <div className="cta-highlight-icon">
+                      <FontAwesomeIcon icon={faHeadset} />
+                    </div>
+                    <span>24/7 Support</span>
+                  </div>
+                </div>
+              </div>
+              
+              {/* Enhanced Action Buttons */}
               <div className="cta-buttons">
-                <a href="/exam-wise-test" className="cta-btn primary">
-                  <FontAwesomeIcon icon={faSearch} />
-                  Start Exam Practice Tests
-                </a>
-                <a href="/create-test" className="cta-btn secondary">
-                  <FontAwesomeIcon icon={faPenToSquare} />
-                  Build Your Own Test
-                </a>
-                <a href="/typing-course" className="cta-btn secondary">
-                  <FontAwesomeIcon icon={faChalkboardTeacher} />
-                  Master Typing Skills
-                </a>
-                <a href="/contact-us" className="cta-btn contact">
-                  <FontAwesomeIcon icon={faHeadset} />
-                  Get Expert Help
-                </a>
+                <h3 className="cta-buttons-title">
+                  <FontAwesomeIcon icon={faRocket} />
+                  Get Started Today
+                </h3>
+                <div className="cta-buttons-grid">
+                  <a href="/exam-wise-test" className="cta-btn primary">
+                    <div className="cta-btn-icon">
+                      <FontAwesomeIcon icon={faSearch} />
+                    </div>
+                    <span className="cta-btn-text">Start Exam Practice Tests</span>
+                  </a>
+                  <a href="/create-test" className="cta-btn secondary">
+                    <div className="cta-btn-icon">
+                      <FontAwesomeIcon icon={faPenToSquare} />
+                    </div>
+                    <span className="cta-btn-text">Build Your Own Test</span>
+                  </a>
+                  <a href="/typing-course" className="cta-btn secondary">
+                    <div className="cta-btn-icon">
+                      <FontAwesomeIcon icon={faChalkboardTeacher} />
+                    </div>
+                    <span className="cta-btn-text">Master Typing Skills</span>
+                  </a>
+                  <a href="/contact-us" className="cta-btn contact">
+                    <div className="cta-btn-icon">
+                      <FontAwesomeIcon icon={faHeadset} />
+                    </div>
+                    <span className="cta-btn-text">Get Expert Help</span>
+                  </a>
+                </div>
               </div>
             </div>
           </div>
