@@ -23,10 +23,23 @@ uploads/
 secure-uploads/
 backend/secure-uploads/
 backend/uploads/
-*.png
-*.jpg
-*.jpeg
-*.gif
+# Only ignore images in upload directories, not in public assets
+uploads/**/*.png
+uploads/**/*.jpg
+uploads/**/*.jpeg
+uploads/**/*.gif
+secure-uploads/**/*.png
+secure-uploads/**/*.jpg
+secure-uploads/**/*.jpeg
+secure-uploads/**/*.gif
+backend/secure-uploads/**/*.png
+backend/secure-uploads/**/*.jpg
+backend/secure-uploads/**/*.jpeg
+backend/secure-uploads/**/*.gif
+backend/uploads/**/*.png
+backend/uploads/**/*.jpg
+backend/uploads/**/*.jpeg
+backend/uploads/**/*.gif
 *.pdf
 *.doc
 *.docx
