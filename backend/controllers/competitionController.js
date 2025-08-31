@@ -1,6 +1,15 @@
 const Competition = require('../models/Competition');
 const CompetitionRegistration = require('../models/CompetitionRegistration');
-const { StatusCodes } = require('http-status-codes');
+// Temporary fix for http-status-codes import issue
+const StatusCodes = {
+  OK: 200,
+  CREATED: 201,
+  BAD_REQUEST: 400,
+  UNAUTHORIZED: 401,
+  FORBIDDEN: 403,
+  NOT_FOUND: 404,
+  INTERNAL_SERVER_ERROR: 500
+};
 const PDFDocument = require('pdfkit');
 
 // Advanced Scoring Functions for Competition Ranking
