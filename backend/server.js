@@ -84,7 +84,23 @@ const securityConfig = {
     xssFilter: true,
   },
   cors: {
-    origin: config.CORS_ORIGIN || ['http://localhost:3000', 'https://typinghub.in'],
+    origin: function (origin, callback) {
+      // Allow requests with no origin (like mobile apps or curl requests)
+      if (!origin) return callback(null, true);
+      
+      const allowedOrigins = config.CORS_ORIGIN || ['http://localhost:3000', 'https://typinghub.in'];
+      
+      // Always allow www.typinghub.in for proper redirect handling
+      if (origin === 'https://www.typinghub.in') {
+        return callback(null, true);
+      }
+      
+      if (allowedOrigins.indexOf(origin) !== -1) {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    },
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
@@ -111,7 +127,8 @@ app.use('/api', rateLimit(securityConfig.rateLimits.api));
 
 // Redirect www.typinghub.in to typinghub.in
 app.use((req, res, next) => {
-  if (req.headers.host === 'www.typinghub.in') {
+  const host = req.headers.host;
+  if (host === 'www.typinghub.in') {
     return res.redirect(301, `https://typinghub.in${req.url}`);
   }
   next();
