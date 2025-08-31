@@ -42,7 +42,7 @@ const AboutUs: React.FC = () => {
       <div className="about-hero-section">
         <div className="about-hero-content">
               <h1>About TypingHub.in 🎯</h1>
-              <p>Empowering students to achieve their dreams through expert typing education and practice</p>
+              <p>Empowering students to achieve their dreams through expert typing education and practice.</p>
         </div>
       </div>
 
