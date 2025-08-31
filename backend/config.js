@@ -11,8 +11,9 @@ let corsOrigin;
 // Always check for CORS_ORIGIN environment variable first
 if (process.env.CORS_ORIGIN) {
   corsOrigin = process.env.CORS_ORIGIN.split(',').map(origin => origin.trim());
+  // Remove duplicates to prevent CORS header issues
+  corsOrigin = [...new Set(corsOrigin)];
 } else if (isProduction) {
-  port = process.env.PORT || 80;
   corsOrigin = [
     'https://typinghub.in',
     'https://www.typinghub.in'

@@ -109,6 +109,14 @@ app.use(helmet(securityConfig.helmet));
 app.use(cors(securityConfig.cors));
 app.use('/api', rateLimit(securityConfig.rateLimits.api));
 
+// Redirect www.typinghub.in to typinghub.in
+app.use((req, res, next) => {
+  if (req.headers.host === 'www.typinghub.in') {
+    return res.redirect(301, `https://typinghub.in${req.url}`);
+  }
+  next();
+});
+
 // Basic middleware
 app.use(express.json({ limit: '10kb' }));
 app.use(express.urlencoded({ extended: true, limit: '10kb' }));
