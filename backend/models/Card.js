@@ -21,7 +21,7 @@ const productSchema = new mongoose.Schema({
   vendor: { 
     type: String, 
     required: true,
-    enum: ['amazon', 'flipkart', 'other'],
+    enum: ['amazon', 'flipkart', 'meesho', 'other'],
     lowercase: true
   },
   images: [{ 

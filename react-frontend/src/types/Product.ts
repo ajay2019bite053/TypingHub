@@ -4,7 +4,7 @@ export interface Product {
   slug: string;
   title: string;
   affiliateUrl: string;
-  vendor: 'amazon' | 'flipkart';
+  vendor: 'amazon' | 'flipkart' | 'meesho';
   images: string[];
   originalPrice: number;
   discountedPrice: number;
@@ -53,6 +53,8 @@ export const getVendorDisplayName = (vendor: string): string => {
       return 'Amazon';
     case 'flipkart':
       return 'Flipkart';
+    case 'meesho':
+      return 'Meesho';
     default:
       return 'Other';
   }
@@ -95,6 +97,8 @@ export const getVendorColor = (vendor: string): string => {
       return '#ff9900';
     case 'flipkart':
       return '#2874f0';
+    case 'meesho':
+      return '#f43397';
     default:
       return '#6b7280';
   }

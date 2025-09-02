@@ -223,6 +223,11 @@
   color: white;
 }
 
+.pd-meesho {
+  background: #f43397;
+  color: white;
+}
+
 /* Rating Section */
 .rating-section {
   display: flex;

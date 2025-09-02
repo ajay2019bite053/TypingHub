@@ -143,8 +143,8 @@ const TypingEssential: React.FC = () => {
 		<div id="typing-essential-page">
 			<Helmet>
 				<title>Typing Essential - Premium Tools for Typing Practice | TypingHub.in</title>
-				<meta name="description" content="Discover premium typing tools and study essentials. Find the best keyboards, ergonomic chairs, LED lamps, and accessories for typing practice. Curated products from Amazon and Flipkart with exclusive discounts." />
-				<meta name="keywords" content="typing tools, keyboard, ergonomic chair, LED lamp, study accessories, typing practice, Amazon, Flipkart, typing speed, typing test, government exam typing" />
+				<meta name="description" content="Discover premium typing tools and study essentials. Find the best keyboards, ergonomic chairs, LED lamps, and accessories for typing practice. Curated products from Amazon, Flipkart, and Meesho with exclusive discounts." />
+				<meta name="keywords" content="typing tools, keyboard, ergonomic chair, LED lamp, study accessories, typing practice, Amazon, Flipkart, Meesho, typing speed, typing test, government exam typing" />
 				<meta name="author" content="TypingHub.in" />
 				<meta name="robots" content="index, follow" />
 				
@@ -234,7 +234,7 @@ const TypingEssential: React.FC = () => {
 							<FontAwesomeIcon icon={faSearch} className="search-icon-large" />
 							<input
 								type="text"
-								placeholder="Search for anything - keyboards, chairs, books, amazon, flipkart..."
+								placeholder="Search for anything - keyboards, chairs, books, amazon, flipkart, meesho..."
 								value={searchTerm}
 								onChange={(e) => setSearchTerm(e.target.value)}
 								className="search-input-large"

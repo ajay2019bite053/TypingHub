@@ -410,23 +410,23 @@ const ExamWiseTest: React.FC = () => {
             </div>
 
             {/* Search Section */}
-            <div className="search-section">
-              <div className="search-container">
-                <div className="search-item">
+            <div className="exam-search-section">
+              <div className="exam-search-container">
+                <div className="exam-search-item">
                   <input 
                     type="text" 
-                    id="searchInput" 
+                    id="examSearchInput" 
                     placeholder="Search exams by name or category..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                   />
                   {searchTerm && (
-                    <div className="search-results">
+                    <div className="exam-search-results">
                       <span>{filteredExams.length} exam{filteredExams.length !== 1 ? 's' : ''} found</span>
                     </div>
                   )}
                 </div>
-                <div className="search-title">
+                <div className="exam-search-title">
                   <h2>Available Typing Tests</h2>
                   <p>Select an exam to start practicing</p>
                 </div>

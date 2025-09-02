@@ -147,6 +147,7 @@ const ProductManager: React.FC = () => {
 		switch (vendor) {
 			case 'amazon': return '#ff9900';
 			case 'flipkart': return '#2874f0';
+			case 'meesho': return '#ff6b6b';
 			default: return '#6b7280';
 		}
 	};
@@ -321,6 +322,7 @@ const ProductModal: React.FC<ProductModalProps> = ({ product, onSave, onClose })
 	const toSlug = (text: string) => text.toLowerCase().trim().replace(/[^a-z0-9\s-]/g, '').replace(/\s+/g, '-').replace(/-+/g, '-');
 	const isAmazonUrl = (url: string) => /^(https?:\/\/)?(www\.)?amazon\.[a-z.]+\//i.test(url || '');
 	const isFlipkartUrl = (url: string) => /^(https?:\/\/)?(www\.)?flipkart\.com\//i.test(url || '');
+	const isMeeshoUrl = (url: string) => /^(https?:\/\/)?(www\.)?meesho\.com\//i.test(url || '');
 
 	// auto slug from title if slug empty
 	useEffect(() => {
@@ -397,8 +399,8 @@ const ProductModal: React.FC<ProductModalProps> = ({ product, onSave, onClose })
 								required
 								placeholder="https://..."
 							/>
-							{formData.affiliateUrl && !isAmazonUrl(formData.affiliateUrl) && !isFlipkartUrl(formData.affiliateUrl) && (
-								<small className="warn">Use an Amazon/Flipkart product link with your affiliate tag.</small>
+							{formData.affiliateUrl && !isAmazonUrl(formData.affiliateUrl) && !isFlipkartUrl(formData.affiliateUrl) && !isMeeshoUrl(formData.affiliateUrl) && (
+								<small className="warn">Use an Amazon/Flipkart/Meesho product link with your affiliate tag.</small>
 							)}
 						</div>
 
@@ -410,6 +412,7 @@ const ProductModal: React.FC<ProductModalProps> = ({ product, onSave, onClose })
 							>
 								<option value="amazon">Amazon</option>
 								<option value="flipkart">Flipkart</option>
+								<option value="meesho">Meesho</option>
 								<option value="other">Other</option>
 							</select>
 						</div>
