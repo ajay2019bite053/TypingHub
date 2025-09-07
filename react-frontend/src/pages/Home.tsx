@@ -118,7 +118,7 @@ const HeroSection = memo(({ onRegisterClick, onJoinClick, competitionStatus }: {
 const cardAccents = [
   '#1976d2', // Typing Test
   '#2e7d32', // Exam Wise Test - darker green for better contrast
-  '#f57c00', // Advance Mode - darker orange for better contrast
+  '#e65100', // Advance Mode - darker orange for better contrast
   '#8e24aa'  // Typing Course
 ];
 const PanelItem = memo(({ icon, title, description, link, linkText, isNew, accentColor }: {
@@ -589,7 +589,7 @@ const Home: React.FC = () => {
               alt="TypingHub Logo" 
               className="main-logo"
               width={90}
-              height={90}
+              height={60}
               onError={(e) => {
                 const target = e.target as HTMLImageElement;
                 target.src = target.src.replace('.webp', '.png');

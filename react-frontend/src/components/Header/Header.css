@@ -11,7 +11,7 @@ header {
 /* BULLETPROOF HEADER LAYOUT */
 header nav {
   background: transparent;
-  padding: 12px 24px;
+  padding: 8px 24px;
   display: flex !important;
   justify-content: space-between !important;
   align-items: center !important;
@@ -143,7 +143,7 @@ header .nav-links {
   color: #333;
   text-decoration: none;
   font-size: 14px;
-  padding: 8px 12px;
+  padding: 8px 6px;
   border-radius: 4px;
   font-weight: 500;
   transition: all 0.3s ease;
@@ -157,22 +157,21 @@ header .nav-links {
   background: none;
   border: none;
   cursor: pointer;
-  min-width: 80px;
+  min-width: 70px;
   justify-content: center;
   letter-spacing: 0.2px;
 }
 
-.nav-links a::before {
+.nav-links a::after {
   content: '';
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 2px;
   background: linear-gradient(45deg, #1976d2, #40c4ff);
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  z-index: -1;
+  transition: all 0.3s ease;
+  transform: translateX(-50%);
 }
 
 .nav-links a i {
@@ -185,17 +184,17 @@ header .nav-links {
 
 .nav-links a:hover i {
   transform: scale(1.1);
-  color: #fff;
+  color: #1976d2;
 }
 
 .nav-links a:hover {
-  color: #fff;
-  transform: translateY(-1px);
-  box-shadow: 0 2px 8px rgba(25, 118, 210, 0.2);
+  color: #1976d2;
+  transform: none;
+  box-shadow: none;
 }
 
-.nav-links a:hover::before {
-  opacity: 1;
+.nav-links a:hover::after {
+  width: 80%;
 }
 
 .nav-links a.active {
@@ -384,7 +383,7 @@ header .nav-links {
 
 @media (max-width: 768px) {
   header nav {
-    padding: 10px 15px;
+    padding: 6px 15px;
     justify-content: space-between !important;
     align-items: center !important;
     flex-wrap: nowrap !important;
