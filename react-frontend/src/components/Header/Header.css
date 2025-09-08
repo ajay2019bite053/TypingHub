@@ -153,26 +153,17 @@ header .nav-links {
   align-items: center;
   gap: 3px;
   position: relative;
-  overflow: hidden;
+  overflow: visible;
   background: none;
   border: none;
   cursor: pointer;
   min-width: 70px;
   justify-content: center;
   letter-spacing: 0.2px;
+  outline: none !important;
 }
 
-.nav-links a::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  width: 0;
-  height: 2px;
-  background: linear-gradient(45deg, #1976d2, #40c4ff);
-  transition: all 0.3s ease;
-  transform: translateX(-50%);
-}
+/* Lines removed completely */
 
 .nav-links a i {
   font-size: 12px;
@@ -193,9 +184,7 @@ header .nav-links {
   box-shadow: none;
 }
 
-.nav-links a:hover::after {
-  width: 80%;
-}
+/* Hover line effect removed */
 
 .nav-links a.active {
   background: linear-gradient(45deg, #1976d2, #40c4ff);
@@ -312,9 +301,12 @@ header .nav-links {
 }
 
 .live-typing-test-btn:hover, .live-typing-test-btn:focus {
-  background: #e3f2fd;
-  color: #1565c0;
-  box-shadow: 0 2px 8px rgba(25, 118, 210, 0.08);
+  background: none !important;
+  color: #1976d2 !important;
+  box-shadow: none !important;
+  outline: none !important;
+  border: none !important;
+  transform: none !important;
 }
 
 .nav-links .live-typing-test-btn {
@@ -336,7 +328,12 @@ header .nav-links {
 }
 
 .live-typing-test-btn:hover, .live-typing-test-btn:focus {
-  color: #111 !important;
+  color: #1976d2 !important;
+  outline: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  background: none !important;
+  transform: none !important;
 }
 
 @media (max-width: 1024px) {

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Serif:wght@400;500;600;700&display=swap');
+/* Font import removed - fonts loaded via preload in index.html */
 
 /* Home Page Specific Styles - All styles scoped to #home-page */
 #home-page {
