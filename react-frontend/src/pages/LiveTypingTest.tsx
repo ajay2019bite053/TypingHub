@@ -351,8 +351,8 @@ const LiveTypingTest: React.FC = () => {
                     iframe.src = 'https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ?autoplay=1';
                     iframe.title = 'Live Exam Tutorial';
                     iframe.frameBorder = '0';
-                    iframe.loading = 'lazy';
-                    iframe.referrerPolicy = 'strict-origin-when-cross-origin';
+                    iframe.setAttribute('loading', 'lazy');
+                    iframe.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
                     iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
                     iframe.allowFullscreen = true as any;
                     iframe.className = 'lt-video';
