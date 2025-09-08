@@ -217,9 +217,11 @@ const YouTubeSection = memo(() => (
       <div className="video-container">
         <div className="video-wrapper">
           <iframe
-            src="https://www.youtube.com/embed/YOUR_VIDEO_ID_HERE"
+            src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ"
             title="TypingHub Introduction Video"
             frameBorder="0"
+            loading="lazy"
+            referrerPolicy="strict-origin-when-cross-origin"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
             className="youtube-video"
@@ -588,8 +590,8 @@ const Home: React.FC = () => {
               src="/images/Main_LOGO.webp" 
               alt="TypingHub Logo" 
               className="main-logo"
-              width={90}
-              height={60}
+              loading="lazy"
+              decoding="async"
               onError={(e) => {
                 const target = e.target as HTMLImageElement;
                 target.src = target.src.replace('.webp', '.png');

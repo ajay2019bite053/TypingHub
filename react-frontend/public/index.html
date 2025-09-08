@@ -74,7 +74,88 @@
     <meta name="google-adsense-account" content="ca-pub-9840881106215536">
     <meta name="google-site-verification" content="your-verification-code-here">
     <meta name="adsense-google" content="ca-pub-9840881106215536">
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9840881106215536" crossorigin="anonymous"></script>
+    <!-- AdSense deferred/consent-gated loader -->
+    <script>
+      (function() {
+        const ADS_CLIENT = 'ca-pub-9840881106215536';
+        const ADS_SRC = `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADS_CLIENT}`;
+        const STATE = { consent: null, loaded: false, timer: null, interacted: false };
+
+        function loadAdSenseScript() {
+          if (STATE.loaded) return;
+          STATE.loaded = true;
+          const s = document.createElement('script');
+          s.async = true;
+          s.src = ADS_SRC;
+          s.crossOrigin = 'anonymous';
+          document.head.appendChild(s);
+        }
+
+        function maybeLoad() {
+          // Load if consent granted, or after interaction, or after timeout fallback
+          if (STATE.consent === true || STATE.interacted) {
+            loadAdSenseScript();
+            cleanup();
+          }
+        }
+
+        function cleanup() {
+          ['click','scroll','keydown','pointerdown'].forEach(evt => {
+            window.removeEventListener(evt, onFirstInteraction, { passive: true });
+          });
+          if (STATE.timer) clearTimeout(STATE.timer);
+        }
+
+        function onFirstInteraction() {
+          STATE.interacted = true;
+          maybeLoad();
+        }
+
+        // Simple consent dialog (non-blocking); customize/integrate with your CMP if needed
+        function showConsent() {
+          try {
+            const bar = document.createElement('div');
+            bar.style.cssText = 'position:fixed;bottom:0;left:0;right:0;background:#111;color:#fff;padding:10px 14px;display:flex;gap:10px;align-items:center;justify-content:center;z-index:99999;font-size:14px;box-shadow:0 -2px 8px rgba(0,0,0,0.2)';
+            bar.innerHTML = '<span>This site uses ads (Google AdSense). Allow loading ad scripts?</span>';
+            const allowBtn = document.createElement('button');
+            allowBtn.textContent = 'Allow';
+            allowBtn.style.cssText = 'background:#4caf50;color:#fff;border:none;border-radius:6px;padding:6px 10px;cursor:pointer';
+            const denyBtn = document.createElement('button');
+            denyBtn.textContent = 'Deny';
+            denyBtn.style.cssText = 'background:#e53935;color:#fff;border:none;border-radius:6px;padding:6px 10px;cursor:pointer';
+            allowBtn.addEventListener('click', () => {
+              STATE.consent = true;
+              bar.remove();
+              maybeLoad();
+            });
+            denyBtn.addEventListener('click', () => {
+              STATE.consent = false; // keep ads disabled
+              bar.remove();
+              cleanup();
+            });
+            bar.appendChild(allowBtn);
+            bar.appendChild(denyBtn);
+            document.body.appendChild(bar);
+          } catch (e) {
+            // If UI fails, fallback to non-interaction based deferral
+          }
+        }
+
+        // Defer: wait for first user interaction or 8s timeout
+        ['click','scroll','keydown','pointerdown'].forEach(evt => {
+          window.addEventListener(evt, onFirstInteraction, { passive: true, once: true });
+        });
+        STATE.timer = setTimeout(() => {
+          // If no explicit consent model, keep waiting unless consent is given via banner; don't autoload on timeout
+          // To allow timeout fallback, uncomment next two lines:
+          // STATE.interacted = true;
+          // maybeLoad();
+        }, 8000);
+
+        // Show simple consent banner shortly after load
+        window.addEventListener('load', () => setTimeout(showConsent, 500));
+      })();
+    </script>
     
     <title>TypingHub.in - Master Typing for Government Exams | Live Tests & Courses</title>
     

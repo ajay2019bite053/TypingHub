@@ -342,9 +342,11 @@ const LiveTypingTest: React.FC = () => {
             <div className="lt-video-container">
               <div className="lt-video-wrapper">
                 <iframe
-                  src="https://www.youtube.com/embed/YOUR_VIDEO_ID_HERE"
+                  src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ"
                   title="Live Exam Tutorial"
                   frameBorder="0"
+                  loading="lazy"
+                  referrerPolicy="strict-origin-when-cross-origin"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
                   className="lt-video"
