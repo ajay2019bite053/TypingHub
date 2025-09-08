@@ -133,19 +133,17 @@
           }
         }
 
-        // Defer: wait for first user interaction or 8s timeout
+        // Auto-load ads on first interaction or after 3s timeout
         ['click','scroll','keydown','pointerdown'].forEach(evt => {
           window.addEventListener(evt, onFirstInteraction, { passive: true, once: true });
         });
         STATE.timer = setTimeout(() => {
-          // If no explicit consent model, keep waiting unless consent is given via banner; don't autoload on timeout
-          // To allow timeout fallback, uncomment next two lines:
-          // STATE.interacted = true;
-          // maybeLoad();
-        }, 8000);
+          STATE.interacted = true;
+          maybeLoad();
+        }, 3000);
 
-        // Show simple consent banner shortly after load
-        window.addEventListener('load', () => setTimeout(showConsent, 500));
+        // Auto-load ads without consent banner (removed showConsent call)
+        // window.addEventListener('load', () => setTimeout(showConsent, 500));
       })();
     </script>
     
