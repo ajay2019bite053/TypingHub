@@ -60,15 +60,7 @@
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Roboto+Serif:wght@400;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript><link href="https://fonts.googleapis.com/css2?family=Roboto+Serif:wght@400;700&display=swap" rel="stylesheet"></noscript>
     
-    <!-- Font Awesome - Load only what we need -->
-    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/fontawesome.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/solid.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/brands.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript>
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/fontawesome.min.css">
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/solid.min.css">
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/brands.min.css">
-    </noscript>
+    <!-- Font Awesome CSS removed to reduce unused CSS; icons are bundled via React components -->
     
     <!-- Google AdSense -->
     <meta name="google-adsense-account" content="ca-pub-9840881106215536">
@@ -243,24 +235,30 @@
       }
     </script>
     
-    <!-- Google Analytics - Load asynchronously -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-815F7YF0FN"></script>
+    <!-- Google Analytics - Deferred until user interaction/consent -->
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-815F7YF0FN', {
-        page_title: document.title,
-        page_location: window.location.href,
-        send_page_view: true
-      });
-      
-      // Enhanced event tracking
-      gtag('event', 'page_view', {
-        page_title: document.title,
-        page_location: window.location.href,
-        custom_parameter: 'typinghub'
-      });
+      (function() {
+        const GA_ID = 'G-815F7YF0FN';
+        let loaded = false;
+        function loadGA() {
+          if (loaded) return; loaded = true;
+          const s = document.createElement('script');
+          s.async = true; s.src = `https://www.googletagmanager.com/gtag/js?id=${GA_ID}`;
+          document.head.appendChild(s);
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);} window.gtag = gtag;
+          gtag('js', new Date());
+          gtag('config', GA_ID, { page_title: document.title, page_location: window.location.href, send_page_view: true });
+          gtag('event', 'page_view', { page_title: document.title, page_location: window.location.href, custom_parameter: 'typinghub' });
+        }
+        function onInteract() { loadGA(); cleanup(); }
+        function cleanup() {
+          ['click','scroll','keydown','pointerdown'].forEach(evt => window.removeEventListener(evt, onInteract, { passive: true }));
+        }
+        ['click','scroll','keydown','pointerdown'].forEach(evt => window.addEventListener(evt, onInteract, { passive: true, once: true }));
+        // Optional: uncomment to load after 5s if no interaction
+        // setTimeout(loadGA, 5000);
+      })();
     </script>
   </body>
 </html> 

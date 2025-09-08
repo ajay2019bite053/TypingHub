@@ -2142,15 +2142,11 @@
     0 12px 35px rgba(255, 153, 51, 0.2),
     0 4px 15px rgba(19, 136, 8, 0.1),
     inset 0 0 0 3px #f8f9fa;
-  /* Indian flag colors background with Ashoka Chakra */
+  /* Simplified background (removed heavy Ashoka Chakra PNGs) */
   background: 
-    url('../../public/images/ashoka-chakra.png') no-repeat left 30%,
-    url('../../public/images/ashoka-chakra.png') no-repeat right 30%,
     linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%),
     radial-gradient(circle at 20% 20%, rgba(255, 153, 51, 0.05) 0%, transparent 40%),
     radial-gradient(circle at 80% 80%, rgba(19, 136, 8, 0.05) 0%, transparent 40%);
-  background-size: 150px 150px, 150px 150px, auto, auto, auto;
-  background-position: left 40px 30%, right 40px 30%, center, center, center;
   /* Clean overflow */
   overflow: hidden;
   z-index: 1;

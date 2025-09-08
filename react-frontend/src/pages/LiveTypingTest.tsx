@@ -341,16 +341,33 @@ const LiveTypingTest: React.FC = () => {
             <p className="lt-section-subtitle">Learn how to join live exams, get notifications, and participate in real-time competitions.</p>
             <div className="lt-video-container">
               <div className="lt-video-wrapper">
-                <iframe
-                  src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ"
-                  title="Live Exam Tutorial"
-                  frameBorder="0"
-                  loading="lazy"
-                  referrerPolicy="strict-origin-when-cross-origin"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
+                {/* Click-to-load YouTube thumbnail to defer heavy scripts */}
+                <button
+                  type="button"
                   className="lt-video"
-                ></iframe>
+                  onClick={(e) => {
+                    const container = (e.currentTarget.parentElement as HTMLElement);
+                    const iframe = document.createElement('iframe');
+                    iframe.src = 'https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ?autoplay=1';
+                    iframe.title = 'Live Exam Tutorial';
+                    iframe.frameBorder = '0';
+                    iframe.loading = 'lazy';
+                    iframe.referrerPolicy = 'strict-origin-when-cross-origin';
+                    iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+                    iframe.allowFullscreen = true as any;
+                    iframe.className = 'lt-video';
+                    container.innerHTML = '';
+                    container.appendChild(iframe);
+                  }}
+                  style={{
+                    backgroundImage: 'url(https://i.ytimg.com/vi/dQw4w9WgXcQ/hqdefault.jpg)',
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                    border: 'none',
+                    cursor: 'pointer'
+                  }}
+                  aria-label="Play video: Live Exam Tutorial"
+                />
               </div>
               <div className="lt-video-info">
                 <h3 className="lt-video-title">How to Join Live Typing Exams</h3>

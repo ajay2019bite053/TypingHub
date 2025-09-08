@@ -203,7 +203,56 @@ const AchievementCard = memo(({ icon, number, text }: {
   );
 });
 
-// YouTube Section: Add intro video showcase
+// Lightweight YouTube: click-to-load to avoid heavy script on initial load
+const LiteYouTube: React.FC<{ videoId: string; title: string; className?: string }> = ({ videoId, title, className }) => {
+  const [activated, setActivated] = useState(false);
+  const thumb = `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`;
+  return (
+    <div className={className} style={{ position: 'relative', width: '100%', borderRadius: 12, overflow: 'hidden', background: '#000' }}>
+      {activated ? (
+        <iframe
+          src={`https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1`}
+          title={title}
+          frameBorder="0"
+          loading="lazy"
+          referrerPolicy="strict-origin-when-cross-origin"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+          style={{ width: '100%', height: '400px', border: 'none' }}
+        />
+      ) : (
+        <button
+          type="button"
+          onClick={() => setActivated(true)}
+          aria-label={`Play video: ${title}`}
+          style={{
+            display: 'block',
+            width: '100%',
+            height: '400px',
+            backgroundImage: `url(${thumb})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            border: 'none',
+            cursor: 'pointer'
+          }}
+        >
+          <span style={{
+            position: 'absolute', left: '50%', top: '50%', transform: 'translate(-50%, -50%)',
+            width: 68, height: 48, background: 'rgba(0,0,0,0.6)', borderRadius: 8,
+            display: 'flex', alignItems: 'center', justifyContent: 'center'
+          }}>
+            <svg viewBox="0 0 68 48" width="68" height="48" aria-hidden="true">
+              <path d="M66.52 7.74a8 8 0 0 0-5.64-5.66C56.69 1 34 1 34 1s-22.69 0-26.88 1.08A8 8 0 0 0 1.48 7.74 83 83 0 0 0 0 24a83 83 0 0 0 1.48 16.26 8 8 0 0 0 5.64 5.66C11.31 47 34 47 34 47s22.69 0 26.88-1.08a8 8 0 0 0 5.64-5.66A83 83 0 0 0 68 24a83 83 0 0 0-1.48-16.26Z" fill="#212121" fillOpacity="0.8"/>
+              <path d="M45 24 27 14v20" fill="#fff"/>
+            </svg>
+          </span>
+        </button>
+      )}
+    </div>
+  );
+};
+
+// YouTube Section: uses LiteYouTube to defer heavy scripts until interaction
 const YouTubeSection = memo(() => (
   <section className="youtube-section">
     <div className="youtube-container">
@@ -216,16 +265,7 @@ const YouTubeSection = memo(() => (
       </p>
       <div className="video-container">
         <div className="video-wrapper">
-          <iframe
-            src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ"
-            title="TypingHub Introduction Video"
-            frameBorder="0"
-            loading="lazy"
-            referrerPolicy="strict-origin-when-cross-origin"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-            className="youtube-video"
-          ></iframe>
+          <LiteYouTube videoId="dQw4w9WgXcQ" title="TypingHub Introduction Video" className="youtube-video" />
         </div>
         <div className="video-description">
           <p>Watch our comprehensive introduction to understand how TypingHub can help you excel in government typing exams.</p>
